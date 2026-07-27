@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>XiaoWei</title>
+  <link rel="icon" href="images/02logo.png" type="image/png">
   <!-- 引入Inter无衬线英文字体 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,9 +23,9 @@
       line-height: 1.65em;
       font-size: 16px;
       transition: all 0.3s ease;
+      padding-top: 110px;
     }
     a {
-      text-decoration: none;
       text-decoration: none;
       color: #333333;
       transition: color 0.3s ease;
@@ -41,14 +42,13 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-
-    /* 1. 顶部固定导航 Header */
+    /* 1. 顶部固定导航 Header PC端 */
     header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      padding: 24px 0;
+      padding: 16px 0;
       background-color: #E6F7FF;
       z-index: 999;
       transition: padding 0.3s ease;
@@ -67,16 +67,23 @@
       font-weight: 600;
       color: #89C2FF;
     }
+    .logo{
+        display:flex;
+        align-items:center;
+        gap:10px;
+    }       
+    .logo img{
+        width:36px;
+        height:36px;
+    }
     .nav-list {
       display: flex;
       gap: 40px;
-
     }
     .nav-item a {
       position: relative;
       font-size: 16px;
       font-weight: 400;
-      text-decoration: none;
     }
     .nav-item a::after {
       content: "";
@@ -94,13 +101,11 @@
     .nav-item a:hover::after {
       width: 100%;
     }
-
     /* 主内容区 清除导航高度占位 */
     main {
       margin-top: 120px;
       padding-bottom: 80px;
     }
-
     /* 2. Hero首屏区域 */
     .hero {
       text-align: center;
@@ -113,32 +118,26 @@
       margin-bottom:35px;
     }
     .hero-desc {
-      margin-top:20px;  
+      margin-top:20px;
       font-size: 20px;
       margin-bottom: 25px;
     }
-    /* .highlight-text {
-      /* color: #89C2FF; */
-     */
     .hero-tag {
-      font-size: 30px;
-      /* margin-top: 50px;
-      padding-top: 30px; */
+      font-size: 20px;
       opacity: 1;
       text-align: center;
     }
     .hero-tag a{
-    padding:13px 32px;
-    background:#89C2FF;
-    color:#ffffff;
-    text-decoration:none;
-    transition: background 0.3s;
-    border-radius: 5px;
+      padding:13px 32px;
+      background:#89C2FF;
+      color:#ffffff;
+      text-decoration:none;
+      transition: background 0.3s;
+      border-radius: 5px;
     }
     .hero-tag a:hover{
-     background: #45a2ff;
+      background: #45a2ff;
     }
-
     /* 3. 首页三卡片模块 */
     .card-group {
       display: grid;
@@ -179,7 +178,6 @@
       color: #89C2FF;
       font-weight: 500;
     }
-
     /* 通用板块标题 */
     .section-title {
       font-size: 28px;
@@ -196,7 +194,6 @@
       height: 1px;
       background-color: #89C2FF;
     }
-
     /* 作品网格布局 */
     .portfolio-grid {
       display: grid;
@@ -244,7 +241,6 @@
       font-size: 13px;
       opacity: 0.7;
     }
-
     /* 博客列表样式 */
     .blog-item {
       background: #fff;
@@ -268,7 +264,6 @@
       opacity: 0.7;
       margin-bottom: 12px;
     }
-
     /* 关于我时间轴 */
     .timeline-item {
       background: #fff;
@@ -288,13 +283,15 @@
       border-radius: 20px;
       font-size: 14px;
     }
-
     /* 联系表单 */
     .form-box {
       background: #fff;
       padding: 32px;
       border-radius: 12px;
       margin-top: 40px;
+    }
+    .form-box h3{
+      margin-bottom: 15px;
     }
     .form-item {
       margin-bottom: 20px;
@@ -323,7 +320,6 @@
     .submit-btn:hover {
       opacity: 0.85;
     }
-
     /* 底部 */
     footer {
       text-align: center;
@@ -331,7 +327,6 @@
       opacity: 0.7;
       font-size: 14px;
     }
-
     /* 页面切换隐藏/显示（简易多页面模拟） */
     .page {
       display: none;
@@ -347,13 +342,82 @@
     .shengmin{
       color: #ff0101;
     }
+
+    /* ====================== 手机端媒体查询（768px以下）核心修改 ====================== */
+    @media screen and (max-width: 768px) {
+      /* 头部垂直布局：Logo在上，导航菜单在下 */
+      body {
+        padding-top: 150px;
+        }
+      .header-wrap {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+      .logo {
+        align-self: center;
+        font-size: 24px;
+      }
+      .nav-list {
+        gap: 16px 28px;
+        padding:0 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      /* 加高头部内边距，避免拥挤 */
+     header {
+        padding: 14px 0;    
+        }
+        header.shrink {
+        padding: 14px 0;
+        }
+      /* 增加主内容上边距，适配加高导航 */
+      /* main {
+        margin-top: 160px;
+      } */
+      /* Hero文字缩小适配手机 */
+      .hero h1 {
+        font-size: 30px;
+        text-wrap: balance;
+        /* margin-top: 30px; */
+      }
+      .hero-desc {
+        font-size: 17px;
+      }
+      .hero-tag {
+        font-size: 18px;
+      }
+      /* 卡片网格改为单列铺满 */
+      .card-group {
+        grid-template-columns: 1fr;
+      }
+      /* 作品网格单列 */
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+      /* 标题字号缩小 */
+      .section-title {
+        font-size: 24px;
+      }
+      /* 表单、卡片内边距缩小适配小屏 */
+      .card {
+        padding: 24px 20px;
+      }
+      .form-box {
+        padding: 24px 20px;
+      }
+      .timeline-item, .blog-item {
+        padding: 20px 16px;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- 顶部导航 -->
   <header id="header">
     <div class="container header-wrap">
-      <a data-page="home" href="#" class="logo">XiaoWei</a>
+     <a data-page="home" href="#" class="logo">
+  <img src="images/01logo.png" alt="logo图标"><span>XiaoWei</span></a>
       <ul class="nav-list">
         <li class="nav-item"><a data-page="home" href="#">首页</a></li>
         <li class="nav-item"><a data-page="about" href="#">关于我</a></li>
@@ -362,7 +426,6 @@
       </ul>
     </div>
   </header>
-
   <main class="container">
     <!-- 首页页面 -->
     <section id="home" class="page active">
@@ -371,7 +434,6 @@
         <p class="hero-desc">让你用一个网站来了解我</p>
         <p class="hero-tag"><a data-page="about" href="#">关于我</a></p>
       </div>
-
       <div class="card-group">
         <div class="card">
           <h2>最新作品</h2>
@@ -390,15 +452,13 @@
         </div>
       </div>
     </section>
-
     <!-- 关于我页面 -->
     <section id="about" class="page">
       <h2 class="section-title">关于我</h2>
       <div class="timeline-item">
         <h3>我是谁</h3>
-        <p>专注极简视觉设计与网页前端开发，追求干净、舒适、有呼吸感的数字空间，擅长用低饱和柔和配色打造静谧专业的视觉体验。</p>
+        <p>大家好，我是小威，平时性格内向，但做事注重细节，乐于沟通协作。面对新任务愿意主动学习、快速适应。后续希望多多向各位请教，也期待和大家一起交流合作，谢谢大家！</p>
       </div>
-
       <h3 class="section-title" style="font-size:22px;margin-top:40px;">我的经历</h3>
       <div class="timeline-item">
         <h4>2023 - 至今 | 独立设计师 & 前端开发者</h4>
@@ -408,7 +468,6 @@
         <h4>2020 - 2023 | 视觉设计专业学习</h4>
         <p>系统学习色彩搭配、版式排版、交互逻辑，深耕无衬线字体与留白美学。</p>
       </div>
-
       <h3 class="section-title" style="font-size:22px;margin-top:40px;">我的标签</h3>
       <div class="skill-list">
         <span class="skill-tag">网页制作</span>
@@ -418,7 +477,6 @@
         <span class="skill-tag">furry</span>
         <span class="skill-tag">赛车</span>
       </div>
-
       <div class="form-box">
         <h3>联系我</h3>
         <form>
@@ -438,35 +496,33 @@
         </form>
       </div>
     </section>
-
     <!-- 作品展示页面 -->
     <section id="portfolio" class="page">
       <h2 class="section-title">作品展示</h2>
       <div class="portfolio-grid">
         <div class="work-card">
-          <img class="work-img" src="https://picsum.photos/id/1036/600/400" alt="个人官网设计">
+          <img class="work-img" src="images/010.jpeg" alt="个人官网设计">
           <div class="work-info">
-            <div class="work-name">极简个人作品集网站</div>
-            <div class="work-tag">网页设计 / 前端开发</div>
+            <div class="work-name"><a href="#">个人视频分享</a></div>
+            <div class="work-tag">各平台账号信息</div>
           </div>
         </div>
         <div class="work-card">
-          <img class="work-img" src="https://picsum.photos/id/1048/600/400" alt="品牌视觉">
+          <img class="work-img" src="images/020.jpeg" alt="品牌视觉">
           <div class="work-info">
-            <div class="work-name">清新浅蓝品牌视觉系统</div>
-            <div class="work-tag">品牌设计 / 配色规范</div>
+            <div class="work-name"><a href="#">个人摄影分享</a></div>
+            <div class="work-tag">分享摄影内容</div>
           </div>
         </div>
         <div class="work-card">
-          <img class="work-img" src="https://picsum.photos/id/1060/600/400" alt="后台UI">
+          <img class="work-img" src="images/040.png" alt="后台UI">
           <div class="work-info">
-            <div class="work-name">轻量化管理后台UI</div>
-            <div class="work-tag">界面UI / 交互设计</div>
+            <div class="work-name"><a href="#">功能正在开发中</a></div>
+            <div class="work-tag">正在开发中</div>
           </div>
         </div>
       </div>
     </section>
-
     <!-- 日常分享博客页面 -->
     <section id="blog" class="page">
       <h2 class="section-title">日常分享</h2>
@@ -487,14 +543,12 @@
       </div>
     </section>
   </main>
-
   <footer>
     <div class="container">
-      © 2026 XiaoWei 个人网站 版权归作者所有<br> 
-      <p class="shengmin">未经允许不得盗取本内容</p>  
+      © 2026 XiaoWei 个人网站 版权归作者所有<br>
+      <p class="shengmin">未经允许不得盗取本站内容信息</p>
     </div>
   </footer>
-
   <script>
     // 1. 导航滚动缩小效果
     const header = document.getElementById('header');
@@ -505,7 +559,6 @@
         header.classList.remove('shrink');
       }
     })
-
     // 2. 页面切换逻辑
     const navLinks = document.querySelectorAll('[data-page]');
     const pages = document.querySelectorAll('.page');
