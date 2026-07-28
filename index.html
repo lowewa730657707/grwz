@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>XiaoWei</title>
-  <link rel="icon" href="images/02logo.png" type="image/png">
+  <link rel="icon" href="images/favicon-light.png" type="image/png">
   <!-- 引入Inter无衬线英文字体 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
   <style>
     /* 全局初始化 */
     * {
@@ -23,7 +25,7 @@
       line-height: 1.65em;
       font-size: 16px;
       transition: all 0.3s ease;
-      padding-top: 110px;
+      padding-top: 95px;
     }
     a {
       text-decoration: none;
@@ -65,7 +67,8 @@
     .logo {
       font-size: 22px;
       font-weight: 600;
-      color: #89C2FF;
+      color: #222222;
+      /* color: #89C2FF; */
     }
     .logo{
         display:flex;
@@ -109,7 +112,7 @@
     /* 2. Hero首屏区域 */
     .hero {
       text-align: center;
-      padding: 80px 0;
+      padding: 50px 0;
     }
     .hero h1 {
       font-size: 42px;
@@ -347,7 +350,7 @@
     @media screen and (max-width: 768px) {
       /* 头部垂直布局：Logo在上，导航菜单在下 */
       body {
-        padding-top: 150px;
+        padding-top: 100px;
         }
       .header-wrap {
         flex-direction: column;
@@ -411,13 +414,40 @@
       }
     }
   </style>
+  <script>
+    function setFavicon(isDarkMode) {
+      // 获取现有的icon标签
+      let iconLink = document.querySelector("link[rel~='icon']");
+      if (!iconLink) {
+        iconLink = document.createElement('link');
+        iconLink.rel = 'icon';
+        iconLink.type = 'image/png';
+        document.head.appendChild(iconLink);
+      }
+      // 判断主题，切换对应图片
+      if (isDarkMode) {
+        iconLink.href = "images/favicon-dark.png";
+      } else {
+        iconLink.href = "images/favicon-light.png";
+      }
+    }
+
+    // 监听系统深色/浅色主题
+    const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    // 页面初始化执行一次
+    setFavicon(colorScheme.matches);
+    // 实时监听主题切换
+    colorScheme.addEventListener('change', function (e) {
+      setFavicon(e.matches);
+    });
+  </script>
 </head>
+
 <body>
   <!-- 顶部导航 -->
   <header id="header">
     <div class="container header-wrap">
-     <a data-page="home" href="#" class="logo">
-  <img src="images/01logo.png" alt="logo图标"><span>XiaoWei</span></a>
+     <a data-page="home" href="#" class="logo"><img src="images/favicon-light.png" alt="logo图标"><span>XiaoWei</span></a>
       <ul class="nav-list">
         <li class="nav-item"><a data-page="home" href="#">首页</a></li>
         <li class="nav-item"><a data-page="about" href="#">关于我</a></li>
@@ -544,8 +574,7 @@
     </section>
   </main>
   <footer>
-    <div class="container">
-      © 2026 XiaoWei 个人网站 版权归作者所有<br>
+    <div class="container"> © 2026 XiaoWei 个人网站 版权归作者所有<br> 
       <p class="shengmin">未经允许不得盗取本站内容信息</p>
     </div>
   </footer>
