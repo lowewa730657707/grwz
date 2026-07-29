@@ -507,7 +507,60 @@
     .tclj{
       color: #89C2FF;
     }
-    
+  /* 开发中弹窗样式 */
+  .dev-modal-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.2);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+  .dev-modal-mask.show {
+    display: flex;
+    opacity: 1;
+  }
+  .dev-modal-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px 25px;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    transform: scale(0.9);
+    transition: all 0.25s ease;
+  }
+  .dev-modal-mask.show .dev-modal-box {
+    transform: scale(1);
+  }
+  .dev-text {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 25px;
+    line-height: 1.7;
+  }
+  .dev-close-btn {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-radius: 8px;
+    background: #89C2FF;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .dev-close-btn:hover {
+    background: #69a9ee;
+  }
   </style>
   <script>
     function setFavicon(isDarkMode) {
@@ -546,7 +599,7 @@
     <h3 class="modal-title">网站声明</h3>
     <div class="modal-content">
       <p>欢迎来到我的个人网站</p>
-      <p>这是我与AI开发的个人网站，网站内容会有些不足，我会尽量的去完善，也请大家谅解,网站为开源项目，不存在对用户数据进行任何处理或存储，请大家放心浏览,如果在使用过程中遇到问题，可尝试联系我，我会尽量解决。</p>
+      <p>这是我与AI开发的个人网站，网站内容会有些不足，我会尽量的去完善，请大家耐心等待，网站为开源项目，不存在对用户数据进行任何处理或存储，请大家放心浏览，如果在使用过程中遇到问题，可尝试联系我，我会尽量解决。</p>
       <p>联系邮箱：<a href="https://mail.163.com" class="tclj">lowewa730657707@163.com</a></p>
       <p>开源Github链接：<a href="https://github.com/lowewa730657707/grwz" class="tclj">点击访问链接</a><br>如果链接无法打开,请使用科学上网工具，使用后再次尝试，若仍无法打开，请尝试联系我。</p>
        
@@ -598,16 +651,21 @@
       <h2 class="section-title">关于我</h2>
       <div class="timeline-item">
         <h3>我是谁</h3>
-        <p>大家好，我是小威，平时性格内向，但做事注重细节，乐于沟通协作。面对新任务愿意主动学习、快速适应。后续希望多多向各位请教，也期待和大家一起交流合作，谢谢大家！</p>
+        <p>大家好，我是小威。我很喜欢研究计算机相关的东西，不管是做页面还是各类开发工具工具都很感兴趣。我本身是个细心的人，不管做什么事都会留意小细节，不喜欢马虎应付。和别人长期相处的时候我很好沟通，也非常懂得配合大家一起沟通学习。碰到没接触过的新事情，我不会退缩，愿意自己花时间摸索学习，很快就能跟上节奏。我也有很多不足，之后希望各位多多提点我，平时也能一起聊天、互相帮忙。最后感谢大家愿意认识我，之后我也期待和大家一起相处的时光！</p>
       </div>
       <h3 class="section-title" style="font-size:22px;margin-top:40px;">我的经历</h3>
       <div class="timeline-item">
-        <h4>2023 - 至今 | 独立设计师 & 前端开发者</h4>
-        <p>承接个人网站、品牌视觉、UI界面定制项目，坚持极简设计语言。</p>
+        <h4>2006 - 2019 | 时代的变化</h4>
+        <p>从幼儿园到初中，这12年时间，我经历了从一个诺基亚的时代到一个智能手机的时代。
+          儿时家里的直板诺基亚是稀罕物件，绿屏上的贪吃蛇是我唯一的电子乐趣，大人们只用来打电话、发短信，拍照都算得上奢侈。等到上小学，触屏智能机慢慢走进生活，屏幕越来越大，能看动画、听歌曲。步入初中后，智能手机彻底普及，网课、线上聊天、随手拍照记录日常都成了常态。一部手机的变迁，藏着我的成长轨迹，也见证了十几年飞速发展的科技，新旧交替间，满是独属于我们的童年回忆。</p>
       </div>
       <div class="timeline-item">
-        <h4>2020 - 2023 | 视觉设计专业学习</h4>
-        <p>系统学习色彩搭配、版式排版、交互逻辑，深耕无衬线字体与留白美学。</p>
+        <h4>2019 - 2021 | 特殊的初中</h4>
+        <p>2019到2021年是我的初中时光，这段日子刚好撞上新冠疫情，过得和预想完全不一样。刚上初一没多久，疫情突然来了，学校没法上课，我们全都在家用手机看着新冠肺炎的新闻。后来返校上学，口罩成了随身必备，进出校门都要测温，课间也不能随意扎堆打闹。这三年少了很多校园热闹的活动，却也让我学会自觉安排学习。短短三年，从一开始慌张适应网课，到习惯戴着口罩上课，这段特殊的初中经历，是我独一无二的青春记忆。</p>
+      </div>
+      <div class="timeline-item">
+        <h4>后续的想法还在开发中……</h4>
+        <p></p>
       </div>
       <h3 class="section-title" style="font-size:22px;margin-top:40px;">我的标签</h3>
       <div class="skill-list">
@@ -644,21 +702,21 @@
         <div class="work-card">
           <img class="work-img" src="images/010.jpeg" alt="个人官网设计">
           <div class="work-info">
-            <div class="work-name"><a href="#">个人视频分享</a></div>
+            <div class="work-name"><a href="javascript:void(0)" class="dev-link">个人视频分享</a></div>
             <div class="work-tag">各平台账号信息</div>
           </div>
         </div>
         <div class="work-card">
           <img class="work-img" src="images/020.jpeg" alt="品牌视觉">
           <div class="work-info">
-            <div class="work-name"><a href="#">个人摄影分享</a></div>
+            <div class="work-name"><a href="javascript:void(0)" class="dev-link">个人摄影分享</a></div>
             <div class="work-tag">分享摄影内容</div>
           </div>
         </div>
         <div class="work-card">
           <img class="work-img" src="images/040.png" alt="后台UI">
           <div class="work-info">
-            <div class="work-name"><a href="#">功能正在开发中</a></div>
+            <div class="work-name"><a href="javascript:void(0)" class="dev-link">功能正在开发中</a></div>
             <div class="work-tag">正在开发中</div>
           </div>
         </div>
@@ -688,8 +746,15 @@
     <div class="container"> © 2026 <a href="https://github.com/lowewa730657707/grwz.git">GitHub</a> www.xiaoweicn.mom 版权归作者所有<br> 
       <p class="shengmin">声明：网站为免费开源项目，不会对用户数据进行任何处理或存储，大家可以放心预览内容。</p>
     </div>
+    
   </footer>
-
+  <!-- 开发中提示弹窗 -->
+  <div class="dev-modal-mask" id="devModal">
+    <div class="dev-modal-box">
+      <p class="dev-text">该板块正在全力开发中，敬请期待！</p>
+      <button class="dev-close-btn">关闭</button>
+    </div>
+  </div>
   <script>
     // 1. 导航滚动缩小效果
     const header = document.getElementById('header');
@@ -746,6 +811,26 @@
         // 设置会话标记，当前窗口刷新不再弹窗
         sessionStorage.setItem('readNotice', 'true');
       }, 200);
+    });
+    // 开发中弹窗逻辑
+    const devModal = document.getElementById('devModal');
+    const devLinks = document.querySelectorAll('.dev-link'); // 获取所有链接
+    const devCloseBtn = document.querySelector('.dev-close-btn');
+    // 循环给每一个链接绑定点击事件
+    devLinks.forEach(link => {
+      link.addEventListener('click', ()=>{
+        devModal.classList.add('show');
+      });
+    });
+    // 点击关闭按钮关闭
+    devCloseBtn.addEventListener('click', ()=>{
+      devModal.classList.remove('show');
+    });
+    // 点击遮罩空白处关闭
+    devModal.addEventListener('click', (e)=>{
+      if(e.target === devModal){
+        devModal.classList.remove('show');
+      }
     });
   </script>
   
