@@ -20,10 +20,17 @@
     }
     .modal-content {
       padding: 0 24px;
-      max-height: 320px;
-      overflow-y: auto; /* 内容超出自动滚动 */
+      flex: 1; 
+      min-height: 0; 
+      overflow-y: auto; 
       color: #444;
       line-height: 1.7;
+      
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .modal-content::-webkit-scrollbar {
+      display: none;
     }
     .modal-content p {
       margin: 10px 0;
@@ -41,22 +48,17 @@
     .modal-btn:hover {
       background: #69a9ee;
     }
-    .modal-content {
-      max-height: 300px;
-      overflow-y: auto;
-      padding: 0 24px;
-    }
     /* 禁止滚动类 */
     body.no-scroll {
       overflow: hidden;
     }
-    /* 全局隐藏滚动条，同时保留滚动功能 */
+    /* 全局隐藏滚动条 */
     html,body {
-      scrollbar-width: none; /* Firefox */
+      scrollbar-width: none;
     }
     html::-webkit-scrollbar,
     body::-webkit-scrollbar {
-      display: none; /* Chrome / Edge / Safari */
+      display: none;
     }
     /* 全局初始化 */
     * {
@@ -71,7 +73,7 @@
       line-height: 1.65em;
       font-size: 16px;
       transition: all 0.3s ease;
-      padding-top: 95px;
+      padding-top: 0px;
     }
     a {
       text-decoration: none;
@@ -86,11 +88,13 @@
       display: block;
     }
     .container {
-      width: 90%;
-      max-width: 1200px;
+      max-width: 1400px;
+      min-width: 320px;
       margin: 0 auto;
+      padding-left: 50px;
+      padding-right: 50px;
     }
-    /* 1. 顶部固定导航 Header PC端 */
+    /* 顶部导航 */
     header {
       position: fixed;
       top: 0;
@@ -107,29 +111,28 @@
     }
     .header-wrap {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 16px;
     }
-    .logo {
-      font-size: 22px;
-      font-weight: 600;
-      color: #222222;
-      /* color: #89C2FF; */
-    }
-    .logo{
-        display:flex;
-        align-items:center;
-        gap:10px;
-    }       
-    .logo img{
-        width:36px;
-        height:36px;
-    }
-    .nav-list {
+    /* 中间导航 */
+    .nav-center {
       display: flex;
-      gap: 40px;
+      gap: 32px;
+      list-style: none;
+      min-width: 0;
+    }
+    /* 右侧下拉导航 */
+    .nav-right {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      flex-shrink: 0;
     }
     .nav-item a {
+      text-decoration: none;
+      color: #333;
       position: relative;
       font-size: 16px;
       font-weight: 400;
@@ -150,12 +153,26 @@
     .nav-item a:hover::after {
       width: 100%;
     }
-    /* 主内容区 清除导航高度占位 */
-    main {
-      margin-top: 120px;
-      padding-bottom: 80px;
+    .logo {
+      flex-shrink: 0;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size: 22px;
+      font-weight: 600;
+      color: #222222;
     }
-    /* 2. Hero首屏区域 */
+    .logo img{
+        width:36px;
+        height:36px;
+    }
+    /* 主内容 */
+    main {
+      margin-top: 0px;
+      padding-bottom: 80px;
+      padding-top: 50px;
+    }
+    /* Hero区域 */
     .hero {
       text-align: center;
       padding: 50px 0;
@@ -187,7 +204,7 @@
     .hero-tag a:hover{
       background: #45a2ff;
     }
-    /* 3. 首页三卡片模块 */
+    /* 首页卡片 */
     .card-group {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -227,23 +244,23 @@
       color: #89C2FF;
       font-weight: 500;
     }
-    /* 通用板块标题 */
+    /* 板块标题 */
     .section-title {
       font-size: 28px;
       margin: 80px 0 40px;
       position: relative;
-      padding-bottom: 12px;
+      padding-bottom: 10px;
     }
     .section-title::after {
       content: "";
       position: absolute;
       left: 0;
-      bottom: 0;
+      bottom: 0px;
       width: 60px;
       height: 1px;
       background-color: #89C2FF;
     }
-    /* 作品网格布局 */
+    /* 作品网格 */
     .portfolio-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -290,7 +307,7 @@
       font-size: 13px;
       opacity: 0.7;
     }
-    /* 博客列表样式 */
+    /* 博客 */
     .blog-item {
       background: #fff;
       padding: 26px;
@@ -308,12 +325,15 @@
     .blog-title a {
       color: #89C2FF;
     }
+    .blog-title a:hover {
+    color: #2d93ff;
+    }
     .blog-meta {
       font-size: 14px;
       opacity: 0.7;
       margin-bottom: 12px;
     }
-    /* 关于我时间轴 */
+    /* 时间轴 */
     .timeline-item {
       background: #fff;
       padding: 24px;
@@ -332,7 +352,7 @@
       border-radius: 20px;
       font-size: 14px;
     }
-    /* 联系表单 */
+    /* 表单 */
     .form-box {
       background: #fff;
       padding: 32px;
@@ -352,7 +372,7 @@
     .form-item input, .form-item textarea {
       width: 100%;
       padding: 12px;
-      border: 1px solid rgba(137, 194, 255, 0.3);
+      border: 1px solid rgba(137, 194, 0.3);
       border-radius: 6px;
       background: #fcfdff;
       font-family: inherit;
@@ -368,15 +388,15 @@
     }
     .submit-btn:hover {
       opacity: 0.85;
+      background: #2d93ff;
     }
-    /* 底部 */
     footer {
       text-align: center;
       padding: 40px 0;
       opacity: 0.7;
       font-size: 14px;
     }
-    /* 页面切换隐藏/显示（简易多页面模拟） */
+    /* 页面切换动画 */
     .page {
       display: none;
       animation: fadeIn 0.4s ease forwards;
@@ -391,44 +411,181 @@
     .shengmin{
       color: #0178ff;
     }
-
-    /* ====================== 手机端媒体查询（768px以下）核心修改 ====================== */
+    /* 下拉菜单 */
+    .dropdown-wrap {
+      position: relative;
+    }
+    .dropdown-wrap > a {
+      display: block;
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      padding: 8px 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s ease;
+      z-index: 9990; /* 低于弹窗层级 */
+    }
+    .dropdown-menu li {
+      text-align: center;
+    }
+    .dropdown-menu li a {
+      display: block;
+      padding: 10px 0;
+      color: #333;
+    }
+    .dropdown-menu li a:hover {
+      background: #f0f7ff;
+      color: #89C2FF;
+    }
+    .dropdown-wrap:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      top: calc(100% + 8px);
+    }
+    /* 弹窗遮罩 */
+    .modal-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.18);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .modal-mask.open {
+      display: flex;
+    }
+    .modal-box {
+      width: 100%;
+      max-width: 520px;
+      max-height: 70vh;
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: scale(0.85);
+      transition: all 0.3s ease;
+    }
+    .modal-mask.close {
+      opacity: 0 !important;
+    }
+    .modal-mask.close .modal-box {
+      opacity: 0 !important;
+      transform: scale(0.85) !important;
+    }
+    .tclj{
+      color: #89C2FF;
+    }
+    /* 开发弹窗 */
+    .dev-modal-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.2);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .dev-modal-mask.show {
+      display: flex;
+      opacity: 1;
+    }
+    .dev-modal-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px 25px;
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      transform: scale(0.9);
+      transition: all 0.25s ease;
+    }
+    .dev-modal-mask.show .dev-modal-box {
+      transform: scale(1);
+    }
+    .dev-text {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 25px;
+      line-height: 1.7;
+    }
+    .dev-close-btn {
+      width: 100%;
+      padding: 12px 0;
+      border: none;
+      border-radius: 8px;
+      background: #89C2FF;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .dev-close-btn:hover {
+      background: #69a9ee;
+    }
+    .dev-link {
+      color: #89C2FF;
+      text-decoration: none;
+    }
+    .dev-link:hover {
+      color: #2d93ff;
+    }
+    /* 手机适配 */
     @media screen and (max-width: 768px) {
-      /* 头部垂直布局：Logo在上，导航菜单在下 */
       body {
         padding-top: 100px;
-        }
+      }
       .header-wrap {
         flex-direction: column;
         gap: 20px;
-        text-align: center;
+      }
+      .nav-center, .nav-right {
+        flex: unset;
+        flex-wrap: wrap;
+        justify-content: center;
       }
       .logo {
         align-self: center;
         font-size: 24px;
       }
-      .nav-list {
-        gap: 16px 28px;
-        padding:0 10px;
-        flex-wrap: wrap;
-        justify-content: center;
+      header {
+        padding: 24px 0;
       }
-      /* 加高头部内边距，避免拥挤 */
-     header {
-        padding: 14px 0;    
-        }
-        header.shrink {
-        padding: 14px 0;
-        }
-      /* 增加主内容上边距，适配加高导航 */
-      /* main {
-        margin-top: 160px;
-      } */
-      /* Hero文字缩小适配手机 */
+      header.shrink {
+        padding: 18px 0;
+      }
+      .container {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
       .hero h1 {
         font-size: 30px;
         text-wrap: balance;
-        /* margin-top: 30px; */
       }
       .hero-desc {
         font-size: 17px;
@@ -436,19 +593,15 @@
       .hero-tag {
         font-size: 18px;
       }
-      /* 卡片网格改为单列铺满 */
       .card-group {
         grid-template-columns: 1fr;
       }
-      /* 作品网格单列 */
       .portfolio-grid {
         grid-template-columns: 1fr;
       }
-      /* 标题字号缩小 */
       .section-title {
         font-size: 24px;
       }
-      /* 表单、卡片内边距缩小适配小屏 */
       .card {
         padding: 24px 20px;
       }
@@ -458,175 +611,182 @@
       .timeline-item, .blog-item {
         padding: 20px 16px;
       }
+      /* 手机禁用hover下拉 */
+      .dropdown-wrap:hover .dropdown-menu {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .dropdown-wrap.active .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        top: calc(100% + 8px);
+      }
     }
-    /* 退场过渡动画 */
-  /* 弹窗遮罩默认隐藏、透明缩小 */
-  .modal-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.18);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    padding: 20px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-  }
-  .modal-box {
-    width: 100%;
-    max-width: 520px;
-    background: #fff;
-    border-radius: 16px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    opacity: 0;
-    transform: scale(0.85);
-    transition: all 0.3s ease;
-  }
-  /* 打开状态 */
-  .modal-mask.open {
-    display: flex;
-  }
-  
-  
-  /* 退场状态，优先级最高 */
-  .modal-mask.close {
-    opacity: 0 !important;
-  }
-  .modal-mask.close .modal-box {
-    opacity: 0 !important;
-    transform: scale(0.85) !important;
-  }
-    .tclj{
-      color: #89C2FF;
+    /* 日志折叠卡片样式 */
+    .log-card{
+      border: 1px solid #c7e0f5;
+      border-radius: 10px;
+      margin-bottom:12px;
+      overflow:hidden;
+      transition: all 0.3s ease;
     }
-  /* 开发中弹窗样式 */
-  .dev-modal-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.2);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    padding: 20px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-  }
-  .dev-modal-mask.show {
-    display: flex;
-    opacity: 1;
-  }
-  .dev-modal-box {
-    background: #fff;
-    border-radius: 12px;
-    padding: 30px 25px;
-    width: 100%;
-    max-width: 420px;
-    text-align: center;
-    transform: scale(0.9);
-    transition: all 0.25s ease;
-  }
-  .dev-modal-mask.show .dev-modal-box {
-    transform: scale(1);
-  }
-  .dev-text {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 25px;
-    line-height: 1.7;
-  }
-  .dev-close-btn {
-    width: 100%;
-    padding: 12px 0;
-    border: none;
-    border-radius: 8px;
-    background: #89C2FF;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  .dev-close-btn:hover {
-    background: #69a9ee;
-  }
+    .log-card-header{
+      padding:14px 18px;
+      cursor:pointer;
+      background:#f0f7ff;
+      font-weight:500;
+    }
+    .log-card-header:hover{
+      background:#e4f1ff;
+    }
+    .log-card-body{
+      max-height:0;
+      padding:0 18px;
+      overflow:hidden;
+      transition: all 0.3s ease;
+      line-height:1.6;
+    }
+    /* 改成超大高度，保证所有日志文字完全展开不截断 */
+    .log-card.active .log-card-body{
+      max-height: 999px;
+      padding:14px 18px;
+    }
   </style>
-  <script>
-    function setFavicon(isDarkMode) {
-      // 获取现有的icon标签
-      let iconLink = document.querySelector("link[rel~='icon']");
-      if (!iconLink) {
-        iconLink = document.createElement('link');
-        iconLink.rel = 'icon';
-        iconLink.type = 'image/png';
-        document.head.appendChild(iconLink);
-      }
-      // 判断主题，切换对应图片
-      if (isDarkMode) {
-        iconLink.href = "images/favicon-dark.png";
-      } else {
-        iconLink.href = "images/favicon-light.png";
-      }
-    }
-
-    // 监听系统深色/浅色主题
-    const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    // 页面初始化执行一次
-    setFavicon(colorScheme.matches);
-    // 实时监听主题切换
-    colorScheme.addEventListener('change', function (e) {
-      setFavicon(e.matches);
-    });
- 
-  </script>
+  
 </head>
-
 <body>
-  <!-- 声明弹窗 -->
+  <!-- 网站声明弹窗 移至body最顶部不影响渲染 -->
   <div class="modal-mask" id="noticeModal">
-  <div class="modal-box">
-    <h3 class="modal-title">网站声明</h3>
-    <div class="modal-content">
-      <p>欢迎来到我的个人网站</p>
-      <p>这是我与AI开发的个人网站，网站内容会有些不足，我会尽量的去完善，请大家耐心等待，网站为开源项目，不存在对用户数据进行任何处理或存储，请大家放心浏览，如果在使用过程中遇到问题，可尝试联系我，我会尽量解决。</p>
-      <p>联系邮箱：<a href="https://mail.163.com" class="tclj">lowewa730657707@163.com</a></p>
-      <p>开源Github链接：<a href="https://github.com/lowewa730657707/grwz" class="tclj">点击访问链接</a><br>如果链接无法打开,请使用科学上网工具，使用后再次尝试，若仍无法打开，请尝试联系我。</p>
-       
+    <div class="modal-box">
+      <h3 class="modal-title">网站声明</h3>
+      <div class="modal-content">
+        <p>欢迎来到我的个人网站</p>
+        <p>这是我与AI开发的个人网站，网站内容会有些不足，我会尽量的去完善，请大家耐心等待，如果在使用过程中遇到问题，可尝试联系我。<a class="tclj">网站为开源项目，不存在对用户数据进行任何处理或存储，请大家放心浏览。</a></p>
+        <p>联系邮箱：<a href="https://mail.163.com" class="tclj">lowewa730657707@163.com</a></p>
+        <p>开源Github链接：<a href="https://github.com/lowewa730657707" class="tclj">点击访问链接</a><br>如果链接无法打开,请使用科学上网工具，使用后再次尝试，若仍无法打开，请尝试联系我。</p>
       </div>
       <button class="modal-btn" id="confirmBtn">我已了解</button>
     </div>
   </div>
-  
-  <!-- 顶部导航 -->
+
+  <!-- 导航头部 结构正确，内部不含页面内容 -->
   <header id="header">
-    <div class="container header-wrap">
-     <a data-page="home" href="#" class="logo"><img src="images/favicon-light.png" alt="logo图标"><span>XiaoWei</span></a>
-      <ul class="nav-list">
-        <li class="nav-item"><a data-page="home" href="#">首页</a></li>
-        <li class="nav-item"><a data-page="about" href="#">关于我</a></li>
-        <li class="nav-item"><a data-page="portfolio" href="#">作品展示</a></li>
-        <li class="nav-item"><a data-page="blog" href="#">日常分享</a></li>
-      </ul>
+    <div class="container">
+      <div class="header-wrap">
+        <!-- Logo 左 -->
+        <div class="logo">
+          <a data-page="home" href="#" class="logo">
+            <img src="images/favicon-light.png" alt="logo图标"><span>XiaoWei</span>
+          </a>
+        </div>
+        <!-- 中间导航 -->
+        <ul class="nav-center">
+          <li class="nav-item"><a data-page="home" href="#">首页</a></li>
+          <li class="nav-item"><a data-page="about" href="#">关于我</a></li>
+          <li class="nav-item"><a data-page="portfolio" href="#">作品展示</a></li>
+          <li class="nav-item"><a data-page="blog" href="#">日常分享</a></li>
+        </ul>
+        <!-- 右侧下拉菜单 -->
+        <ul class="nav-right">
+          <li class="dropdown-wrap">
+            <a href="#">外观</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">系统跟随</a></li>
+              <li><a href="#">浅色模式</a></li>
+              <li><a href="#">深色模式</a></li>
+            </ul>
+          </li>
+          <li class="dropdown-wrap">
+            <a href="#">语言</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">中文</a></li>
+              <li><a href="#">English</a></li>
+            </ul>
+          </li>
+          <li class="dropdown-wrap">
+            <a href="#">用户</a>
+            <ul class="dropdown-menu">
+              <li><a href="#">注册</a></li>
+              <li><a href="#">登录</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </header>
-  <main class="container">
-    <!-- 首页页面 -->
+  <!-- 项目更新公告弹窗 -->
+  <div class="modal-mask" id="updateNoticeModal">
+    <div class="modal-box">
+      <h3 class="modal-title">网站项目更新公告</h3>
+      <div class="modal-content">
+        <p style="font-size:18px;font-weight:500;margin-bottom:20px;text-align:center;">【更新日志】</p>
+         <!-- 日志卡片 -->
+        <div class="log-card">
+          <div class="log-card-header">2026-07-30更新日志</div>
+          <div class="log-card-body">
+            1.新增【项目更新公告弹窗】，内置可展开日志卡片<br>
+            2.修复日志卡片点击展开后，外层弹窗被内容撑大变形问题<br>
+            3.优化弹窗设置最大高度限制<br>
+            4.优化日志展开收起，弹窗外框大小始终保持一致<br>
+            5.新增右上角多个功能【功能内容等待后续开发】<br>
+            6.修复多个已知BOG<br>
+          </div>
+        </div>
+        <div class="log-card">
+          <div class="log-card-header">2026-07-29更新日志</div>
+          <div class="log-card-body">
+            1.修复 CSS 边距冲突、JS 执行报错、标签嵌套错误<br>
+            2.持续修复弹窗问题 <br>
+            3.弹窗关闭动画失效修复<br>
+            4.弹窗打开时页面无法操作的阻塞问题修复<br>
+            5.提供弹窗重置测试方案<br>
+            6.优化隐藏弹窗内部滚动条<br>
+            7.修复网页加载空白、页面内容不显示问题<br>
+            8.修复多个已知BOG<br>
+          </div>
+        </div>
+        <!-- 日志卡片2 -->
+        <div class="log-card">
+          <div class="log-card-header">2026-07-28更新日志</div>
+          <div class="log-card-body">
+            1.新增浏览器标签图标LOGO<br>
+            2.顶部标题留白持续收缩调试，解决页面顶部过于空旷问题<br>
+            3.新增声明弹窗开发 <br>
+            4.居中悬浮弹窗，文字区域支持滚动，底部放置按钮<br>
+            5.增加弹出关闭缩放动画<br>
+            6.逻辑优化：仅首次访问弹出，刷新页面不再重复弹出<br>
+            7.弹窗背景模糊效果开发<br>
+            8.解决背景模糊不完整、层级错乱 bug<br>
+            8.修复多个已知BOG<br>
+          </div>
+        </div>
+        <!-- 日志卡片3 -->
+        <div class="log-card">
+          <div class="log-card-header">2026-07-27更新日志</div>
+          <div class="log-card-body">
+            1.搭建网站部署上线<br>
+            2.布局: LOGO、导航、菜单、功能<br>
+            3.移动端适配屏幕<br>
+            4.页面顶部间距初步调试，优化头部留白<br>
+            5.页面内容布局优化字体遮挡问题<br>
+            6.修复多个已知BOG<br>
+          </div>
+        </div>
+        <p style="margin-top:24px;text-align:center;">后续持续优化页面细节，新增更多板块功能，敬请期待！</p>
+      </div>
+      <!-- 补上关闭按钮 -->
+      <button class="modal-btn" id="closeUpdateBtn">关闭</button>
+    </div>
+  </div>
+  <!-- 主体页面内容 独立main容器 -->
+  <main>
+    <div class="container">
+    <!-- 首页 -->
     <section id="home" class="page active">
       <div class="hero">
         <h1>欢迎来到我的个人网站</h1>
         <p class="hero-desc">让你用一个网站来了解我</p>
-        <p class="hero-tag"><a data-page="about" href="#">关于我</a></p>
+        <p class="hero-tag"><a href="javascript:void(0)" id="openUpdateNotice">更新公告</a></p>
       </div>
       <div class="card-group">
         <div class="card">
@@ -646,7 +806,7 @@
         </div>
       </div>
     </section>
-    <!-- 关于我页面 -->
+    <!-- 关于我 -->
     <section id="about" class="page">
       <h2 class="section-title">关于我</h2>
       <div class="timeline-item">
@@ -695,7 +855,7 @@
         </form>
       </div>
     </section>
-    <!-- 作品展示页面 -->
+    <!-- 作品展示 -->
     <section id="portfolio" class="page">
       <h2 class="section-title">作品展示</h2>
       <div class="portfolio-grid">
@@ -720,9 +880,16 @@
             <div class="work-tag">正在开发中</div>
           </div>
         </div>
+        <div class="work-card">
+          <img class="work-img" src="images/040.png" alt="后台UI">
+          <div class="work-info">
+            <div class="work-name"><a href="javascript:void(0)" class="dev-link">功能正在开发中</a></div>
+            <div class="work-tag">正在开发中</div>
+          </div>
+        </div>
       </div>
     </section>
-    <!-- 日常分享博客页面 -->
+    <!-- 日常分享 -->
     <section id="blog" class="page">
       <h2 class="section-title">日常分享</h2>
       <div class="blog-item">
@@ -740,15 +907,17 @@
         <div class="blog-meta">2026-07-05 | 前端</div>
         <p>苹方、微软雅黑、Inter、Roboto四款字体屏幕显示效果对比，网页阅读最优选择。</p>
       </div>
+    
     </section>
+    </div>
   </main>
+  <!-- 底部 -->
   <footer>
     <div class="container"> © 2026 <a href="https://github.com/lowewa730657707/grwz.git">GitHub</a> www.xiaoweicn.mom 版权归作者所有<br> 
       <p class="shengmin">声明：网站为免费开源项目，不会对用户数据进行任何处理或存储，大家可以放心预览内容。</p>
     </div>
-    
   </footer>
-  <!-- 开发中提示弹窗 -->
+  <!-- 开发弹窗 放到body最底部，层级最高 -->
   <div class="dev-modal-mask" id="devModal">
     <div class="dev-modal-box">
       <p class="dev-text">该板块正在全力开发中，敬请期待！</p>
@@ -756,83 +925,122 @@
     </div>
   </div>
   <script>
-    // 1. 导航滚动缩小效果
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-      if(window.scrollY > 50) {
-        header.classList.add('shrink');
-      } else {
-        header.classList.remove('shrink');
-      }
-    })
-    // 2. 页面切换逻辑
-    const navLinks = document.querySelectorAll('[data-page]');
-    const pages = document.querySelectorAll('.page');
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('data-page');
-        // 清除所有激活页面
-        pages.forEach(page => page.classList.remove('active'));
-        // 激活目标页面
-        document.getElementById(targetId).classList.add('active');
-        // 滚动回顶部
-        window.scrollTo({top:0, behavior:'smooth'});
-      })
-    })
-  
-    // 获取元素
-    const modal = document.getElementById('noticeModal');
-    const modalBox = modal.querySelector('.modal-box');
-    const confirmBtn = document.getElementById('confirmBtn');
-    // 读取会话标记
-    const hasReadNotice = sessionStorage.getItem('readNotice');
+      document.addEventListener('DOMContentLoaded', function () {
+        // 切换网站图标
+        function setFavicon(isDarkMode) {
+            let iconLink = document.querySelector("link[rel~='icon']");
+            if (!iconLink) {
+                icon = document.createElement('link');
+                icon.rel = 'icon';
+                icon.type = 'image/png';
+                document.head.appendChild(icon);
+            }
+            iconLink.href = isDarkMode ? "images/favicon-dark.png" : "images/favicon-light.png";
+        }
+        const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        setFavicon(colorScheme.matches);
+        colorScheme.addEventListener('change', e => setFavicon(e.matches));
 
-    if (!hasReadNotice) {
-      modal.classList.add('open');
-      document.body.classList.add('no-scroll');
-      setTimeout(()=>{
-        modal.style.opacity = '1';
-        modalBox.style.opacity = '1';
-        modalBox.style.transform = 'scale(1)';
-      },16)
-    }
+        // 导航滚动收缩
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) header.classList.add('shrink');
+            else header.classList.remove('shrink');
+        })
 
-    confirmBtn.addEventListener('click', function(){
-      modal.style.opacity = '0';
-      modalBox.style.opacity = '0';
-      modalBox.style.transform = 'scale(0.85)';
-      setTimeout(() => {
-        modal.classList.remove('open');
-        modal.style.opacity = '';
-        modalBox.style.opacity = '';
-        modalBox.style.transform = '';
-        document.body.classList.remove('no-scroll');
-        // 设置会话标记，当前窗口刷新不再弹窗
-        sessionStorage.setItem('readNotice', 'true');
-      }, 200);
-    });
-    // 开发中弹窗逻辑
-    const devModal = document.getElementById('devModal');
-    const devLinks = document.querySelectorAll('.dev-link'); // 获取所有链接
-    const devCloseBtn = document.querySelector('.dev-close-btn');
-    // 循环给每一个链接绑定点击事件
-    devLinks.forEach(link => {
-      link.addEventListener('click', ()=>{
-        devModal.classList.add('show');
-      });
-    });
-    // 点击关闭按钮关闭
-    devCloseBtn.addEventListener('click', ()=>{
-      devModal.classList.remove('show');
-    });
-    // 点击遮罩空白处关闭
-    devModal.addEventListener('click', (e)=>{
-      if(e.target === devModal){
-        devModal.classList.remove('show');
-      }
-    });
+        // 页面切换
+        const navLinks = document.querySelectorAll('[data-page]');
+        const pages = document.querySelectorAll('.page');
+        navLinks.forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = link.getAttribute('data-page');
+                pages.forEach(p => p.classList.remove('active'));
+                document.getElementById(target).classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            })
+        })
+
+        // 首页声明弹窗
+        const noticeModal = document.getElementById('noticeModal');
+        const noticeBox = noticeModal.querySelector('.modal-box');
+        const confirmBtn = document.getElementById('confirmBtn');
+        if (!sessionStorage.getItem('readNotice')) {
+            noticeModal.classList.add('open');
+            document.body.classList.add('no-scroll');
+            setTimeout(() => {
+                noticeModal.style.opacity = '1';
+                noticeBox.style.opacity = '1';
+                noticeBox.style.transform = 'scale(1)';
+            }, 16)
+        }
+        confirmBtn.addEventListener('click', () => {
+            noticeModal.style.opacity = '0';
+            noticeBox.style.opacity = '0';
+            noticeBox.style.transform = 'scale(0.85)';
+            setTimeout(() => {
+                noticeModal.classList.remove('open');
+                noticeModal.style.opacity = '';
+                noticeBox.style.opacity = '';
+                noticeBox.style.transform = '';
+                document.body.classList.remove('no-scroll');
+                sessionStorage.setItem('readNotice', 'true');
+            }, 200)
+        })
+
+        // 更新公告弹窗
+        const updateModal = document.getElementById('updateNoticeModal');
+        const updateBox = updateModal.querySelector('.modal-box');
+        const openBtn = document.getElementById('openUpdateNotice');
+        const closeUpdateBtn = document.getElementById('closeUpdateBtn');
+        openBtn.addEventListener('click', () => {
+            updateModal.classList.add('open');
+            document.body.classList.add('no-scroll');
+            setTimeout(() => {
+                updateModal.style.opacity = '1';
+                updateBox.style.opacity = '1';
+                updateBox.style.transform = 'scale(1)';
+            }, 16)
+        })
+        closeUpdateBtn.addEventListener('click', () => {
+            updateModal.style.opacity = '0';
+            updateBox.style.opacity = '0';
+            updateBox.style.transform = 'scale(0.85)';
+            setTimeout(() => {
+                updateModal.classList.remove('open');
+                updateModal.style.opacity = '';
+                updateBox.style.opacity = '';
+                updateBox.style.transform = '';
+                document.body.classList.remove('no-scroll');
+            }, 200)
+        })
+        updateModal.addEventListener('click', e => {
+            if (e.target === updateModal) closeUpdateBtn.click();
+        })
+
+        // 更新日志卡片展开
+        const logCards = document.querySelectorAll('.log-card');
+        logCards.forEach(card => {
+            const head = card.querySelector('.log-card-header');
+            head.addEventListener('click', () => card.classList.toggle('active'));
+        })
+
+        // 移动端下拉菜单
+        const dropWraps = document.querySelectorAll('.dropdown-wrap');
+        dropWraps.forEach(item => {
+            const a = item.querySelector('a');
+            a.addEventListener('click', e => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropWraps.forEach(box => box !== item && box.classList.remove('active'));
+                    item.classList.toggle('active');
+                }
+            })
+        })
+        document.addEventListener('click', e => {
+            if (!e.target.closest('.dropdown-wrap')) {
+                dropWraps.forEach(box => box.classList.remove('active'));
+            }
+        })
+    })
   </script>
-  
-</body>
-</html>
