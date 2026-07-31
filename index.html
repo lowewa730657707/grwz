@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  
+  <meta name="color-scheme" content="light dark">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>XiaoWei</title>
-  <link rel="icon" href="images/favicon-light.png" type="image/png">
-  <!-- 引入Inter无衬线英文字体 -->
+  <!-- 图标字体 -->
+  <link rel="icon" type="image/png" href="images/favicon-light.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
   <style>
+    /* 全局弹窗基础 */
     .modal-title {
       text-align: center;
       padding: 20px 20px 10px;
@@ -20,12 +20,11 @@
     }
     .modal-content {
       padding: 0 24px;
-      flex: 1; 
-      min-height: 0; 
-      overflow-y: auto; 
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
       color: #444;
       line-height: 1.7;
-      
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
@@ -40,15 +39,18 @@
       padding: 14px 0;
       border: none;
       border-radius: 10px;
-      background: #84bcf7;
-      color: white;
+      background: var(--btn-bg-light);
+      color: var(--btn-text-light);
       font-size: 18px;
       cursor: pointer;
     }
     .modal-btn:hover {
-      background: #69a9ee;
+      background: var(--accent-dark);
     }
-    /* 禁止滚动类 */
+    html.dark .modal-btn {
+      background: var(--btn-bg-dark);
+    }
+    /* 禁止页面滚动 */
     body.no-scroll {
       overflow: hidden;
     }
@@ -60,7 +62,7 @@
     body::-webkit-scrollbar {
       display: none;
     }
-    /* 全局初始化 */
+    /* 全局重置 */
     * {
       margin: 0;
       padding: 0;
@@ -68,8 +70,8 @@
     }
     body {
       font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
-      background-color: #E6F7FF;
-      color: #333333;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       line-height: 1.65em;
       font-size: 16px;
       transition: all 0.3s ease;
@@ -77,7 +79,7 @@
     }
     a {
       text-decoration: none;
-      color: #333333;
+      color: var(--text-color);
       transition: color 0.3s ease;
     }
     ul {
@@ -101,7 +103,7 @@
       left: 0;
       width: 100%;
       padding: 16px 0;
-      background-color: #E6F7FF;
+      background-color: var(--bg-color);
       z-index: 999;
       transition: padding 0.3s ease;
     }
@@ -116,14 +118,12 @@
       width: 100%;
       gap: 16px;
     }
-    /* 中间导航 */
     .nav-center {
       display: flex;
       gap: 32px;
       list-style: none;
       min-width: 0;
     }
-    /* 右侧下拉导航 */
     .nav-right {
       display: flex;
       gap: 28px;
@@ -132,7 +132,7 @@
     }
     .nav-item a {
       text-decoration: none;
-      color: #333;
+      color: var(--text-color);
       position: relative;
       font-size: 16px;
       font-weight: 400;
@@ -160,19 +160,30 @@
       gap:10px;
       font-size: 22px;
       font-weight: 600;
-      color: #222222;
+      color: var(--text);
     }
     .logo img{
         width:36px;
         height:36px;
     }
-    /* 主内容 */
+    html.dark .logo span {
+      color: var(--text-color) !important;
+    }
+    html.dark .nav-center .nav-item a,
+    html.dark .nav-right .dropdown-wrap > a {
+      color: var(--text-color) !important;
+    }
+    html.dark .nav-item a:hover,
+    html.dark .nav-right .dropdown-wrap > a:hover {
+      color: var(--accent) !important;
+    }
+    /* 主内容区域 */
     main {
       margin-top: 0px;
       padding-bottom: 80px;
       padding-top: 50px;
     }
-    /* Hero区域 */
+    /* Hero首页头部 */
     .hero {
       text-align: center;
       padding: 50px 0;
@@ -195,16 +206,16 @@
     }
     .hero-tag a{
       padding:13px 32px;
-      background:#89C2FF;
+      background:#6eb7ff;
       color:#ffffff;
       text-decoration:none;
       transition: background 0.3s;
       border-radius: 5px;
     }
     .hero-tag a:hover{
-      background: #45a2ff;
+      background: #9dccff;
     }
-    /* 首页卡片 */
+    /* 首页卡片组 */
     .card-group {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -212,7 +223,7 @@
       margin-top: 60px;
     }
     .card {
-      background: #FFFFFF;
+      background: var(--card-bg);
       padding: 36px 28px;
       border-radius: 12px;
       transition: all 0.3s ease;
@@ -244,7 +255,7 @@
       color: #89C2FF;
       font-weight: 500;
     }
-    /* 板块标题 */
+    /* 板块标题通用 */
     .section-title {
       font-size: 28px;
       margin: 80px 0 40px;
@@ -267,7 +278,7 @@
       gap: 28px;
     }
     .work-card {
-      background: #fff;
+      background: var(--card-bg);
       border-radius: 10px;
       overflow: hidden;
       transition: 0.3s ease;
@@ -307,9 +318,9 @@
       font-size: 13px;
       opacity: 0.7;
     }
-    /* 博客 */
+    /* 博客条目 */
     .blog-item {
-      background: #fff;
+      background: var(--card-bg);
       padding: 26px;
       border-radius: 10px;
       margin-bottom: 24px;
@@ -335,7 +346,7 @@
     }
     /* 时间轴 */
     .timeline-item {
-      background: #fff;
+      background: var(--card-bg);
       padding: 24px;
       border-radius: 10px;
       margin-bottom: 20px;
@@ -352,9 +363,9 @@
       border-radius: 20px;
       font-size: 14px;
     }
-    /* 表单 */
+    /* 通用表单盒子 */
     .form-box {
-      background: #fff;
+      background: var(--card-bg);
       padding: 32px;
       border-radius: 12px;
       margin-top: 40px;
@@ -369,17 +380,17 @@
       display: block;
       margin-bottom: 8px;
     }
-    .form-item input, .form-item textarea {
+    .form-item input, .form-item text {
       width: 100%;
       padding: 12px;
-      border: 1px solid rgba(137, 194, 0.3);
+      border: 1px solid var(--border-color);
       border-radius: 6px;
-      background: #fcfdff;
+      background: var(--input-bg);
       font-family: inherit;
     }
     .submit-btn {
       padding: 12px 32px;
-      background: #89C2FF;
+      background: var(--accent);
       color: #fff;
       border: none;
       border-radius: 6px;
@@ -388,15 +399,22 @@
     }
     .submit-btn:hover {
       opacity: 0.85;
-      background: #2d93ff;
+      background: var(--accent-dark);
     }
+    html.dark .submit-btn {
+      background: var(--btn-bg-dark);
+    }
+    /* 底部 */
     footer {
       text-align: center;
       padding: 40px 0;
       opacity: 0.7;
       font-size: 14px;
     }
-    /* 页面切换动画 */
+    .shengmin{
+      color: #0178ff;
+    }
+    /* 页面切换淡入动画 */
     .page {
       display: none;
       animation: fadeIn 0.4s ease forwards;
@@ -408,10 +426,7 @@
       from {opacity: 0; transform: translateY(10px);}
       to {opacity: 1; transform: translateY(0);}
     }
-    .shengmin{
-      color: #0178ff;
-    }
-    /* 下拉菜单 */
+    /* 下拉菜单通用 */
     .dropdown-wrap {
       position: relative;
     }
@@ -424,33 +439,61 @@
       left: 50%;
       transform: translateX(-50%);
       width: 130px;
-      background: #fff;
+      background: var(--card-bg);
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.12);
       padding: 8px 0;
       opacity: 0;
       visibility: hidden;
       transition: all 0.2s ease;
-      z-index: 9990; /* 低于弹窗层级 */
+      z-index: 9990;
     }
     .dropdown-menu li {
       text-align: center;
     }
     .dropdown-menu li a {
       display: block;
-      padding: 10px 0;
-      color: #333;
+      padding: 12px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s;
+      color: var(--text-color);
+      border-radius: 6px;
+      margin: 4px 8;
     }
     .dropdown-menu li a:hover {
-      background: #f0f7ff;
-      color: #89C2FF;
+      background: rgba(var(--accent-rgb), 0.2);
+      color: var(--accent-dark) !important;
+    }
+    html.dark .dropdown-menu li a:hover {
+      background: rgba(var(--accent-rgb), 0.15);
     }
     .dropdown-wrap:hover .dropdown-menu {
       opacity: 1;
       visibility: visible;
       top: calc(100% + 8px);
     }
-    /* 弹窗遮罩 */
+    /* 外观主题下拉项 */
+    .theme-item {
+      padding: 12px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.25s;
+      color: var(--text-color);
+      border-radius: 6px;
+      margin: 4px 8px;
+    }
+    .theme-item:hover {
+      background: rgba(var(--accent-rgb), 0.2);
+      color: var(--accent-dark) !important;
+    }
+    html.dark .theme-item:hover {
+      background: rgba(var(--accent-rgb), 0.15);
+    }
+    .theme-dropdown {
+      padding: 8px 0;
+    }
+    /* 全局遮罩弹窗 */
     .modal-mask {
       position: fixed;
       top: 0;
@@ -467,15 +510,24 @@
       transition: opacity 0.2s ease;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
+      pointer-events: none;
     }
+    /* 弹窗打开才允许交互 */
     .modal-mask.open {
       display: flex;
+      pointer-events: auto;
+    }
+    /* 弹窗内容强制可点击，穿透失效问题核心修复 */
+    .modal-mask .modal-box {
+      pointer-events: auto;
+      position: relative;
+      z-index: 2;
     }
     .modal-box {
       width: 100%;
       max-width: 520px;
       max-height: 70vh;
-      background: #fff;
+      background: var(--card-bg);
       border-radius: 16px;
       overflow: hidden;
       display: flex;
@@ -483,6 +535,7 @@
       opacity: 0;
       transform: scale(0.85);
       transition: all 0.3s ease;
+      position: relative;
     }
     .modal-mask.close {
       opacity: 0 !important;
@@ -491,10 +544,35 @@
       opacity: 0 !important;
       transform: scale(0.85) !important;
     }
+    /* 弹窗关闭按钮 */
+    .modal-close-btn {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      color: var(--text-color);
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.5;
+      transition: all 0.25s;
+      z-index: 10;
+    }
+    .modal-close-btn:hover {
+      opacity: 1;
+      background: var(--input-bg);
+    }
     .tclj{
       color: #89C2FF;
     }
-    /* 开发弹窗 */
+    /* 开发提示弹窗 */
     .dev-modal-mask {
       position: fixed;
       top: 0;
@@ -517,7 +595,7 @@
       opacity: 1;
     }
     .dev-modal-box {
-      background: #fff;
+      background: var(--card-bg);
       border-radius: 12px;
       padding: 30px 25px;
       width: 100%;
@@ -531,7 +609,7 @@
     }
     .dev-text {
       font-size: 18px;
-      color: #333;
+      color: var(--text-color);
       margin-bottom: 25px;
       line-height: 1.7;
     }
@@ -540,13 +618,13 @@
       padding: 12px 0;
       border: none;
       border-radius: 8px;
-      background: #89C2FF;
+      background: var(--accent);
       color: #fff;
       font-size: 16px;
       cursor: pointer;
     }
     .dev-close-btn:hover {
-      background: #69a9ee;
+      background: var(--accent-dark);
     }
     .dev-link {
       color: #89C2FF;
@@ -555,8 +633,492 @@
     .dev-link:hover {
       color: #2d93ff;
     }
-    /* 手机适配 */
+    /* 更新日志折叠卡片（修复点击失效） */
+    .log-card{
+      border: 1px solid var(--log-card-border);
+      border-radius: 10px;
+      margin-bottom:12px;
+      overflow:hidden;
+      transition: all 0.5s ease;
+      position: relative;
+      z-index: 20;
+      pointer-events: auto !important;
+    }
+    .log-card-header{
+      padding:14px 18px;
+      cursor:pointer !important;
+      background:var(--log-header-bg);
+      font-weight:500;
+      pointer-events: auto !important;
+      position: relative;
+      z-index: 21;
+    }
+    .log-card-header:hover {
+      background: rgba(var(--accent-rgb), 0.2);
+      transition: background 0.3s ease;
+    }
+    html.dark .log-card-header:hover {
+      background: rgba(var(--accent-rgb), 0.12);
+    }
+    .log-card-body{
+      max-height:0;
+      padding:0 18px;
+      overflow:hidden;
+      transition: all 0.5s ease;
+      line-height:1.6;
+    }
+    .log-card.active .log-card-body{
+      max-height: 999px;
+      padding:14px 18px;
+    }
+    /* 登录/注册表单 */
+    .auth-form .form-item {
+      margin-bottom: 18px;
+    }
+    .auth-form .form-item label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+    .auth-form .form-item input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--input-bg);
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--text-color);
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .auth-form .form-item input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(137, 194, 255, 0.15);
+    }
+    .auth-form .form-item input::placeholder {
+      opacity: 0.5;
+    }
+    .auth-switch {
+      font-size: 14px;
+      color: var(--text-color);
+      opacity: 0.8;
+      margin-top: 6px;
+    }
+    .auth-switch .tclj {
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .auth-switch .tclj:hover {
+      color: var(--accent-dark);
+    }
+    /* 个人中心弹窗 */
+    .profile-info {
+      padding: 10px 0;
+    }
+    .profile-avatar {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--accent);
+      background: var(--input-bg);
+    }
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .profile-details {
+      text-align: left;
+      margin: 0 auto 20px;
+      max-width: 280px;
+    }
+    .profile-row {
+      font-size: 16px;
+      margin: 12px 0;
+      color: var(--text-color);
+      line-height: 1.8;
+    }
+    .profile-label {
+      font-weight: 500;
+      opacity: 0.8;
+      margin-right: 8px;
+    }
+    .profile-logout-btn {
+      width: calc(100% - 48px);
+      margin: 0 auto;
+      display: block;
+    }
+    /* 退出弹窗按钮组 */
+    .logout-btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .logout-btn-group button {
+      flex: 1;
+    }
+    .logout-confirm-btn {
+      background: #ff6b6b !important;
+    }
+    .logout-confirm-btn:hover {
+      background: #ee5a5a !important;
+    }
+    .logout-cancel-btn {
+      background: var(--accent) !important;
+    }
+    .logout-cancel-btn:hover {
+      background: var(--accent-dark) !important;
+    }
+    /* ===================== 全新现代化后台管理样式 ===================== */
+    .admin-layout {
+      display: flex;
+      gap: 32px;
+      min-height: 72vh;
+      padding-top: 12px;
+      overflow: visible;
+    }
+    /* 左侧菜单栏永久固定悬浮 */
+    .admin-sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 24px 0;
+      height: fit-content;
+      position: sticky;
+      top: 80px;
+      align-self: flex-start;
+      box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.08);
+      border: 1px solid var(--border-color);
+    }
+    .admin-sidebar-title {
+      font-size: 19px;
+      font-weight: 600;
+      padding: 0 24px 20px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-color);
+      letter-spacing: 0.5px;
+    }
+    .admin-sidebar-item {
+      display: block;
+      width: calc(100% - 24px);
+      margin: 0 12px;
+      padding: 14px 20px;
+      border: none;
+      background: transparent;
+      color: var(--text-color);
+      font-size: 15px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.28s ease;
+      border-radius: 12px;
+      margin-bottom: 6px;
+    }
+    .admin-sidebar-item:hover {
+      background: rgba(var(--accent-rgb), 0.12);
+      color: var(--accent-dark);
+    }
+    .admin-sidebar-item.active {
+      background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.18), rgba(var(--accent-rgb), 0.06));
+      color: var(--accent-dark);
+      font-weight: 500;
+    }
+    .admin-main {
+      flex: 1;
+      min-width: 0;
+    }
+    .admin-panel {
+      display: none;
+      animation: adminFade 0.32s ease forwards;
+    }
+    .admin-panel.active {
+      display: block;
+    }
+    @keyframes adminFade {
+      from {opacity: 0; transform: translateY(8px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .admin-panel-title {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 28px;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+    }
+    .admin-panel-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin-left: 16px;
+    }
+    /* 仪表盘卡片横向自适应铺满 */
+    .stat-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
+      margin-bottom: 36px;
+      width: 100%;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 30px 24px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 12px rgba(var(--accent-rgb), 0.06);
+      border: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+    .stat-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 26px rgba(var(--accent-rgb), 0.12);
+    }
+    .stat-card-value {
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+    .stat-card-label {
+      font-size: 14px;
+      opacity: 0.72;
+      color: var(--text-color);
+    }
+    /* 表格操作按钮强制横向不换行 */
+    .admin-table-wrap {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(var(--accent-rgb), 0.06);
+      border: 1px solid var(--border-color);
+      margin-bottom: 24px;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .admin-table th,
+    .admin-table td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-color);
+      font-size: 14px;
+    }
+    .admin-table td:last-child {
+      white-space: nowrap;
+    }
+    .admin-table th {
+      background: rgba(var(--accent-rgb), 0.08);
+      font-weight: 600;
+      font-size: 13px;
+      opacity: 0.85;
+    }
+    .admin-table tr:nth-child(even) td {
+      background: rgba(var(--accent-rgb), 0.04);
+    }
+    .admin-table tr:hover td {
+      background: rgba(var(--accent-rgb), 0.09);
+    }
+    /* 状态徽章 */
+    .admin-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .admin-badge.admin {
+      background: rgba(255, 152, 0, 0.14);
+      color: #e67700;
+    }
+    .admin-badge.user {
+      background: rgba(var(--accent-rgb), 0.14);
+      color: var(--accent-dark);
+    }
+    /* 表格小按钮横向 */
+    .admin-btn-sm {
+      padding: 6px 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-right: 8px;
+      font-weight: 500;
+      display: inline-block;
+    }
+    .admin-btn-sm.danger {
+      background: #ff5c5c;
+      color: #fff;
+    }
+    .admin-btn-sm.danger:hover {
+      background: #e548;
+    }
+    .admin-btn-sm.primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .admin-btn-sm.primary:hover {
+      background: var(--accent-dark);
+    }
+    .admin-btn-sm.warn {
+      background: #ffaa2b;
+      color: #fff;
+    }
+    .admin-btn-sm.warn:hover {
+      background: #f09810;
+    }
+    /* 大按钮 */
+    .admin-btn {
+      padding: 13px 30px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.28s ease;
+      font-weight: 500;
+    }
+    .admin-btn.primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .admin-btn.primary:hover {
+      background: var(--accent-dark);
+      box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.25);
+    }
+    /* 内容切换胶囊标签 */
+    .admin-content-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 24px;
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 6px;
+      width: fit-content;
+      box-shadow: 0 2px 10px rgba(var(--accent-rgb), 0.05);
+      border: 1px solid var(--border-color);
+    }
+    .admin-content-tab {
+      padding: 10px 22px;
+      border: none;
+      background: transparent;
+      color: var(--text-color);
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: all 0.25s ease;
+    }
+    .admin-content-tab.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.2);
+    }
+    .admin-content-tab:hover:not(.active) {
+      background: rgba(var(--accent-rgb), 0.1);
+    }
+    /* 后台表单 */
+    .admin-form {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 620px;
+      box-shadow: 0 2px 12px rgba(var(--accent-rgb), 0.06);
+      border: 1px solid var(--border-color);
+    }
+    .admin-form .form-item {
+      margin-bottom: 24px;
+    }
+    .admin-form .form-item label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+      color: var(--text-color);
+      font-size: 15px;
+    }
+    .admin-form .form-item input,
+    .admin-form .form-item text,
+    .admin-form .form-item select {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--input-bg);
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text-color);
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .admin-form .form-item input:focus,
+    .admin-form .form-item textarea:focus,
+    .admin-form .form-item select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.14);
+    }
+    .admin-form .form-item textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    /* 空数据提示 */
+    .admin-empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-color);
+      opacity: 0.6;
+      font-size: 15px;
+    }
+    /* 操作日志列表 */
+    .log-list {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 2px 12px rgba(var(--accent-rgb), 0.06);
+      border: 1px solid var(--border-color);
+    }
+    .log-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-color);
+      font-size: 14px;
+    }
+    .log-item:last-child {
+      border-bottom: none;
+    }
+    .log-item-action {
+      flex: 1;
+    }
+    .log-item-time {
+      opacity: 0.6;
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-left: 20px;
+    }
+    /* ===================== 媒体查询：后台强制PC布局不折叠 ===================== */
     @media screen and (max-width: 768px) {
+      /* 前台手机适配 */
       body {
         padding-top: 100px;
       }
@@ -565,7 +1127,6 @@
         gap: 20px;
       }
       .nav-center, .nav-right {
-        flex: unset;
         flex-wrap: wrap;
         justify-content: center;
       }
@@ -611,7 +1172,6 @@
       .timeline-item, .blog-item {
         padding: 20px 16px;
       }
-      /* 手机禁用hover下拉 */
       .dropdown-wrap:hover .dropdown-menu {
         opacity: 0;
         visibility: hidden;
@@ -621,79 +1181,188 @@
         visibility: visible;
         top: calc(100% + 8px);
       }
+      /* 后台锁定左右分栏，不堆叠 */
+      .admin-layout {
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+      }
+      .admin-sidebar {
+        min-width: 240px !important;
+        width: 240px !important;
+        position: sticky;
+        align-self: flex-start !important;
+        flex-shrink: 0 !important;
+      }
+      .stat-cards {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      .admin-table-wrap {
+        overflow-x: auto !important;
+      }
     }
-    /* 日志折叠卡片样式 */
-    .log-card{
-      border: 1px solid #c7e0f5;
-      border-radius: 10px;
-      margin-bottom:12px;
-      overflow:hidden;
+    /* 全局主题变量 */
+    :root {
+      --bg-color: #E6F7FF;
+      --text-color: #333333;
+      --text-light: #eeeeee;
+      --card-bg: #ffffff;
+      --input-bg: #fcfdff;
+      --border-color: rgba(137, 194, 255, 0.3);
+      --log-card-border: #c7e0f5;
+      --log-header-bg: #f0f7ff;
+      --accent: #89C2FF;
+      --accent-dark: #2d93ff;
+      --btn-text-light: #fff;
+      --btn-bg-light: #84bcf7;
+      --btn-bg-dark: #2563eb;
+      --accent-rgb: 137, 194, 255
+    }
+    /* 深色模式全局覆盖 */
+    html.dark {
+      --bg-color: #12161f;
+      --text-color: #eeeeee;
+      --card-bg: #1e2430;
+      --input-bg: #2a3140;
+      --border-color: rgb(0, 115, 255);
+      --log-card-border: #333b4b;
+      --log-header-bg: #272e3d;
+    }
+    /* 全局底色文字跟随主题 */
+    body, header {
+      background-color: var(--bg-color);
+      color: var(--text-color);
       transition: all 0.3s ease;
     }
-    .log-card-header{
-      padding:14px 18px;
-      cursor:pointer;
-      background:#f0f7ff;
-      font-weight:500;
+    .card, .work-card, .blog-item, .timeline-item, .form-box, .modal-box, .dev-modal-box {
+      background-color: var(--card-bg);
+      color: var(--text-color);
     }
-    .log-card-header:hover{
-      background:#e4f1ff;
+    .form-item input, .form-item textarea {
+      background: var(--input-bg);
+      border-color: var(--border-color);
+      color: var(--text-color);
     }
-    .log-card-body{
-      max-height:0;
-      padding:0 18px;
-      overflow:hidden;
-      transition: all 0.3s ease;
-      line-height:1.6;
+    .log-card {
+      border-color: var(--log-card-border);
     }
-    /* 改成超大高度，保证所有日志文字完全展开不截断 */
-    .log-card.active .log-card-body{
-      max-height: 999px;
-      padding:14px 18px;
+    .log-card-header {
+      background: var(--log-header-bg);
+    }
+    .dropdown-menu {
+      background: var(--card-bg);
+    }
+    .dropdown-menu li a {
+      color: var(--text-color);
+    }
+    .modal-content {
+      color: var(--text-color);
+    }
+    /* ========== 全局统一填写输入框固定样式（所有input/textarea/select共用一套） ========== */
+    /* 匹配全部表单输入框：普通表单、登录注册、后台管理所有输入控件 */
+    .form-item input,
+    .form-item textarea,
+    .form-item select,
+    .auth-form input,
+    .auth-form textarea,
+    .auth-form select,
+    .admin-form input,
+    .admin-form textarea,
+    .admin-form select {
+      /* 固定内边距、宽高 */
+      width: 100%;
+      padding: 13px 16px !important;
+      /* 固定圆角、边框样式 */
+      border: 1px solid var(--border-color) !important;
+      border-radius: 12px !important;
+      /* 固定字体相关 */
+      font-family: inherit !important;
+      font-size: 15px !important;
+      color: var(--text-color) !important;
+      background: var(--input-bg) !important;
+      /* 过渡动画统一 */
+      transition: border-color 0.25s ease, box-shadow 0.25s ease !important;
+      outline: none !important;
+    }
+
+    /* 聚焦统一高亮效果（固定蓝色外发光） */
+    .form-item input:focus,
+    .form-item textarea:focus,
+    .form-item select:focus,
+    .auth-form input:focus,
+    .auth-form textarea:focus,
+    .auth-form select:focus,
+    .admin-form input:focus,
+    .admin-form textarea:focus,
+    .admin-form select:focus {
+      border-color: var(--accent) !important;
+      box-shadow: 0 0 0 4px rgba(137, 194, 255, 0.14) !important;
+    }
+
+    /* 占位文字统一透明度 */
+    .form-item input::placeholder,
+    .form-item textarea::placeholder,
+    .auth-form input::placeholder,
+    .auth-form textarea::placeholder,
+    .admin-form input::placeholder,
+    .admin-form textarea::placeholder {
+      opacity: 0.5 !important;
+      color: var(--text-color) !important;
+    }
+
+    /* 多行文本框统一最小高度 */
+    .form-item textarea,
+    .auth-form textarea,
+    .admin-form textarea {
+      min-height: 120px !important;
+      resize: vertical !important;
+    }
+
+    /* 日期输入框统一兼容 */
+    input[type="date"] {
+      appearance: none !important;
+      -webkit-appearance: none !important;
     }
   </style>
   
 </head>
 <body>
-  <!-- 网站声明弹窗 移至body最顶部不影响渲染 -->
+  <!-- 网站声明弹窗 -->
   <div class="modal-mask" id="noticeModal">
     <div class="modal-box">
       <h3 class="modal-title">网站声明</h3>
       <div class="modal-content">
         <p>欢迎来到我的个人网站</p>
-        <p>这是我与AI开发的个人网站，网站内容会有些不足，我会尽量的去完善，请大家耐心等待，如果在使用过程中遇到问题，可尝试联系我。<a class="tclj">网站为开源项目，不存在对用户数据进行任何处理或存储，请大家放心浏览。</a></p>
-        <p>联系邮箱：<a href="https://mail.163.com" class="tclj">lowewa730657707@163.com</a></p>
-        <p>开源Github链接：<a href="https://github.com/lowewa730657707" class="tclj">点击访问链接</a><br>如果链接无法打开,请使用科学上网工具，使用后再次尝试，若仍无法打开，请尝试联系我。</p>
+        <p>这是我与AI开发的个人网站，网站内容会有些不足，我会尽量完善，请耐心等待，使用有问题可联系我。<a class="tclj">网站开源，不会存储用户任何数据，可放心浏览。</a></p>
+        <p>联系邮箱：<a href="mailto:lowewa730657707@163.com" class="tclj">lowewa730657707@163.com</a></p>
+        <p>开源Github：<a href="https://github.com/lowewa730657707" target="_blank" class="tclj">点击访问仓库</a></p>
       </div>
       <button class="modal-btn" id="confirmBtn">我已了解</button>
     </div>
   </div>
-
-  <!-- 导航头部 结构正确，内部不含页面内容 -->
+  <!-- 导航头部 -->
   <header id="header">
     <div class="container">
       <div class="header-wrap">
-        <!-- Logo 左 -->
         <div class="logo">
           <a data-page="home" href="#" class="logo">
-            <img src="images/favicon-light.png" alt="logo图标"><span>XiaoWei</span>
+            <img id="siteLogoImg" src="images/favicon-light.png" alt="logo">
+            <span>XiaoWei</span>
           </a>
         </div>
-        <!-- 中间导航 -->
         <ul class="nav-center">
           <li class="nav-item"><a data-page="home" href="#">首页</a></li>
           <li class="nav-item"><a data-page="about" href="#">关于我</a></li>
           <li class="nav-item"><a data-page="portfolio" href="#">作品展示</a></li>
           <li class="nav-item"><a data-page="blog" href="#">日常分享</a></li>
+          <li class="nav-item" id="adminNavItem" style="display: none;"><a data-page="admin" href="#">后台管理</a></li>
         </ul>
-        <!-- 右侧下拉菜单 -->
         <ul class="nav-right">
           <li class="dropdown-wrap">
-            <a href="#">外观</a>
-            <ul class="dropdown-menu">
-              <li><a href="#">系统跟随</a></li>
-              <li><a href="#">浅色模式</a></li>
-              <li><a href="#">深色模式</a></li>
+            <a href="javascript:void(0)">外观</a>
+            <ul class="dropdown-menu theme-dropdown">
+              <li class="theme-item" data-theme="auto">跟随系统</li>
+              <li class="theme-item" data-theme="light">浅色</li>
+              <li class="theme-item" data-theme="dark">深色</li>
             </ul>
           </li>
           <li class="dropdown-wrap">
@@ -703,344 +1372,1434 @@
               <li><a href="#">English</a></li>
             </ul>
           </li>
-          <li class="dropdown-wrap">
+          <li class="dropdown-wrap" id="userDropdownWrap">
             <a href="#">用户</a>
-            <ul class="dropdown-menu">
-              <li><a href="#">注册</a></li>
-              <li><a href="#">登录</a></li>
+            <ul class="dropdown-menu" id="userDropdownMenu">
+              <li id="navRegisterItem"><a href="javascript:void(0)" id="openRegisterLink">注册</a></li>
+              <li id="navLoginItem"><a href="javascript:void(0)" id="openLoginLink">登录</a></li>
+              <li id="navProfileItem" style="display:none;"><a href="javascript:void(0)" id="openProfileLink">个人中心</a></li>
+              <li id="navLogoutItem" style="display:none;"><a href="javascript:void(0)" id="openLogoutLink">退出登录</a></li>
             </ul>
           </li>
         </ul>
       </div>
     </div>
   </header>
-  <!-- 项目更新公告弹窗 -->
+  <!-- 更新公告弹窗（修复点击日志卡片） -->
   <div class="modal-mask" id="updateNoticeModal">
     <div class="modal-box">
-      <h3 class="modal-title">网站项目更新公告</h3>
+      <h3 class="modal-title" id="updateNoticeModalTitle">网站更新公告</h3>
       <div class="modal-content">
-        <p style="font-size:18px;font-weight:500;margin-bottom:20px;text-align:center;">【更新日志】</p>
-         <!-- 日志卡片 -->
-        <div class="log-card">
-          <div class="log-card-header">2026-07-30更新日志</div>
-          <div class="log-card-body">
-            1.新增【项目更新公告弹窗】，内置可展开日志卡片<br>
-            2.修复日志卡片点击展开后，外层弹窗被内容撑大变形问题<br>
-            3.优化弹窗设置最大高度限制<br>
-            4.优化日志展开收起，弹窗外框大小始终保持一致<br>
-            5.新增右上角多个功能【功能内容等待后续开发】<br>
-            6.修复多个已知BOG<br>
-          </div>
-        </div>
-        <div class="log-card">
-          <div class="log-card-header">2026-07-29更新日志</div>
-          <div class="log-card-body">
-            1.修复 CSS 边距冲突、JS 执行报错、标签嵌套错误<br>
-            2.持续修复弹窗问题 <br>
-            3.弹窗关闭动画失效修复<br>
-            4.弹窗打开时页面无法操作的阻塞问题修复<br>
-            5.提供弹窗重置测试方案<br>
-            6.优化隐藏弹窗内部滚动条<br>
-            7.修复网页加载空白、页面内容不显示问题<br>
-            8.修复多个已知BOG<br>
-          </div>
-        </div>
-        <!-- 日志卡片2 -->
-        <div class="log-card">
-          <div class="log-card-header">2026-07-28更新日志</div>
-          <div class="log-card-body">
-            1.新增浏览器标签图标LOGO<br>
-            2.顶部标题留白持续收缩调试，解决页面顶部过于空旷问题<br>
-            3.新增声明弹窗开发 <br>
-            4.居中悬浮弹窗，文字区域支持滚动，底部放置按钮<br>
-            5.增加弹出关闭缩放动画<br>
-            6.逻辑优化：仅首次访问弹出，刷新页面不再重复弹出<br>
-            7.弹窗背景模糊效果开发<br>
-            8.解决背景模糊不完整、层级错乱 bug<br>
-            8.修复多个已知BOG<br>
-          </div>
-        </div>
-        <!-- 日志卡片3 -->
-        <div class="log-card">
-          <div class="log-card-header">2026-07-27更新日志</div>
-          <div class="log-card-body">
-            1.搭建网站部署上线<br>
-            2.布局: LOGO、导航、菜单、功能<br>
-            3.移动端适配屏幕<br>
-            4.页面顶部间距初步调试，优化头部留白<br>
-            5.页面内容布局优化字体遮挡问题<br>
-            6.修复多个已知BOG<br>
-          </div>
-        </div>
-        <p style="margin-top:24px;text-align:center;">后续持续优化页面细节，新增更多板块功能，敬请期待！</p>
+        <p style="font-size:18px;font-weight:500;text-align:center;margin-bottom:20px;">【更新日志】</p>
+        <!-- JS自动渲染日志，无静态卡片 -->
+        <p style="margin-top:24px;text-align:center;">后续持续优化，敬请期待！</p>
       </div>
-      <!-- 补上关闭按钮 -->
       <button class="modal-btn" id="closeUpdateBtn">关闭</button>
     </div>
   </div>
-  <!-- 主体页面内容 独立main容器 -->
   <main>
     <div class="container">
-    <!-- 首页 -->
-    <section id="home" class="page active">
-      <div class="hero">
-        <h1>欢迎来到我的个人网站</h1>
-        <p class="hero-desc">让你用一个网站来了解我</p>
-        <p class="hero-tag"><a href="javascript:void(0)" id="openUpdateNotice">更新公告</a></p>
-      </div>
-      <div class="card-group">
-        <div class="card">
-          <h2>最新作品</h2>
-          <p>发布一些创作内容，希望我的创作内容能给你带来不一样的体验。</p>
-          <a href="#" class="card-link" data-page="portfolio">查看作品 →</a>
+      <!-- 首页 -->
+      <section id="home" class="page active">
+        <div class="hero">
+          <h1>欢迎来到我的个人网站</h1>
+          <p class="hero-desc">用网站认识我</p>
+          <p class="hero-tag"><a href="javascript:void(0)" id="openUpdateNotice">更新公告</a></p>
         </div>
-        <div class="card">
-          <h2>近期分享</h2>
-          <p>记录日常生活分享，聊聊未来人生，让你更加了解我。</p>
-          <a href="#" class="card-link" data-page="blog">阅读文章 →</a>
-        </div>
-        <div class="card">
-          <h2>关于我的</h2>
-          <p>我的成长经历、擅长技能与个人理念，欢迎认识我。</p>
-          <a href="#" class="card-link" data-page="about">了解更多 →</a>
-        </div>
-      </div>
-    </section>
-    <!-- 关于我 -->
-    <section id="about" class="page">
-      <h2 class="section-title">关于我</h2>
-      <div class="timeline-item">
-        <h3>我是谁</h3>
-        <p>大家好，我是小威。我很喜欢研究计算机相关的东西，不管是做页面还是各类开发工具工具都很感兴趣。我本身是个细心的人，不管做什么事都会留意小细节，不喜欢马虎应付。和别人长期相处的时候我很好沟通，也非常懂得配合大家一起沟通学习。碰到没接触过的新事情，我不会退缩，愿意自己花时间摸索学习，很快就能跟上节奏。我也有很多不足，之后希望各位多多提点我，平时也能一起聊天、互相帮忙。最后感谢大家愿意认识我，之后我也期待和大家一起相处的时光！</p>
-      </div>
-      <h3 class="section-title" style="font-size:22px;margin-top:40px;">我的经历</h3>
-      <div class="timeline-item">
-        <h4>2006 - 2019 | 时代的变化</h4>
-        <p>从幼儿园到初中，这12年时间，我经历了从一个诺基亚的时代到一个智能手机的时代。
-          儿时家里的直板诺基亚是稀罕物件，绿屏上的贪吃蛇是我唯一的电子乐趣，大人们只用来打电话、发短信，拍照都算得上奢侈。等到上小学，触屏智能机慢慢走进生活，屏幕越来越大，能看动画、听歌曲。步入初中后，智能手机彻底普及，网课、线上聊天、随手拍照记录日常都成了常态。一部手机的变迁，藏着我的成长轨迹，也见证了十几年飞速发展的科技，新旧交替间，满是独属于我们的童年回忆。</p>
-      </div>
-      <div class="timeline-item">
-        <h4>2019 - 2021 | 特殊的初中</h4>
-        <p>2019到2021年是我的初中时光，这段日子刚好撞上新冠疫情，过得和预想完全不一样。刚上初一没多久，疫情突然来了，学校没法上课，我们全都在家用手机看着新冠肺炎的新闻。后来返校上学，口罩成了随身必备，进出校门都要测温，课间也不能随意扎堆打闹。这三年少了很多校园热闹的活动，却也让我学会自觉安排学习。短短三年，从一开始慌张适应网课，到习惯戴着口罩上课，这段特殊的初中经历，是我独一无二的青春记忆。</p>
-      </div>
-      <div class="timeline-item">
-        <h4>后续的想法还在开发中……</h4>
-        <p></p>
-      </div>
-      <h3 class="section-title" style="font-size:22px;margin-top:40px;">我的标签</h3>
-      <div class="skill-list">
-        <span class="skill-tag">网页制作</span>
-        <span class="skill-tag">摄影</span>
-        <span class="skill-tag">音乐</span>
-        <span class="skill-tag">游戏</span>
-        <span class="skill-tag">furry</span>
-        <span class="skill-tag">赛车</span>
-      </div>
-      <div class="form-box">
-        <h3>联系我</h3>
-        <form>
-          <div class="form-item">
-            <label>姓名</label>
-            <input type="text" placeholder="请输入你的称呼">
+        <div class="card-group">
+          <div class="card">
+            <h2>最新作品</h2>
+            <p>各类创作内容分享。</p>
+            <a href="#" data-page="portfolio" class="card-link">查看作品 →</a>
           </div>
-          <div class="form-item">
-            <label>邮箱</label>
-            <input type="email" placeholder="填写你的邮件地址">
+          <div class="card">
+            <h2>日常分享</h2>
+            <p>生活与技术随笔记录。</p>
+            <a href="#" data-page="blog" class="card-link">阅读文章 →</a>
           </div>
-          <div class="form-item">
-            <label>留言内容</label>
-            <textarea rows="4" placeholder="写下你的想法需求"></textarea>
-          </div>
-          <button class="submit-btn">邮件功能未开放</button>
-        </form>
-      </div>
-    </section>
-    <!-- 作品展示 -->
-    <section id="portfolio" class="page">
-      <h2 class="section-title">作品展示</h2>
-      <div class="portfolio-grid">
-        <div class="work-card">
-          <img class="work-img" src="images/010.jpeg" alt="个人官网设计">
-          <div class="work-info">
-            <div class="work-name"><a href="javascript:void(0)" class="dev-link">个人视频分享</a></div>
-            <div class="work-tag">各平台账号信息</div>
+          <div class="card">
+            <h2>关于我</h2>
+            <p>个人简介、技能与经历。</p>
+            <a href="#" data-page="about" class="card-link">了解更多 →</a>
           </div>
         </div>
-        <div class="work-card">
-          <img class="work-img" src="images/020.jpeg" alt="品牌视觉">
-          <div class="work-info">
-            <div class="work-name"><a href="javascript:void(0)" class="dev-link">个人摄影分享</a></div>
-            <div class="work-tag">分享摄影内容</div>
+      </section>
+      <!-- 关于我 -->
+      <section id="about" class="page">
+        <h2 class="section-title">关于我</h2>
+        <div class="timeline-item">
+          <h3>我是谁</h3>
+          <p>大家好，我是小威，热爱网页开发、摄影与各类数码内容，做事细心有耐心，乐于学习新事物，欢迎交流。</p>
+        </div>
+        <h3 class="section-title" style="font-size:22px;margin-top:40px;">成长经历</h3>
+        <div class="timeline-item">
+          <h4>2006 - 2019 | 童年到初中</h4>
+          <p>从功能机到智能手机普及，见证数码时代快速变化。</p>
+        </div>
+        <div class="timeline-item">
+          <h4>2019 - 2021 | 特殊初中时光</h4>
+          <p>疫情时期线上学习，养成自主规划习惯。</p>
+        </div>
+        <div class="timeline-item">
+          <h4>更多内容持续更新中……</h4>
+        </div>
+        <h3 class="section-title" style="font-size:22px;">个人标签</h3>
+        <div class="skill-list">
+          <span class="skill-tag">网页制作</span>
+          <span class="skill-tag">摄影</span>
+          <span class="skill-tag">音乐</span>
+          <span class="skill-tag">游戏</span>
+          <span class="skill-tag">furry</span>
+          <span class="skill-tag">赛车</span>
+        </div>
+        <div class="form-box">
+          <h3>联系我</h3>
+          <form>
+            <div class="form-item">
+              <label>称呼</label>
+              <input type="text" placeholder="你的昵称">
+            </div>
+            <div class="form-item">
+              <label>邮箱</label>
+              <input type="email" placeholder="你的邮箱">
+            </div>
+            <div class="form-item">
+              <label>留言</label>
+              <textarea rows="4" placeholder="写下你的想法"></textarea>
+            </div>
+            <button class="submit-btn">邮件功能暂未开放</button>
+          </form>
+        </div>
+      </section>
+      <!-- 作品展示 -->
+      <section id="portfolio" class="page">
+        <h2 class="section-title">作品展示</h2>
+        <div class="portfolio-grid">
+          <div class="work-card">
+            <img class="work-img" src="images/010.jpeg" alt="视频分享">
+            <div class="work-info">
+              <div class="work-name"><a href="javascript:void(0)" class="dev-link">个人视频分享</a></div>
+              <div class="work-tag">各平台账号</div>
+            </div>
+          </div>
+          <div class="work-card">
+            <img class="work-img" src="images/020.jpeg" alt="摄影">
+            <div class="work-info">
+              <div class="work-name"><a href="javascript:void(0)" class="dev-link">个人摄影分享</a></div>
+              <div class="work-tag">摄影作品</div>
+            </div>
+          </div>
+          <div class="work-card">
+            <img class="work-img" src="images/040.png" alt="开发中">
+            <div class="work-info">
+              <div class="work-name"><a href="javascript:void(0)" class="dev-link">功能开发中</a></div>
+              <div class="work-tag">待上线</div>
+            </div>
+          </div>
+          <div class="work-card">
+            <img class="work-img" src="images/040.png" alt="开发中">
+            <div class="work-info">
+              <div class="work-name"><a href="javascript:void(0)" class="dev-link">功能开发中</a></div>
+              <div class="work-tag">待上线</div>
+            </div>
           </div>
         </div>
-        <div class="work-card">
-          <img class="work-img" src="images/040.png" alt="后台UI">
-          <div class="work-info">
-            <div class="work-name"><a href="javascript:void(0)" class="dev-link">功能正在开发中</a></div>
-            <div class="work-tag">正在开发中</div>
+      </section>
+      <!-- 日常分享 -->
+      <section id="blog" class="page">
+        <h2 class="section-title">日常分享</h2>
+        <div class="blog-item">
+          <h3 class="blog-title"><a href="#">低饱和蓝色网页配色技巧</a></h3>
+          <div class="blog-meta">2026-07-27 | 设计思考</div>
+          <p>浅蓝系配色柔和护眼，适合个人极简网站。</p>
+        </div>
+        <div class="blog-item">
+          <h3 class="blog-title"><a href="#">网页留白设计指南</a></h3>
+          <div class="blog-meta">2026-07-27 | 排版技巧</div>
+          <p>卡片、行高、边距规范，提升页面高级感。</p>
+        </div>
+        <div class="blog-item">
+          <h3 class="blog-title"><a href="#">无衬线字体对比</a></h3>
+          <div class="blog-meta">2026-07-26 | 前端</div>
+          <p>Inter、微软雅黑、苹方阅读体验对比。</p>
+        </div>
+      </section>
+      <!-- 后台管理页面 -->
+      <section id="admin" class="page">
+        <h2 class="section-title">后台管理</h2>
+        <div class="admin-layout">
+          <!-- 左侧固定侧边栏 -->
+          <div class="admin-sidebar">
+            <div class="admin-sidebar-title">管理菜单</div>
+            <button class="admin-sidebar-item active" data-admin-panel="dashboard">仪表盘</button>
+            <button class="admin-sidebar-item" data-admin-panel="users">用户管理</button>
+            <button class="admin-sidebar-item" data-admin-panel="content">内容管理</button>
+            <button class="admin-sidebar-item" data-admin-panel="settings">系统设置</button>
+            <button class="admin-sidebar-item" data-admin-panel="logs">操作日志</button>
+          </div>
+          <!-- 右侧主内容 -->
+          <div class="admin-main">
+            <!-- 仪表盘 -->
+            <div class="admin-panel active" id="adminDashboard">
+              <h3 class="admin-panel-title">仪表盘</h3>
+              <div class="stat-cards">
+                <div class="stat-card">
+                  <div class="stat-card-value" id="statTotalUsers">0</div>
+                  <div class="stat-card-label">注册用户总数</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-card-value" id="statAdminCount">0</div>
+                  <div class="stat-card-label">管理员数量</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-card-value" id="statBlogCount">0</div>
+                  <div class="stat-card-label">博客文章</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-card-value" id="statPortfolioCount">0</div>
+                  <div class="stat-card-label">作品展示</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-card-value" id="statChangelogCount">0</div>
+                  <div class="stat-card-label">更新日志条数</div>
+                </div>
+              </div>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead>
+                    <tr><th>用户名</th><th>角色</th><th>注册时间</th></tr>
+                  </thead>
+                  <tbody id="dashboardRecentUsers"></tbody>
+                </table>
+              </div>
+            </div>
+            <!-- 用户管理 -->
+            <div class="admin-panel" id="adminUsers">
+              <h3 class="admin-panel-title">用户管理</h3>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead>
+                    <tr><th>用户名</th><th>角色</th><th>操作</th></tr>
+                  </thead>
+                  <tbody id="adminUsersTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+            <!-- 内容管理 -->
+            <div class="admin-panel" id="adminContent">
+              <h3 class="admin-panel-title">内容管理</h3>
+              <div class="admin-content-tabs">
+                <button class="admin-content-tab active" data-content-type="blog">博客文章</button>
+                <button class="admin-content-tab" data-content-type="portfolio">作品展示</button>
+                <button class="admin-content-tab" data-content-type="changelog">更新日志</button>
+              </div>
+              <!-- 博客面板 -->
+              <div id="adminBlogPanel">
+                <button class="admin-btn primary" id="addBlogBtn" style="margin-bottom:16px;">+ 新增文章</button>
+                <div class="admin-table-wrap">
+                  <table class="admin-table">
+                    <thead>
+                      <tr><th>标题</th><th>日期</th><th>分类</th><th>操作</th></tr>
+                    </thead>
+                    <tbody id="adminBlogTableBody"></tbody>
+                  </table>
+                </div>
+                <div class="admin-empty" id="adminBlogEmpty" style="display:none;">暂无博客</div>
+              </div>
+              <!-- 作品面板 -->
+              <div id="adminPortfolioPanel" style="display:none;">
+                <button class="admin-btn primary" id="addPortfolioBtn" style="margin-bottom:16px;">+ 新增作品</button>
+                <div class="admin-table-wrap">
+                  <table class="admin-table">
+                    <thead>
+                      <tr><th>名称</th><th>标签</th><th>图片</th><th>操作</th></tr>
+                    </thead>
+                    <tbody id="adminPortfolioTableBody"></tbody>
+                  </table>
+                </div>
+                <div class="admin-empty" id="adminPortfolioEmpty" style="display:none;">暂无作品</div>
+              </div>
+              <!-- 更新日志面板 -->
+              <div id="adminChangelogPanel" style="display:none;">
+                <button class="admin-btn primary" id="addChangelogBtn" style="margin-bottom:16px;">+ 新增更新日志</button>
+                <div class="admin-table-wrap">
+                  <table class="admin-table">
+                    <thead>
+                      <tr><th>日志日期</th><th>标题</th><th>内容预览</th><th>操作</th></tr>
+                    </thead>
+                    <tbody id="adminChangelogTableBody"></tbody>
+                  </table>
+                </div>
+                <div class="admin-empty" id="adminChangelogEmpty" style="display:none;">暂无更新日志</div>
+              </div>
+            </div>
+            <!-- 系统设置 -->
+            <div class="admin-panel" id="adminSettings">
+              <h3 class="admin-panel-title">系统设置</h3>
+              <div class="admin-form">
+                <h4 style="margin-bottom:16px;">修改管理员密码</h4>
+                <div class="form-item">
+                  <label>当前密码</label>
+                  <input type="password" id="settingsOldPwd">
+                </div>
+                <div class="form-item">
+                  <label>新密码</label>
+                  <input type="password" id="settingsNewPwd">
+                </div>
+                <div class="form-item">
+                  <label>确认新密码</label>
+                  <input type="password" id="settingsConfirmPwd">
+                </div>
+                <button class="admin-btn primary" id="settingsSavePwd">保存修改</button>
+              </div>
+              <div class="admin-form" style="margin-top:24px;">
+                <h4>数据管理</h4>
+                <p style="opacity:0.7;margin-bottom:16px;">清空非管理员用户（不可恢复）</p>
+                <button class="admin-btn-sm danger" id="clearAllUsersBtn">清空所有用户</button>
+                <button class="admin-btn-sm warn" id="clearLogsBtn">清空操作日志</button>
+              </div>
+            </div>
+            <!-- 操作日志 -->
+            <div class="admin-panel" id="adminLogs">
+              <h3 class="admin-panel-title">操作日志</h3>
+              <div class="log-list" id="adminLogList">
+                <div class="admin-empty">暂无操作记录</div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="work-card">
-          <img class="work-img" src="images/040.png" alt="后台UI">
-          <div class="work-info">
-            <div class="work-name"><a href="javascript:void(0)" class="dev-link">功能正在开发中</a></div>
-            <div class="work-tag">正在开发中</div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- 日常分享 -->
-    <section id="blog" class="page">
-      <h2 class="section-title">日常分享</h2>
-      <div class="blog-item">
-        <h3 class="blog-title"><a href="#">极简网页配色思路：低饱和蓝色系运用技巧</a></h3>
-        <div class="blog-meta">2026-07-20 | 设计思考</div>
-        <p>讲解#E6F7FF与#89C2FF搭配逻辑，如何用浅蓝打造宁静不刺眼的网页氛围，避开高饱和刺眼配色误区。</p>
-      </div>
-      <div class="blog-item">
-        <h3 class="blog-title"><a href="#">网页留白设计完整指南</a></h3>
-        <div class="blog-meta">2026-07-12 | 排版技巧</div>
-        <p>卡片间距、行高、页面边距标准数值参考，极简页面如何靠留白提升高级感。</p>
-      </div>
-      <div class="blog-item">
-        <h3 class="blog-title"><a href="#">适合个人网站的无衬线字体对比</a></h3>
-        <div class="blog-meta">2026-07-05 | 前端</div>
-        <p>苹方、微软雅黑、Inter、Roboto四款字体屏幕显示效果对比，网页阅读最优选择。</p>
-      </div>
-    
-    </section>
+      </section>
     </div>
   </main>
   <!-- 底部 -->
   <footer>
-    <div class="container"> © 2026 <a href="https://github.com/lowewa730657707/grwz.git">GitHub</a> www.xiaoweicn.mom 版权归作者所有<br> 
-      <p class="shengmin">声明：网站为免费开源项目，不会对用户数据进行任何处理或存储，大家可以放心预览内容。</p>
+    <div class="container">
+      © 2026 <a href="https://github.com/lowewa730657707">GitHub</a> www.xiaoweicn.mom 版权所有
+      <br><p class="shengmin">网站开源，不收集用户任何信息，放心浏览</p>
     </div>
   </footer>
-  <!-- 开发弹窗 放到body最底部，层级最高 -->
-  <div class="dev-modal-mask" id="devModal">
-    <div class="dev-modal-box">
-      <p class="dev-text">该板块正在全力开发中，敬请期待！</p>
-      <button class="dev-close-btn">关闭</button>
+  <!-- 各类弹窗 -->
+  <!-- 博客编辑弹窗 -->
+  <div class="modal-mask" id="blogEditModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="blogEditCloseBtn">&times;</button>
+      <h3 class="modal-title" id="blogEditTitle">新增文章</h3>
+      <div class="modal-content">
+        <div class="auth-form">
+          <div class="form-item">
+            <label>文章标题</label>
+            <input type="text" id="blogEditName">
+          </div>
+          <div class="form-item">
+            <label>摘要</label>
+            <textarea id="blogEditSummary" rows="3"></textarea>
+          </div>
+          <div class="form-item">
+            <label>分类</label>
+            <input type="text" id="blogEditTag">
+          </div>
+          <div class="form-item">
+            <label>日期</label>
+            <input type="date" id="blogEditDate">
+          </div>
+        </div>
+      </div>
+      <button class="modal-btn" id="blogEditSaveBtn">保存</button>
     </div>
   </div>
+  <!-- 作品编辑弹窗 -->
+  <div class="modal-mask" id="portfolioEditModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="portfolioEditCloseBtn">&times;</button>
+      <h3 class="modal-title" id="portfolioEditTitle">新增作品</h3>
+      <div class="modal-content">
+        <div class="auth-form">
+          <div class="form-item">
+            <label>作品名称</label>
+            <input type="text" id="portfolioEditName">
+          </div>
+          <div class="form-item">
+            <label>标签</label>
+            <input type="text" id="portfolioEditTag">
+          </div>
+          <div class="form-item">
+            <label>图片路径</label>
+            <input type="text" id="portfolioEditImg">
+          </div>
+        </div>
+      </div>
+      <button class="modal-btn" id="portfolioEditSaveBtn">保存</button>
+    </div>
+  </div>
+  <!-- 更新日志编辑弹窗 -->
+  <div class="modal-mask" id="changelogEditModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="changelogEditCloseBtn">&times;</button>
+      <h3 class="modal-title" id="changelogEditModalTitle">新增更新日志</h3>
+      <div class="modal-content">
+        <div class="auth-form">
+          <div class="form-item">
+            <label>日志日期</label>
+            <input type="date" id="changelogEditDate">
+          </div>
+          <div class="form-item">
+            <label>更新标题</label>
+            <input type="text" id="changelogEditTitle">
+          </div>
+          <div class="form-item">
+            <label>更新内容（换行分隔多条）</label>
+            <textarea id="changelogEditContent" rows="6"></textarea>
+          </div>
+        </div>
+      </div>
+      <button class="modal-btn" id="changelogEditSaveBtn">保存</button>
+    </div>
+  </div>
+  <!-- 注册弹窗 -->
+  <div class="modal-mask" id="registerModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="registerCloseBtn">&times;</button>
+      <h3 class="modal-title">快速注册</h3>
+      <div class="modal-content">
+        <div class="auth-form">
+          <div class="form-item">
+            <label>用户名</label>
+            <input type="text" id="regUsername">
+          </div>
+          <div class="form-item">
+            <label>密码</label>
+            <input type="password" id="regPassword">
+          </div>
+          <div class="form-item">
+            <label>确认密码</label>
+            <input type="password" id="regConfirmPassword">
+          </div>
+          <p class="auth-switch">已有账号？<a id="goLoginFromReg" class="tclj">去登录</a></p>
+        </div>
+      </div>
+      <button class="modal-btn" id="registerSubmitBtn">注册</button>
+    </div>
+  </div>
+  <!-- 登录弹窗 -->
+  <div class="modal-mask" id="loginModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="loginCloseBtn">&times;</button>
+      <h3 class="modal-title">用户登录</h3>
+      <div class="modal-content">
+        <div class="auth-form">
+          <p class="auth-switch" style="text-align:center;margin-bottom:18px;">
+            还没有账号？<a href="javascript:void(0)" id="goRegisterFromLogin" class="tclj">快速注册</a>
+          </p>
+          <div class="form-item">
+            <label>用户名</label>
+            <input type="text" id="loginUsername" placeholder="请输入用户名">
+          </div>
+          <div class="form-item">
+            <label>密码</label>
+            <input type="password" id="loginPassword" placeholder="请输入密码">
+          </div>
+        </div>
+      </div>
+      <button class="modal-btn" id="loginSubmitBtn">登录</button>
+    </div>
+  </div>
+
+  <!-- 成功提示弹窗 -->
+  <div class="dev-modal-mask" id="successTipModal">
+    <div class="dev-modal-box">
+      <p class="dev-text" id="successTipText">操作成功</p>
+      <button class="dev-close-btn" id="successTipCloseBtn">好的</button>
+    </div>
+  </div>
+
+  <!-- 个人中心弹窗 -->
+  <div class="modal-mask" id="profileModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="profileCloseBtn" aria-label="关闭">&times;</button>
+      <h3 class="modal-title">个人中心</h3>
+      <div class="modal-content">
+        <div class="profile-info">
+          <div class="profile-avatar">
+            <img id="profileAvatarImg" src="images/31.jpg" alt="用户头像">
+          </div>
+          <div class="profile-details">
+            <p class="profile-row"><span class="profile-label">用户名：</span><span id="profileUsername"></span></p>
+            <p class="profile-row"><span class="profile-label">用户ID：</span><span id="profileUserId"></span></p>
+          </div>
+          <button class="modal-btn profile-logout-btn" id="profileLogoutBtn">退出登录</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 退出登录确认弹窗 -->
+  <div class="dev-modal-mask" id="logoutConfirmModal">
+    <div class="dev-modal-box">
+      <p class="dev-text">真的要退出登录吗？</p>
+      <div class="logout-btn-group">
+        <button class="dev-close-btn logout-confirm-btn" id="logoutConfirmBtn">确认</button>
+        <button class="dev-close-btn logout-cancel-btn" id="logoutCancelBtn">取消</button>
+      </div>
+    </div>
+  </div>
+  <!-- 更新日志编辑弹窗 -->
+  <div class="modal-mask" id="changelogEditModal">
+    <div class="modal-box">
+      <button class="modal-close-btn" id="changelogEditCloseBtn" aria-label="关闭">&times;</button>
+      <h3 class="modal-title" id="changelogEditTitle">新增更新日志</h3>
+      <div class="modal-content">
+        <div class="auth-form">
+          <div class="form-item">
+            <label>日志日期</label>
+            <input type="date" id="changelogEditDate">
+          </div>
+          <div class="form-item">
+            <label>更新标题（如2026-07-30更新日志）</label>
+            <input type="text" id="changelogEditTitle" placeholder="填写日志头部标题">
+          </div>
+          <div class="form-item">
+            <label>更新内容（换行自动分割多条更新）</label>
+            <textarea id="changelogEditContent" rows="6" placeholder="每条更新换行输入"></textarea>
+          </div>
+        </div>
+      </div>
+      <button class="modal-btn" id="changelogEditSaveBtn">保存</button>
+    </div>
+  </div>
+  
   <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        // 切换网站图标
-        function setFavicon(isDarkMode) {
-            let iconLink = document.querySelector("link[rel~='icon']");
-            if (!iconLink) {
-                icon = document.createElement('link');
-                icon.rel = 'icon';
-                icon.type = 'image/png';
-                document.head.appendChild(icon);
+    document.addEventListener('DOMContentLoaded', function () {
+      // 弹窗打开函数提前定义，修复覆盖时报错
+      function openModal(el) {
+          const box = el.querySelector('.modal-box') || el.querySelector('.dev-modal-box');
+          el.classList.add('open', 'show');
+          el.style.pointerEvents = 'auto';
+          document.body.classList.add('no-scroll');
+          setTimeout(() => {
+              el.style.opacity = '1';
+              if (box) {
+                  box.style.opacity = '1';
+                  box.style.transform = el.classList.contains('dev-modal-mask') ? 'scale(1)' : 'scale(1)';
+              }
+          }, 16);
+      }
+
+      // 关闭弹窗函数，新增重置pointer-events
+      function closeModal(el) {
+          const box = el.querySelector('.modal-box') || el.querySelector('.dev-modal-box');
+          el.style.opacity = '0';
+          if (box) {
+              box.style.opacity = '0';
+              box.style.transform = el.classList.contains('dev-modal-mask') ? 'scale(0.9)' : 'scale(0.85)';
+          }
+          setTimeout(() => {
+              el.classList.remove('open', 'show');
+              el.style.opacity = '';
+              el.style.pointerEvents = 'none';
+              if (box) {
+                  box.style.opacity = '';
+                  box.style.transform = '';
+              }
+              document.body.classList.remove('no-scroll');
+          }, 200);
+      }
+
+      // 修复更新日志卡片点击绑定
+      function bindLogCardClick() {
+          document.querySelectorAll('.log-card-header').forEach(header => {
+              header.onclick = null;
+              header.addEventListener('click', function () {
+                  this.parentElement.classList.toggle('active');
+              })
+          })
+      }
+      // 劫持openModal，弹窗打开后重新绑定日志卡片（修复函数名错误 bindLogCardClick）
+      const oldOpenModal = openModal;
+      openModal = function (el) {
+          oldOpenModal(el);
+          setTimeout(bindLogCardClick, 50);
+      }
+      bindLogCardClick();
+
+      // 关闭所有下拉菜单
+      function closeAllDropdown() {
+          const allDrop = document.querySelectorAll('.dropdown-wrap');
+          allDrop.forEach(item => item.classList.remove('active'));
+      }
+
+      // 导航滚动收缩
+      const header = document.getElementById('header');
+      window.addEventListener('scroll', () => {
+          if (window.scrollY > 50) header.classList.add('shrink');
+          else header.classList.remove('shrink');
+      })
+
+      // 页面切换逻辑
+      const navLinks = document.querySelectorAll('[data-page]');
+      const pages = document.querySelectorAll('.page');
+      navLinks.forEach(link => {
+          link.addEventListener('click', e => {
+              e.preventDefault();
+              const target = link.getAttribute('data-page');
+              // 后台权限拦截，补全userInfo判空
+              if (target === "admin") {
+                  const currentUser = getCurrentUser();
+                  if (!currentUser) {
+                      showSuccessTip("请先登录管理员账号");
+                      return;
+                  }
+                  const accounts = getAccounts();
+                  const userInfo = accounts.find(u => u.username === currentUser);
+                  if (!userInfo || userInfo.isAdmin !== true) {
+                      showSuccessTip("权限不足，仅管理员可进入后台");
+                      return;
+                  }
+              }
+              pages.forEach(p => p.classList.remove('active'));
+              document.getElementById(target).classList.add('active');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              closeAllDropdown();
+          })
+      })
+
+      // 网站声明弹窗
+      const noticeModal = document.getElementById('noticeModal');
+      const noticeBox = noticeModal.querySelector('.modal-box');
+      const confirmBtn = document.getElementById('confirmBtn');
+      if (!sessionStorage.getItem('readNotice')) {
+          openModal(noticeModal);
+      }
+      confirmBtn.addEventListener('click', () => {
+          closeModal(noticeModal);
+          sessionStorage.setItem('readNotice', 'true');
+      })
+      noticeModal.addEventListener('click', e => {
+          if (e.target === noticeModal) closeModal(noticeModal);
+      })
+
+      // 更新公告弹窗
+      const updateModal = document.getElementById('updateNoticeModal');
+      const updateBox = updateModal.querySelector('.modal-box');
+      const openBtn = document.getElementById('openUpdateNotice');
+      const closeUpdateBtn = document.getElementById('closeUpdateBtn');
+      openBtn.addEventListener('click', () => openModal(updateModal));
+      closeUpdateBtn.addEventListener('click', () => closeModal(updateModal));
+      updateModal.addEventListener('click', e => {
+          if (e.target === updateModal) closeModal(updateModal);
+      })
+
+      // 移动端下拉菜单，阻止冒泡防止点击立刻关闭
+      const dropWraps = document.querySelectorAll('.dropdown-wrap');
+      dropWraps.forEach(item => {
+          const a = item.querySelector('a');
+          a.addEventListener('click', e => {
+              if (window.innerWidth <= 768) {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  dropWraps.forEach(box => box !== item && box.classList.remove('active'));
+                  item.classList.toggle('active');
+              }
+          })
+      })
+
+      // 空白区域点击关闭下拉
+      document.addEventListener('click', e => {
+          if (!e.target.closest('.dropdown-wrap')) {
+              closeAllDropdown();
+          }
+      })
+
+      // 主题切换
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const themeItems = document.querySelectorAll('.theme-item');
+      function initTheme() {
+          const saveTheme = localStorage.getItem('siteTheme') || 'auto';
+          setTheme(saveTheme);
+      }
+      function setTheme(mode) {
+          localStorage.setItem('siteTheme', mode);
+          let isDark = false;
+          if (mode === 'dark') {
+              document.documentElement.classList.add('dark');
+              isDark = true;
+          } else if (mode === 'light') {
+              document.documentElement.classList.remove('dark');
+              isDark = false;
+          } else {
+              isDark = mediaQuery.matches;
+              if (isDark) document.documentElement.classList.add('dark');
+              else document.documentElement.classList.remove('dark');
+          }
+          const logoImg = document.getElementById('siteLogoImg');
+          logoImg.src = isDark ? "images/favicon-dark.png" : "images/favicon-light.png";
+      }
+      mediaQuery.addEventListener('change', () => {
+          if (localStorage.getItem('siteTheme') === 'auto') setTheme('auto');
+      })
+      themeItems.forEach(item => {
+          item.addEventListener('click', (e) => {
+              e.preventDefault();
+              setTheme(item.dataset.theme);
+              closeAllDropdown();
+          })
+      })
+      initTheme();
+
+      // ========= 用户账号本地存储 =========
+      function getAccounts() {
+          try { return JSON.parse(localStorage.getItem('siteAccounts') || '[]'); } catch { return []; }
+      }
+      function saveAccounts(arr) {
+          localStorage.setItem('siteAccounts', JSON.stringify(arr));
+      }
+      function getCurrentUser() {
+          return localStorage.getItem('siteCurrentUser') || '';
+      }
+      function setCurrentUser(name) {
+          if (name) localStorage.setItem('siteCurrentUser', name);
+          else localStorage.removeItem('siteCurrentUser');
+      }
+      function isLoginAdmin() {
+          const u = getCurrentUser();
+          if (!u) return false;
+          const acc = getAccounts().find(x => x.username === u);
+          return acc?.isAdmin === true;
+      }
+      function deleteUser(username) {
+          if (username === "xiaowei") {
+              showSuccessTip("无法删除超级管理员账号");
+              return;
+          }
+          const list = getAccounts().filter(x => x.username !== username);
+          saveAccounts(list);
+          showSuccessTip("用户删除成功");
+      }
+      // 初始化超级管理员
+      function initAdminAccount() {
+          const list = getAccounts();
+          if (!list.some(x => x.isAdmin)) {
+              list.push({ username: "xiaowei", password: "lowewa@163", isAdmin: true });
+              saveAccounts(list);
+          }
+      }
+      initAdminAccount();
+
+      // 导航登录状态刷新
+      const navRegisterItem = document.getElementById('navRegisterItem');
+      const navLoginItem = document.getElementById('navLoginItem');
+      const navProfileItem = document.getElementById('navProfileItem');
+      const navLogoutItem = document.getElementById('navLogoutItem');
+      function updateNavByLoginState() {
+          const current = getCurrentUser();
+          const adminNav = document.getElementById("adminNavItem");
+          if (current) {
+              navRegisterItem.style.display = 'none';
+              navLoginItem.style.display = 'none';
+              navProfileItem.style.display = 'block';
+              navLogoutItem.style.display = 'block';
+              const user = getAccounts().find(x => x.username === current);
+              adminNav.style.display = (user && user.isAdmin === true) ? 'block' : 'none';
+          } else {
+              navRegisterItem.style.display = 'block';
+              navLoginItem.style.display = 'block';
+              navProfileItem.style.display = 'none';
+              navLogoutItem.style.display = 'none';
+              adminNav.style.display = 'none';
+          }
+      }
+      updateNavByLoginState();
+
+      // 成功提示弹窗
+      const successTipModal = document.getElementById('successTipModal');
+      const successTipText = document.getElementById('successTipText');
+      const successTipCloseBtn = document.getElementById('successTipCloseBtn');
+      function showSuccessTip(msg) {
+          successTipText.textContent = msg;
+          openModal(successTipModal);
+      }
+      successTipCloseBtn.addEventListener('click', () => closeModal(successTipModal));
+      successTipModal.addEventListener('click', e => {
+          if (e.target === successTipModal) closeModal(successTipModal);
+      });
+
+      // 注册弹窗
+      const registerModal = document.getElementById('registerModal');
+      const regUsername = document.getElementById('regUsername');
+      const regPassword = document.getElementById('regPassword');
+      const regConfirmPassword = document.getElementById('regConfirmPassword');
+      const registerSubmitBtn = document.getElementById('registerSubmitBtn');
+      const goLoginFromReg = document.getElementById('goLoginFromReg');
+      const openRegisterLink = document.getElementById('openRegisterLink');
+      const registerCloseBtn = document.getElementById('registerCloseBtn');
+      registerCloseBtn.addEventListener('click', () => closeModal(registerModal));
+      function openRegisterModal() {
+          regUsername.value = '';
+          regPassword.value = '';
+          regConfirmPassword.value = '';
+          openModal(registerModal);
+      }
+      registerModal.addEventListener('click', e => {
+          if (e.target === registerModal) closeModal(registerModal);
+      });
+      openRegisterLink.addEventListener('click', e => {
+          e.preventDefault();
+          closeAllDropdown();
+          openRegisterModal();
+      });
+      registerSubmitBtn.addEventListener('click', () => {
+          const u = regUsername.value.trim();
+          const p = regPassword.value;
+          const cp = regConfirmPassword.value;
+          if (!u) return showSuccessTip('请输入用户名');
+          if (u.length < 2) return showSuccessTip('用户名至少2个字符');
+          if (!p) return showSuccessTip('请输入密码');
+          if (p.length < 4) return showSuccessTip('密码至少4位');
+          if (p !== cp) return showSuccessTip('两次密码不一致');
+          if (getAccounts().some(x => x.username === u)) return showSuccessTip('用户名已存在');
+          const arr = getAccounts();
+          arr.push({ username: u, password: p, isAdmin: false });
+          saveAccounts(arr);
+          setCurrentUser(u);
+          updateNavByLoginState();
+          closeModal(registerModal);
+          setTimeout(() => showSuccessTip('注册成功'), 220);
+      });
+
+      // 登录弹窗
+      const loginModal = document.getElementById('loginModal');
+      const loginUsername = document.getElementById('loginUsername');
+      const loginPassword = document.getElementById('loginPassword');
+      const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+      const goRegisterFromLogin = document.getElementById('goRegisterFromLogin');
+      const openLoginLink = document.getElementById('openLoginLink');
+      const loginCloseBtn = document.getElementById('loginCloseBtn');
+      loginCloseBtn.addEventListener('click', () => closeModal(loginModal));
+      function openLoginModalFn() {
+          loginUsername.value = '';
+          loginPassword.value = '';
+          openModal(loginModal);
+      }
+      loginModal.addEventListener('click', e => {
+          if (e.target === loginModal) closeModal(loginModal);
+      });
+      openLoginLink.addEventListener('click', e => {
+          e.preventDefault();
+          closeAllDropdown();
+          openLoginModalFn();
+      });
+      loginSubmitBtn.addEventListener('click', () => {
+          const u = loginUsername.value.trim();
+          const p = loginPassword.value;
+          if (!u) return showSuccessTip('请输入用户名');
+          if (!p) return showSuccessTip('请输入密码');
+          const user = getAccounts().find(x => x.username === u && x.password === p);
+          if (!user) return showSuccessTip('用户名或密码错误');
+          setCurrentUser(u);
+          updateNavByLoginState();
+          closeModal(loginModal);
+          setTimeout(() => showSuccessTip('欢迎回来'), 220);
+      });
+
+      // 登录注册互相跳转
+      goLoginFromReg.addEventListener('click', () => {
+          closeModal(registerModal);
+          setTimeout(openLoginModalFn, 220);
+      });
+      goRegisterFromLogin.addEventListener('click', () => {
+          closeModal(loginModal);
+          setTimeout(openRegisterModal, 220);
+      });
+
+      // 个人中心弹窗
+      const profileModal = document.getElementById('profileModal');
+      const profileUsername = document.getElementById('profileUsername');
+      const profileUserId = document.getElementById('profileUserId');
+      const openProfileLink = document.getElementById('openProfileLink');
+      const profileLogoutBtn = document.getElementById('profileLogoutBtn');
+      const profileCloseBtn = document.getElementById('profileCloseBtn');
+      function openProfileModal() {
+          const curr = getCurrentUser();
+          if (!curr) return showSuccessTip('请先登录');
+          let id = 'UID' + Math.abs(curr.split('').reduce((a, b) => ((a << 5) - a) + b.charCodeAt(0), 0)).toString().padStart(8, '0');
+          profileUsername.textContent = curr;
+          profileUserId.textContent = id;
+          openModal(profileModal);
+      }
+      profileModal.addEventListener('click', e => {
+          if (e.target === profileModal) closeModal(profileModal);
+      });
+      openProfileLink.addEventListener('click', e => {
+          e.preventDefault();
+          closeAllDropdown();
+          openProfileModal();
+      });
+      profileLogoutBtn.addEventListener('click', () => {
+          closeModal(profileModal);
+          setTimeout(openLogoutConfirmModal, 220);
+      });
+      profileCloseBtn.addEventListener('click', () => closeModal(profileModal));
+
+      // 退出确认弹窗
+      const logoutConfirmModal = document.getElementById('logoutConfirmModal');
+      const logoutConfirmBtn = document.getElementById('logoutConfirmBtn');
+      const logoutCancelBtn = document.getElementById('logoutCancelBtn');
+      const openLogoutLink = document.getElementById('openLogoutLink');
+      function openLogoutConfirmModal() { openModal(logoutConfirmModal); }
+      logoutConfirmModal.addEventListener('click', e => {
+          if (e.target === logoutConfirmModal) closeModal(logoutConfirmModal);
+      });
+      openLogoutLink.addEventListener('click', e => {
+          e.preventDefault();
+          closeAllDropdown();
+          openLogoutConfirmModal();
+      });
+      logoutConfirmBtn.addEventListener('click', () => {
+          setCurrentUser('');
+          updateNavByLoginState();
+          closeModal(logoutConfirmModal);
+          setTimeout(() => showSuccessTip('已退出登录'), 220);
+      });
+      logoutCancelBtn.addEventListener('click', () => closeModal(logoutConfirmModal));
+
+      // ==================== 后台管理闭包（修复全部语法BUG） ====================
+      (function () {
+          // 本地数据读写
+          function getBlogs() { try { return JSON.parse(localStorage.getItem('siteBlogs') || '[]'); } catch { return []; } }
+          function saveBlogs(arr) { localStorage.setItem('siteBlogs', JSON.stringify(arr)); }
+          function getPortfolios() { try { return JSON.parse(localStorage.getItem('sitePortfolios') || '[]'); } catch { return []; } }
+          function savePortfolios(arr) { localStorage.setItem('sitePortfolios', JSON.stringify(arr)); }
+          function getLogs() { try { return JSON.parse(localStorage.getItem('siteLogs') || '[]'); } catch { return []; } }
+          function saveLogs(arr) { localStorage.setItem('siteLogs', JSON.stringify(arr)); }
+          function addLog(text) {
+              const arr = getLogs();
+              const t = new Date();
+              const time = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')} ${String(t.getHours()).padStart(2, '0')}:${String(t.getMinutes()).padStart(2, '0')}:${String(t.getSeconds()).padStart(2, '0')}`;
+              arr.unshift({ action: text, time });
+              if (arr.length > 50) arr.length = 50;
+              saveLogs(arr);
+          }
+          // 更新日志存储
+          function getChangelogs() { try { return JSON.parse(localStorage.getItem('siteChangelogs') || '[]'); } catch { return []; } }
+          function saveChangelogs(arr) { localStorage.setItem('siteChangelogs', JSON.stringify(arr)); }
+          // 初始化默认更新日志
+          function initDefaultChangelogs() {
+              const arr = getChangelogs();
+              if (arr.length === 0) {
+                  saveChangelogs([
+                      { date: "2026-07-30", title: "2026-07-30更新日志", content: "1.新增【项目更新公告弹窗】，内置可展开日志\n2.修复弹窗变形bug\n3.优化弹窗高度限制\n4.日志展开逻辑优化\n5.新增后台功能入口\n6.修复各类小bug" },
+                      { date: "2026-07-29", title: "2026-07-29更新日志", content: "1.修复CSS、JS、标签嵌套报错\n2.弹窗问题持续修复\n3.修复关闭动画失效\n4.弹窗阻塞修复\n5.隐藏滚动条优化\n6.页面空白bug修复" },
+                      { date: "2026-07-28", title: "2026-07-28更新日志", content: "1.网站图标功能\n2.导航间距优化\n3.声明弹窗开发\n4.弹窗居中+滚动\n5.缩放动画\n6.仅首次弹出逻辑\n7.背景模糊修复" },
+                      { date: "2026-07-27", title: "2026-07-27更新日志", content: "1.网站上线部署\n2.基础页面布局\n3.移动端适配\n4.头部留白调整\n5.文字遮挡修复" },
+                      { date: "2026-07-03", title: "2026-07-3更新日志", content: "1.明暗主题切换\n2.深色导航文字修复\n3.按钮失效修复\n4.下拉样式优化\n5.登录注册功能\n6.登录bug修复\n7.后台雏形开发" }
+                  ]);
+              }
+          }
+          initDefaultChangelogs();
+          // 初始化默认博客
+          function initDefaultBlogs() {
+              const arr = getBlogs();
+              if (arr.length === 0) saveBlogs([
+                  { title: "极简网页配色思路：低饱和蓝色系运用技巧", summary: "讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案", tag: "设计思考", date: "2026-07-27" },
+                  { title: "网页留白设计完整指南", summary: "卡片、行高、页面边距规范，极简高级感技巧", tag: "排版技巧", date: "2026-07-27" },
+                  { title: "适合个人网站无衬线字体对比", summary: "苹方、微软雅黑、Inter阅读体验对比", tag: "前端", date: "2026-07-26" }
+              ]);
+          }
+          // 初始化默认作品
+          function initDefaultPortfolios() {
+              const arr = getPortfolios();
+              if (arr.length === 0) savePortfolios([
+                  { name: "个人视频分享", tag: "各平台账号信息", img: "images/010.jpeg" },
+                  { name: "个人摄影分享", tag: "摄影作品", img: "images/020.jpeg" },
+                  { name: "功能正在开发中", tag: "开发中", img: "images/040.png" },
+                  { name: "功能正在开发中", tag: "开发中", img: "images/040.png" }
+              ]);
+          }
+          initDefaultBlogs();
+          initDefaultPortfolios();
+
+          let currentEditBlogIndex = -1;
+          let currentEditPortfolioIndex = -1;
+          let currentEditChangelogIndex = -1;
+
+          // 侧边栏切换
+          const sidebarItems = document.querySelectorAll('.admin-sidebar-item');
+          const adminPanels = document.querySelectorAll('.admin-panel');
+          sidebarItems.forEach(item => {
+              item.addEventListener('click', () => {
+                  const panelName = item.dataset.adminPanel;
+                  sidebarItems.forEach(i => i.classList.remove('active'));
+                  item.classList.add('active');
+                  adminPanels.forEach(p => p.classList.remove('active'));
+                  const target = document.getElementById('admin' + panelName.charAt(0).toUpperCase() + panelName.slice(1));
+                  if (target) target.classList.add('active');
+                  if (panelName === 'dashboard') refreshDashboard();
+                  if (panelName === 'users') refreshUserTable();
+                  if (panelName === 'content') refreshContentTables();
+                  if (panelName === 'logs') refreshLogs();
+              });
+          });
+
+          // 内容标签切换
+          const contentTabs = document.querySelectorAll('.admin-content-tab');
+          contentTabs.forEach(tab => {
+              tab.addEventListener('click', () => {
+                  const type = tab.dataset.contentType;
+                  contentTabs.forEach(t => t.classList.remove('active'));
+                  tab.classList.add('active');
+                  document.getElementById('adminBlogPanel').style.display = type === 'blog' ? 'block' : 'none';
+                  document.getElementById('adminPortfolioPanel').style.display = type === 'portfolio' ? 'block' : 'none';
+                  document.getElementById('adminChangelogPanel').style.display = type === 'changelog' ? 'block' : 'none';
+                  if (type === 'blog') refreshBlogTable();
+                  else if (type === 'portfolio') refreshPortfolioTable();
+                  else refreshChangelogTable();
+              });
+          });
+
+          // 仪表盘
+          function refreshDashboard() {
+              const users = getAccounts();
+              const blogs = getBlogs();
+              const ports = getPortfolios();
+              const changelog = getChangelogs();
+              document.getElementById('statTotalUsers').textContent = users.length;
+              document.getElementById('statAdminCount').textContent = users.filter(x => x.isAdmin).length;
+              document.getElementById('statBlogCount').textContent = blogs.length;
+              document.getElementById('statPortfolioCount').textContent = ports.length;
+              document.getElementById('statChangelogCount').textContent = changelog.length;
+              const tbody = document.getElementById('dashboardRecentUsers');
+              const recent = users.slice(-5).reverse();
+              tbody.innerHTML = recent.map(u => `
+                  <tr>
+                      <td>${u.username}</td>
+                      <td><span class="admin-badge ${u.isAdmin ? 'admin' : 'user'}">${u.isAdmin ? '管理员' : '普通用户'}</span></td>
+                      <td style="opacity:0.6;">最近注册</td>
+                  `).join('') || '<tr><td colspan="3" style="text-align:center;opacity:0.5;">暂无用户</td>';
+          }
+
+          // 用户表格
+          function refreshUserTable() {
+              const users = getAccounts();
+              const tbody = document.getElementById('adminUsersTableBody');
+              tbody.innerHTML = users.map(u => {
+                  let btn = '';
+                  if (u.username !== 'xiaowei') {
+                      if (u.isAdmin) btn += `<button class="admin-btn-sm warn" onclick="window._adminDemoteUser('${u.username}')">取消管理员</button>`;
+                      else btn += `<button class="admin-btn-sm primary" onclick="window._adminPromoteUser('${u.username}')">设管理员</button>`;
+                      btn += `<button class="admin-btn-sm danger" onclick="window._adminDeleteUser('${u.username}')">删除</button>`;
+                  }
+                  return `<tr>
+                      <td>${u.username}</td>
+                      <td><span class="admin-badge ${u.isAdmin ? 'admin' : 'user'}">${u.isAdmin ? '管理员' : '普通用户'}</span></td>
+                      <td>${btn || '超级管理员'}</td>
+                  </tr>`;
+              }).join('');
+          }
+
+          // 博客表格
+          function refreshBlogTable() {
+              const blogs = getBlogs();
+              const tbody = document.getElementById('adminBlogTableBody');
+              const empty = document.getElementById('adminBlogEmpty');
+              if (blogs.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+              empty.style.display = 'none';
+              tbody.innerHTML = blogs.map((item, i) => `
+                <tr>
+                  <td>${item.title}</td>
+                  <td>${item.date}</td>
+                  <td>${item.tag}</td>
+                  <td>
+                    <button class="admin-btn-sm primary" onclick="window._adminEditBlog(${i})">编辑</button>
+                    <button class="admin-btn-sm danger" onclick="window._adminDeleteBlog(${i})">删除</button>
+                  </tr>`).join('');
+          }
+
+          // 作品表格
+          function refreshPortfolioTable() {
+              const list = getPortfolios();
+              const tbody = document.getElementById('adminPortfolioTableBody');
+              const empty = document.getElementById('adminPortfolioEmpty');
+              if (list.length === 0) {
+                  tbody.innerHTML = '';
+                  empty.style.display = 'block';
+                  return;
+              }
+              empty.style.display = 'none';
+              tbody.innerHTML = list.map((p, i) => `
+                <tr>
+                  <td>${p.name}</td>
+                  <td>${p.tag}</td>
+                  <td>${p.img}</td>
+                  <td>
+                    <button class="admin-btn-sm primary" onclick="window._adminEditPortfolio(${i})">编辑</button>
+                    <button class="admin-btn-sm danger" onclick="window._adminDeletePortfolio(${i})">删除</button>
+                  </tr>`).join('');
+          }
+
+          // 更新日志表格
+          function refreshChangelogTable() {
+              const list = getChangelogs();
+              const tbody = document.getElementById('adminChangelogTableBody');
+              const empty = document.getElementById('adminChangelogEmpty');
+              if (list.length === 0) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+              empty.style.display = 'none';
+              tbody.innerHTML = list.map((item, i) => {
+                  const short = item.content.length > 45 ? item.content.slice(0, 45) + '...' : item.content;
+                  return `<tr>
+                      <td>${item.date}</td>
+                      <td>${item.title}</td>
+                      <td style="opacity:0.7;font-size:13px;">${short}</td>
+                      <td>
+                        <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(${i})">编辑</button>
+                        <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(${i})">删除</button>
+                      </tr>`;
+              }).join('');
+          }
+
+          function refreshContentTables() {
+              refreshBlogTable();
+              refreshPortfolioTable();
+          }
+
+          // 操作日志
+          function refreshLogs() {
+              const logs = getLogs();
+              const wrap = document.getElementById('adminLogList');
+              if (logs.length === 0) { wrap.innerHTML = '<div class="admin-empty">暂无操作日志</div>'; return; }
+              wrap.innerHTML = logs.map(l => `
+                <div class="log-item">
+                  <span class="log-item-action">${l.action}</span>
+                  <span class="log-item-time">${l.time}</span>
+                </div>`).join('');
+          }
+
+          // 全局修复：addLog 而非 add，find匹配条件补全
+          window._adminDeleteUser = function (username) {
+              if (!confirm(`确定删除用户【${username}】？不可恢复`)) return;
+              const arr = getAccounts().filter(x => x.username !== username);
+              saveAccounts(arr);
+              addLog(`删除用户：${username}`);
+              refreshUserTable();
+              refreshDashboard();
+              showSuccessTip('用户已删除');
+          }
+          window._adminPromoteUser = function (username) {
+              const arr = getAccounts();
+              const u = arr.find(x => x.username === username);
+              u.isAdmin = true;
+              saveAccounts(arr);
+              addLog(`提升${username}为管理员`);
+              refreshUserTable(); refreshDashboard(); updateNavByLoginState();
+              showSuccessTip('已设为管理员');
+          }
+          window._adminDemoteUser = function (username) {
+              const arr = getAccounts();
+              const u = arr.find(x => x.username === username);
+              u.isAdmin = false;
+              saveAccounts(arr);
+              addLog(`取消${username}管理员权限`);
+              refreshUserTable(); refreshDashboard(); updateNavByLoginState();
+              showSuccessTip('已取消管理员');
+          }
+
+          // 博客编辑/删除
+          window._adminEditBlog = function (idx) {
+              currentEditBlogIndex = idx;
+              const b = getBlogs()[idx];
+              document.getElementById('blogEditTitle').textContent = '编辑文章';
+              document.getElementById('blogEditName').value = b.title;
+              document.getElementById('blogEditSummary').value = b.summary;
+              document.getElementById('blogEditTag').value = b.tag;
+              document.getElementById('blogEditDate').value = b.date;
+              openModal(document.getElementById('blogEditModal'));
+          }
+          window._adminDeleteBlog = function (idx) {
+              if (!confirm('确定删除该文章？')) return;
+              const arr = getBlogs();
+              const name = arr[idx].title;
+              arr.splice(idx, 1); saveBlogs(arr);
+              addLog(`删除博客：${name}`);
+              refreshBlogTable(); refreshDashboard();
+              showSuccessTip('文章已删除');
+          }
+
+          // 作品编辑/删除
+          window._adminEditPortfolio = function (idx) {
+              currentEditPortfolioIndex = idx;
+              const p = getPortfolios()[idx];
+              document.getElementById('portfolioEditTitle').textContent = '编辑作品';
+              document.getElementById('portfolioEditName').value = p.name;
+              document.getElementById('portfolioEditTag').value = p.tag;
+              document.getElementById('portfolioEditImg').value = p.img;
+              openModal(document.getElementById('portfolioEditModal'));
+          }
+          window._adminEditChangelog = function (idx) {
+            currentEditChangelogIndex = idx;
+            const item = getChangelogs()[idx];
+            const modalBox = document.getElementById('changelogEditModal');
+            // 限定弹窗内input
+            const titleInput = modalBox.querySelector('input#changelogEditTitle');
+            modalBox.querySelector('#changelogEditDate').value = item.date;
+            titleInput.value = item.title;
+            modalBox.querySelector('#changelogEditContent').value = item.content;
+            openModal(modalBox);
+          }
+
+          // 更新日志编辑/删除
+          window._adminEditChangelog = function (idx) {
+            currentEditChangelogIndex = idx;
+            const item = getChangelogs()[idx];
+            const modalBox = document.getElementById('changelogEditModal');
+            // 弹窗内输入框精准选取
+            const titleInput = modalBox.querySelector('input#changelogEditTitle');
+            document.getElementById('changelogEditDate').value = item.date;
+            titleInput.value = item.title;
+            document.getElementById('changelogEditContent').value = item.content;
+            openModal(modalBox);
+          }
+
+          // 新增更新日志按钮
+          document.getElementById('addChangelogBtn').addEventListener('click', () => {
+            currentEditChangelogIndex = -1;
+            const modalBox = document.getElementById('changelogEditModal');
+            const titleInput = modalBox.querySelector('input#changelogEditTitle');
+            document.getElementById('changelogEditDate').value = new Date().toISOString().split('T')[0];
+            titleInput.value = '';
+            document.getElementById('changelogEditContent').value = '';
+            openModal(modalBox);
+          })
+          window._adminDeleteChangelog = function (idx) {
+              if (!confirm('删除后首页公告同步消失，确定？')) return;
+              const arr = getChangelogs();
+              const title = arr[idx].title;
+              arr.splice(idx, 1); saveChangelogs(arr);
+              addLog(`删除更新日志：${title}`);
+              refreshChangelogTable(); refreshDashboard(); syncChangelogToFront();
+              showSuccessTip('更新日志已删除');
+          }
+
+          // 新增博客
+          document.getElementById('addBlogBtn').addEventListener('click', () => {
+              currentEditBlogIndex = -1;
+              document.getElementById('blogEditTitle').textContent = '新增文章';
+              document.getElementById('blogEditName').value = '';
+              document.getElementById('blogEditSummary').value = '';
+              document.getElementById('blogEditTag').value = '';
+              document.getElementById('blogEditDate').value = new Date().toISOString().split('T')[0];
+              openModal(document.getElementById('blogEditModal'));
+          })
+          // 博客保存
+          document.getElementById('blogEditSaveBtn').addEventListener('click', () => {
+              const title = document.getElementById('blogEditName').value.trim();
+              const summary = document.getElementById('blogEditSummary').value.trim();
+              const tag = document.getElementById('blogEditTag').value.trim();
+              const date = document.getElementById('blogEditDate').value;
+              if (!title) return showSuccessTip('填写标题');
+              if (!summary) return showSuccessTip('填写摘要');
+              const arr = getBlogs();
+              const data = { title, summary, tag, date };
+              if (currentEditBlogIndex >= 0) {
+                  arr[currentEditBlogIndex] = data;
+                  addLog(`编辑博客：${title}`);
+              } else {
+                  arr.push(data);
+                  addLog(`新增博客：${title}`);
+              }
+              saveBlogs(arr);
+              closeModal(document.getElementById('blogEditModal'));
+              refreshBlogTable(); refreshDashboard(); syncBlogsToFrontend();
+              showSuccessTip(currentEditBlogIndex >= 0 ? '更新成功' : '发布成功');
+          })
+          document.getElementById('blogEditCloseBtn').addEventListener('click', () => closeModal(document.getElementById('blogEditModal')));
+          document.getElementById('blogEditModal').addEventListener('click', e => { if (e.target === document.getElementById('blogEditModal')) closeModal(document.getElementById('blogEditModal')); });
+
+          // 新增作品
+          document.getElementById('addPortfolioBtn').addEventListener('click', () => {
+              currentEditPortfolioIndex = -1;
+              document.getElementById('portfolioEditTitle').textContent = '新增作品';
+              document.getElementById('portfolioEditName').value = '';
+              document.getElementById('portfolioEditTag').value = '';
+              document.getElementById('portfolioEditImg').value = '';
+              openModal(document.getElementById('portfolioEditModal'));
+          })
+          document.getElementById('portfolioEditSaveBtn').addEventListener('click', () => {
+              const name = document.getElementById('portfolioEditName').value.trim();
+              const tag = document.getElementById('portfolioEditTag').value.trim();
+              const img = document.getElementById('portfolioEditImg').value.trim();
+              if (!name) return showSuccessTip('填写作品名称');
+              const arr = getPortfolios();
+              const data = { name, tag, img };
+              if (currentEditPortfolioIndex >= 0) {
+                  arr[currentEditPortfolioIndex] = data;
+                  addLog(`编辑作品：${name}`);
+              } else {
+                  arr.push(data);
+                  addLog(`新增作品：${name}`);
+              }
+              savePortfolios(arr);
+              closeModal(document.getElementById('portfolioEditModal'));
+              refreshPortfolioTable(); refreshDashboard(); syncPortfoliosToFront();
+              showSuccessTip(currentEditPortfolioIndex >= 0 ? '更新成功' : '添加成功');
+          })
+          document.getElementById('portfolioEditCloseBtn').addEventListener('click', () => closeModal(document.getElementById('portfolioEditModal')));
+          document.getElementById('portfolioEditModal').addEventListener('click', e => { if (e.target === document.getElementById('portfolioEditModal')) closeModal(document.getElementById('portfolioEditModal')); });
+
+          // 新增更新日志
+          document.getElementById('addChangelogBtn').addEventListener('click', () => {
+            currentEditChangelogIndex = -1;
+            const modalBox = document.getElementById('changelogEditModal');
+            const titleInput = modalBox.querySelector('input#changelogEditTitle');
+            modalBox.querySelector('#changelogEditDate').value = new Date().split('T')[0];
+            title.value = '';
+            modalBox.querySelector('#changelogEditContent').value = '';
+            openModal(modalBox);
+          })
+          // 更新日志保存
+          document.getElementById('changelogEditSaveBtn').addEventListener('click', () => {
+            const modalBox = document.getElementById('changelogEditModal');
+            // 只在当前弹窗内查找输入框，不会抓取页面其他重名ID
+            const dateInput = modalBox.querySelector('#changelogEditDate');
+            const titleInput = modalBox.querySelector('input#changelogEditTitle');
+            const contentInput = modalBox.querySelector('#changelogEditContent');
+
+            const date = dateInput.value;
+            const title = titleInput.value.trim();
+            const content = contentInput.value.trim();
+
+            if (!date) return showSuccessTip('选择日期');
+            if (!title) return showSuccessTip('填写标题');
+            if (!content) return showSuccessTip('填写更新内容');
+            const arr = getChangelogs();
+            const data = { date, title, content };
+            if (currentEditChangelogIndex >= 0) {
+              arr[currentEditChangelogIndex] = data;
+              addLog(`编辑更新日志：${title}`);
+            } else {
+              arr.unshift(data);
+              addLog(`新增更新日志：${title}`);
             }
-            iconLink.href = isDarkMode ? "images/favicon-dark.png" : "images/favicon-light.png";
-        }
-        const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
-        setFavicon(colorScheme.matches);
-        colorScheme.addEventListener('change', e => setFavicon(e.matches));
+            saveChangelogs(arr);
+            closeModal(modalBox);
+            refreshChangelogTable(); refreshDashboard(); syncChangelogToFront();
+            showSuccessTip('已同步首页更新公告');
+          })
+          document.getElementById('changelogEditCloseBtn').addEventListener('click', () => closeModal(document.getElementById('changelogEditModal')));
+          document.getElementById('changelogEditModal').addEventListener('click', e => { if (e.target === document.getElementById('changelogEditModal')) closeModal(document.getElementById('changelogEditModal')); });
 
-        // 导航滚动收缩
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) header.classList.add('shrink');
-            else header.classList.remove('shrink');
-        })
+          // 修改密码
+          document.getElementById('settingsSavePwdBtn').addEventListener('click', () => {
+              const old = document.getElementById('settingsOldPwd').value;
+              const newPwd = document.getElementById('settingsNewPwd').value;
+              const confirm = document.getElementById('settingsConfirmPwd').value;
+              const currUser = getCurrentUser();
+              const users = getAccounts();
+              const user = users.find(x => x.username === currUser);
+              if (!old) return showSuccessTip('输入当前密码');
+              if (user.password !== old) return showSuccessTip('原密码错误');
+              if (!newPwd || newPwd.length < 4) return showSuccessTip('新密码至少4位');
+              if (newPwd !== confirm) return showSuccessTip('两次密码不一致');
+              user.password = newPwd;
+              saveAccounts(users);
+              addLog('修改管理员密码');
+              document.getElementById('settingsOldPwd').value = '';
+              document.getElementById('settingsNewPwd').value = '';
+              document.getElementById('settingsConfirmPwd').value = '';
+              showSuccessTip('密码修改完成');
+          })
 
-        // 页面切换
-        const navLinks = document.querySelectorAll('[data-page]');
-        const pages = document.querySelectorAll('.page');
-        navLinks.forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                const target = link.getAttribute('data-page');
-                pages.forEach(p => p.classList.remove('active'));
-                document.getElementById(target).classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            })
-        })
+          // 清空普通用户
+          document.getElementById('clearAllUsersBtn').addEventListener('click', () => {
+              if (!confirm('清空所有非管理员，不可恢复！')) return;
+              const list = getAccounts().filter(x => x.isAdmin);
+              saveAccounts(list);
+              addLog('批量清空普通用户');
+              refreshUserTable(); refreshDashboard();
+              showSuccessTip('已清空');
+          })
 
-        // 首页声明弹窗
-        const noticeModal = document.getElementById('noticeModal');
-        const noticeBox = noticeModal.querySelector('.modal-box');
-        const confirmBtn = document.getElementById('confirmBtn');
-        if (!sessionStorage.getItem('readNotice')) {
-            noticeModal.classList.add('open');
-            document.body.classList.add('no-scroll');
-            setTimeout(() => {
-                noticeModal.style.opacity = '1';
-                noticeBox.style.opacity = '1';
-                noticeBox.style.transform = 'scale(1)';
-            }, 16)
-        }
-        confirmBtn.addEventListener('click', () => {
-            noticeModal.style.opacity = '0';
-            noticeBox.style.opacity = '0';
-            noticeBox.style.transform = 'scale(0.85)';
-            setTimeout(() => {
-                noticeModal.classList.remove('open');
-                noticeModal.style.opacity = '';
-                noticeBox.style.opacity = '';
-                noticeBox.style.transform = '';
-                document.body.classList.remove('no-scroll');
-                sessionStorage.setItem('readNotice', 'true');
-            }, 200)
-        })
+          // 清空操作日志
+          document.getElementById('clearLogsBtn').addEventListener('click', () => {
+              if (!confirm('清空所有操作日志？')) return;
+              saveLogs([]); refreshLogs();
+              showSuccessTip('日志已清空');
+          })
 
-        // 更新公告弹窗
-        const updateModal = document.getElementById('updateNoticeModal');
-        const updateBox = updateModal.querySelector('.modal-box');
-        const openBtn = document.getElementById('openUpdateNotice');
-        const closeUpdateBtn = document.getElementById('closeUpdateBtn');
-        openBtn.addEventListener('click', () => {
-            updateModal.classList.add('open');
-            document.body.classList.add('no-scroll');
-            setTimeout(() => {
-                updateModal.style.opacity = '1';
-                updateBox.style.opacity = '1';
-                updateBox.style.transform = 'scale(1)';
-            }, 16)
-        })
-        closeUpdateBtn.addEventListener('click', () => {
-            updateModal.style.opacity = '0';
-            updateBox.style.opacity = '0';
-            updateBox.style.transform = 'scale(0.85)';
-            setTimeout(() => {
-                updateModal.classList.remove('open');
-                updateModal.style.opacity = '';
-                updateBox.style.opacity = '';
-                updateBox.style.transform = '';
-                document.body.classList.remove('no-scroll');
-            }, 200)
-        })
-        updateModal.addEventListener('click', e => {
-            if (e.target === updateModal) closeUpdateBtn.click();
-        })
+          // 首页同步函数
+          function syncBlogsToFrontend() {
+              const blogs = getBlogs();
+              const wrap = document.getElementById('blog');
+              if (!wrap) return;
+              const items = wrap.querySelectorAll('.blog-item');
+              items.forEach((el, i) => {
+                  if (i < blogs.length) {
+                      const t = el.querySelector('.blog-title a');
+                      const m = el.querySelector('.blog-meta');
+                      const d = el.querySelector('p');
+                      if (t) t.textContent = blogs[i].title;
+                      if (m) m.textContent = `${blogs[i].date} | ${blogs[i].tag}`;
+                      if (d) d.textContent = blogs[i].summary;
+                  }
+              })
+          }
+          function syncPortfoliosToFront() {
+              const list = getPortfolios();
+              const wrap = document.getElementById('portfolio');
+              if (!wrap) return;
+              const cards = wrap.querySelectorAll('.work-card');
+              cards.forEach((el, i) => {
+                  if (i < list.length) {
+                      const name = el.querySelector('.work-name a');
+                      const tag = el.querySelector('.work-tag');
+                      const img = el.querySelector('.work-img');
+                      if (name) name.textContent = list[i].name;
+                      if (tag) tag.textContent = list[i].tag;
+                      if (img) img.src = list[i].img;
+                  }
+              })
+          }
+          function syncChangelogToFront() {
+              const list = getChangelogs();
+              const modalContent = document.querySelector('#updateNoticeModal .modal-content');
+              if (!modalContent) return;
+              let html = `<p style="font-size:18px;font-weight:500;text-align:center;margin-bottom:20px;">【更新日志】</p>`;
+              list.forEach(item => {
+                  html += `<div class="log-card">
+              <div class="log-card-header">${item.title}</div>
+              <div class="log-card-body">${item.content.replaceAll('\n', '<br>')}</div>
+            </div>`;
+              })
+              html += `<p style="margin-top:24px;text-align:center;">后续持续优化页面细节，敬请期待！</p>`;
+              modalContent.innerHTML = html;
+              bindLogCardClick();
+          }
+          window._syncBlogsToFrontend = syncBlogsToFrontend;
+          window._syncPortfoliosToFront = syncPortfoliosToFront;
+          window._syncChangelogToFront = syncChangelogToFront;
 
-        // 更新日志卡片展开
-        const logCards = document.querySelectorAll('.log-card');
-        logCards.forEach(card => {
-            const head = card.querySelector('.log-card-header');
-            head.addEventListener('click', () => card.classList.toggle('active'));
-        })
+          // 页面初始化同步
+          setTimeout(() => {
+              syncBlogsToFrontend();
+              syncPortfoliosToFront();
+              syncChangelogToFront();
+          }, 200);
 
-        // 移动端下拉菜单
-        const dropWraps = document.querySelectorAll('.dropdown-wrap');
-        dropWraps.forEach(item => {
-            const a = item.querySelector('a');
-            a.addEventListener('click', e => {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    dropWraps.forEach(box => box !== item && box.classList.remove('active'));
-                    item.classList.toggle('active');
-                }
-            })
-        })
-        document.addEventListener('click', e => {
-            if (!e.target.closest('.dropdown-wrap')) {
-                dropWraps.forEach(box => box.classList.remove('active'));
-            }
-        })
-    })
+          // 进入后台记录日志
+          const adminNavLink = document.querySelector('[data-page="admin"]');
+          if (adminNavLink) {
+              adminNavLink.addEventListener('click', () => {
+                  setTimeout(() => { refreshDashboard(); addLog('进入后台管理页面'); }, 100);
+              })
+          }
+      })();
+
+      // 浏览器图标跟随主题
+      function updateBrowserFavicon() {
+          const match = window.matchMedia('(prefers-color-scheme: dark)');
+          const icon = document.querySelector("link[rel~='icon']");
+          icon.href = match.matches ? "images/favicon-dark.png" : "images/favicon-light.png";
+      }
+      updateBrowserFavicon();
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateBrowserFavicon);
+  })
   </script>
+</body>
+</html>
