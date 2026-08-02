@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="dark"><head>
+<html lang="zh-CN" class="dark"><head></head><body class="">﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿
+
  <meta name="color-scheme" content="light dark">
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
  <style>
  /* 全局弹窗基础 */
  .modal-title {
@@ -380,7 +382,7 @@
  display: block;
  margin-bottom: 8px;
  }
- .form-item input, .form-item text {
+ .form-item input, .form-item textarea {
  width: 100%;
  padding: 12px;
  border: 1px solid var(--border-color);
@@ -459,7 +461,7 @@
  transition: background 0.25s, color 0.25s;
  color: var(--text-color);
  border-radius: 6px;
- margin: 4px 8;
+ margin: 4px 8px;
  }
  .dropdown-menu li a:hover {
  background: rgba(var(--accent-rgb), 0.2);
@@ -1049,7 +1051,7 @@
  font-size: 15px;
  }
  .admin-form .form-item input,
- .admin-form .form-item text,
+ .admin-form .form-item textarea,
  .admin-form .form-item select {
  width: 100%;
  padding: 13px 16px;
@@ -1286,16 +1288,186 @@
  appearance: none !important;
  -webkit-appearance: none !important;
  }
+ .card.card-link-wrap {
+ display: block;
+ text-decoration: none;
+ color: inherit;
+}
+.card span.card-link {
+ color: #89C2FF;
+ font-weight: 500;
+ display: inline-block;
+ margin-top: 4px;
+}
+.contact-card {
+    width: 100%;
+    max-width: 100%;
+    background: var(--card-bg);
+    padding: 32px 36px;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(var(--accent-rgb), 0.08);
+    transition: all 0.3s ease;
+    
+}
+.contact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(var(--accent-rgb), 0.14);
+}
+.section-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 48px 0 16px;
+    position: relative;
+    padding-bottom: 8px;
+}
+.section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 55px;
+    height: 1px;
+    background: var(--accent);
+}
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--card-bg);
+    transition: 0.25s ease;
+}
+.contact-item:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.08);
+}
+.contact-icon {
+    font-size: 20px;
+    color: var(--accent-dark);
+    width: 24px;
+    flex-shrink: 0;
+    line-height: 1;
+}
+.contact-text h4 {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    opacity: 0.9;
+}
+.contact-text a,
+.contact-text span {
+    font-size: 16px;
+    color: var(--accent-dark);
+    text-decoration: none;
+    word-break: break-all;
+}
+.contact-text a:hover {
+    opacity: 0.8;
+}
+@media screen and (max-width:768px){
+    .contact-card{
+        padding:28px 20px;
+    }
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+    .contact-item{
+        padding:16px;
+    }
+}
+.outer-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 32px 36px;
+    margin-bottom: 32px;
+}
+/* 区块标题（和联系方式标题统一样式） */
+.section-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 48px 0 16px;
+    position: relative;
+    padding-bottom: 8px;
+}
+.section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 55px;
+    height: 1px;
+    background: var(--accent);
+}
+
+/* 个人标签外层白色卡片 */
+.tag-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 32px 36px;
+}
+/* 区块标题（和联系方式标题统一） */
+.section-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin: 48px 0 16px;
+    position: relative;
+    padding-bottom: 8px;
+}
+.section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 55px;
+    height: 1px;
+    background: var(--accent);
+}
+
+/* 个人标签外层白色卡片 */
+.tag-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 32px 36px;
+}
+
+/* 标签横向容器 */
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+/* 长方形圆角标签按钮 */
+.tag-btn {
+    padding: 10px 22px;
+    border-radius: 10px;     /* 长方形圆角，不要999px */
+    border: 1px solid transparent;
+    background-color: rgba(var(--accent-rgb), 0.12);
+    transition: 0.24s ease;
+    cursor: default;
+    color: #89C2FF;
+}
+.tag-btn:hover {
+    background-color: rgba(var(--accent-rgb), 0.22);
+}
+.back-to-top { display: none !important; }
  </style>
  
-</head>
-<body class="">
+
+
  <!-- 网站声明弹窗 -->
  <div class="modal-mask" id="noticeModal" style="pointer-events: none;">
  <div class="modal-box" style="">
  <h3 class="modal-title" data-i18n="site_notice_title">网站声明</h3>
  <div class="modal-content">
- <p>欢迎来到我的个人网站</p>
+ <p>欢迎来到XiaoWei的个人网页</p>
  <p>这是我与AI开发的个人网站，网站内容会有些不足，我会尽量完善，请耐心等待，使用有问题可联系我。<a class="tclj">网站开源，不会存储用户任何数据，可放心浏览。</a></p>
  <p>联系邮箱：<a href="mailto:lowewa730657707@163.com" class="tclj">lowewa730657707@163.com</a></p>
  <p>开源Github：<a href="https://github.com/lowewa730657707/grwz" target="_blank" class="tclj" data-i18n="site_notice_visit_repo">点击访问仓库</a></p>
@@ -1318,7 +1490,7 @@
  <li class="nav-item"><a data-page="about" href="#" data-i18n="nav_about">关于我</a></li>
  <li class="nav-item"><a data-page="portfolio" href="#" data-i18n="nav_portfolio">作品展示</a></li>
  <li class="nav-item"><a data-page="blog" href="#" data-i18n="nav_blog">日常分享</a></li>
- <li class="nav-item" id="adminNavItem" style="display: none;"><a data-page="admin" href="#">后台管理</a></li>
+ <li class="nav-item" id="adminNavItem" style="display: block;"><a data-page="admin" href="#">后台管理</a></li>
  </ul>
  <ul class="nav-right">
  <li class="dropdown-wrap">
@@ -1339,9 +1511,9 @@
  <li class="dropdown-wrap" id="userDropdownWrap">
  <a href="#" data-i18n="nav_user">管理</a>
  <ul class="dropdown-menu" id="userDropdownMenu">
- <li id="navLoginItem" style="display: block;"><a href="javascript:void(0)" id="openLoginLink" data-i18n="nav_login">登录</a></li>
- <li id="navProfileItem" style="display: none;"><a href="javascript:void(0)" id="openProfileLink" data-i18n="nav_profile">个人中心</a></li>
- <li id="navLogoutItem" style="display: none;"><a href="javascript:void(0)" id="openLogoutLink" data-i18n="nav_logout">退出登录</a></li>
+ <li id="navLoginItem" style="display: none;"><a href="javascript:void(0)" id="openLoginLink" data-i18n="nav_login">登录</a></li>
+ <li id="navProfileItem" style="display: block;"><a href="javascript:void(0)" id="openProfileLink" data-i18n="nav_profile">个人中心</a></li>
+ <li id="navLogoutItem" style="display: block;"><a href="javascript:void(0)" id="openLogoutLink" data-i18n="nav_logout">退出登录</a></li>
  </ul>
  </li>
  </ul>
@@ -1353,6 +1525,9 @@
  <div class="modal-box" style="">
  <h3 class="modal-title" id="updateNoticeModalTitle" data-i18n="update_notice_title">网站更新公告</h3>
  <div class="modal-content" data-log-delegated="1"><p style="font-size:18px;font-weight:500;text-align:center;margin-bottom:20px;">【更新日志】</p><div class="log-card">
+ <div class="log-card-header">2026-08-02更新日志</div>
+ <div class="log-card-body">1.更新联系我卡片内容<br>2.优化部分文字<br>3.优化标签内容<br>4.修复点击问题<br>5.优化部分代码</div>
+ </div><div class="log-card">
  <div class="log-card-header">2026-08-01更新日志</div>
  <div class="log-card-body">1.新增语言切换功能<br>2.去除注册按钮，更改为管理<br>3.后台新增多个优化<br>4.修复多个点击问题<br>5.修复多个已知BOG</div>
  </div><div class="log-card">
@@ -1379,27 +1554,27 @@
  <!-- 首页 -->
  <section id="home" class="page active">
  <div class="hero">
- <h1 data-i18n="hero_title">欢迎来到我的个人网站</h1>
+ <h1 data-i18n="hero_title">欢迎来到XiaoWei的个人网页</h1>
  <p class="hero-desc" data-i18n="hero_desc">以代码记录思考，以热爱奔赴日常</p>
  <p class="hero-tag"><a href="javascript:void(0)" id="openUpdateNotice" data-i18n="hero_update">更新公告</a></p>
  </div>
  <div class="card-group">
- <div class="card">
- <h2 data-i18n="card_portfolio_title">最新作品</h2>
- <p data-i18n="card_portfolio_desc">各类创作内容分享。</p>
- <a href="#" data-page="portfolio" class="card-link" data-i18n="card_portfolio_link">查看作品 →</a>
- </div>
- <div class="card">
- <h2 data-i18n="card_blog_title">日常分享</h2>
- <p data-i18n="card_blog_desc">生活与技术随笔记录。</p>
- <a href="#" data-page="blog" class="card-link" data-i18n="card_blog_link">阅读文章 →</a>
- </div>
- <div class="card">
- <h2 data-i18n="card_about_title">关于我</h2>
- <p data-i18n="card_about_desc">个人简介、技能与经历。</p>
- <a href="#" data-page="about" class="card-link" data-i18n="card_about_link">了解更多 →</a>
- </div>
- </div>
+ <a href="#" data-page="portfolio" class="card">
+  <h2 data-i18n="card_portfolio_title">最新作品</h2>
+  <p data-i18n="card_portfolio_desc">各类创作内容分享。</p>
+  <span class="card-link" data-i18n="card_portfolio_link">查看作品 →</span>
+ </a>
+ <a href="#" data-page="blog" class="card">
+  <h2 data-i18n="card_blog_title">日常分享</h2>
+  <p data-i18n="card_blog_desc">生活与技术随笔记录。</p>
+  <span class="card-link" data-i18n="card_blog_link">阅读文章 →</span>
+ </a>
+ <a href="#" data-page="about" class="card">
+  <h2 data-i18n="card_about_title">关于我</h2>
+  <p data-i18n="card_about_desc">个人简介、技能与经历。</p>
+  <span class="card-link" data-i18n="card_about_link">了解更多 →</span>
+ </a>
+</div>
  </section>
  <!-- 关于我 -->
  <section id="about" class="page">
@@ -1421,28 +1596,77 @@
  <h4 data-i18n="about_tl_more">更多内容持续更新中……</h4>
  </div>
  <h3 class="section-title" style="font-size:22px;" data-i18n="about_tags_title">个人标签</h3>
- <div class="skill-list">
- <span class="skill-tag">网页制作</span>
- <span class="skill-tag">摄影</span>
- <span class="skill-tag">音乐</span>
- <span class="skill-tag">游戏</span>
- <span class="skill-tag">furry</span>
- <span class="skill-tag">赛车</span>
- </div>
- <div class="form-box">
- <h3 data-i18n="about_contact_title">联系我</h3>
- <form>
- <div class="form-item">
- <label data-i18n="form_label_name">称呼</label>
- <input type="text" placeholder="你的昵称">
- </div>
- <div class="form-item">
- <label data-i18n="form_label_message">留言</label>
- <textarea rows="4" placeholder="写下你的想法"></textarea>
- </div>
- <button type="button" class="submit-btn" id="contactSubmitBtn" data-i18n="form_btn_submit">提交留言</button>
- </form>
- </div>
+ <div class="outer-card">
+    <div class="tags-wrap">
+        <span class="tag-btn">#网页制作</span>
+        <span class="tag-btn">#摄影</span>
+        <span class="tag-btn">#音乐</span>
+        <span class="tag-btn">#游戏</span>
+        <span class="tag-btn">#furry</span>
+        <span class="tag-btn">#赛车</span>
+    </div>
+</div>
+ <!-- 标题移到卡片外面 -->
+<h2 class="section-title">联系方式</h2>
+
+<div class="contact-card">
+    <div class="contact-grid">
+        <div class="contact-item">
+            <div class="contact-icon">
+                <i class="fa-regular fa-envelope"></i>
+            </div>
+            <div class="contact-text">
+                <h4>电子邮箱</h4>
+                <a href="mailto:lowewa730657707@163.com">lowewa730657707@163.com</a>
+            </div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-icon">
+                <i class="fa-solid fa-phone"></i>
+            </div>
+            <div class="contact-text">
+                <h4>联系电话</h4>
+                <a href="tel:13800138000">138-0013-8000</a>
+            </div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-icon">
+                <i class="fa-brands fa-qq"></i>
+            </div>
+            <div class="contact-text">
+                <h4>QQ</h4>
+                <span>730657707</span>
+            </div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-icon">
+                <i class="fa-brands fa-weixin"></i>
+            </div>
+            <div class="contact-text">
+                <h4>微信号</h4>
+                <span>XiaoWei_2026</span>
+            </div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-icon">
+                <i class="fa-brands fa-github"></i>
+            </div>
+            <div class="contact-text">
+                <h4>Github开源仓库</h4>
+                <a href="https://github.com/lowewa730657707" target="_blank">lowewa730657707</a>
+            </div>
+        </div>
+        <div class="contact-item">
+            <div class="contact-icon">
+                <i class="fa-solid fa-globe"></i>
+            </div>
+            <div class="contact-text">
+                <h4>个人网站</h4>
+                <a href="https://www.xiaoweicn.mom" target="_blank">xiaoweicn.mom</a>
+            </div>
+        </div>
+    </div>
+</div>
  </section>
  <!-- 作品展示 -->
  <section id="portfolio" class="page">
@@ -1518,7 +1742,7 @@
  <div class="stat-card-label">留言数量</div>
  </div>
  <div class="stat-card">
- <div class="stat-card-value" id="statChangelogCount">6</div>
+ <div class="stat-card-value" id="statChangelogCount">7</div>
  <div class="stat-card-label">更新日志条数</div>
  </div>
  </div>
@@ -1556,12 +1780,12 @@
  <div class="admin-panel" id="adminContent">
  <h3 class="admin-panel-title">内容管理</h3>
  <div class="admin-content-tabs">
- <button class="admin-content-tab" data-content-type="blog">博客文章</button>
+ <button class="admin-content-tab active" data-content-type="blog">博客文章</button>
  <button class="admin-content-tab" data-content-type="portfolio">作品展示</button>
- <button class="admin-content-tab active" data-content-type="changelog">更新日志</button>
+ <button class="admin-content-tab" data-content-type="changelog">更新日志</button>
  </div>
  <!-- 博客面板 -->
- <div id="adminBlogPanel" style="display: none;">
+ <div id="adminBlogPanel" style="display: block;">
  <button class="admin-btn primary" id="addBlogBtn" style="margin-bottom:16px;">+ 新增文章</button>
  <div class="admin-table-wrap">
  <table class="admin-table">
@@ -1643,7 +1867,7 @@
  <div class="admin-empty" id="adminPortfolioEmpty" style="display:none;">暂无作品</div>
  </div>
  <!-- 更新日志面板 -->
- <div id="adminChangelogPanel" style="display: block;">
+ <div id="adminChangelogPanel" style="display: none;">
  <button class="admin-btn primary" id="addChangelogBtn" style="margin-bottom:16px;">+ 新增更新日志</button>
  <div class="admin-table-wrap">
  <table class="admin-table">
@@ -1651,6 +1875,17 @@
  <tr><th>日志日期</th><th>标题</th><th>内容预览</th><th>操作</th></tr>
  </thead>
  <tbody id="adminChangelogTableBody"><tr>
+ <td>2026-08-02</td>
+ <td>2026-08-02更新日志</td>
+ <td style="opacity:0.7;font-size:13px;">1.更新联系我卡片内容
+2.优化部分文字
+3.优化标签内容
+4.修复点击问题
+5.优化部分...</td>
+ <td>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(0)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(0)">删除</button>
+ </td></tr><tr>
  <td>2026-08-01</td>
  <td>2026-08-01更新日志</td>
  <td style="opacity:0.7;font-size:13px;">1.新增语言切换功能
@@ -1658,8 +1893,8 @@
 3.后台新增多个优化
 4.修复多个点击...</td>
  <td>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(0)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(0)">删除</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(1)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(1)">删除</button>
  </td></tr><tr>
  <td>2026-07-31</td>
  <td>2026-07-31更新日志</td>
@@ -1669,8 +1904,8 @@
 4.下拉样式优化
 5.登录注册功...</td>
  <td>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(1)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(1)">删除</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(2)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(2)">删除</button>
  </td></tr><tr>
  <td>2026-07-30</td>
  <td>2026-07-30更新日志</td>
@@ -1678,8 +1913,8 @@
 2.修复弹窗变形bug
 3.优化弹窗高度限制...</td>
  <td>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(2)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(2)">删除</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(3)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(3)">删除</button>
  </td></tr><tr>
  <td>2026-07-29</td>
  <td>2026-07-29更新日志</td>
@@ -1688,8 +1923,8 @@
 3.修复关闭动画失效
 4.弹窗阻...</td>
  <td>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(3)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(3)">删除</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(4)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(4)">删除</button>
  </td></tr><tr>
  <td>2026-07-28</td>
  <td>2026-07-28更新日志</td>
@@ -1700,8 +1935,8 @@
 5.缩放动画
 6...</td>
  <td>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(4)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(4)">删除</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(5)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(5)">删除</button>
  </td></tr><tr>
  <td>2026-07-27</td>
  <td>2026-07-27更新日志</td>
@@ -1711,8 +1946,8 @@
 4.头部留白调整
 5.文字遮挡修复</td>
  <td>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(5)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(5)">删除</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(6)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(6)">删除</button>
  </td></tr></tbody>
  </table>
  </div>
@@ -1730,7 +1965,7 @@
  <tbody id="adminMessagesTableBody"></tbody>
  </table>
  </div>
- <div class="admin-empty" id="adminMessagesEmpty" style="display:none;">暂无留言</div>
+ <div class="admin-empty" id="adminMessagesEmpty" style="display: block;">暂无留言</div>
  </div>
  <!-- 系统设置 -->
  <div class="admin-panel active" id="adminSettings">
@@ -1762,7 +1997,11 @@
  </div>
  </section>
  </div>
- </main>
+ 
+ <!-- 回到顶部 -->
+ <button class="back-to-top" id="backToTop" title="回到顶部">
+ <i class="fa-solid fa-arrow-up"></i>
+ </button></main>
  <!-- 底部 -->
  <footer>
  <div class="container">
@@ -1824,8 +2063,8 @@
  </div>
  </div>
  <!-- 登录弹窗 -->
- <div class="modal-mask" id="loginModal">
- <div class="modal-box">
+ <div class="modal-mask" id="loginModal" style="pointer-events: none;">
+ <div class="modal-box" style="">
  <button class="modal-close-btn" id="loginCloseBtn">×</button>
  <h3 class="modal-title" data-i18n="login_title">用户登录</h3>
  <div class="modal-content">
@@ -1912,7 +2151,7 @@
 
 <script>(function(d) {
  Object.keys(d).forEach(function(k) { localStorage.setItem(k, d[k]); });
- })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"lowewa@163\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路：低饱和蓝色系运用技巧\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人视频分享\",\"tag\":\"各平台账号信息\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"摄影作品\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]"});</script>
+ })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"lowewa@163\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路：低饱和蓝色系运用技巧\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人视频分享\",\"tag\":\"各平台账号信息\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"摄影作品\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]"});</script>
 <script>
  document.addEventListener('DOMContentLoaded', function () {
  // 弹窗打开函数提前定义，修复覆盖时报错
@@ -1982,33 +2221,42 @@
  else header.classList.remove('shrink');
  })
 
- // 页面切换逻辑
- const navLinks = document.querySelectorAll('[data-page]');
- const pages = document.querySelectorAll('.page');
- navLinks.forEach(link => {
- link.addEventListener('click', e => {
- e.preventDefault();
- const target = link.getAttribute('data-page');
- // 后台权限拦截，补全userInfo判空
- if (target === "admin") {
- const currentUser = getCurrentUser();
- if (!currentUser) {
- showSuccessTip(t("js_tip_please_login"));
- return;
- }
- const accounts = getAccounts();
- const userInfo = accounts.find(u => u.username === currentUser);
- if (!userInfo || userInfo.isAdmin !== true) {
- showSuccessTip("权限不足，仅管理员可进入后台");
- return;
- }
- }
- pages.forEach(p => p.classList.remove('active'));
- document.getElementById(target).classList.add('active');
- window.scrollTo({ top: 0, behavior: 'smooth' });
- closeAllDropdown();
- })
- })
+// 页面切换逻辑 修复完整版
+const navLinks = document.querySelectorAll('[data-page]');
+const pages = document.querySelectorAll('.page');
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = link.getAttribute('data-page');
+    // 后台权限校验
+    if (target === "admin") {
+      const currentUser = getCurrentUser();
+      if (!currentUser) {
+        showSuccessTip(t("js_tip_please_login"));
+        return;
+      }
+      const accounts = getAccounts();
+      const userInfo = accounts.find(u => u.username === currentUser);
+      if (!userInfo || userInfo.isAdmin !== true) {
+        showSuccessTip("权限不足，仅管理员可进入后台");
+        return;
+      }
+    }
+    // 全部页面统一先隐藏
+    pages.forEach(p => p.classList.remove('active'));
+    // 激活目标页面
+    const targetPageDom = document.getElementById(target);
+    targetPageDom.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    closeAllDropdown();
+    // 切换页面自动同步对应数据，解决空白问题
+    setTimeout(()=>{
+      if(target === 'portfolio') syncPortfoliosToFront();
+      if(target === 'blog') syncBlogsToFront();
+      if(target === 'admin') refreshDashboard();
+    },100);
+  })
+})
 
  // 网站声明弹窗
  const noticeModal = document.getElementById('noticeModal');
@@ -2109,7 +2357,7 @@
  nav_profile: "个人中心", nav_logout: "退出登录",
  nav_theme: "外观", nav_lang: "语言", nav_user: "管理",
  nav_theme_auto: "跟随系统", nav_theme_light: "浅色", nav_theme_dark: "深色",
- hero_title: "欢迎来到我的个人网站", hero_desc: "以代码记录思考，以热爱奔赴日常",
+ hero_title: "欢迎来到XiaoWei的个人网页", hero_desc: "以代码记录思考，以热爱奔赴日常",
  hero_update: "更新公告",
  card_portfolio_title: "最新作品", card_portfolio_desc: "各类创作内容分享。",
  card_portfolio_link: "查看作品 →",
@@ -2190,7 +2438,7 @@
  nav_profile: "Profile", nav_logout: "Logout",
  nav_theme: "Appearance", nav_lang: "Language", nav_user: "Manage",
  nav_theme_auto: "Follow System", nav_theme_light: "Light", nav_theme_dark: "Dark",
- hero_title: "Welcome to My Website", hero_desc: "Get to know me through this site",
+ hero_title: "Welcome to XiaoWei's Personal Page", hero_desc: "Code records thoughts, passion lights up every day",
  hero_update: "Update Notice",
  card_portfolio_title: "Latest Works", card_portfolio_desc: "Sharing various creative content.",
  card_portfolio_link: "View Portfolio →",
@@ -2314,19 +2562,20 @@
  }
  initAdminAccount();
 
- // 导航登录状态刷新
- const navLoginItem = document.getElementById('navLoginItem');
- const navProfileItem = document.getElementById('navProfileItem');
- const navLogoutItem = document.getElementById('navLogoutItem');
- function updateNavByLoginState() {
+// 导航登录状态刷新
+const navLoginItem = document.getElementById('navLoginItem');
+const navProfileItem = document.getElementById('navProfileItem');
+const navLogoutItem = document.getElementById('navLogoutItem');
+const adminNav = document.getElementById("adminNavItem");
+function updateNavByLoginState() {
  const current = getCurrentUser();
- const adminNav = document.getElementById("adminNavItem");
- if (current) {
+ const accounts = getAccounts();
+ const user = accounts.find(u => u.username === current);
+ if (current && user && user.isAdmin === true) {
  navLoginItem.style.display = 'none';
  navProfileItem.style.display = 'block';
  navLogoutItem.style.display = 'block';
- const user = getAccounts().find(x => x.username === current);
- adminNav.style.display = (user && user.isAdmin === true) ? 'block' : 'none';
+ adminNav.style.display = 'block';
  } else {
  navLoginItem.style.display = 'block';
  navProfileItem.style.display = 'none';
@@ -2334,6 +2583,8 @@
  adminNav.style.display = 'none';
  }
  }
+ // DOM加载完成立刻执行状态刷新
+ document.addEventListener('DOMContentLoaded', updateNavByLoginState);
  updateNavByLoginState();
 
  // 成功提示弹窗
@@ -2488,6 +2739,14 @@
  }
  initDefaultBlogs();
  initDefaultPortfolios();
+ // 初始化默认账户
+ function initDefaultAccounts() {
+ const arr = getAccounts();
+ if (arr.length === 0) saveAccounts([
+ { username: "xiaowei", password: "lowewa@163", isAdmin: true }
+ ]);
+ }
+ initDefaultAccounts();
 
  // Contact form submit
  const contactSubmitBtn = document.getElementById('contactSubmitBtn');
@@ -2996,9 +3255,6 @@
  delete modalContent.dataset.logDelegated;
  bindLogCardClick();
  }
- window._syncBlogsToFrontend = syncBlogsToFrontend;
- window._syncPortfoliosToFront = syncPortfoliosToFront;
- window._syncChangelogToFront = syncChangelogToFront;
 
  // 页面初始化同步
  setTimeout(() => {
@@ -3014,7 +3270,18 @@
  setTimeout(() => { refreshDashboard(); }, 100);
  })
  }
- })();
+ 
+ // 回到顶部按钮
+ const backToTopBtn = document.getElementById('backToTop');
+ window.addEventListener('scroll', () => {
+ if (backToTopBtn) {
+ backToTopBtn.classList.toggle('show', window.scrollY > 300);
+ }
+ });
+ backToTopBtn && backToTopBtn.addEventListener('click', () => {
+ window.scrollTo({ top: 0, behavior: 'smooth' });
+ });
+})();
 
  // 浏览器图标跟随主题
  function updateBrowserFavicon() {
@@ -3027,5 +3294,4 @@
  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateBrowserFavicon);
  })
  </script>
-
 </body></html>
