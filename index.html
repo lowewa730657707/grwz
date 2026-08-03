@@ -263,17 +263,6 @@
  .section-title {
  font-size: 28px;
  margin: 80px 0 40px;
- position: relative;
- padding-bottom: 10px;
- }
- .section-title::after {
- content: "";
- position: absolute;
- left: 0;
- bottom: 0px;
- width: 60px;
- height: 1px;
- background-color: #89C2FF;
  }
  /* 作品网格 */
  .portfolio-grid {
@@ -360,59 +349,6 @@
  .timeline-item:hover {
  transform: translateY(-6px);
  box-shadow: 0 8px 24px rgba(137, 194, 255, 0.18);
- }
- .skill-list {
- display: flex;
- flex-wrap: wrap;
- gap: 12px;
- margin-top: 16px;
- }
- .skill-tag {
- padding: 6px 14px;
- background: rgba(137, 194, 255, 0.15);
- border-radius: 20px;
- font-size: 14px;
- }
- /* 通用表单盒子 */
- .form-box {
- background: var(--card-bg);
- padding: 32px;
- border-radius: 12px;
- margin-top: 40px;
- }
- .form-box h3{
- margin-bottom: 15px;
- }
- .form-item {
- margin-bottom: 20px;
- }
- .form-item label {
- display: block;
- margin-bottom: 8px;
- }
- .form-item input, .form-item textarea {
- width: 100%;
- padding: 12px;
- border: 1px solid var(--border-color);
- border-radius: 6px;
- background: var(--input-bg);
- font-family: inherit;
- }
- .submit-btn {
- padding: 12px 32px;
- background: var(--accent);
- color: #fff;
- border: none;
- border-radius: 6px;
- cursor: pointer;
- transition: 0.3s;
- }
- .submit-btn:hover {
- opacity: 0.85;
- background: var(--accent-dark);
- }
- html.dark .submit-btn {
- background: var(--btn-bg-dark);
  }
  /* 底部 */
  footer {
@@ -1142,9 +1078,6 @@
  .card {
  padding: 24px 20px;
  }
- .form-box {
- padding: 24px 20px;
- } 
  .timeline-item, .blog-item {
  padding: 20px 16px;
  }
@@ -1209,7 +1142,7 @@
  color: var(--text-color);
  transition: all 0.3s ease;
  }
- .card, .work-card, .blog-item, .timeline-item, .form-box, .modal-box, .dev-modal-box {
+ .card, .work-card, .blog-item, .timeline-item, .modal-box, .dev-modal-box {
  background-color: var(--card-bg);
  color: var(--text-color);
  }
@@ -1439,13 +1372,6 @@
     background-color: rgba(var(--accent-rgb), 0.22);
 }
 
-/* 联系方式桌面两列 */
-.contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-}
-
 /* 手机端媒体查询 768px以下 */
 @media screen and (max-width:768px) {
     /* 卡片内边距统一缩小 */
@@ -1540,7 +1466,7 @@
  <h3 class="modal-title" id="updateNoticeModalTitle" data-i18n="update_notice_title">网站更新公告</h3>
  <div class="modal-content" data-log-delegated="1"><p style="font-size:18px;font-weight:500;text-align:center;margin-bottom:20px;">【更新日志】</p><div class="log-card">
  <div class="log-card-header">2026-08-03更新日志</div>
- <div class="log-card-body">1.优化移动端适配<br>2.优化卡片效果<br>3.优化部分文字<br>4.修复多个BOG问题</div>
+ <div class="log-card-body">1.更新联系我卡片内容<br>2.优化部分文字<br>3.优化标签内容<br>4.修复点击问题<br>5.优化部分代码</div>
  </div><div class="log-card">
  <div class="log-card-header">2026-08-02更新日志</div>
  <div class="log-card-body">1.更新联系我卡片内容<br>2.优化部分文字<br>3.优化标签内容<br>4.修复点击问题<br>5.优化部分代码</div>
@@ -1894,10 +1820,11 @@
  <tbody id="adminChangelogTableBody"><tr>
  <td>2026-08-03</td>
  <td>2026-08-03更新日志</td>
- <td style="opacity:0.7;font-size:13px;">1.优化移动端适配
-2.优化卡片效果
-3.优化部分文字
-4.修复多个BOG问题</td>
+ <td style="opacity:0.7;font-size:13px;">1.更新联系我卡片内容
+2.优化部分文字
+3.优化标签内容
+4.修复点击问题
+5.优化部分...</td>
  <td>
  <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(0)">编辑</button>
  <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(0)">删除</button>
@@ -2176,13 +2103,10 @@
  </div>
 
 
+<script>(function(d) {
+ Object.keys(d).forEach(function(k) { localStorage.setItem(k, d[k]); });
+ })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"lowewa@163\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路：低饱和蓝色系运用技巧\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人视频分享\",\"tag\":\"各平台账号信息\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"摄影作品\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-08-03\",\"title\":\"2026-08-03更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]"});</script>
 
-<script>(function(d) {
- Object.keys(d).forEach(function(k) { localStorage.setItem(k, d[k]); });
- })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"lowewa@163\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路：低饱和蓝色系运用技巧\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人视频分享\",\"tag\":\"各平台账号信息\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"摄影作品\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-08-03\",\"title\":\"2026-08-03更新日志\",\"content\":\"1.优化移动端适配\\n2.优化卡片效果\\n3.优化部分文字\\n4.修复多个BOG问题\"},{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]"});</script>
-<script>(function(d) {
- Object.keys(d).forEach(function(k) { localStorage.setItem(k, d[k]); });
- })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"lowewa@163\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路：低饱和蓝色系运用技巧\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人视频分享\",\"tag\":\"各平台账号信息\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"摄影作品\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]"});</script>
 <script>
  document.addEventListener('DOMContentLoaded', function () {
  // 弹窗打开函数提前定义，修复覆盖时报错
@@ -3198,7 +3122,7 @@ function updateNavByLoginState() {
  showSuccessTip(t('js_tip_users_cleared'));
  })
 
- // 导出完整HTML文件
+ // 导出完整HTML文件（替换旧数据注入脚本而非前置，防止覆盖用户修改）
  document.getElementById('exportHtmlBtn').addEventListener('click', () => {
  const prevActive = document.querySelector('.page.active');
  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -3208,15 +3132,21 @@ function updateNavByLoginState() {
  const keys = ['siteAccounts','siteBlogs','sitePortfolios','siteMessages','siteChangelogs'];
  const data = {};
  keys.forEach(k => { const v = localStorage.getItem(k); if (v) data[k] = v; });
- const dataScript = '\n<script>(' + function(d) {
+ const dataScript = '<script>(' + function(d) {
  Object.keys(d).forEach(function(k) { localStorage.setItem(k, d[k]); });
  }.toString() + ')(' + JSON.stringify(data) + ');<\/script>';
- const html = document.documentElement.outerHTML;
+ let html = document.documentElement.outerHTML;
+ // 找到第一个<script>（旧数据注入脚本）并替换为当前数据脚本
  const pos = html.indexOf('<script');
- const result = pos >= 0
- ? html.slice(0, pos) + dataScript + '\n' + html.slice(pos)
- : html + dataScript;
- const blob = new Blob(['<!DOCTYPE html>\n' + result], { type: 'text/html;charset=UTF-8' });
+ if (pos >= 0) {
+ const scEnd = html.indexOf('</scr' + 'ipt>', pos);
+ if (scEnd >= 0) {
+ html = html.slice(0, pos) + dataScript + '\n' + html.slice(scEnd + ('</scr' + 'ipt>').length);
+ }
+ } else {
+ html = dataScript + '\n' + html;
+ }
+ const blob = new Blob(['<!DOCTYPE html>\n' + html], { type: 'text/html;charset=UTF-8' });
  const a = document.createElement('a');
  a.href = URL.createObjectURL(blob);
  a.download = 'XiaoWei_export_' + new Date().toISOString().slice(0,10) + '.html';
