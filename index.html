@@ -60,23 +60,10 @@
       html,
       body {
         scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
       }
       html::-webkit-scrollbar,
       body::-webkit-scrollbar {
         display: none;
-      }
-      /* 手机端滚动优化 */
-      @media screen and (max-width: 768px) {
-        * {
-          -webkit-transform: translateZ(0);
-        }
-        .profile-bio,
-        .timeline-item,
-        .blog-item {
-          will-change: auto;
-          -webkit-backface-visibility: hidden;
-        }
       }
       /* 全局重置 */
       * {
@@ -1771,7 +1758,7 @@
         <h3 class="modal-title" id="updateNoticeModalTitle" data-i18n="update_notice_title">网站更新公告</h3>
         <div class="modal-content"><p style="font-size:18px;font-weight:500;text-align:center;margin-bottom:20px;">【更新日志】</p><div class="log-card">
  <div class="log-card-header">2026-08-08更新日志</div>
- <div class="log-card-body">1.修复后台个性标签保存问题<br>2.优化联系方式弹窗内容<br>3.优化部分按钮弹过渡效果<br>4.优化主页卡片排序<br>5.优化主页按钮大小<br>6.修改添加部分文字<br>7.优化移动端返回按钮<br>8.优化移动端弹窗位置问题</div>
+ <div class="log-card-body">1.修复后台个性标签保存问题<br>2.优化联系方式弹窗内容<br>3.优化部分按钮弹窗<br>4.优化主页卡片排序<br>5.优化主页按钮大小<br>6.修改添加部分文字</div>
  </div><div class="log-card">
  <div class="log-card-header">2026-08-07更新日志</div>
  <div class="log-card-body">1.新增个人标签内容<br>2.新增联系方式复制按钮<br>3.优化部分按钮内容<br>4.优化按钮返回<br>5.优化部分文字标题<br>6.修复返回按钮问题</div>
@@ -2004,10 +1991,10 @@
         <section id="tag-detail" class="page">
           <div class="profile-page">
             <div class="profile-card">
-              <h2 class="profile-name" id="tagDetailTitle" style="margin-bottom: 6px; font-size: 25px;">#游戏</h2>
+              <h2 class="profile-name" id="tagDetailTitle" style="margin-bottom: 6px; font-size: 25px;">#furry</h2>
               <p class="profile-subtitle">个人标签</p>
               <div class="profile-divider"></div>
-               <div class="profile-bio" id="tagDetailContent" style="white-space: pre-line;">喜欢玩游戏，享受游戏带来的乐趣。<br><br>以上内容由Ai生成</div>
+               <div class="profile-bio" id="tagDetailContent" style="white-space: pre-line;">对furry文化有浓厚的兴趣。<br><br>以上内容由Ai生成</div>
               <a href="#" class="profile-back-btn" data-page="about" data-scroll-to="tags" style="margin-top: 20px;">
                 <i class="fa-solid fa-arrow-left"></i> 返回个人标签
               </a>
@@ -2291,8 +2278,8 @@
  <td>2026-08-08更新日志</td>
  <td style="opacity:0.7;font-size:13px;">1.修复后台个性标签保存问题
 2.优化联系方式弹窗内容
-3.优化部分按钮弹过渡效果
-4.优...</td>
+3.优化部分按钮弹窗
+4.优化主页...</td>
  <td>
  <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(0)">↑</button>
  <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(0)">↓</button>
@@ -2672,7 +2659,7 @@
     <div class="modal-mask" id="portfolioEditModal" style="pointer-events: none;">
       <div class="modal-box" style="">
         <button class="modal-close-btn" id="portfolioEditCloseBtn">×</button>
-        <h3 class="modal-title" id="portfolioEditTitle" data-i18n="portfolio_edit_title_new">新增作品</h3>
+        <h3 class="modal-title" id="portfolioEditTitle" data-i18n="portfolio_edit_title_new">编辑作品</h3>
         <div class="modal-content">
           <div class="auth-form">
             <div class="form-item">
@@ -2856,10 +2843,7 @@
                     Object.keys(d).forEach(function (k) {
                       localStorage.setItem(k, d[k]);
                     });
-                  })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"12345678\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路：低饱和蓝色系运用技巧\",\"subtitle\":\"讲解#E6F7FF与#89C2FF搭配逻辑\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案。\\n\\n在网页设计中，色彩搭配是非常重要的一环。低饱和度的蓝色系能够营造出柔和、专业的视觉效果。\\n\\n本文将详细介绍如何使用#E6F7FF作为背景色，搭配#89C2FF作为强调色，打造舒适护眼的配色方案。\\n\\n以上内容由Ai生成\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"subtitle\":\"卡片、行高、页面边距规范\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧。\\n\\n留白是网页设计中常被忽视但极其重要的元素。合理的留白能够提升内容的可读性和页面的整体质感。\\n<img src=\\\"images/010.jpeg\\\" alt=\\\"描述\\\">\\n本文从卡片间距、行高设置到页面边距，全面讲解如何运用留白打造极简高级的网页设计。\\n\\n以上内容由Ai生成\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"subtitle\":\"苹方、微软雅黑、Inter阅读体验对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比。\\n\\n字体的选择直接影响网站的阅读体验。对于中文个人网站，无衬线字体是最常见的选择。\\n\\n本文对比了苹方、微软雅黑和Inter三种常用字体在不同场景下的表现，帮助你选择最适合的字体方案。\\n\\n以上内容由Ai生成\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人视频分享\",\"tag\":\"开发中\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"开发中\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-08-08\",\"title\":\"2026-08-08更新日志\",\"content\":\"1.修复后台个性标签保存问题\\n2.优化联系方式弹窗内容\\n3.优化部分按钮弹过渡效果\\n4.优化主页卡片排序\\n5.优化主页按钮大小\\n6.修改添加部分文字\\n7.优化移动端返回按钮\\n8.优化移动端弹窗位置问题\"},{\"date\":\"2026-08-07\",\"title\":\"2026-08-07更新日志\",\"content\":\"1.新增个人标签内容\\n2.新增联系方式复制按钮\\n3.优化部分按钮内容\\n4.优化按钮返回\\n5.优化部分文字标题\\n6.修复返回按钮问题\"},{\"date\":\"2026-08-06\",\"title\":\"2026-08-06更新日志\",\"content\":\"1.新增多个文章页面\\n2.优化多个文字\\n3.优化后台管理\\n4.新增成长经历内容\\n5新增日常分享内容\"},{\"date\":\"2026-08-05\",\"title\":\"2026-08-05更新日志\",\"content\":\"1.新增关于我卡片内容\\n2.优化卡片布局\\n3.优化部分文字\"},{\"date\":\"2026-08-04\",\"title\":\"2026-08-04更新日志\",\"content\":\"1.优化部分文字\\n2.优化后台管理\\n3.修复已知问题\"},{\"date\":\"2026-08-03\",\"title\":\"2026-08-03更新日志\",\"content\":\"1.优化移动端部分排版\\n2.优化部分文字\\n3.修复点击问题\\n4.优化部分代码\"},{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]","siteTimelines":"[{\"title\":\"更多内容持续更新中……\",\"subtitle\":\"\",\"content\":\"敬请期待！\\n\\n更多精彩内容正在准备中，请持续关注我的个人网站。\\n\\n以上内容由Ai生成\"},{\"title\":\"2019 - 2021 | 特殊初中时光\",\"subtitle\":\"疫情时期，难忘的初中回忆。\",\"content\":\"疫情时期，难忘的初中回忆。\\n\\n2019年，我步入了初中校园，开始了新的学习生活。然而好没过多久，2020年初新冠疫情爆发，一切都改变了。\\n<img src=\\\"images/010.jpeg\\\" alt=\\\"描述\\\">\\n学校停课，我们开始在家上网课。每天对着电脑屏幕学习，既新奇又不适应。没有了同学的陪伴，学习变得更加孤独，但也让我学会了自律和独立。\\n\\n那段时间，我学会了合理安排时间，自主学习新知识。也让我更加珍惜能够正常上学、和朋友们在一起的日子。\\n\\n这段特殊的经历，是我成长中不可或缺的一部分。\\n\\n以上内容由Ai生成\"},{\"title\":\"2006 - 2019 | 童年到初中\",\"subtitle\":\"从功能机到智能手机普及，见证数码时代快速变化。\",\"content\":\"从功能机到智能手机普及，见证数码时代快速变化。\\n\\n2006年，我出生在一个普通的家庭。那时候，家里的通讯工具还是笨重的功能机，屏幕小小的，只能打电话和发短信。\\n\\n记得小时候，爸爸有一部诺基亚手机，那是我最早接触的电子设备。贪吃蛇游戏陪伴了我许多个无聊的下午。\\n\\n随着时间的推移，智能手机开始普及。家里陆续有了触摸屏的手机，我第一次感受到了互联网的魅力——可以随时随地上网、看视频、听音乐。\\n\\n这段时期，数码产品的飞速发展深深影响了我，也埋下了我对科技热爱的种子。\\n\\n以上内容由Ai生成\"}]","siteTags":"[{\"name\":\"网页制作\",\"content\":\"热爱网页开发，熟悉HTML、CSS、JavaScript等前端技术。\\n\\n以上内容由Ai生成\"},{\"name\":\"摄影\",\"content\":\"喜欢用相机记录生活中的美好瞬间。\\n\\n以上内容由Ai生成\"},{\"name\":\"音乐\",\"content\":\"热爱音乐，喜欢听各种风格的歌曲。\\n\\n以上内容由Ai生成\"},{\"name\":\"游戏\",\"content\":\"喜欢玩游戏，享受游戏带来的乐趣。\\n\\n以上内容由Ai生成\"},{\"name\":\"furry\",\"content\":\"对furry文化有浓厚的兴趣。\\n\\n以上内容由Ai生成\"},{\"name\":\"赛车\",\"content\":\"热爱赛车运动，喜欢速度与激情。\\n\\n以上内容由Ai生成\"}]"});</script>
-
-
-
+                  })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"12345678\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路：低饱和蓝色系运用技巧\",\"subtitle\":\"讲解#E6F7FF与#89C2FF搭配逻辑\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案。\\n\\n在网页设计中，色彩搭配是非常重要的一环。低饱和度的蓝色系能够营造出柔和、专业的视觉效果。\\n\\n本文将详细介绍如何使用#E6F7FF作为背景色，搭配#89C2FF作为强调色，打造舒适护眼的配色方案。\\n\\n以上内容由Ai生成\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"subtitle\":\"卡片、行高、页面边距规范\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧。\\n\\n留白是网页设计中常被忽视但极其重要的元素。合理的留白能够提升内容的可读性和页面的整体质感。\\n<img src=\\\"images/010.jpeg\\\" alt=\\\"描述\\\">\\n本文从卡片间距、行高设置到页面边距，全面讲解如何运用留白打造极简高级的网页设计。\\n\\n以上内容由Ai生成\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"subtitle\":\"苹方、微软雅黑、Inter阅读体验对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比。\\n\\n字体的选择直接影响网站的阅读体验。对于中文个人网站，无衬线字体是最常见的选择。\\n\\n本文对比了苹方、微软雅黑和Inter三种常用字体在不同场景下的表现，帮助你选择最适合的字体方案。\\n\\n以上内容由Ai生成\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人视频分享\",\"tag\":\"开发中\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"开发中\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-08-08\",\"title\":\"2026-08-08更新日志\",\"content\":\"1.修复后台个性标签保存问题\\n2.优化联系方式弹窗内容\\n3.优化部分按钮弹窗\\n4.优化主页卡片排序\\n5.优化主页按钮大小\\n6.修改添加部分文字\"},{\"date\":\"2026-08-07\",\"title\":\"2026-08-07更新日志\",\"content\":\"1.新增个人标签内容\\n2.新增联系方式复制按钮\\n3.优化部分按钮内容\\n4.优化按钮返回\\n5.优化部分文字标题\\n6.修复返回按钮问题\"},{\"date\":\"2026-08-06\",\"title\":\"2026-08-06更新日志\",\"content\":\"1.新增多个文章页面\\n2.优化多个文字\\n3.优化后台管理\\n4.新增成长经历内容\\n5新增日常分享内容\"},{\"date\":\"2026-08-05\",\"title\":\"2026-08-05更新日志\",\"content\":\"1.新增关于我卡片内容\\n2.优化卡片布局\\n3.优化部分文字\"},{\"date\":\"2026-08-04\",\"title\":\"2026-08-04更新日志\",\"content\":\"1.优化部分文字\\n2.优化后台管理\\n3.修复已知问题\"},{\"date\":\"2026-08-03\",\"title\":\"2026-08-03更新日志\",\"content\":\"1.优化移动端部分排版\\n2.优化部分文字\\n3.修复点击问题\\n4.优化部分代码\"},{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]","siteTimelines":"[{\"title\":\"更多内容持续更新中……\",\"subtitle\":\"\",\"content\":\"敬请期待！\\n\\n更多精彩内容正在准备中，请持续关注我的个人网站。\\n\\n以上内容由Ai生成\"},{\"title\":\"2019 - 2021 | 特殊初中时光\",\"subtitle\":\"疫情时期，难忘的初中回忆。\",\"content\":\"疫情时期，难忘的初中回忆。\\n\\n2019年，我步入了初中校园，开始了新的学习生活。然而好没过多久，2020年初新冠疫情爆发，一切都改变了。\\n<img src=\\\"images/010.jpeg\\\" alt=\\\"描述\\\">\\n学校停课，我们开始在家上网课。每天对着电脑屏幕学习，既新奇又不适应。没有了同学的陪伴，学习变得更加孤独，但也让我学会了自律和独立。\\n\\n那段时间，我学会了合理安排时间，自主学习新知识。也让我更加珍惜能够正常上学、和朋友们在一起的日子。\\n\\n这段特殊的经历，是我成长中不可或缺的一部分。\\n\\n以上内容由Ai生成\"},{\"title\":\"2006 - 2019 | 童年到初中\",\"subtitle\":\"从功能机到智能手机普及，见证数码时代快速变化。\",\"content\":\"从功能机到智能手机普及，见证数码时代快速变化。\\n\\n2006年，我出生在一个普通的家庭。那时候，家里的通讯工具还是笨重的功能机，屏幕小小的，只能打电话和发短信。\\n\\n记得小时候，爸爸有一部诺基亚手机，那是我最早接触的电子设备。贪吃蛇游戏陪伴了我许多个无聊的下午。\\n\\n随着时间的推移，智能手机开始普及。家里陆续有了触摸屏的手机，我第一次感受到了互联网的魅力——可以随时随地上网、看视频、听音乐。\\n\\n这段时期，数码产品的飞速发展深深影响了我，也埋下了我对科技热爱的种子。\\n\\n以上内容由Ai生成\"}]","siteTags":"[{\"name\":\"网页制作\",\"content\":\"热爱网页开发，熟悉HTML、CSS、JavaScript等前端技术。\\n\\n以上内容由Ai生成\"},{\"name\":\"摄影\",\"content\":\"喜欢用相机记录生活中的美好瞬间。\\n\\n以上内容由Ai生成\"},{\"name\":\"音乐\",\"content\":\"热爱音乐，喜欢听各种风格的歌曲。\\n\\n以上内容由Ai生成\"},{\"name\":\"游戏\",\"content\":\"喜欢玩游戏，享受游戏带来的乐趣。\\n\\n以上内容由Ai生成\"},{\"name\":\"furry\",\"content\":\"对furry文化有浓厚的兴趣。\\n\\n以上内容由Ai生成\"},{\"name\":\"赛车\",\"content\":\"热爱赛车运动，喜欢速度与激情。\\n\\n以上内容由Ai生成\"}]"});</script>
 
 
 
@@ -3108,19 +3092,19 @@
               if (scrollTo === "timeline") {
                 const timelineSection = document.querySelector('[data-i18n="about_timeline_title"]');
                 if (timelineSection) {
-                  const top = timelineSection.getBoundingClientRect().top + window.scrollY - 80;
-                  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+                  const top = timelineSection.getBoundingClientRect().top + window.scrollY - 100;
+                  window.scrollTo({ top, behavior: "smooth" });
                 }
               } else if (scrollTo === "tags") {
                 const tagsSection = document.querySelector('[data-i18n="about_tags_title"]');
                 if (tagsSection) {
-                  const top = tagsSection.getBoundingClientRect().top + window.scrollY - 80;
-                  window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+                  const top = tagsSection.getBoundingClientRect().top + window.scrollY - 100;
+                  window.scrollTo({ top, behavior: "smooth" });
                 }
               } else {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
-            }, 50);
+            }, 100);
           });
         });
 
