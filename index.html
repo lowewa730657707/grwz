@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="dark"><head>
+<html lang="zh-CN" class=""><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="color-scheme" content="light dark">
@@ -247,12 +247,12 @@
         font-size: 42px;
         font-weight: 600;
         margin-top: 70px;
-        margin-bottom: 35px;
+        margin-bottom: 20px;
         letter-spacing: 0.06em; /* 新增：拉开字间距，解决文字挨太近 */
         line-height: 1.3; /* 新增：行高宽松，换行不挤 */
       }
       .hero-desc {
-        margin-top: 20px;
+        margin-top: 10px;
         font-size: 20px;
         margin-bottom: 25px;
         color: #838383;
@@ -1176,6 +1176,277 @@
         opacity: 0.6;
         font-size: 15px;
       }
+      /* ===================== 后台管理 · 极简扁平白卡风格（覆盖增强） ===================== */
+      .admin-layout {
+        gap: 24px;
+      }
+      /* 侧边栏 */
+      .admin-sidebar {
+        width: 260px;
+        display: flex;
+        flex-direction: column;
+        border-radius: 16px;
+        padding: 22px 16px;
+        box-shadow: none;
+        border: 1px solid var(--border-color);
+        background: var(--card-bg);
+      }
+      .admin-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 0;
+      }
+      /* 内容管理：固定高度，超出内容滚动 */
+      #adminContent.active {
+        display: flex;
+        flex-direction: column;
+        height: calc(100vh - 180px);
+        min-height: 460px;
+        overflow: hidden;
+      }
+      #adminContent.active > .admin-panel-title,
+      #adminContent.active > .admin-content-tabs {
+        flex-shrink: 0;
+      }
+      /* 各列表顶部的「新增」按钮单独一行，固定在滚动区外 */
+      .admin-content-toolbar {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      #adminBlogPanel,
+      #adminPortfolioPanel,
+      #adminChangelogPanel,
+      #adminTimelinePanel,
+      #adminTagsPanel {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(var(--accent-rgb), 0.45) transparent;
+        padding-right: 4px;
+      }
+      #adminBlogPanel::-webkit-scrollbar,
+      #adminPortfolioPanel::-webkit-scrollbar,
+      #adminChangelogPanel::-webkit-scrollbar,
+      #adminTimelinePanel::-webkit-scrollbar,
+      #adminTagsPanel::-webkit-scrollbar {
+        width: 8px;
+      }
+      #adminBlogPanel::-webkit-scrollbar-thumb,
+      #adminPortfolioPanel::-webkit-scrollbar-thumb,
+      #adminChangelogPanel::-webkit-scrollbar-thumb,
+      #adminTimelinePanel::-webkit-scrollbar-thumb,
+      #adminTagsPanel::-webkit-scrollbar-thumb {
+        background: rgba(var(--accent-rgb), 0.45);
+        border-radius: 4px;
+      }
+      #adminBlogPanel::-webkit-scrollbar-track,
+      #adminPortfolioPanel::-webkit-scrollbar-track,
+      #adminChangelogPanel::-webkit-scrollbar-track,
+      #adminTimelinePanel::-webkit-scrollbar-track,
+      #adminTagsPanel::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      /* 表格表头（标签栏）吸顶固定，不随列表滚动 */
+      #adminBlogPanel .admin-table th,
+      #adminPortfolioPanel .admin-table th,
+      #adminChangelogPanel .admin-table th,
+      #adminTimelinePanel .admin-table th,
+      #adminTagsPanel .admin-table th {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+      }
+      /* 侧边栏菜单项 */
+      .admin-sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        margin: 0;
+        padding: 12px 14px;
+        border-radius: 12px;
+        font-size: 15px;
+        position: relative;
+        transition: background 0.2s ease, color 0.2s ease;
+        text-align: left;
+      }
+      .admin-sidebar-item i {
+        width: 20px;
+        text-align: center;
+        font-size: 16px;
+        opacity: 0.8;
+        flex-shrink: 0;
+      }
+      .admin-sidebar-item::before {
+        content: "";
+        position: absolute;
+        left: -16px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 22px;
+        border-radius: 3px;
+        background: var(--accent);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+      .admin-sidebar-item:hover {
+        background: rgba(var(--accent-rgb), 0.1);
+        color: var(--accent-dark);
+      }
+      .admin-sidebar-item.active {
+        background: rgba(var(--accent-rgb), 0.14);
+        color: var(--accent-dark);
+        font-weight: 600;
+      }
+      .admin-sidebar-item.active::before {
+        opacity: 1;
+      }
+      /* 主区域 */
+      .admin-main {
+        min-width: 0;
+      }
+      /* 面板标题：扁平 + 左侧强调条 */
+      .admin-panel-title {
+        font-size: 24px;
+        margin-bottom: 24px;
+        gap: 12px;
+      }
+      .admin-panel-title::before {
+        content: "";
+        width: 5px;
+        height: 24px;
+        border-radius: 3px;
+        background: var(--accent);
+        flex-shrink: 0;
+      }
+      .admin-panel-title::after {
+        display: none;
+      }
+      /* 仪表盘统计卡片 */
+      .stat-cards {
+        gap: 16px;
+        margin-bottom: 28px;
+      }
+      .stat-card {
+        padding: 24px 22px;
+        border-radius: 14px;
+        text-align: left;
+        position: relative;
+        border: 1px solid var(--border-color);
+        box-shadow: none;
+      }
+      .stat-card::before {
+        display: none;
+      }
+      .stat-card:hover {
+        transform: translateY(-3px);
+        border-color: var(--accent);
+        box-shadow: 0 6px 18px rgba(var(--accent-rgb), 0.1);
+      }
+      .stat-card-value {
+        font-size: 34px;
+        color: var(--text-color);
+        text-align: left;
+        margin-bottom: 6px;
+      }
+      .stat-card-label {
+        font-size: 13px;
+        opacity: 0.6;
+        color: var(--text-color);
+        text-align: left;
+      }
+      .stat-card-icon {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(var(--accent-rgb), 0.14);
+        color: var(--accent-dark);
+        font-size: 16px;
+      }
+      /* 表格 */
+      .admin-table-wrap {
+        border-radius: 14px;
+        box-shadow: none;
+        margin-bottom: 24px;
+        /* 取消 overflow:hidden，让表头吸顶在面板滚动容器内生效 */
+        overflow: visible;
+      }
+      .admin-table {
+        width: 100%;
+        /* separate + spacing 0：避免 collapse 与吸顶表头组合时表头背景失效 */
+        border-collapse: separate;
+        border-spacing: 0;
+      }
+      .admin-table th,
+      .admin-table td {
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .admin-table th {
+        background: #eef5ff;
+        font-size: 12px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        opacity: 1;
+      }
+      html.dark .admin-table th {
+        background: #2a3342;
+      }
+      .admin-table tr:nth-child(even) td {
+        background: rgba(var(--accent-rgb), 0.02);
+      }
+      .admin-table tr:hover td {
+        background: rgba(var(--accent-rgb), 0.07);
+      }
+      /* 内容切换胶囊 */
+      .admin-content-tabs {
+        border-radius: 12px;
+        padding: 5px;
+        box-shadow: none;
+        background: var(--input-bg);
+      }
+      .admin-content-tab {
+        padding: 9px 20px;
+        border-radius: 8px;
+      }
+      .admin-content-tab.active {
+        background: var(--accent-dark);
+        box-shadow: none;
+      }
+      /* 表单 */
+      .admin-form {
+        border-radius: 14px;
+        box-shadow: none;
+        padding: 28px;
+        max-width: 640px;
+      }
+      /* 大/小按钮统一圆角 */
+      .admin-btn {
+        border-radius: 10px;
+        padding: 12px 26px;
+      }
+      .admin-btn-sm {
+        border-radius: 8px;
+        padding: 7px 14px;
+      }
+      /* 空数据 */
+      .admin-empty {
+        padding: 48px 16px;
+        opacity: 0.58;
+        font-size: 14px;
+      }
       /* ===================== 媒体查询：后台强制PC布局不折叠 ===================== */
       @media screen and (max-width: 768px) {
         /* 前台手机适配 */
@@ -1283,7 +1554,7 @@
           padding-right: 16px;
         }
         .hero h1 {
-          font-size: 30px;
+          font-size: 35px;
           text-wrap: balance;
           letter-spacing: 0.04em;
           line-height: 1.35;
@@ -1316,8 +1587,8 @@
           overflow-x: auto;
         }
         .admin-sidebar {
-          min-width: 240px !important;
-          width: 240px !important;
+          min-width: 260px !important;
+          width: 260px !important;
           position: sticky;
           align-self: flex-start !important;
           flex-shrink: 0 !important;
@@ -1874,6 +2145,52 @@
           grid-template-columns: 1fr;
         }
       }
+      /* ========== 移动端文章阅读滚动性能优化 ========== */
+      @media screen and (max-width: 768px) {
+        /* 阅读卡片/内容去掉昂贵的 backdrop-filter 模糊：滚动时浏览器需逐帧对背景重新采样模糊，
+           是手机端上下滑动轻微卡顿的主要来源。改为更实的底色，保留观感但大幅省绘制。 */
+        .profile-card,
+        .profile-bio,
+        .profile-info-item,
+        .profile-tag,
+        .profile-back-btn {
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+          will-change: auto;
+        }
+        .profile-card {
+          background: var(--card-bg);
+          box-shadow: 0 4px 18px rgba(var(--accent-rgb), 0.08);
+        }
+        .profile-bio {
+          background: rgba(var(--accent-rgb), 0.08);
+        }
+        .profile-info-item {
+          background: rgba(var(--accent-rgb), 0.06);
+        }
+        .profile-tag {
+          background: rgba(var(--accent-rgb), 0.12);
+        }
+        .profile-back-btn {
+          background: rgba(var(--accent-rgb), 0.2);
+        }
+        /* 文章内图片：异步解码 + 预留高度，避免滚动到图片时闪烁/跳动 */
+        #timelineDetailContent img,
+        #blogDetailContent img,
+        #tagDetailContent img,
+        .profile-bio img {
+          content-visibility: auto;
+          contain-intrinsic-size: auto 280px;
+          display: block;
+        }
+        /* 取消 body/header 的 transition: all，主题切换/滚动时只重绘需要的属性 */
+        body {
+          transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        header {
+          transition: padding 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+      }
     </style>
 
     <!-- Page Loader -->
@@ -1940,6 +2257,7 @@
     </div>
     <body class="">
     
+    
     <div class="modal-mask" id="noticeModal">
       <div class="modal-box" style="">
         <h3 class="modal-title" data-i18n="site_notice_title">网站声明</h3>
@@ -1958,7 +2276,7 @@
         <div class="header-wrap">
           <div class="logo">
             <a data-page="home" href="#" class="logo">
-              <img id="siteLogoImg" src="images/favicon-dark.png" alt="logo">
+              <img id="siteLogoImg" src="images/favicon-light.png" alt="logo">
               <span>XiaoWei</span>
             </a>
           </div>
@@ -1981,7 +2299,7 @@
           </ul>
           <ul class="nav-right">
             <li class="dropdown-wrap">
-              <a href="javascript:void(0)" id="themeToggleBtn" class="nav-icon-btn theme-toggle-btn" data-i18n-title="nav_theme" data-tip="深色" aria-label="外观"><i id="themeToggleIcon" class="fa-solid fa-moon theme-toggle-icon"></i></a>
+              <a href="javascript:void(0)" id="themeToggleBtn" class="nav-icon-btn theme-toggle-btn" data-i18n-title="nav_theme" data-tip="浅色" aria-label="外观"><i id="themeToggleIcon" class="fa-solid fa-sun theme-toggle-icon"></i></a>
             </li>
             <li class="dropdown-wrap">
               <a href="javascript:void(0)" id="langToggleBtn" class="nav-icon-btn lang-toggle-btn" data-i18n-title="nav_lang" data-tip="语言" aria-label="语言"><span id="langToggleText" class="nav-lang-text lang-toggle-text">中</span></a>
@@ -2008,9 +2326,12 @@
     <div class="modal-mask" id="updateNoticeModal">
       <div class="modal-box" style="">
         <h3 class="modal-title" id="updateNoticeModalTitle" data-i18n="update_notice_title">网站更新公告</h3>
-        <div class="modal-content"><p style="font-size:18px;font-weight:500;text-align:center;margin-bottom:20px;">【更新日志】</p><div class="log-card active">
+        <div class="modal-content"><p style="font-size:18px;font-weight:500;text-align:center;margin-bottom:20px;">【更新日志】</p><div class="log-card">
+ <div class="log-card-header">2026-08-22更新日志</div>
+ <div class="log-card-body">1.优化加载动画时间<br>2.修改部分文字<br>3.修改部分布局<br>4.修改后台管理部分内容<br>5.优化手机内容适配</div>
+ </div><div class="log-card">
  <div class="log-card-header">2026-08-19更新日志</div>
- <div class="log-card-body">1.新增首次打开加成动画<br>2.修改部分布局<br>3.设置文章不得复制和保存<br>4.修改标签内容<br>5.修复制作中产出的问题</div>
+ <div class="log-card-body">1.新增首次打开加载动画<br>2.修改部分布局<br>3.设置文章不得复制和保存<br>4.修改标签内容<br>5.修复制作中产出的问题</div>
  </div><div class="log-card">
  <div class="log-card-header">2026-08-15更新日志</div>
  <div class="log-card-body">1.新增英文翻译内容<br>2.新增主页右上角图标<br>3.优化主页右上角文字<br>4.优化手机布局<br>5.手机新增滑动按钮</div>
@@ -2212,7 +2533,7 @@
               <h2 class="profile-name" id="timelineDetailTitle" style="margin-bottom: 6px; font-size: 25px;">2006 - 2019 | 童年到初中</h2>
               <p class="profile-subtitle" id="timelineDetailSubtitle" data-i18n="timeline_detail_subtitle">成长经历</p>
               <div class="profile-divider"></div>
-              <div class="profile-bio content-protect" id="timelineDetailContent" style="white-space: pre-line;">2006年，我出生在一个普通的农村家庭。从小跟着爷爷奶奶，爸爸妈妈去了外地打工,而把我养大的是我的姑妈，从出生到幼儿园，我一直在姑妈身边慢慢长大。<br><div style="display:flex;justify-content:center;"><br>  <img src="images/101.jpg" alt="描述" style="max-width:270px;"><br></div><p style="text-align:center;">【最早出生照片】</p><br>小时候很喜欢跟着小伙伴一起玩耍，去小河旁摸虾，去山里挖野菜，去农田学着大人插秧，这些都是我模糊记忆的童年。<br><div style="display:flex;justify-content:center;"><br>  <img src="images/104.jpg" alt="描述" style="max-width:270px;"><br></div><p style="text-align:center;">【高清修复照片】</p><br>上完幼儿园，一年级我和我的父母来到了广东，面对陌生的环境，难免有些害怕，但后来也慢慢的适应了。<br><div style="display:flex;justify-content:center;"><br>  <img src="images/107.jpg" alt="描述" style="max-width:270px;"><br></div><p style="text-align:center;">【在广东用手机自拍】</p><br>小学时光还有很多有趣时光，有好也有坏，这里就不讲太多了，童年只能回忆，但无法改变未来。</div>
+              <div class="profile-bio content-protect" id="timelineDetailContent" style="white-space: pre-line;">2006年，我出生在一个普通的农村家庭。从小跟着爷爷奶奶，爸爸妈妈去了外地打工,而把我养大的是我的姑妈，从出生到幼儿园，我一直在姑妈身边慢慢长大。<br><div style="display:flex;justify-content:center;"><br>  <img src="images/101.jpg" alt="描述" decoding="async" style="max-width:270px;"><br></div><p style="text-align:center;">【最早出生照片】</p><br>小时候很喜欢跟着小伙伴一起玩耍，去小河旁摸虾，去山里挖野菜，去农田学着大人插秧，这些都是我模糊记忆的童年。<br><div style="display:flex;justify-content:center;"><br>  <img src="images/104.jpg" alt="描述" decoding="async" style="max-width:270px;"><br></div><p style="text-align:center;">【高清修复照片】</p><br>上完幼儿园，一年级我和我的父母来到了广东，面对陌生的环境，难免有些害怕，但后来也慢慢的适应了。<br><div style="display:flex;justify-content:center;"><br>  <img src="images/107.jpg" alt="描述" decoding="async" style="max-width:270px;"><br></div><p style="text-align:center;">【在广东用手机自拍】</p><br>小学时光还有很多有趣时光，有好也有坏，这里就不讲太多了，童年只能回忆，但无法改变未来。</div>
               <a href="#" class="profile-back-btn" data-page="about" data-scroll-to="timeline" style="margin-top: 20px;">
                 <i class="fa-solid fa-arrow-left"></i><font data-i18n="back_timeline">返回成长经历</font></a>
             </div>
@@ -2286,83 +2607,17 @@
           <div class="admin-layout">
             <!-- 左侧固定侧边栏 -->
             <div class="admin-sidebar">
-              <div class="admin-sidebar-title">管理菜单</div>
-              <button class="admin-sidebar-item" data-admin-panel="content">
-                内容管理
-              </button>
-              <button class="admin-sidebar-item active" data-admin-panel="settings">
-                系统设置
-              </button>
+              <nav class="admin-nav">
+                <button class="admin-sidebar-item" data-admin-panel="content">
+                  <i class="fa-solid fa-folder-open"></i><span>内容管理</span>
+                </button>
+                <button class="admin-sidebar-item active" data-admin-panel="settings">
+                  <i class="fa-solid fa-gear"></i><span>系统设置</span>
+                </button>
+              </nav>
             </div>
             <!-- 右侧主内容 -->
             <div class="admin-main">
-              <!-- 仪表盘 -->
-              <div class="admin-panel" id="adminDashboard">
-                <h3 class="admin-panel-title">仪表盘</h3>
-                <div class="stat-cards">
-                  <div class="stat-card">
-                    <div class="stat-card-value" id="statTotalUsers">1</div>
-                    <div class="stat-card-label">注册用户总数</div>
-                  </div>
-                  <div class="stat-card">
-                    <div class="stat-card-value" id="statAdminCount">1</div>
-                    <div class="stat-card-label">管理员数量</div>
-                  </div>
-                  <div class="stat-card">
-                    <div class="stat-card-value" id="statBlogCount">3</div>
-                    <div class="stat-card-label">博客文章</div>
-                  </div>
-                  <div class="stat-card">
-                    <div class="stat-card-value" id="statPortfolioCount">4</div>
-                    <div class="stat-card-label">作品展示</div>
-                  </div>
-                  <div class="stat-card">
-                    <div class="stat-card-value" id="statMessageCount">0</div>
-                    <div class="stat-card-label">留言数量</div>
-                  </div>
-                  <div class="stat-card">
-                    <div class="stat-card-value" id="statChangelogCount">19</div>
-                    <div class="stat-card-label">更新日志条数</div>
-                  </div>
-                </div>
-                <div class="admin-table-wrap">
-                  <table class="admin-table">
-                    <thead>
-                      <tr>
-                        <th>用户名</th>
-                        <th>角色</th>
-                        <th>注册时间</th>
-                      </tr>
-                    </thead>
-                    <tbody id="dashboardRecentUsers">
- <tr>
- <td>xiaowei</td>
- <td><span class="admin-badge admin">管理员</span></td>
- <td style="opacity:0.6;">最近注册</td>
- </tr></tbody>
-                  </table>
-                </div>
-              </div>
-              <!-- 用户管理 -->
-              <div class="admin-panel" id="adminUsers">
-                <h3 class="admin-panel-title">用户管理</h3>
-                <div class="admin-table-wrap">
-                  <table class="admin-table">
-                    <thead>
-                      <tr>
-                        <th>用户名</th>
-                        <th>角色</th>
-                        <th>操作</th>
-                      </tr>
-                    </thead>
-                    <tbody id="adminUsersTableBody"><tr>
- <td>xiaowei</td>
- <td><span class="admin-badge admin">管理员</span></td>
- <td>超级管理员</td>
- </tr></tbody>
-                  </table>
-                </div>
-              </div>
               <!-- 内容管理 -->
               <div class="admin-panel" id="adminContent">
                 <h3 class="admin-panel-title">内容管理</h3>
@@ -2383,11 +2638,16 @@
                      个人标签
                    </button>
                  </div>
+                <!-- 新增按钮工具栏（固定一行，不随列表滚动） -->
+                <div class="admin-content-toolbar">
+                  <button class="admin-btn primary" id="addBlogBtn" style="display: none;">+ 新增文章</button>
+                  <button class="admin-btn primary" id="addPortfolioBtn" style="display: none;">+ 新增作品</button>
+                  <button class="admin-btn primary" id="addChangelogBtn" style="display: inline-block;">+ 新增更新日志</button>
+                  <button class="admin-btn primary" id="addTimelineBtn" style="display: none;">+ 新增成长条目</button>
+                  <button class="admin-btn primary" id="addTagBtn" style="display: none;">+ 新增标签</button>
+                </div>
                 <!-- 博客面板 -->
                 <div id="adminBlogPanel" style="display: none;">
-                  <button class="admin-btn primary" id="addBlogBtn" style="margin-bottom: 16px">
-                    + 新增文章
-                  </button>
                   <div class="admin-table-wrap">
                     <table class="admin-table">
                       <thead>
@@ -2441,9 +2701,6 @@
                 </div>
                 <!-- 作品面板 -->
                 <div id="adminPortfolioPanel" style="display: none;">
-                  <button class="admin-btn primary" id="addPortfolioBtn" style="margin-bottom: 16px">
-                    + 新增作品
-                  </button>
                   <div class="admin-table-wrap">
                     <table class="admin-table">
                       <thead>
@@ -2503,9 +2760,6 @@
                 </div>
                 <!-- 更新日志面板 -->
                 <div id="adminChangelogPanel" style="display: block;">
-                  <button class="admin-btn primary" id="addChangelogBtn" style="margin-bottom: 16px">
-                    + 新增更新日志
-                  </button>
                   <div class="admin-table-wrap">
                     <table class="admin-table">
                       <thead>
@@ -2517,18 +2771,31 @@
                         </tr>
                       </thead>
                       <tbody id="adminChangelogTableBody"><tr>
- <td>2026-08-19</td>
- <td>2026-08-19更新日志</td>
- <td style="opacity:0.7;font-size:13px;">1.新增首次打开加成动画
-2.修改部分布局
-3.设置文章不得复制和保存
-4.修改标签内容
-...</td>
+ <td>2026-08-22</td>
+ <td>2026-08-22更新日志</td>
+ <td style="opacity:0.7;font-size:13px;">1.优化加载动画时间
+2.修改部分文字
+3.修改部分布局
+4.修改后台管理部分内容
+5.优...</td>
  <td>
  <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(0)">↑</button>
  <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(0)">↓</button>
  <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(0)">编辑</button>
  <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(0)">删除</button>
+ </td></tr><tr>
+ <td>2026-08-19</td>
+ <td>2026-08-19更新日志</td>
+ <td style="opacity:0.7;font-size:13px;">1.新增首次打开加载动画
+2.修改部分布局
+3.设置文章不得复制和保存
+4.修改标签内容
+...</td>
+ <td>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(1)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(1)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(1)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(1)">删除</button>
  </td></tr><tr>
  <td>2026-08-15</td>
  <td>2026-08-15更新日志</td>
@@ -2538,10 +2805,10 @@
 4.优化手机布局
 5...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(1)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(1)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(1)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(1)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(2)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(2)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(2)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(2)">删除</button>
  </td></tr><tr>
  <td>2026-08-12</td>
  <td>2026-08-12更新日志</td>
@@ -2549,10 +2816,10 @@
 2.优化图片内容
 3.优化部分文字</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(2)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(2)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(2)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(2)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(3)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(3)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(3)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(3)">删除</button>
  </td></tr><tr>
  <td>2026-08-11</td>
  <td>2026-08-11更新日志</td>
@@ -2561,20 +2828,20 @@
 3.删除个人中心
 4.优化部分字体</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(3)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(3)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(3)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(3)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(4)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(4)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(4)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(4)">删除</button>
  </td></tr><tr>
  <td>2026-08-10</td>
  <td>2026-08-10更新日志</td>
  <td style="opacity:0.7;font-size:13px;">1.优化弹窗窗口
 2.优化部分文字</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(4)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(4)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(4)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(4)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(5)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(5)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(5)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(5)">删除</button>
  </td></tr><tr>
  <td>2026-08-09</td>
  <td>2026-08-09更新日志</td>
@@ -2583,10 +2850,10 @@
 3.增加部分文字
 4.优化整体动画效果</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(5)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(5)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(5)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(5)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(6)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(6)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(6)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(6)">删除</button>
  </td></tr><tr>
  <td>2026-08-08</td>
  <td>2026-08-08更新日志</td>
@@ -2595,10 +2862,10 @@
 3.优化部分按钮弹窗
 4.优化主页...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(6)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(6)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(6)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(6)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(7)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(7)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(7)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(7)">删除</button>
  </td></tr><tr>
  <td>2026-08-07</td>
  <td>2026-08-07更新日志</td>
@@ -2608,10 +2875,10 @@
 4.优化按钮返回
 5...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(7)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(7)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(7)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(7)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(8)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(8)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(8)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(8)">删除</button>
  </td></tr><tr>
  <td>2026-08-06</td>
  <td>2026-08-06更新日志</td>
@@ -2621,10 +2888,10 @@
 4.新增成长经历内容
 5新增日常...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(8)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(8)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(8)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(8)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(9)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(9)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(9)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(9)">删除</button>
  </td></tr><tr>
  <td>2026-08-05</td>
  <td>2026-08-05更新日志</td>
@@ -2632,10 +2899,10 @@
 2.优化卡片布局
 3.优化部分文字</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(9)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(9)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(9)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(9)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(10)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(10)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(10)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(10)">删除</button>
  </td></tr><tr>
  <td>2026-08-04</td>
  <td>2026-08-04更新日志</td>
@@ -2643,10 +2910,10 @@
 2.优化后台管理
 3.修复已知问题</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(10)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(10)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(10)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(10)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(11)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(11)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(11)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(11)">删除</button>
  </td></tr><tr>
  <td>2026-08-03</td>
  <td>2026-08-03更新日志</td>
@@ -2655,10 +2922,10 @@
 3.修复点击问题
 4.优化部分代码</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(11)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(11)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(11)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(11)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(12)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(12)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(12)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(12)">删除</button>
  </td></tr><tr>
  <td>2026-08-02</td>
  <td>2026-08-02更新日志</td>
@@ -2668,10 +2935,10 @@
 4.修复点击问题
 5.优化部分...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(12)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(12)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(12)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(12)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(13)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(13)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(13)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(13)">删除</button>
  </td></tr><tr>
  <td>2026-08-01</td>
  <td>2026-08-01更新日志</td>
@@ -2680,10 +2947,10 @@
 3.后台新增多个优化
 4.修复多个点击...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(13)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(13)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(13)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(13)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(14)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(14)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(14)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(14)">删除</button>
  </td></tr><tr>
  <td>2026-07-31</td>
  <td>2026-07-31更新日志</td>
@@ -2693,10 +2960,10 @@
 4.下拉样式优化
 5.登录注册功...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(14)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(14)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(14)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(14)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(15)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(15)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(15)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(15)">删除</button>
  </td></tr><tr>
  <td>2026-07-30</td>
  <td>2026-07-30更新日志</td>
@@ -2704,10 +2971,10 @@
 2.修复弹窗变形bug
 3.优化弹窗高度限制...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(15)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(15)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(15)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(15)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(16)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(16)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(16)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(16)">删除</button>
  </td></tr><tr>
  <td>2026-07-29</td>
  <td>2026-07-29更新日志</td>
@@ -2716,10 +2983,10 @@
 3.修复关闭动画失效
 4.弹窗阻...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(16)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(16)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(16)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(16)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(17)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(17)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(17)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(17)">删除</button>
  </td></tr><tr>
  <td>2026-07-28</td>
  <td>2026-07-28更新日志</td>
@@ -2730,10 +2997,10 @@
 5.缩放动画
 6...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(17)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(17)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(17)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(17)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(18)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(18)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(18)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(18)">删除</button>
  </td></tr><tr>
  <td>2026-07-27</td>
  <td>2026-07-27更新日志</td>
@@ -2743,10 +3010,10 @@
 4.头部留白调整
 5.文字遮挡修复</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(18)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(18)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(18)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(18)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(19)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(19)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(19)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(19)">删除</button>
  </td></tr></tbody>
                     </table>
                   </div>
@@ -2756,9 +3023,6 @@
                 </div>
                 <!-- 成长文章面板 -->
                 <div id="adminTimelinePanel" style="display: none;">
-                  <button class="admin-btn primary" id="addTimelineBtn" style="margin-bottom: 16px">
-                    + 新增成长条目
-                  </button>
                   <div class="admin-table-wrap">
                     <table class="admin-table">
                       <thead>
@@ -2801,9 +3065,6 @@
                  </div>
                  <!-- 个人标签面板 -->
                  <div id="adminTagsPanel" style="display: none;">
-                   <button class="admin-btn primary" id="addTagBtn" style="margin-bottom: 16px">
-                     + 新增标签
-                   </button>
                    <div class="admin-table-wrap">
                      <table class="admin-table">
                        <thead>
@@ -2857,27 +3118,7 @@
                    </div>
                  </div>
                </div>
-               <!-- 信息管理 -->
-              <div class="admin-panel" id="adminMessages">
-                <h3 class="admin-panel-title">留言信息</h3>
-                <div class="admin-table-wrap">
-                  <table class="admin-table">
-                    <thead>
-                      <tr>
-                        <th>称呼</th>
-                        <th>留言内容</th>
-                        <th>时间</th>
-                        <th>操作</th>
-                      </tr>
-                    </thead>
-                    <tbody id="adminMessagesTableBody"></tbody>
-                  </table>
-                </div>
-                <div class="admin-empty" id="adminMessagesEmpty" style="display: block">
-                  暂无留言
-                </div>
-              </div>
-              <!-- 系统设置 -->
+               <!-- 系统设置 -->
               <div class="admin-panel active" id="adminSettings">
                 <h3 class="admin-panel-title">系统设置</h3>
                 <div class="admin-form">
@@ -2899,16 +3140,9 @@
                   </button>
                 </div>
                 <div class="admin-form" style="margin-top: 24px">
-                  <h4>数据管理</h4>
-                  <p style="opacity: 0.7; margin-bottom: 16px">
-                    清空非管理员用户（不可恢复）
-                  </p>
-                  <button class="admin-btn-sm danger" id="clearAllUsersBtn">
-                    清空所有用户
-                  </button>
-                  <button class="admin-btn-sm primary" id="exportHtmlBtn" style="margin-top: 12px">
-                    导出完整HTML文件
-                  </button>
+                  <h4>导出完整HTML文件</h4>
+                  <p style="opacity: 0.7; margin-bottom: 16px">将当前所有数据（文章、作品、更新日志、成长经历、标签等）导出为一个完整的 HTML 文件</p>
+                  <button class="admin-btn primary" id="exportHtmlBtn">导出完整HTML文件</button>
                 </div>
               </div>
             </div>
@@ -2921,8 +3155,7 @@
     <footer>
         © 2026
         <a href="https://github.com/lowewa730657707/grwz">GitHub</a>
-        xiaowei <span data-i18n="footer_copyright">版权归作者所有</span> <br>
-        <p class="shengmin" data-i18n="footer_disclaimer">网页为开源项目，不收集用户任何信息，请放心浏览</p>
+        xiaowei <span data-i18n="footer_copyright">内容版权归作者所有</span> <br>
       <div class="container"><font>
       </font></div><font>
     </font></footer><font>
@@ -3008,7 +3241,7 @@
     <!-- 成功提示弹窗 -->
     <div class="dev-modal-mask" id="successTipModal">
       <div class="dev-modal-box">
-        <p class="dev-text" id="successTipText">更新日志已删除</p>
+        <p class="dev-text" id="successTipText">已同步首页更新公告</p>
         <button class="dev-close-btn" id="successTipCloseBtn">好的</button>
       </div>
     </div>
@@ -3029,7 +3262,7 @@
         <button class="modal-close-btn" id="changelogEditCloseBtn" aria-label="关闭">
           ×
         </button>
-        <h3 class="modal-title" id="changelogEditModalTitle">新增更新日志</h3>
+        <h3 class="modal-title" id="changelogEditModalTitle">编辑更新日志</h3>
         <div class="modal-content">
           <div class="auth-form">
             <div class="form-item">
@@ -3037,11 +3270,11 @@
               <input type="date" id="changelogEditDate">
             </div>
             <div class="form-item">
-              <label>更新标题（如2026-07-30更新日志）</label>
+              <label>更新标题</label>
               <input type="text" id="changelogEditTitle" placeholder="填写日志头部标题">
             </div>
             <div class="form-item">
-              <label>更新内容（换行自动分割多条更新）</label>
+              <label>更新内容</label>
               <textarea id="changelogEditContent" rows="6" placeholder="每条更新换行输入"></textarea>
             </div>
           </div>
@@ -3120,23 +3353,7 @@
                     Object.keys(d).forEach(function (k) {
                       localStorage.setItem(k, d[k]);
                     });
-                  })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"12345678\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路运用技巧\",\"subtitle\":\"讲解两个颜色搭配逻辑\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案。\\n\\n在网页设计中，色彩搭配是非常重要的一环。低饱和度的蓝色系能够营造出柔和、专业的视觉效果。\\n\\n本文将详细介绍如何使用#E6F7FF作为背景色，搭配#89C2FF作为强调色，打造舒适护眼的配色方案。\\n\\n以上内容由Ai生成\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"subtitle\":\"卡片、行高、页面边距规范\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧。\\n\\n留白是网页设计中常被忽视但极其重要的元素。合理的留白能够提升内容的可读性和页面的整体质感。\\n<img src=\\\"images/010.jpeg\\\" alt=\\\"描述\\\">\\n本文从卡片间距、行高设置到页面边距，全面讲解如何运用留白打造极简高级的网页设计。\\n\\n以上内容由Ai生成\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"subtitle\":\"字体阅读体验对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比。\\n\\n字体的选择直接影响网站的阅读体验。对于中文个人网站，无衬线字体是最常见的选择。\\n\\n本文对比了苹方、微软雅黑和Inter三种常用字体在不同场景下的表现，帮助你选择最适合的字体方案。\\n\\n以上内容由Ai生成\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人视频分享\",\"tag\":\"开发中\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"开发中\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-08-19\",\"title\":\"2026-08-19更新日志\",\"content\":\"1.新增首次打开加成动画\\n2.修改部分布局\\n3.设置文章不得复制和保存\\n4.修改标签内容\\n5.修复制作中产出的问题\"},{\"date\":\"2026-08-15\",\"title\":\"2026-08-15更新日志\",\"content\":\"1.新增英文翻译内容\\n2.新增主页右上角图标\\n3.优化主页右上角文字\\n4.优化手机布局\\n5.手机新增滑动按钮\"},{\"date\":\"2026-08-12\",\"title\":\"2026-08-12更新日志\",\"content\":\"1.更新文章内容\\n2.优化图片内容\\n3.优化部分文字\"},{\"date\":\"2026-08-11\",\"title\":\"2026-08-11更新日志\",\"content\":\"1.优化弹窗窗口大小\\n2优化联系弹窗样式\\n3.删除个人中心\\n4.优化部分字体\"},{\"date\":\"2026-08-10\",\"title\":\"2026-08-10更新日志\",\"content\":\"1.优化弹窗窗口\\n2.优化部分文字\"},{\"date\":\"2026-08-09\",\"title\":\"2026-08-09更新日志\",\"content\":\"1.优化弹窗问题\\n2.优化按钮返回问题\\n3.增加部分文字\\n4.优化整体动画效果\"},{\"date\":\"2026-08-08\",\"title\":\"2026-08-08更新日志\",\"content\":\"1.修复后台个性标签保存问题\\n2.优化联系方式弹窗内容\\n3.优化部分按钮弹窗\\n4.优化主页卡片排序\\n5.优化主页按钮大小\\n6.修改添加部分文字\\n7.修复部分按钮弹窗问题\\n8.优化手机端部分内容\"},{\"date\":\"2026-08-07\",\"title\":\"2026-08-07更新日志\",\"content\":\"1.新增个人标签内容\\n2.新增联系方式复制按钮\\n3.优化部分按钮内容\\n4.优化按钮返回\\n5.优化部分文字标题\\n6.修复返回按钮问题\"},{\"date\":\"2026-08-06\",\"title\":\"2026-08-06更新日志\",\"content\":\"1.新增多个文章页面\\n2.优化多个文字\\n3.优化后台管理\\n4.新增成长经历内容\\n5新增日常分享内容\"},{\"date\":\"2026-08-05\",\"title\":\"2026-08-05更新日志\",\"content\":\"1.新增关于我卡片内容\\n2.优化卡片布局\\n3.优化部分文字\"},{\"date\":\"2026-08-04\",\"title\":\"2026-08-04更新日志\",\"content\":\"1.优化部分文字\\n2.优化后台管理\\n3.修复已知问题\"},{\"date\":\"2026-08-03\",\"title\":\"2026-08-03更新日志\",\"content\":\"1.优化移动端部分排版\\n2.优化部分文字\\n3.修复点击问题\\n4.优化部分代码\"},{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]","siteTimelines":"[{\"title\":\"2006 - 2019 | 童年到初中\",\"subtitle\":\"小时候的童年\",\"content\":\"2006年，我出生在一个普通的农村家庭。从小跟着爷爷奶奶，爸爸妈妈去了外地打工,而把我养大的是我的姑妈，从出生到幼儿园，我一直在姑妈身边慢慢长大。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/101.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【最早出生照片】</p>\\n小时候很喜欢跟着小伙伴一起玩耍，去小河旁摸虾，去山里挖野菜，去农田学着大人插秧，这些都是我模糊记忆的童年。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/104.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【高清修复照片】</p>\\n上完幼儿园，一年级我和我的父母来到了广东，面对陌生的环境，难免有些害怕，但后来也慢慢的适应了。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/107.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【在广东用手机自拍】</p>\\n小学时光还有很多有趣时光，有好也有坏，这里就不讲太多了，童年只能回忆，但无法改变未来。\"},{\"title\":\"2019 - 2021 | 特殊初中时光\",\"subtitle\":\"疫情时期，难忘的初中回忆。\",\"content\":\"疫情时期，难忘的初中回忆。\\n\\n2019年，我步入了初中校园，开始了新的学习生活。然而好没过多久，2020年初新冠疫情爆发，一切都改变了。\\n<img src=\\\"images/010.jpeg\\\" alt=\\\"描述\\\">\\n学校停课，我们开始在家上网课。每天对着电脑屏幕学习，既新奇又不适应。没有了同学的陪伴，学习变得更加孤独，但也让我学会了自律和独立。\\n\\n那段时间，我学会了合理安排时间，自主学习新知识。也让我更加珍惜能够正常上学、和朋友们在一起的日子。\\n\\n这段特殊的经历，是我成长中不可或缺的一部分。\\n\\n以上内容由Ai生成\"},{\"title\":\"更多内容持续更新中……\",\"subtitle\":\"敬请期待！\",\"content\":\"敬请期待！\\n\\n更多精彩内容正在准备中，请持续关注我的个人网站。\\n\\n以上内容由Ai生成\"}]","siteTags":"[{\"name\":\"网页制作\",\"content\":\"喜欢网页开发，熟悉基础HTML、CSS、JavaScript等前端技术。\\n\\n上了大学才开始慢慢学会网页制作，虽然中职也学过一些，但老师教的是可视化的，所有代码不是很了解，上了大学老师才教代码制作。\"},{\"name\":\"摄影\",\"content\":\"摄影是在中职才慢慢接触，在中职加入了摄影社，我才接触相机这种东西。\\n\\n摄影技术方面不是很厉害，因为接触相机的经历很少，但也了解相机的基础功能：快门，ISO，光圈。\\n\\n希望在未来某一天能拥有一台属于自己的相机。\"},{\"name\":\"音乐\",\"content\":\"喜欢各种类型风格的音乐，喜欢在晚上睡觉前听，使用平台是网易云音乐，比较喜欢的器乐是钢琴，音乐天赋不高，从小接触音乐的学习很少。\\n\\n未来的希望是可以用钢琴弹一首完整的歌曲。\"},{\"name\":\"游戏\",\"content\":\"喜欢玩射击，赛车，开放世界等类型游戏，技术不是很厉害，但玩游戏可以给我带来放松。\"},{\"name\":\"furry\",\"content\":\"对furry文化有浓厚的兴趣，喜欢毛绒绒的兽兽，希望在未来可以拥有属于自己的兽装。\"},{\"name\":\"赛车\",\"content\":\"赛车运动，感受速度与激情，玩过很多赛车游戏，但玩的最久的是王牌竞速这款游戏，虽然并不是真正的赛车游戏，但在游戏可以体验不同赛车带来的速度与激情。\"}]"});</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                  })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"12345678\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路运用技巧\",\"subtitle\":\"讲解两个颜色搭配逻辑\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案。\\n\\n在网页设计中，色彩搭配是非常重要的一环。低饱和度的蓝色系能够营造出柔和、专业的视觉效果。\\n\\n本文将详细介绍如何使用#E6F7FF作为背景色，搭配#89C2FF作为强调色，打造舒适护眼的配色方案。\\n\\n以上内容由Ai生成\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"subtitle\":\"卡片、行高、页面边距规范\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧。\\n\\n留白是网页设计中常被忽视但极其重要的元素。合理的留白能够提升内容的可读性和页面的整体质感。\\n<img src=\\\"images/010.jpeg\\\" alt=\\\"描述\\\">\\n本文从卡片间距、行高设置到页面边距，全面讲解如何运用留白打造极简高级的网页设计。\\n\\n以上内容由Ai生成\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"subtitle\":\"字体阅读体验对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比。\\n\\n字体的选择直接影响网站的阅读体验。对于中文个人网站，无衬线字体是最常见的选择。\\n\\n本文对比了苹方、微软雅黑和Inter三种常用字体在不同场景下的表现，帮助你选择最适合的字体方案。\\n\\n以上内容由Ai生成\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人视频分享\",\"tag\":\"开发中\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"开发中\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-08-22\",\"title\":\"2026-08-22更新日志\",\"content\":\"1.优化加载动画时间\\n2.修改部分文字\\n3.修改部分布局\\n4.修改后台管理部分内容\\n5.优化手机内容适配\"},{\"date\":\"2026-08-19\",\"title\":\"2026-08-19更新日志\",\"content\":\"1.新增首次打开加载动画\\n2.修改部分布局\\n3.设置文章不得复制和保存\\n4.修改标签内容\\n5.修复制作中产出的问题\"},{\"date\":\"2026-08-15\",\"title\":\"2026-08-15更新日志\",\"content\":\"1.新增英文翻译内容\\n2.新增主页右上角图标\\n3.优化主页右上角文字\\n4.优化手机布局\\n5.手机新增滑动按钮\"},{\"date\":\"2026-08-12\",\"title\":\"2026-08-12更新日志\",\"content\":\"1.更新文章内容\\n2.优化图片内容\\n3.优化部分文字\"},{\"date\":\"2026-08-11\",\"title\":\"2026-08-11更新日志\",\"content\":\"1.优化弹窗窗口大小\\n2优化联系弹窗样式\\n3.删除个人中心\\n4.优化部分字体\"},{\"date\":\"2026-08-10\",\"title\":\"2026-08-10更新日志\",\"content\":\"1.优化弹窗窗口\\n2.优化部分文字\"},{\"date\":\"2026-08-09\",\"title\":\"2026-08-09更新日志\",\"content\":\"1.优化弹窗问题\\n2.优化按钮返回问题\\n3.增加部分文字\\n4.优化整体动画效果\"},{\"date\":\"2026-08-08\",\"title\":\"2026-08-08更新日志\",\"content\":\"1.修复后台个性标签保存问题\\n2.优化联系方式弹窗内容\\n3.优化部分按钮弹窗\\n4.优化主页卡片排序\\n5.优化主页按钮大小\\n6.修改添加部分文字\\n7.修复部分按钮弹窗问题\\n8.优化手机端部分内容\"},{\"date\":\"2026-08-07\",\"title\":\"2026-08-07更新日志\",\"content\":\"1.新增个人标签内容\\n2.新增联系方式复制按钮\\n3.优化部分按钮内容\\n4.优化按钮返回\\n5.优化部分文字标题\\n6.修复返回按钮问题\"},{\"date\":\"2026-08-06\",\"title\":\"2026-08-06更新日志\",\"content\":\"1.新增多个文章页面\\n2.优化多个文字\\n3.优化后台管理\\n4.新增成长经历内容\\n5新增日常分享内容\"},{\"date\":\"2026-08-05\",\"title\":\"2026-08-05更新日志\",\"content\":\"1.新增关于我卡片内容\\n2.优化卡片布局\\n3.优化部分文字\"},{\"date\":\"2026-08-04\",\"title\":\"2026-08-04更新日志\",\"content\":\"1.优化部分文字\\n2.优化后台管理\\n3.修复已知问题\"},{\"date\":\"2026-08-03\",\"title\":\"2026-08-03更新日志\",\"content\":\"1.优化移动端部分排版\\n2.优化部分文字\\n3.修复点击问题\\n4.优化部分代码\"},{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]","siteTimelines":"[{\"title\":\"2006 - 2019 | 童年到初中\",\"subtitle\":\"小时候的童年\",\"content\":\"2006年，我出生在一个普通的农村家庭。从小跟着爷爷奶奶，爸爸妈妈去了外地打工,而把我养大的是我的姑妈，从出生到幼儿园，我一直在姑妈身边慢慢长大。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/101.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【最早出生照片】</p>\\n小时候很喜欢跟着小伙伴一起玩耍，去小河旁摸虾，去山里挖野菜，去农田学着大人插秧，这些都是我模糊记忆的童年。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/104.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【高清修复照片】</p>\\n上完幼儿园，一年级我和我的父母来到了广东，面对陌生的环境，难免有些害怕，但后来也慢慢的适应了。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/107.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【在广东用手机自拍】</p>\\n小学时光还有很多有趣时光，有好也有坏，这里就不讲太多了，童年只能回忆，但无法改变未来。\"},{\"title\":\"2019 - 2021 | 特殊初中时光\",\"subtitle\":\"疫情时期，难忘的初中回忆。\",\"content\":\"疫情时期，难忘的初中回忆。\\n\\n2019年，我步入了初中校园，开始了新的学习生活。然而好没过多久，2020年初新冠疫情爆发，一切都改变了。\\n<img src=\\\"images/010.jpeg\\\" alt=\\\"描述\\\">\\n学校停课，我们开始在家上网课。每天对着电脑屏幕学习，既新奇又不适应。没有了同学的陪伴，学习变得更加孤独，但也让我学会了自律和独立。\\n\\n那段时间，我学会了合理安排时间，自主学习新知识。也让我更加珍惜能够正常上学、和朋友们在一起的日子。\\n\\n这段特殊的经历，是我成长中不可或缺的一部分。\\n\\n以上内容由Ai生成\"},{\"title\":\"更多内容持续更新中……\",\"subtitle\":\"敬请期待！\",\"content\":\"敬请期待！\\n\\n更多精彩内容正在准备中，请持续关注我的个人网站。\\n\\n以上内容由Ai生成\"}]","siteTags":"[{\"name\":\"网页制作\",\"content\":\"喜欢网页开发，熟悉基础HTML、CSS、JavaScript等前端技术。\\n\\n上了大学才开始慢慢学会网页制作，虽然中职也学过一些，但老师教的是可视化的，所有代码不是很了解，上了大学老师才教代码制作。\"},{\"name\":\"摄影\",\"content\":\"摄影是在中职才慢慢接触，在中职加入了摄影社，我才接触相机这种东西。\\n\\n摄影技术方面不是很厉害，因为接触相机的经历很少，但也了解相机的基础功能：快门，ISO，光圈。\\n\\n希望在未来某一天能拥有一台属于自己的相机。\"},{\"name\":\"音乐\",\"content\":\"喜欢各种类型风格的音乐，喜欢在晚上睡觉前听，使用平台是网易云音乐，比较喜欢的器乐是钢琴，音乐天赋不高，从小接触音乐的学习很少。\\n\\n未来的希望是可以用钢琴弹一首完整的歌曲。\"},{\"name\":\"游戏\",\"content\":\"喜欢玩射击，赛车，开放世界等类型游戏，技术不是很厉害，但玩游戏可以给我带来放松。\"},{\"name\":\"furry\",\"content\":\"对furry文化有浓厚的兴趣，喜欢毛绒绒的兽兽，希望在未来可以拥有属于自己的兽装。\"},{\"name\":\"赛车\",\"content\":\"赛车运动，感受速度与激情，玩过很多赛车游戏，但玩的最久的是王牌竞速这款游戏，虽然并不是真正的赛车游戏，但在游戏可以体验不同赛车带来的速度与激情。\"}]"});</script>
 
     <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -3279,7 +3496,6 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
               if (target === "portfolio") syncPortfoliosToFront();
               if (target === "blog") syncBlogsToFront();
-              if (target === "admin") refreshDashboard();
             }, 100);
           });
         });
@@ -3619,7 +3835,6 @@ document.addEventListener("DOMContentLoaded", function () {
             btn_confirm: "确认",
             btn_cancel: "取消",
             btn_ok: "好的",
-            footer_disclaimer: "网页为开源项目，不收集用户任何信息，请放心浏览",
             js_tip_please_login: "请先登录管理员账号",
             js_tip_user_deleted: "用户删除成功",
             js_tip_login_success: "欢迎回来",
@@ -3692,7 +3907,7 @@ document.addEventListener("DOMContentLoaded", function () {
             back_tags: "返回个人标签",
             timeline_detail_subtitle: "成长经历",
             tag_detail_subtitle: "个人标签",
-            footer_copyright: "版权归作者所有",
+            footer_copyright: "内容版权归作者所有",
             changelog_modal_header: "【更新日志】",
             changelog_modal_footer: "后续持续优化页面细节，敬请期待！",
           },
@@ -3758,8 +3973,6 @@ document.addEventListener("DOMContentLoaded", function () {
             btn_confirm: "Confirm",
             btn_cancel: "Cancel",
             btn_ok: "OK",
-            footer_disclaimer:
-              "Open source project. No user data collected. Browse with confidence.",
             js_tip_please_login: "Please login with an admin account first",
             js_tip_user_deleted: "User deleted successfully",
             js_tip_login_success: "Welcome back",
@@ -3834,7 +4047,7 @@ document.addEventListener("DOMContentLoaded", function () {
             back_tags: "Back to Tags",
             timeline_detail_subtitle: "My Journey",
             tag_detail_subtitle: "Tags",
-            footer_copyright: "All rights reserved by the author",
+            footer_copyright: "Content rights reserved by the author",
             changelog_modal_header: "[ Update Log ]",
             changelog_modal_footer: "We'll keep polishing the site. Stay tuned!",
           },
@@ -4673,16 +4886,6 @@ document.addEventListener("DOMContentLoaded", function () {
           function saveTags(arr) {
             localStorage.setItem("siteTags", JSON.stringify(arr));
           }
-          function getMessages() {
-            try {
-              return JSON.parse(localStorage.getItem("siteMessages") || "[]");
-            } catch {
-              return [];
-            }
-          }
-          function saveMessages(arr) {
-            localStorage.setItem("siteMessages", JSON.stringify(arr));
-          }
           // 初始化默认更新日志
           function initDefaultChangelogs() {
             const arr = getChangelogs();
@@ -4780,9 +4983,6 @@ document.addEventListener("DOMContentLoaded", function () {
                   panelName.slice(1),
               );
               if (target) target.classList.add("active");
-              if (panelName === "dashboard") refreshDashboard();
-              if (panelName === "users") refreshUserTable();
-              if (panelName === "messages") refreshMessageTable();
               if (panelName === "content") refreshContentTables();
             });
           });
@@ -4804,6 +5004,17 @@ document.addEventListener("DOMContentLoaded", function () {
                  type === "timeline" ? "block" : "none";
                document.getElementById("adminTagsPanel").style.display =
                  type === "tags" ? "block" : "none";
+               // 工具栏新增按钮跟随子标签显隐
+               document.getElementById("addBlogBtn").style.display =
+                 type === "blog" ? "inline-block" : "none";
+               document.getElementById("addPortfolioBtn").style.display =
+                 type === "portfolio" ? "inline-block" : "none";
+               document.getElementById("addChangelogBtn").style.display =
+                 type === "changelog" ? "inline-block" : "none";
+               document.getElementById("addTimelineBtn").style.display =
+                 type === "timeline" ? "inline-block" : "none";
+               document.getElementById("addTagBtn").style.display =
+                 type === "tags" ? "inline-block" : "none";
                if (type === "blog") refreshBlogTable();
                else if (type === "portfolio") refreshPortfolioTable();
                else if (type === "changelog") refreshChangelogTable();
@@ -4812,65 +5023,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
           });
 
-          // 仪表盘
-          function refreshDashboard() {
-            const users = getAccounts();
-            const blogs = getBlogs();
-            const ports = getPortfolios();
-            const changelog = getChangelogs();
-            document.getElementById("statTotalUsers").textContent =
-              users.length;
-            document.getElementById("statAdminCount").textContent =
-              users.filter((x) => x.isAdmin).length;
-            document.getElementById("statBlogCount").textContent = blogs.length;
-            document.getElementById("statPortfolioCount").textContent =
-              ports.length;
-            document.getElementById("statMessageCount").textContent =
-              getMessages().length;
-            document.getElementById("statChangelogCount").textContent =
-              changelog.length;
-            const tbody = document.getElementById("dashboardRecentUsers");
-            const recent = users.slice(-5).reverse();
-            tbody.innerHTML =
-              recent
-                .map(
-                  (u) => `
- <tr>
- <td>${u.username}</td>
- <td><span class="admin-badge ${u.isAdmin ? "admin" : "user"}">${u.isAdmin ? tzh("js_role_admin") : tzh("js_role_user")}</span></td>
- <td style="opacity:0.6;">最近注册</td>
- `,
-                )
-                .join("") ||
-              '<tr><td colspan="3" style="text-align:center;opacity:0.5;">' +
-                tzh("js_no_users") +
-                "</td>";
-          }
+          // 仪表盘已移除：保留空函数以兼容内容管理各操作的刷新调用
+          function refreshDashboard() {}
 
-          // 用户表格
-          function refreshUserTable() {
-            const users = getAccounts();
-            const tbody = document.getElementById("adminUsersTableBody");
-            tbody.innerHTML = users
-              .map((u) => {
-                let btn = "";
-                if (u.username !== "xiaowei") {
-                  if (u.isAdmin)
-                    btn += `<button class="admin-btn-sm warn" onclick="window._adminDemoteUser('${escapeHtml(u.username)}')">取消管理员</button>`;
-                  else
-                    btn += `<button class="admin-btn-sm primary" onclick="window._adminPromoteUser('${escapeHtml(u.username)}')">设管理员</button>`;
-                  btn += `<button class="admin-btn-sm danger" onclick="window._adminDeleteUser('${escapeHtml(u.username)}')">删除</button>`;
-                }
-                return `<tr>
- <td>${escapeHtml(u.username)}</td>
- <td><span class="admin-badge ${u.isAdmin ? "admin" : "user"}">${u.isAdmin ? tzh("js_role_admin") : tzh("js_role_user")}</span></td>
- <td>${btn || tzh("js_role_superadmin")}</td>
- </tr>`;
-              })
-              .join("");
-          }
-
-           // 博客表格
+          // 博客表格
           function refreshBlogTable() {
             const blogs = getBlogs();
             const tbody = document.getElementById("adminBlogTableBody");
@@ -4928,52 +5084,6 @@ document.addEventListener("DOMContentLoaded", function () {
           }
 
           // 更新日志表格
-          // Message table refresh
-          function refreshMessageTable() {
-            const msgs = getMessages();
-            const tbody = document.getElementById("adminMessagesTableBody");
-            const empty = document.getElementById("adminMessagesEmpty");
-            if (!tbody) return;
-            if (msgs.length === 0) {
-              tbody.innerHTML = "";
-              if (empty) empty.style.display = "block";
-              return;
-            }
-            if (empty) empty.style.display = "none";
-            tbody.innerHTML = msgs
-              .map(
-                (m, i) =>
-                  "<tr><td>" +
-                  escapeHtml(m.name) +
-                  '</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' +
-                  escapeHtml(m.message) +
-                  "</td><td>" +
-                  m.time +
-                  '</td><td><button class="admin-btn-sm" onclick="_adminViewMessage(' +
-                  i +
-                  ')">查看</button> <button class="admin-btn-sm danger" onclick="_adminDeleteMessage(' +
-                  i +
-                  ')">删除</button></td></tr>',
-              )
-              .join("");
-          }
-          window._adminViewMessage = function (idx) {
-            const m = getMessages()[idx];
-            if (!m) return;
-            alert(
-              "称呼：" + m.name + "\n留言：" + m.message + "\n时间：" + m.time,
-            );
-          };
-          window._adminDeleteMessage = function (idx) {
-            if (!confirm("确定删除这条留言？不可恢复")) return;
-            const arr = getMessages();
-            arr.splice(idx, 1);
-            saveMessages(arr);
-            refreshMessageTable();
-            refreshDashboard();
-            showSuccessTip("留言已删除");
-          };
-
           function refreshChangelogTable() {
             const list = getChangelogs();
             const tbody = document.getElementById("adminChangelogTableBody");
@@ -5060,40 +5170,6 @@ document.addEventListener("DOMContentLoaded", function () {
               })
               .join("");
           }
-
-          // 操作日志
-
-          // 全局修复：addLog 而非 add，find匹配条件补全
-          window._adminDeleteUser = function (username) {
-            if (!confirm(`确定删除用户【${username}】？不可恢复`)) return;
-            const arr = getAccounts().filter((x) => x.username !== username);
-            saveAccounts(arr);
-            refreshUserTable();
-            refreshDashboard();
-            showSuccessTip(tzh("js_log_user_deleted"));
-          };
-          window._adminPromoteUser = function (username) {
-            const arr = getAccounts();
-            const u = arr.find((x) => x.username === username);
-            if (!u) return showSuccessTip(tzh("js_tip_user_not_found"));
-            u.isAdmin = true;
-            saveAccounts(arr);
-            refreshUserTable();
-            refreshDashboard();
-            updateNavByLoginState();
-            showSuccessTip(tzh("js_tip_admin_set"));
-          };
-          window._adminDemoteUser = function (username) {
-            const arr = getAccounts();
-            const u = arr.find((x) => x.username === username);
-            if (!u) return showSuccessTip(tzh("js_tip_user_not_found"));
-            u.isAdmin = false;
-            saveAccounts(arr);
-            refreshUserTable();
-            refreshDashboard();
-            updateNavByLoginState();
-            showSuccessTip(tzh("js_tip_admin_cancelled"));
-          };
 
           // 博客编辑/删除
           window._adminEditBlog = function (idx) {
@@ -5540,18 +5616,6 @@ document.addEventListener("DOMContentLoaded", function () {
               showSuccessTip(tzh("js_tip_pwd_changed"));
             });
 
-          // 清空普通用户
-          document
-            .getElementById("clearAllUsersBtn")
-            .addEventListener("click", () => {
-              if (!confirm(tzh("js_confirm_clear_users"))) return;
-              const list = getAccounts().filter((x) => x.isAdmin);
-              saveAccounts(list);
-              refreshUserTable();
-              refreshDashboard();
-              showSuccessTip(tzh("js_tip_users_cleared"));
-            });
-
           // 导出完整HTML文件（替换旧数据注入脚本而非前置，防止覆盖用户修改）
           document
             .getElementById("exportHtmlBtn")
@@ -5796,16 +5860,6 @@ document.addEventListener("DOMContentLoaded", function () {
               syncChangelogToFront();
               syncTimelinesToFront();
               syncTagsToFront();
-            });
-          }
-
-          // 进入后台记录日志
-          const adminNavLink = document.querySelector('[data-page="admin"]');
-          if (adminNavLink) {
-            adminNavLink.addEventListener("click", () => {
-              setTimeout(() => {
-                refreshDashboard();
-              }, 100);
             });
           }
 
