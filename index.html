@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN" class=""><head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="color-scheme" content="light dark">
     <title>XiaoWei</title>
     <link rel="icon" type="image/png" href="images/favicon-dark.png">
@@ -1642,13 +1642,11 @@
 
           padding: 20px 0 15px;
 
-          background-color: rgba(255, 255, 255, 0.78);
-          backdrop-filter: blur(14px);
-          -webkit-backdrop-filter: blur(14px);
+          background-color: rgba(255, 255, 255, 0.97);
           transform: translateZ(0);
         }
         html.dark header#header {
-          background-color: rgba(18, 22, 31, 0.78);
+          background-color: rgba(18, 22, 31, 0.97);
         }
         header .container {
           height: auto;
@@ -1988,12 +1986,12 @@
         }
 
         .modal-mask {
-          backdrop-filter: none;
-          -webkit-backdrop-filter: none;
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
         }
         .dev-modal-mask {
-          backdrop-filter: none;
-          -webkit-backdrop-filter: none;
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
         }
         .modal-mask::before,
         .dev-modal-mask::before {
@@ -2880,6 +2878,35 @@
         -webkit-user-select: none;
         user-select: none;
       }
+
+      .skeleton {
+        background-color: rgba(var(--accent-rgb), 0.14);
+      }
+      @media screen and (max-width: 768px) {
+        .skeleton {
+          background-image: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.45) 50%,
+            transparent 100%
+          );
+          background-size: 200% 100%;
+          animation: skeletonShimmer 1.1s linear infinite;
+        }
+        @keyframes skeletonShimmer {
+          0% {
+            background-position: 200% 0;
+          }
+          100% {
+            background-position: -200% 0;
+          }
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .skeleton {
+          animation: none;
+        }
+      }
     </style>
 
     <style>
@@ -2943,6 +2970,7 @@
       <div class="page-loader__progress"><div class="page-loader__progress-bar" id="pageLoaderProgress"></div></div>
     </div>
     <body class="">
+    
     
     
 
@@ -3125,7 +3153,7 @@
           </div>
         </section>
 
-        <section id="about" class="page" style="">
+        <section id="about" class="page" style="animation: auto ease 0s 1 normal none running none;">
           <h2 class="section-title float-in" data-i18n="section_about" style="">关于我</h2>
           <div class="timeline-item float-in" style="cursor: pointer;">
             <h3 data-i18n="about_who_title">我是谁</h3>
@@ -3189,7 +3217,7 @@
             <div class="profile-card float-in" style="">
               <div class="profile-card-top">
                 <div class="profile-avatar-lg">
-                  <img src="images/31.jpg" alt="头像" loading="lazy" decoding="async">
+                  <img src="images/31.jpg" alt="头像" loading="lazy" decoding="async" class="">
                 </div>
                 <div class="profile-name-wrap">
                   <h2 class="profile-name">LouWeiWang</h2>
@@ -3229,26 +3257,26 @@
           </div>
         </section>
 
-         <section id="timeline-detail" class="page">
+         <section id="timeline-detail" class="page" style="animation: auto ease 0s 1 normal none running none;">
           <div class="profile-page">
-            <div class="profile-card float-in">
-              <h2 class="profile-name" id="timelineDetailTitle" style="margin-bottom: 6px; font-size: 25px;">更多内容持续更新中……</h2>
+            <div class="profile-card float-in" style="">
+              <h2 class="profile-name" id="timelineDetailTitle" style="margin-bottom: 6px; font-size: 25px;">2006 - 2019 | 童年到初中</h2>
               <p class="profile-subtitle" id="timelineDetailSubtitle" data-i18n="timeline_detail_subtitle">成长经历</p>
               <div class="profile-divider"></div>
-              <div class="profile-bio content-protect" id="timelineDetailContent" style="white-space: pre-line;">敬请期待！<br><br>更多精彩内容正在准备中，请持续关注我的个人网站。<br><br>以上内容由Ai生成</div>
+              <div class="profile-bio content-protect" id="timelineDetailContent" style="white-space: pre-line;">2006年，我出生在一个普通的农村家庭。从小跟着爷爷奶奶，爸爸妈妈去了外地打工,而把我养大的是我的姑妈，从出生到幼儿园，我一直在姑妈身边慢慢长大。<br><div style="display:flex;justify-content:center;"><br>  <img src="images/101.jpg" alt="描述" style="max-width:270px;"><br></div><p style="text-align:center;">【最早出生照片】</p><br>小时候很喜欢跟着小伙伴一起玩耍，去小河旁摸虾，去山里挖野菜，去农田学着大人插秧，这些都是我模糊记忆的童年。<br><div style="display:flex;justify-content:center;"><br>  <img src="images/104.jpg" alt="描述" style="max-width:270px;"><br></div><p style="text-align:center;">【高清修复照片】</p><br>上完幼儿园，一年级我和我的父母来到了广东，面对陌生的环境，难免有些害怕，但后来也慢慢的适应了。<br><div style="display:flex;justify-content:center;"><br>  <img src="images/107.jpg" alt="描述" style="max-width:270px;"><br></div><p style="text-align:center;">【在广东用手机自拍】</p><br>小学时光还有很多有趣时光，有好也有坏，这里就不讲太多了，童年只能回忆，但无法改变未来。</div>
               <a href="#" class="profile-back-btn" data-page="about" data-scroll-to="timeline" style="margin-top: 20px;">
                 <i class="fa-solid fa-arrow-left"></i><font data-i18n="back_timeline">返回成长经历</font></a>
             </div>
           </div>
         </section>
 
-        <section id="blog-detail" class="page" style="animation: auto ease 0s 1 normal none running none;">
+        <section id="blog-detail" class="page" style="">
           <div class="profile-page">
             <div class="profile-card float-in">
-              <h2 class="profile-name" id="blogDetailTitle" style="margin-bottom: 6px; font-size: 25px;">极简网页配色思路运用技巧</h2>
-              <p class="profile-subtitle" id="blogDetailMeta">讲解两个颜色搭配逻辑 | 2026-07-27</p>
+              <h2 class="profile-name" id="blogDetailTitle" style="margin-bottom: 6px; font-size: 25px;">网页留白设计完整指南</h2>
+              <p class="profile-subtitle" id="blogDetailMeta">卡片、行高、页面边距规范 | 2026-07-27</p>
               <div class="profile-divider"></div>
-              <div class="profile-bio content-protect" id="blogDetailContent" style="white-space: pre-line;">讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案。<br><br>在网页设计中，色彩搭配是非常重要的一环。低饱和度的蓝色系能够营造出柔和、专业的视觉效果。<br><br>本文将详细介绍如何使用#E6F7FF作为背景色，搭配#89C2FF作为强调色，打造舒适护眼的配色方案。<br><br>以上内容由Ai生成</div>
+              <div class="profile-bio content-protect" id="blogDetailContent" style="white-space: pre-line;">卡片、行高、页面边距规范，极简高级感技巧。<br><br>留白是网页设计中常被忽视但极其重要的元素。合理的留白能够提升内容的可读性和页面的整体质感。<br><br>本文从卡片间距、行高设置到页面边距，全面讲解如何运用留白打造极简高级的网页设计。<br><br>以上内容由Ai生成</div>
               <a href="#" class="profile-back-btn" data-page="blog" style="margin-top: 20px;">
                 <i class="fa-solid fa-arrow-left"></i><font data-i18n="back_blog">返回日常分享</font></a>
             </div>
@@ -3354,13 +3382,13 @@
  </div></div></div>
         </section>
 
-        <section id="blog" class="page">
+        <section id="blog" class="page" style="animation: auto ease 0s 1 normal none running none;">
           <h2 class="section-title float-in" data-i18n="section_blog" style="">日常分享</h2>
-        <div class="blog-item blog-item-article float-in" data-blog-title="极简网页配色思路运用技巧"><h3 class="blog-title">极简网页配色思路运用技巧</h3>
+        <div class="blog-item blog-item-article float-in" data-blog-title="极简网页配色思路运用技巧" style=""><h3 class="blog-title">极简网页配色思路运用技巧</h3>
  <div class="blog-meta">2026-07-27 | 设计思考</div>
- <p>讲解两个颜色搭配逻辑</p></div><div class="blog-item blog-item-article float-in" data-blog-title="网页留白设计完整指南"><h3 class="blog-title">网页留白设计完整指南</h3>
+ <p>讲解两个颜色搭配逻辑</p></div><div class="blog-item blog-item-article float-in" data-blog-title="网页留白设计完整指南" style=""><h3 class="blog-title">网页留白设计完整指南</h3>
  <div class="blog-meta">2026-07-27 | 排版技巧</div>
- <p>卡片、行高、页面边距规范</p></div><div class="blog-item blog-item-article float-in" data-blog-title="适合个人网站无衬线字体对比"><h3 class="blog-title">适合个人网站无衬线字体对比</h3>
+ <p>卡片、行高、页面边距规范</p></div><div class="blog-item blog-item-article float-in" data-blog-title="适合个人网站无衬线字体对比" style=""><h3 class="blog-title">适合个人网站无衬线字体对比</h3>
  <div class="blog-meta">2026-07-26 | 前端</div>
  <p>字体阅读体验对比</p></div></section>
 
@@ -4064,7 +4092,7 @@
 
     <div class="dev-modal-mask" id="successTipModal">
       <div class="dev-modal-box">
-        <p class="dev-text" id="successTipText">已同步首页更新公告</p>
+        <p class="dev-text" id="successTipText">欢迎回来</p>
         <button class="dev-close-btn" id="successTipCloseBtn">好的</button>
       </div>
     </div>
@@ -4209,6 +4237,7 @@
 
 
 
+
     <script>
 
       document.addEventListener("dragstart", function (e) {
@@ -4233,8 +4262,8 @@ document.addEventListener("DOMContentLoaded", function () {
           const loaderStart = performance.now();
 
           const loaderResources = [
-            ...document.querySelectorAll("img[src]"),
             ...document.querySelectorAll("link[rel='stylesheet'][href]"),
+            ...document.querySelectorAll("img[src]:not([loading='lazy'])"),
           ];
           const loaderTotal = loaderResources.length;
           let loaderDone = 0;
@@ -4261,14 +4290,12 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             refreshLoaderProgress();
           } else {
-
-            let fake = 0;
-            const fakeTimer = setInterval(() => {
-              fake = Math.min(fake + Math.random() * 8 + 3, 90);
-              pageLoaderProgress.style.width = fake + "%";
-              if (document.readyState === "complete") clearInterval(fakeTimer);
-            }, 120);
-            window.addEventListener("load", () => clearInterval(fakeTimer));
+            document.addEventListener("readystatechange", function () {
+              if (document.readyState === "interactive")
+                pageLoaderProgress.style.width = "45%";
+              if (document.readyState === "complete")
+                pageLoaderProgress.style.width = "90%";
+            });
           }
 
           let fadeScheduled = false;
@@ -7460,5 +7487,45 @@ document.addEventListener("DOMContentLoaded", function () {
       })();
     </script>
 
+    <script>
+      (function () {
+        function mark(el) {
+          if (!el || el.tagName !== "IMG") return;
+          if (el.complete) return;
+          el.classList.add("skeleton");
+        }
+        function unmark(e) {
+          var t = e.target;
+          if (t && t.tagName === "IMG") t.classList.remove("skeleton");
+        }
+        document.querySelectorAll("img").forEach(mark);
+        document.addEventListener("load", unmark, true);
+        document.addEventListener("error", unmark, true);
+        if ("MutationObserver" in window) {
+          new MutationObserver(function (muts) {
+            muts.forEach(function (m) {
+              if (m.type === "attributes") {
+                if (m.target && m.target.tagName === "IMG") mark(m.target);
+                return;
+              }
+              Array.prototype.forEach.call(m.addedNodes, function (n) {
+                if (n.nodeType !== 1) return;
+                if (n.tagName === "IMG") mark(n);
+                else if (n.querySelectorAll)
+                  Array.prototype.forEach.call(
+                    n.querySelectorAll("img"),
+                    mark,
+                  );
+              });
+            });
+          }).observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ["src"],
+          });
+        }
+      })();
+    </script>
 
 </body></html>
