@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <style>
-      /* 全局弹窗基础 */
+
       .modal-title {
         text-align: center;
         padding: 20px 20px 10px;
@@ -45,7 +45,7 @@
         color: var(--btn-text-light);
         font-size: 18px;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
       .modal-btn:hover {
         background: var(--accent-dark);
@@ -53,14 +53,14 @@
       html.dark .modal-btn {
         background: var(--btn-bg-dark);
       }
-      /* 禁止页面滚动 */
+
       body.no-scroll {
         overflow: hidden;
       }
       html.no-scroll {
         overflow: hidden;
       }
-      /* 全局隐藏滚动条 */
+
       html,
       body {
         scrollbar-width: none;
@@ -70,12 +70,20 @@
       body::-webkit-scrollbar {
         display: none;
       }
-      /* 手机端性能优化 */
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+
       @media screen and (max-width: 768px) {
         *,
         *::before,
         *::after {
           -webkit-tap-highlight-color: transparent;
+        }
+        a,
+        button {
+          touch-action: manipulation;
         }
         .card,
         .timeline-item,
@@ -90,7 +98,7 @@
           content-visibility: auto;
         }
       }
-      /* 内容保护：禁止选中、复制、拖拽图片、右键菜单 */
+
       .content-protect,
       .profile-bio,
       #blogDetailContent,
@@ -116,7 +124,32 @@
         -khtml-user-drag: none;
         user-drag: none;
       }
-      /* 全局重置 */
+
+      html,
+      body {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      input,
+      textarea,
+      select {
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+      }
+
+      img,
+      video {
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        user-drag: none;
+        -webkit-touch-callout: none;
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -129,7 +162,7 @@
         color: var(--text-color);
         line-height: 1.65em;
         font-size: 16px;
-        transition: all 0.3s ease;
+        transition: background-color 0.3s ease, color 0.3s ease;
         padding-top: 0px;
       }
       a {
@@ -151,7 +184,7 @@
         padding-left: 96px;
         padding-right: 96px;
       }
-      /* 顶部导航：白色固定导航栏（固定位置与高度） */
+
       header {
         position: fixed;
         top: 0;
@@ -164,7 +197,7 @@
         z-index: 999;
         transition: box-shadow 0.3s ease, background-color 0.3s ease;
       }
-      /* 导航内容容器：占满导航栏高度并垂直居中，宽度仍按页面容器规则铺满/居中 */
+
       header .container {
         height: 100%;
         display: flex;
@@ -243,13 +276,13 @@
       html.dark .nav-right .dropdown-wrap > a:hover {
         color: var(--accent) !important;
       }
-      /* 主内容区域 */
+
       main {
         margin-top: 0px;
         padding-bottom: 80px;
         padding-top: 50px;
       }
-      /* Hero首页头部 */
+
       .hero {
         text-align: center;
         padding: 24px 0 50px;
@@ -259,8 +292,8 @@
         font-weight: 600;
         margin-top: 60px;
         margin-bottom: 20px;
-        letter-spacing: 0.06em; /* 新增：拉开字间距，解决文字挨太近 */
-        line-height: 1.3; /* 新增：行高宽松，换行不挤 */
+        letter-spacing: 0.06em;
+        line-height: 1.3;
       }
       .hero-desc {
         margin-top: 10px;
@@ -278,13 +311,13 @@
         background: #7dbdfc;
         color: #ffffff;
         text-decoration: none;
-        transition: all 0.3s ease;
+        transition: background-color 0.3s ease;
         border-radius: 5px;
       }
       .hero-tag a:hover {
         background: #3697ff;
       }
-      /* 首页卡片组 */
+
       .card-group {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -295,7 +328,7 @@
         background: var(--card-bg);
         padding: 36px 28px;
         border-radius: 12px;
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
       .card:hover {
         transform: translateY(-6px);
@@ -328,12 +361,12 @@
         color: #89c2ff;
         font-weight: 500;
       }
-      /* 板块标题通用 */
+
       .section-title {
         font-size: 28px;
         margin: 80px 0 40px;
       }
-      /* 作品网格：卡片自适应列数，列宽拉伸铺满整行（左右对齐） */
+
       .portfolio-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -343,7 +376,7 @@
         background: var(--card-bg);
         border-radius: 10px;
         overflow: hidden;
-        transition: 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
       .work-card:hover {
         transform: translateY(-5px);
@@ -363,7 +396,7 @@
         font-size: 18px;
         margin-bottom: 6px;
       }
-      /* 作品卡片"点击查看"提示：标签右侧同一行、靠右 */
+
       .work-info::after {
         content: "点击查看 →";
         position: absolute;
@@ -379,21 +412,21 @@
         opacity: 1;
       }
       .work-name a {
-        color: var(--text-color); /* 固定颜色，鼠标经过不变色 */
+        color: var(--text-color);
         transition: color 0.3s ease;
       }
       .work-tag {
         font-size: 13px;
         opacity: 0.7;
       }
-      /* 博客条目 */
+
       .blog-item {
         background: var(--card-bg);
         padding: 26px;
         padding-right: 56px;
         border-radius: 10px;
         margin-bottom: 24px;
-        transition: 0.3s;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
         cursor: pointer;
         position: relative;
       }
@@ -432,7 +465,7 @@
         opacity: 0.7;
         margin-bottom: 12px;
       }
-      /* 时间轴 */
+
       .timeline-item {
         background: var(--card-bg);
         padding: 24px;
@@ -448,7 +481,7 @@
         transform: translateY(-6px);
         box-shadow: 0 8px 24px rgba(137, 194, 255, 0.18);
       }
-      /* 底部：透明背景 + 灰色分割线 */
+
       footer {
         text-align: center;
         padding: 24px 0;
@@ -463,7 +496,7 @@
       .shengmin {
         color: #0178ff;
       }
-      /* 页面切换淡入动画 */
+
        .page {
         display: none;
       }
@@ -481,13 +514,7 @@
           transform: translateY(0);
         }
       }
-      @media screen and (max-width: 768px) {
-        /* 移动端页面切换：轻量平滑过渡（淡入 + 轻微上移） */
-        .page.active {
-          animation: fadeInUp 0.5s ease forwards;
-        }
-      }
-      /* 中英文切换过渡：全屏轻遮罩（模糊渐隐）快速盖住所有文字 → 语言切换 → 缓慢淡出清晰显现 */
+
       .lang-fade-mask {
         position: fixed;
         inset: 0;
@@ -498,16 +525,22 @@
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-        /* 基础状态即"淡出"过渡：移除 lang-switching 后缓慢显现 */
+
         transition: opacity 0.9s ease, visibility 0.9s ease;
+      }
+      @media screen and (max-width: 768px) {
+        .lang-fade-mask {
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+        }
       }
       html.lang-switching .lang-fade-mask {
         opacity: 1;
         visibility: visible;
-        /* 淡入：柔和地盖住页面 */
+
         transition: opacity 0.35s ease, visibility 0.35s ease;
       }
-      /* 导航图标按钮（简约，桌面导航 + 移动菜单共用） */
+
       .nav-icon-btn {
         display: flex;
         align-items: center;
@@ -518,7 +551,7 @@
         color: var(--text-color);
         font-size: 16px;
         text-decoration: none;
-        transition: all 0.25s ease;
+        transition: color 0.25s ease, background-color 0.25s ease;
         position: relative;
         cursor: pointer;
       }
@@ -534,14 +567,14 @@
         color: var(--accent);
         background: rgba(var(--accent-rgb), 0.2);
       }
-      /* 语言按钮：直接显示当前语言文字 */
+
       .nav-icon-btn .nav-lang-text {
         font-size: 14px;
         font-weight: 600;
         letter-spacing: 0.02em;
         line-height: 1;
       }
-      /* 管理按钮：已登录时显示状态小圆点 */
+
       .nav-icon-btn.logged::before {
         content: "";
         position: absolute;
@@ -557,34 +590,11 @@
       html.dark .nav-icon-btn.logged::before {
         border-color: var(--bg-color);
       }
-      /* 桌面导航图标悬停文字提示（仅 .nav-right 内） */
-      .nav-right .dropdown-wrap > a.nav-icon-btn::after {
-        content: attr(data-tip);
-        position: absolute;
-        top: calc(100% + 8px);
-        left: 50%;
-        transform: translateX(-50%);
-        background: var(--text-color);
-        color: var(--card-bg);
-        font-size: 12px;
-        white-space: nowrap;
-        padding: 4px 10px;
-        border-radius: 6px;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.2s ease, visibility 0.2s ease;
-        pointer-events: none;
-        z-index: 10000;
-      }
-      .nav-right .dropdown-wrap > a.nav-icon-btn:hover::after {
-        opacity: 1;
-        visibility: visible;
-      }
-      /* 移动端随内容滚动的导航（桌面端隐藏） */
+
       .mobile-nav {
         display: none;
       }
-      /* 全局遮罩弹窗 */
+
       .modal-mask {
         position: fixed;
         top: 0;
@@ -621,40 +631,40 @@
         display: flex;
         flex-direction: column;
         opacity: 0;
-        transition: all 0.3s ease;
+        transition: opacity 0.3s ease, transform 0.3s ease;
       }
       .modal-mask.open .modal-box {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
       }
-      /* 网站声明弹窗高度70vh，宽度加宽 */
+
       #noticeModal .modal-box {
         max-height: 65vh;
         max-width: 580px;
       }
-      /* 网站声明弹窗：背景虚化淡入缓慢柔和 */
+
       #noticeModal.modal-mask {
         transition-duration: 0.7s;
       }
-      /* 网站声明弹窗：声明卡片放大淡入缓慢柔和 */
+
       #noticeModal .modal-box {
         transition-duration: 0.7s;
       }
-      /* 加载阶段：背景模糊先实时显示，卡片暂保持隐藏（缩放前状态） */
+
       #noticeModal.modal-mask.open .modal-box {
         opacity: 0;
         transform: translate(-50%, -50%) scale(0.85);
       }
-      /* 加载页结束后：卡片按原效果淡入放大（0.85 → 1） */
+
       #noticeModal.modal-mask.open .modal-box.zoom {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
       }
-      /* 网站更新公告弹窗高度60vh */
+
       #updateNoticeModal .modal-box {
         max-height: 60vh;
       }
-      /* 弹窗标题在移动端的固定定位 */
+
       .modal-title {
         flex-shrink: 0;
       }
@@ -664,7 +674,7 @@
         overflow-y: auto;
         padding: 0 24px;
       }
-      /* 弹窗关闭按钮 */
+
       .modal-close-btn {
         position: absolute;
         top: 14px;
@@ -682,7 +692,7 @@
         align-items: center;
         justify-content: center;
         opacity: 0.5;
-        transition: all 0.25s;
+        transition: opacity 0.25s, background-color 0.25s;
         z-index: 10;
       }
       .modal-close-btn:hover {
@@ -692,7 +702,7 @@
       .tclj {
         color: #89c2ff;
       }
-      /* 开发提示弹窗 */
+
       .dev-modal-mask {
         position: fixed;
         top: 0;
@@ -724,7 +734,7 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%) scale(0.9);
-        transition: all 0.25s ease;
+        transition: opacity 0.25s ease, transform 0.25s ease;
         opacity: 0;
       }
       .dev-modal-mask.show .dev-modal-box {
@@ -746,7 +756,7 @@
         color: #fff;
         font-size: 16px;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
       .dev-close-btn:hover {
         background: var(--accent-dark);
@@ -758,13 +768,13 @@
       .dev-link:hover {
         color: #2d93ff;
       }
-      /* 更新日志折叠卡片（修复点击失效） */
+
       .log-card {
         border: 1px solid var(--log-card-border);
         border-radius: 10px;
         margin-bottom: 12px;
         overflow: hidden;
-        transition: all 0.5s ease;
+        transition: max-height 0.5s ease, padding 0.5s ease, background-color 0.5s ease;
         position: relative;
         z-index: 20;
         pointer-events: auto !important;
@@ -789,14 +799,14 @@
         max-height: 0;
         padding: 0 18px;
         overflow: hidden;
-        transition: all 0.5s ease;
+        transition: max-height 0.5s ease, padding 0.5s ease;
         line-height: 1.6;
       }
       .log-card.active .log-card-body {
         max-height: 999px;
         padding: 14px 18px;
       }
-      /* 登录/注册表单 */
+
       .auth-form .form-item {
         margin-bottom: 18px;
       }
@@ -841,7 +851,7 @@
       .auth-switch .tclj:hover {
         color: var(--accent-dark);
       }
-      /* 个人中心弹窗 */
+
       .profile-info {
         padding: 10px 0;
       }
@@ -880,7 +890,7 @@
         margin: 0 auto;
         display: block;
       }
-      /* 退出弹窗按钮组 */
+
       .logout-btn-group {
         display: flex;
         gap: 12px;
@@ -891,19 +901,19 @@
       }
       .logout-confirm-btn {
         background: #ff6b6b !important;
-        transition: all 0.3s ease !important;
+        transition: background-color 0.3s ease !important;
       }
       .logout-confirm-btn:hover {
         background: #ee5a5a !important;
       }
       .logout-cancel-btn {
         background: var(--accent) !important;
-        transition: all 0.3s ease !important;
+        transition: background-color 0.3s ease !important;
       }
       .logout-cancel-btn:hover {
         background: var(--accent-dark) !important;
       }
-      /* ===================== 全新现代化后台管理样式 ===================== */
+
       .admin-layout {
         display: flex;
         gap: 32px;
@@ -911,7 +921,7 @@
         padding-top: 12px;
         overflow: visible;
       }
-      /* 左侧菜单栏永久固定悬浮 */
+
       .admin-sidebar {
         width: 240px;
         flex-shrink: 0;
@@ -945,7 +955,7 @@
         font-size: 15px;
         cursor: pointer;
         text-align: left;
-        transition: all 0.28s ease;
+        transition: background-color 0.28s ease, color 0.28s ease;
         border-radius: 12px;
         margin-bottom: 6px;
       }
@@ -998,7 +1008,7 @@
         background: linear-gradient(90deg, var(--accent), transparent);
         margin-left: 16px;
       }
-      /* 仪表盘卡片横向自适应铺满 */
+
       .stat-cards {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -1044,7 +1054,7 @@
         opacity: 0.72;
         color: var(--text-color);
       }
-      /* 表格操作按钮强制横向不换行 */
+
       .admin-table-wrap {
         background: var(--card-bg);
         border-radius: 16px;
@@ -1080,7 +1090,7 @@
       .admin-table tr:hover td {
         background: rgba(var(--accent-rgb), 0.09);
       }
-      /* 状态徽章 */
+
       .admin-badge {
         display: inline-block;
         padding: 4px 12px;
@@ -1096,14 +1106,14 @@
         background: rgba(var(--accent-rgb), 0.14);
         color: var(--accent-dark);
       }
-      /* 表格小按钮横向 */
+
       .admin-btn-sm {
         padding: 6px 14px;
         border: none;
         border-radius: 10px;
         font-size: 13px;
         cursor: pointer;
-        transition: all 0.25s ease;
+        transition: background-color 0.25s ease, color 0.25s ease;
         margin-right: 8px;
         font-weight: 500;
         display: inline-block;
@@ -1142,14 +1152,14 @@
         background: rgba(var(--accent-rgb), 0.12);
         color: var(--accent-dark);
       }
-      /* 大按钮 */
+
       .admin-btn {
         padding: 13px 30px;
         border: none;
         border-radius: 12px;
         font-size: 15px;
         cursor: pointer;
-        transition: all 0.28s ease;
+        transition: background-color 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
         font-weight: 500;
       }
       .admin-btn.primary {
@@ -1160,7 +1170,7 @@
         background: var(--accent-dark);
         box-shadow: 0 4px 14px rgba(var(--accent-rgb), 0.25);
       }
-      /* 内容切换胶囊标签 */
+
       .admin-content-tabs {
         display: flex;
         gap: 6px;
@@ -1180,7 +1190,7 @@
         font-size: 14px;
         cursor: pointer;
         border-radius: 10px;
-        transition: all 0.25s ease;
+        transition: background-color 0.25s ease, color 0.25s ease;
       }
       .admin-content-tab.active {
         background: var(--accent);
@@ -1190,7 +1200,7 @@
       .admin-content-tab:hover:not(.active) {
         background: rgba(var(--accent-rgb), 0.1);
       }
-      /* 后台表单 */
+
       .admin-form {
         background: var(--card-bg);
         border-radius: 16px;
@@ -1235,7 +1245,7 @@
         resize: vertical;
         min-height: 120px;
       }
-      /* 空数据提示 */
+
       .admin-empty {
         text-align: center;
         padding: 60px 20px;
@@ -1243,11 +1253,11 @@
         opacity: 0.6;
         font-size: 15px;
       }
-      /* ===================== 后台管理 · 极简扁平白卡风格（覆盖增强） ===================== */
+
       .admin-layout {
         gap: 24px;
       }
-      /* 侧边栏 */
+
       .admin-sidebar {
         width: 260px;
         display: flex;
@@ -1264,7 +1274,7 @@
         gap: 4px;
         padding: 0;
       }
-      /* 内容管理：固定高度，超出内容滚动 */
+
       #adminContent.active {
         display: flex;
         flex-direction: column;
@@ -1276,7 +1286,7 @@
       #adminContent.active > .admin-content-tabs {
         flex-shrink: 0;
       }
-      /* 各列表顶部的「新增」按钮单独一行，固定在滚动区外 */
+
       .admin-content-toolbar {
         flex-shrink: 0;
         display: flex;
@@ -1318,7 +1328,7 @@
       #adminTagsPanel::-webkit-scrollbar-track {
         background: transparent;
       }
-      /* 表格表头（标签栏）吸顶固定，不随列表滚动 */
+
       #adminBlogPanel .admin-table th,
       #adminPortfolioPanel .admin-table th,
       #adminChangelogPanel .admin-table th,
@@ -1328,7 +1338,7 @@
         top: 0;
         z-index: 2;
       }
-      /* 侧边栏菜单项 */
+
       .admin-sidebar-item {
         display: flex;
         align-items: center;
@@ -1374,11 +1384,11 @@
       .admin-sidebar-item.active::before {
         opacity: 1;
       }
-      /* 主区域 */
+
       .admin-main {
         min-width: 0;
       }
-      /* 面板标题：扁平 + 左侧强调条 */
+
       .admin-panel-title {
         font-size: 24px;
         margin-bottom: 24px;
@@ -1395,7 +1405,7 @@
       .admin-panel-title::after {
         display: none;
       }
-      /* 仪表盘统计卡片 */
+
       .stat-cards {
         gap: 16px;
         margin-bottom: 28px;
@@ -1442,17 +1452,17 @@
         color: var(--accent-dark);
         font-size: 16px;
       }
-      /* 表格 */
+
       .admin-table-wrap {
         border-radius: 14px;
         box-shadow: none;
         margin-bottom: 24px;
-        /* 取消 overflow:hidden，让表头吸顶在面板滚动容器内生效 */
+
         overflow: visible;
       }
       .admin-table {
         width: 100%;
-        /* separate + spacing 0：避免 collapse 与吸顶表头组合时表头背景失效 */
+
         border-collapse: separate;
         border-spacing: 0;
       }
@@ -1477,7 +1487,7 @@
       .admin-table tr:hover td {
         background: rgba(var(--accent-rgb), 0.07);
       }
-      /* 内容切换胶囊 */
+
       .admin-content-tabs {
         border-radius: 12px;
         padding: 5px;
@@ -1492,14 +1502,14 @@
         background: var(--accent-dark);
         box-shadow: none;
       }
-      /* 表单 */
+
       .admin-form {
         border-radius: 14px;
         box-shadow: none;
         padding: 28px;
         max-width: 640px;
       }
-      /* 大/小按钮统一圆角 */
+
       .admin-btn {
         border-radius: 10px;
         padding: 12px 26px;
@@ -1508,19 +1518,19 @@
         border-radius: 8px;
         padding: 7px 14px;
       }
-      /* 空数据 */
+
       .admin-empty {
         padding: 48px 16px;
         opacity: 0.58;
         font-size: 14px;
       }
-      /* ===================== 媒体查询：后台强制PC布局不折叠 ===================== */
+
       @media screen and (max-width: 768px) {
-        /* 前台手机适配 */
+
         body {
           padding-top: 153px;
         }
-        /* 第一行：LOGO + 三个图标，图标与文字垂直居中对齐 */
+
         .header-wrap {
           display: flex;
           align-items: center;
@@ -1554,11 +1564,11 @@
           margin: 0;
           padding: 0;
         }
-        /* header 里的导航隐藏（导航移入内容区） */
+
         .nav-center {
           display: none;
         }
-        /* 移动端导航（位于 header 内，随 header 固定） */
+
         .mobile-nav {
           display: block;
           margin-top: 20px;
@@ -1567,7 +1577,7 @@
         main {
           padding-top: 2px;
         }
-        /* 一个大的边框容器，包住所有标签 */
+
         .mobile-nav-list {
           display: flex;
           flex-wrap: nowrap;
@@ -1602,21 +1612,23 @@
         html.dark .mobile-nav-list li a:hover {
           color: var(--accent);
         }
-        /* 滑动指示器：跟随当前页标签平滑滑动 */
+
         .mobile-nav-list .mobile-nav-indicator {
           position: absolute;
           top: 4px;
           left: 0;
+          width: 64px;
           height: calc(100% - 8px);
           border-radius: 8px;
           background: rgba(var(--accent-rgb), 0.22);
           border: 1px solid var(--accent);
-          transform: translateX(0);
-          transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+          transform: translateX(0) scaleX(1);
+          transform-origin: left center;
+          transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
           z-index: 0;
           pointer-events: none;
         }
-        /* 当前页面文字高亮 */
+
         .mobile-nav-list li a.active {
           color: var(--accent-dark);
         }
@@ -1628,20 +1640,18 @@
           display: flex;
           flex-direction: column;
           justify-content: center;
-          /* LOGO 顶部 20px、标签底部 15px 边距 */
+
           padding: 20px 0 15px;
-          /* 手机端导航栏：轻微半透明 + 背景模糊（毛玻璃） */
-          background-color: rgba(255, 255, 255, 0.78);
-          backdrop-filter: blur(14px);
-          -webkit-backdrop-filter: blur(14px);
+
+          background-color: rgba(255, 255, 255, 0.94);
         }
         html.dark header#header {
-          background-color: rgba(18, 22, 31, 0.78);
+          background-color: rgba(18, 22, 31, 0.94);
         }
         header .container {
           height: auto;
           display: block;
-          /* 撑满导航栏整行宽度，避免 margin:0 auto 在 flex 列容器里收缩居中，导致 LOGO 行左右边距与标签导航不一致 */
+
           width: 100%;
           margin-left: 0;
           margin-right: 0;
@@ -1665,18 +1675,18 @@
         .card-group {
           grid-template-columns: 1fr;
         }
-        /* 作品展示手机端：窄屏单列铺满整行，左右边距与文字对齐 */
+
         #portfolio .portfolio-grid {
           grid-template-columns: 1fr;
         }
-        /* 平板宽度（大屏手机横屏/平板竖屏）：卡片固定大小，不拉伸铺满 */
+
         @media screen and (min-width: 561px) and (max-width: 768px) {
           #portfolio .portfolio-grid {
             grid-template-columns: repeat(auto-fill, minmax(280px, 300px));
             justify-content: center;
           }
         }
-        /* 作品展示手机端：卡片内容缩小 */
+
         .work-img {
           height: 150px;
         }
@@ -1700,7 +1710,7 @@
         .blog-item {
           padding: 20px 56px 20px 16px;
         }
-        /* 后台锁定左右分栏，不堆叠 */
+
         .admin-layout {
           flex-wrap: nowrap !important;
           overflow-x: auto;
@@ -1719,7 +1729,7 @@
           overflow-x: auto !important;
         }
       }
-      /* 全局主题变量 */
+
       :root {
         --bg-color: #e6f7ff;
         --text-color: #333333;
@@ -1737,7 +1747,7 @@
         --btn-bg-dark: #2563eb;
         --accent-rgb: 137, 194, 255;
       }
-      /* 深色模式全局覆盖 */
+
       html.dark {
         --bg-color: #12161f;
         --text-color: #eeeeee;
@@ -1748,16 +1758,16 @@
         --log-card-border: #333b4b;
         --log-header-bg: #272e3d;
       }
-      /* 全局底色文字跟随主题 */
+
       body {
         background-color: var(--bg-color);
         color: var(--text-color);
-        transition: all 0.3s ease;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
       header {
         background-color: #ffffff;
         color: var(--text-color);
-        transition: all 0.3s ease;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
       html.dark header {
         background-color: var(--bg-color);
@@ -1786,8 +1796,7 @@
       .modal-content {
         color: var(--text-color);
       }
-      /* ========== 全局统一填写输入框固定样式（所有input/textarea/select共用一套） ========== */
-      /* 表单控件配色跟随实际主题：避免浅色模式下浏览器自带的密码"小眼睛"被渲染成白色 */
+
       input,
       textarea,
       select {
@@ -1798,7 +1807,7 @@
       html.dark select {
         color-scheme: dark;
       }
-      /* 匹配全部表单输入框：普通表单、登录注册、后台管理所有输入控件 */
+
       .form-item input,
       .form-item textarea,
       .form-item select,
@@ -1808,25 +1817,24 @@
       .admin-form input,
       .admin-form textarea,
       .admin-form select {
-        /* 固定内边距、宽高 */
+
         width: 100%;
         padding: 13px 16px !important;
-        /* 固定圆角、边框样式 */
+
         border: 1px solid var(--border-color) !important;
         border-radius: 12px !important;
-        /* 固定字体相关 */
+
         font-family: inherit !important;
         font-size: 15px !important;
         color: var(--text-color) !important;
         background: var(--input-bg) !important;
-        /* 过渡动画统一 */
+
         transition:
           border-color 0.25s ease,
           box-shadow 0.25s ease !important;
         outline: none !important;
       }
 
-      /* 聚焦统一高亮效果（固定蓝色外发光） */
       .form-item input:focus,
       .form-item textarea:focus,
       .form-item select:focus,
@@ -1840,7 +1848,6 @@
         box-shadow: 0 0 0 4px rgba(137, 194, 255, 0.14) !important;
       }
 
-      /* 占位文字统一透明度 */
       .form-item input::placeholder,
       .form-item textarea::placeholder,
       .auth-form input::placeholder,
@@ -1851,7 +1858,6 @@
         color: var(--text-color) !important;
       }
 
-      /* 多行文本框统一最小高度 */
       .form-item textarea,
       .auth-form textarea,
       .admin-form textarea {
@@ -1859,7 +1865,6 @@
         resize: vertical !important;
       }
 
-      /* 日期输入框统一兼容 */
       input[type="date"] {
         appearance: none !important;
         -webkit-appearance: none !important;
@@ -1875,7 +1880,7 @@
         display: inline-block;
         margin-top: 4px;
       }
-      /* ========== 联系方式 保持原样，手机布局恢复两列，不改动 ========== */
+
       .contact-card {
         width: 100%;
         max-width: 100%;
@@ -1883,7 +1888,7 @@
         padding: 32px 36px;
         border-radius: 16px;
         box-shadow: none;
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
       .contact-card:hover {
         transform: translateY(-6px);
@@ -1902,7 +1907,7 @@
         border: 1px solid var(--border-color);
         border-radius: 12px;
         background: var(--card-bg);
-        transition: 0.25s ease;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         cursor: pointer;
       }
       .contact-item:hover {
@@ -1933,9 +1938,9 @@
       .contact-text a:hover {
         opacity: 0.8;
       }
-      /* 每个联系按钮右侧的"可点击"箭头图标 */
+
       .contact-item::after {
-        content: "\f054"; /* fa-chevron-right */
+        content: "\f054";
         font-family: "Font Awesome 6 Free";
         font-weight: 900;
         margin-left: auto;
@@ -1943,16 +1948,16 @@
         color: var(--accent-dark);
         opacity: 0.35;
         flex-shrink: 0;
-        transition: all 0.25s ease;
+        transition: opacity 0.25s ease, transform 0.25s ease;
       }
       .contact-item:hover::after {
         opacity: 1;
         transform: translateX(3px);
       }
-      /* 时间轴卡片（我是谁/成长经历）与博客卡片（日常分享）右侧的"可点击"图标 */
+
       .timeline-item::after,
       .blog-item::after {
-        content: "\f0a9"; /* fa-circle-arrow-right */
+        content: "\f0a9";
         font-family: "Font Awesome 6 Free";
         font-weight: 900;
         position: absolute;
@@ -1962,7 +1967,7 @@
         font-size: 18px;
         color: var(--accent-dark);
         opacity: 0.35;
-        transition: all 0.25s ease;
+        transition: opacity 0.25s ease, transform 0.25s ease;
         pointer-events: none;
       }
       .timeline-item:hover::after,
@@ -1971,23 +1976,22 @@
         transform: translateY(-50%) translateX(3px);
       }
 
-      /* 联系方式媒体查询保留原两列，不改成单列 */
       @media screen and (max-width: 768px) {
         .contact-card {
           padding: 28px 20px;
         }
-        /* contact-grid 维持1fr 1fr两列，不改成1fr */
+
         .contact-item {
           padding: 16px;
         }
-        /* 手机端弹窗：固定大小、背景模糊、不可点击遮罩 */
+
         .modal-mask {
-          backdrop-filter: blur(6px);
-          -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
         }
         .dev-modal-mask {
-          backdrop-filter: blur(4px);
-          -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
         }
         .modal-mask::before,
         .dev-modal-mask::before {
@@ -1996,10 +2000,10 @@
         .modal-mask .modal-box{
           width: 340px;
           max-width: calc(100% - 15px);
-          max-height: 75vh; 
+          max-height: 75vh;
           border-radius: 12px;
         }
-        /* 手机端网站声明80vh，更新公告60vh */
+
         #noticeModal .modal-box {
           max-height: 80vh;
         }
@@ -2019,7 +2023,7 @@
         .modal-mask.open ~ * {
           pointer-events: none;
         }
-        /* 手机端联系方式弹窗优化 */
+
         .modal-btn#contactCopyBtn {
           width: calc(100% - 32px);
           margin: 10px 16px 16px;
@@ -2030,7 +2034,8 @@
       .outer-card {
         background: var(--card-bg);
         border-radius: 16px;
-        padding: 32px 36px;
+
+        padding: 20px 36px;
         margin-bottom: 32px;
         transition:
           transform 0.3s ease,
@@ -2041,7 +2046,7 @@
         box-shadow: 0 8px 24px rgba(137, 194, 255, 0.18);
       }
       @media screen and (max-width: 768px) {
-        /* 手机端卡片标题改为浅蓝色（关于我·我是谁 / 成长经历 / 日常分享 下方的卡片） */
+
         .timeline-item h3,
         .timeline-item h4,
         .blog-title {
@@ -2050,7 +2055,7 @@
         .blog-title a {
           color: var(--accent);
         }
-        /* 选中（按下/悬停）时加深 */
+
         .timeline-item:hover h3,
         .timeline-item:hover h4,
         .timeline-item:active h3,
@@ -2064,7 +2069,6 @@
         }
       }
 
-      /* 区块标题（和联系方式标题统一） */
       .section-title {
         font-size: 26px;
         font-weight: 600;
@@ -2081,16 +2085,16 @@
         height: 1px;
         background: var(--accent);
       }
-      /* 个人标签外层白色卡片 */
+
       .tag-card {
         background: var(--card-bg);
         border-radius: 16px;
         padding: 32px 36px;
       }
-      /* 个人标签容器 修复核心 */
+
       .tag-list {
         display: flex;
-        flex-wrap: wrap; /* 自动换行关键 */
+        flex-wrap: wrap;
         gap: 14px;
         width: 100%;
       }
@@ -2099,21 +2103,26 @@
         border-radius: 10px;
         border: 1px solid transparent;
         background-color: rgba(var(--accent-rgb), 0.12);
-        transition: all 0.3s ease;
+        transition: background-color 0.3s ease, color 0.3s ease;
         cursor: pointer;
         color: #89c2ff;
-        white-space: nowrap; /* 文字不换行 */
-        flex-shrink: 0; /* 禁止压缩，彻底解决挤压重叠 */
-        min-width: max-content; /* 最小宽度等于文字宽度 */
+        white-space: nowrap;
+        flex-shrink: 0;
+        min-width: max-content;
       }
       .tag-btn:hover {
         background-color: rgba(var(--accent-rgb), 0.22);
         color: #2D93FF;
       }
 
-      /* 手机端媒体查询 768px以下 */
+      @media screen and (min-width: 769px) {
+        .tag-list {
+          margin-left: -12px;
+        }
+      }
+
       @media screen and (max-width: 768px) {
-        /* 手机端动画整体放缓：卡片/按钮颜色过渡更柔和 */
+
         .card,
         .work-card,
         .blog-item,
@@ -2125,25 +2134,24 @@
         .nav-icon-btn {
           transition-duration: 0.5s;
         }
-        /* 弹窗开合也略微放缓 */
+
         .modal-mask,
         .modal-mask .modal-box,
         .dev-modal-mask,
         .dev-modal-mask.show .dev-modal-box {
           transition-duration: 0.4s;
         }
-        /* 移动端标签滑动指示器放缓 */
+
         .mobile-nav-list .mobile-nav-indicator {
           transition-duration: 0.45s;
         }
-        /* 卡片内边距统一缩小 */
+
         .outer-card,
         .tag-card,
         .contact-card {
           padding: 20px 16px !important;
         }
 
-        /* 标签手机优化，不会重叠 */
         .tag-list {
           gap: 10px;
         }
@@ -2152,11 +2160,10 @@
           font-size: 14px;
         }
 
-        /* 联系方式手机改为单列，每项占一行 */
         .contact-grid {
           grid-template-columns: 1fr !important;
         }
-        /* 联系我按钮手机端缩小 */
+
         .contact-item {
           padding: 12px 14px;
           gap: 10px;
@@ -2177,7 +2184,7 @@
         margin: 6px 0;
         font-size: 15px;
       }
-        /* 移动端性能优化：去掉无用的鼠标悬停上浮/阴影动画 */
+
         .card:hover,
         .work-card:hover,
         .blog-item:hover,
@@ -2194,8 +2201,7 @@
           transform: none !important;
           box-shadow: none !important;
         }
-        /* 保留按压反馈：点击/长按时轻微缩小，反馈在整个按住期间持续显示 */
-        /* 注：个人标签、联系我的反馈作用在按钮上（tag-btn/contact-item），外层卡片不缩放 */
+
         .card:active,
         .work-card:active,
         .blog-item:active,
@@ -2216,17 +2222,16 @@
         }
       }
 
-      /* ========== 电脑端动画放缓：过渡更缓慢柔和 ========== */
       @media screen and (min-width: 769px) {
-        /* 页面切换淡入放缓 */
+
         .page.active {
           animation: fadeInUp 0.55s ease forwards;
         }
-        /* 后台面板切换放缓 */
+
         .admin-panel {
           animation: adminFade 0.5s ease forwards;
         }
-        /* 卡片/按钮悬停过渡放缓 */
+
         .card,
         .work-card,
         .blog-item,
@@ -2249,11 +2254,11 @@
         .modal-close-btn {
           transition-duration: 0.45s;
         }
-        /* 导航悬停下滑线放缓 */
+
         .nav-item a::after {
           transition-duration: 0.45s;
         }
-        /* 弹窗开合放缓 */
+
         .modal-mask,
         .modal-mask .modal-box,
         .dev-modal-mask,
@@ -2262,7 +2267,6 @@
         }
       }
 
-      /* ========== 个人名片页面 ========== */
       .profile-page {
         max-width: 700px;
         margin: 0 auto;
@@ -2282,7 +2286,7 @@
         transform: translateY(-4px);
         box-shadow: 0 12px 40px rgba(var(--accent-rgb), 0.18);
       }
-      /* 上层：头像 + 名字 */
+
       .profile-card-top {
         display: flex;
         gap: 24px;
@@ -2319,14 +2323,14 @@
         line-height: 1.5;
         margin-bottom: 2px;
       }
-      /* 分割线 */
+
       .profile-divider {
         width: 100%;
         height: 1px;
         background: var(--accent);
         margin: 16px 0;
       }
-      /* 下层：信息 + 介绍 + 返回 */
+
       .profile-tags {
         display: flex;
         flex-wrap: wrap;
@@ -2360,7 +2364,7 @@
         backdrop-filter: blur(6px);
         -webkit-backdrop-filter: blur(6px);
         border: 1px solid rgba(var(--accent-rgb), 0.1);
-        transition: 0.25s;
+        transition: border-color 0.25s, background-color 0.25s;
       }
       .profile-info-item:hover {
         border-color: var(--accent);
@@ -2416,7 +2420,7 @@
         color: var(--accent-dark);
         font-size: 14px;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         text-decoration: none;
       }
       .profile-back-btn:hover {
@@ -2424,7 +2428,7 @@
         color: #fff;
         border-color: var(--accent);
       }
-      /* ========== 个人账号分享 - 平台账号卡片 ========== */
+
       .platform-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -2443,7 +2447,7 @@
         border: 1px solid rgba(var(--accent-rgb), 0.12);
         text-decoration: none;
         color: var(--text-color);
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         position: relative;
         overflow: hidden;
       }
@@ -2487,7 +2491,7 @@
       .platform-go {
         font-size: 13px;
         opacity: 0.4;
-        transition: 0.3s;
+        transition: opacity 0.3s ease, color 0.3s ease;
         flex-shrink: 0;
       }
       .platform-card:hover .platform-go {
@@ -2500,7 +2504,7 @@
       html.dark .platform-card:hover {
         border-color: var(--accent);
       }
-      /* ========== 个人账号分享 - 平台信息弹窗（App跳转） ========== */
+
       #platformModal .modal-box {
         max-width: 400px;
         max-height: 88vh;
@@ -2611,7 +2615,7 @@
         font-size: 13px;
         font-weight: 500;
         cursor: pointer;
-        transition: all 0.25s ease;
+        transition: background-color 0.25s ease;
         white-space: nowrap;
       }
       .platform-copy-btn:hover {
@@ -2629,14 +2633,14 @@
         color: #fff;
         font-size: 15px;
         font-weight: 500;
-        transition: all 0.3s ease;
+        transition: background-color 0.3s ease;
         text-decoration: none;
       }
       .platform-jump-btn:hover {
         background: var(--accent-dark);
         color: #fff;
       }
-      /* 手机端：缩小二维码，避免弹窗内滚动过多 */
+
       @media screen and (max-width: 480px) {
         #platformModal .modal-box {
           max-width: calc(100% - 24px);
@@ -2681,10 +2685,9 @@
           grid-template-columns: 1fr;
         }
       }
-      /* ========== 移动端文章阅读滚动性能优化 ========== */
+
       @media screen and (max-width: 768px) {
-        /* 阅读卡片/内容去掉昂贵的 backdrop-filter 模糊：滚动时浏览器需逐帧对背景重新采样模糊，
-           是手机端上下滑动轻微卡顿的主要来源。改为更实的底色，保留观感但大幅省绘制。 */
+
         .profile-card,
         .profile-bio,
         .profile-info-item,
@@ -2710,7 +2713,7 @@
         .profile-back-btn {
           background: rgba(var(--accent-rgb), 0.2);
         }
-        /* 文章内图片：异步解码 + 预留高度，避免滚动到图片时闪烁/跳动 */
+
         #timelineDetailContent img,
         #blogDetailContent img,
         #tagDetailContent img,
@@ -2719,7 +2722,7 @@
           contain-intrinsic-size: auto 280px;
           display: block;
         }
-        /* 取消 body/header 的 transition: all，主题切换/滚动时只重绘需要的属性 */
+
         body {
           transition: background-color 0.3s ease, color 0.3s ease;
         }
@@ -2727,9 +2730,9 @@
           transition: padding 0.3s ease, background-color 0.3s ease, color 0.3s ease;
         }
       }
-      /* ========== 桌面端：返回文章列表/详情时标题避开固定导航，不再“偏上贴头” ========== */
+
       @media screen and (min-width: 769px) {
-        /* 桌面端导航栏：轻微半透明 + 背景模糊（毛玻璃），移动端保持实底以保证性能 */
+
         header {
           background-color: rgba(255, 255, 255, 0.78);
           backdrop-filter: blur(14px);
@@ -2738,15 +2741,15 @@
         html.dark header {
           background-color: rgba(18, 22, 31, 0.78);
         }
-        /* 固定 header 高约 68px，main 顶部留出安全间距后整体上移 */
+
         main {
           padding-top: 72px;
         }
-        /* 补偿首页首屏，使主页整体视觉位置保持不变 */
+
         .hero {
           padding-top: 58px;
         }
-        /* 关于我、日常分享：内容往中间收窄 */
+
         #about {
           max-width: 960px;
           margin-left: auto;
@@ -2757,12 +2760,12 @@
           margin-left: auto;
           margin-right: auto;
         }
-        /* 作品展示：左右边距加大，内容整体往中间收窄 */
+
         #portfolio {
           padding-left: 48px;
           padding-right: 48px;
         }
-        /* 作品展示：卡片拉伸铺满整行，桌面端卡片间隙适中 */
+
         .portfolio-grid {
           gap: 20px;
         }
@@ -2779,24 +2782,22 @@
         .work-tag {
           font-size: 13px;
         }
-        /* 电脑端：作品标题悬停变蓝（手机端不变色） */
+
         .work-card:hover .work-name a {
           color: #2d93ff;
         }
-        /* 电脑端：不显示"点击查看"提示（手机端保留） */
+
         .work-info::after {
           display: none;
         }
       }
 
-      /* ========== 全局元素：上浮堆叠入场动画 ========== */
-      /* 所有页面的内容元素（标题/卡片/条目等）滚动进入视口时逐层上浮；页面切换时重新播放 */
       .float-in {
-        opacity: 0; /* 未进入视口前隐藏，滚动到才上浮 */
+        opacity: 0;
       }
       .float-in.in-view {
         opacity: 1;
-        animation: floatUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+        animation: floatUp 1.1s cubic-bezier(0.22, 1, 0.36, 1) backwards;
         animation-delay: var(--float-delay, 0ms);
       }
       @keyframes floatUp {
@@ -2809,10 +2810,10 @@
           transform: translateY(0) scale(1);
         }
       }
-      /* 手机端：上浮更轻、距离更小，减轻滚动负担 */
+
       @media screen and (max-width: 768px) {
         .float-in.in-view {
-          animation-duration: 1.1s;
+          animation-duration: 0.75s;
         }
         @keyframes floatUp {
           0% {
@@ -2825,7 +2826,7 @@
           }
         }
       }
-      /* 用户系统偏好"减少动态效果"时关闭入场动画，直接显示 */
+
       @media (prefers-reduced-motion: reduce) {
         .float-in,
         .float-in.in-view {
@@ -2841,17 +2842,11 @@
         }
       }
 
-      /* 语言切换期间被重渲染并立即显示的内容：不重播上浮动画（下次进入该页时恢复上浮） */
       .float-in.lang-revealed {
         opacity: 1 !important;
         animation: none !important;
-        transform: none !important;
-        /* 禁止卡片自身过渡：返回/中断动画时透明度瞬间到位，避免 0.3s 淡入闪烁 */
-        transition: none !important;
       }
 
-      /* ========== 开场空白过渡 ========== */
-      /* 加载期间隐藏页头页脚（空白效果），加载页消失后淡入 */
       body.page-blank header,
       body.page-blank footer {
         opacity: 0;
@@ -2869,8 +2864,7 @@
           opacity: 1;
         }
       }
-      /* ========== 交互锁定 ========== */
-      /* 加载期间及声明弹窗弹出前：禁止滚动与点击页面内容 */
+
       body.page-loading {
         overflow: hidden;
       }
@@ -2883,7 +2877,6 @@
       }
     </style>
 
-    <!-- Page Loader -->
     <style>
       .page-loader {
         position: fixed;
@@ -2938,7 +2931,6 @@
       }
     </style>
 
-    <!-- 网站声明弹窗 -->
     </head>
     <div class="page-loader" id="pageLoader" aria-hidden="true">
       <div class="page-loader__spinner"></div>
@@ -2947,17 +2939,11 @@
     </div>
     <body class="">
     
-    <!-- 中英文切换过渡遮罩 -->
+
     <div class="lang-fade-mask" id="langFadeMask" aria-hidden="true"></div>
-    
-    
-    
-    
-    
-    
-    
+
     <div class="modal-mask" id="noticeModal">
-      <div class="modal-box" style="">
+      <div class="modal-box">
         <h3 class="modal-title" data-i18n="site_notice_title">网站声明</h3>
         <div class="modal-content">
           <p data-i18n="site_notice_text1">欢迎来到XiaoWei的个人网页</p>
@@ -2968,13 +2954,13 @@
         <button class="modal-btn" id="confirmBtn" data-i18n="site_notice_confirm">我已了解</button>
       </div>
     </div>
-    <!-- 导航头部 -->
+
     <header id="header" class="shrink">
       <div class="container">
         <div class="header-wrap">
           <div class="logo">
             <a data-page="home" href="#" class="logo">
-              <img id="siteLogoImg" src="images/favicon-light.png" alt="logo">
+              <img id="siteLogoImg" src="images/favicon-light.png" alt="logo" decoding="async">
               <span>XiaoWei</span>
             </a>
           </div>
@@ -2997,21 +2983,21 @@
           </ul>
           <ul class="nav-right">
             <li class="dropdown-wrap">
-              <a href="javascript:void(0)" id="themeToggleBtn" class="nav-icon-btn theme-toggle-btn" data-i18n-title="nav_theme" data-tip="浅色" aria-label="外观"><i id="themeToggleIcon" class="fa-solid fa-sun theme-toggle-icon"></i></a>
+              <a href="javascript:void(0)" id="themeToggleBtn" class="nav-icon-btn theme-toggle-btn" data-i18n-title="nav_theme" aria-label="外观"><i id="themeToggleIcon" class="fa-solid fa-sun theme-toggle-icon"></i></a>
             </li>
             <li class="dropdown-wrap">
-              <a href="javascript:void(0)" id="langToggleBtn" class="nav-icon-btn lang-toggle-btn" data-i18n-title="nav_lang" data-tip="语言" aria-label="语言"><span id="langToggleText" class="nav-lang-text lang-toggle-text">中</span></a>
+              <a href="javascript:void(0)" id="langToggleBtn" class="nav-icon-btn lang-toggle-btn" data-i18n-title="nav_lang" aria-label="语言"><span id="langToggleText" class="nav-lang-text lang-toggle-text">中</span></a>
             </li>
             <li class="dropdown-wrap" id="userDropdownWrap">
-              <a href="javascript:void(0)" id="userActionBtn" class="nav-icon-btn user-action-btn logged" data-i18n-title="nav_user" data-tip="管理" aria-label="管理"><i class="fa-solid fa-user-gear"></i></a>
+              <a href="javascript:void(0)" id="userActionBtn" class="nav-icon-btn user-action-btn logged" data-i18n-title="nav_user" aria-label="管理"><i class="fa-solid fa-user-gear"></i></a>
             </li>
           </ul>
         </div>
       </div>
-      <!-- 移动端导航（固定在 header 内，不随内容滚动） -->
+
       <nav class="mobile-nav">
         <ul class="mobile-nav-list">
-          <li class="mobile-nav-indicator" aria-hidden="true" style="width: 0px; transform: translateX(0px);"></li>
+          <li class="mobile-nav-indicator" aria-hidden="true"></li>
           <li><a data-page="home" href="#" data-i18n="nav_home" class="">首页</a></li>
           <li><a data-page="about" href="#" data-i18n="nav_about" class="">关于我</a></li>
           <li><a data-page="portfolio" href="#" data-i18n="nav_portfolio" class="">作品展示</a></li>
@@ -3020,11 +3006,14 @@
         </ul>
       </nav>
     </header>
-    <!-- 更新公告弹窗（修复点击日志卡片） -->
+
     <div class="modal-mask" id="updateNoticeModal">
-      <div class="modal-box" style="">
+      <div class="modal-box">
         <h3 class="modal-title" id="updateNoticeModalTitle" data-i18n="update_notice_title">网站更新公告</h3>
         <div class="modal-content"><p style="font-size:18px;font-weight:500;text-align:center;margin-bottom:20px;">【更新日志】</p><div class="log-card">
+ <div class="log-card-header">2026-08-27更新日志</div>
+ <div class="log-card-body">1.优化整体代码内容<br>2.优化整体流畅度<br>3.优化返回标题问题<br>4.优化个人标签卡片大小<br>5.修复已知问题</div>
+ </div><div class="log-card">
  <div class="log-card-header">2026-8-26更新日志</div>
  <div class="log-card-body">1.优化整体动画时间<br>2.优化部分边距<br>3.新增堆叠动画效果<br>4.优化语言切换过渡效果<br>5.新增开屏过渡效果<br>6.优化整体流畅度过渡效果<br>7.修复制作中产生的已知问题</div>
  </div><div class="log-card">
@@ -3102,7 +3091,7 @@
     </div>
     <main>
       <div class="container">
-        <!-- 首页 -->
+
         <section id="home" class="page active">
           <div class="hero">
             <h1 data-i18n="hero_title" class="float-in" style="">欢迎来到XiaoWei的个人网页</h1>
@@ -3129,28 +3118,22 @@
             </a>
           </div>
         </section>
-        <!-- 关于我 -->
-        <section id="about" class="page" style="">
+
+        <section id="about" class="page">
           <h2 class="section-title float-in" data-i18n="section_about" style="">关于我</h2>
           <div class="timeline-item float-in" style="cursor: pointer;">
             <h3 data-i18n="about_who_title">我是谁</h3>
             <p data-i18n="about_who_text">大家好，我是小威，热爱数码科技类内容，希望我的创作内容你能喜欢。</p>
           </div>
           <h3 class="section-title float-in" style="font-size: 22px; margin-top: 40px;" data-i18n="about_timeline_title">成长经历</h3><div class="timeline-item float-in" data-timeline-detail="1" data-timeline-title="2006 - 2019 | 童年到初中" style="cursor: pointer;"><h4>2006 - 2019 | 童年到初中</h4><p>小时候的童年</p></div><div class="timeline-item float-in" data-timeline-detail="1" data-timeline-title="2019 - 2021 | 特殊初中时光" style="cursor: pointer;"><h4>2019 - 2021 | 特殊初中时光</h4><p>疫情时期，难忘的初中回忆。</p></div><div class="timeline-item float-in" data-timeline-detail="1" data-timeline-title="更多内容持续更新中……" style="cursor: pointer;"><h4>更多内容持续更新中……</h4><p>敬请期待！</p></div>
-          
-          
-          
-          
-          
-          
-          <!-- 个人标签：标题+白色卡片+按钮作为整体一块上浮 -->
+
           <div class="tags-float float-in" style="">
             <h2 class="section-title" style="font-size: 22px" data-i18n="about_tags_title">个人标签</h2>
             <div class="outer-card">
               <div class="tag-list"><span class="tag-btn" data-tag="网页制作">#网页制作</span><span class="tag-btn" data-tag="摄影">#摄影</span><span class="tag-btn" data-tag="音乐">#音乐</span><span class="tag-btn" data-tag="游戏">#游戏</span><span class="tag-btn" data-tag="furry">#furry</span><span class="tag-btn" data-tag="赛车">#赛车</span></div>
             </div>
           </div>
-          <!-- 标题移到卡片外面 -->
+
           <h2 class="section-title float-in" style="font-size: 22px;" data-i18n="about_contact_title">联系我</h2>
            <div class="contact-card float-in" style="">
             <div class="contact-grid">
@@ -3190,17 +3173,17 @@
                   <span>lowewa79342</span>
                 </div>
               </div>
-              
+
             </div>
           </div>
         </section>
-        <!-- 个人名片 -->
+
         <section id="whoami" class="page">
           <div class="profile-page">
-            <div class="profile-card float-in" style="">
+            <div class="profile-card float-in">
               <div class="profile-card-top">
                 <div class="profile-avatar-lg">
-                  <img src="images/31.jpg" alt="头像">
+                  <img src="images/31.jpg" alt="头像" loading="lazy" decoding="async">
                 </div>
                 <div class="profile-name-wrap">
                   <h2 class="profile-name">LouWeiWang</h2>
@@ -3239,10 +3222,10 @@
             </div>
           </div>
         </section>
-        <!-- 成长经历详情页 -->
-         <section id="timeline-detail" class="page" style="">
+
+         <section id="timeline-detail" class="page">
           <div class="profile-page">
-            <div class="profile-card float-in" style="">
+            <div class="profile-card float-in">
               <h2 class="profile-name" id="timelineDetailTitle" style="margin-bottom: 6px; font-size: 25px;">更多内容持续更新中……</h2>
               <p class="profile-subtitle" id="timelineDetailSubtitle" data-i18n="timeline_detail_subtitle">成长经历</p>
               <div class="profile-divider"></div>
@@ -3252,10 +3235,10 @@
             </div>
           </div>
         </section>
-        <!-- 日常分享详情页 -->
+
         <section id="blog-detail" class="page" style="animation: auto ease 0s 1 normal none running none;">
           <div class="profile-page">
-            <div class="profile-card float-in" style="">
+            <div class="profile-card float-in">
               <h2 class="profile-name" id="blogDetailTitle" style="margin-bottom: 6px; font-size: 25px;">极简网页配色思路运用技巧</h2>
               <p class="profile-subtitle" id="blogDetailMeta">讲解两个颜色搭配逻辑 | 2026-07-27</p>
               <div class="profile-divider"></div>
@@ -3265,7 +3248,7 @@
             </div>
           </div>
         </section>
-        <!-- 个人标签详情页 -->
+
         <section id="tag-detail" class="page">
           <div class="profile-page">
             <div class="profile-card float-in">
@@ -3278,10 +3261,10 @@
             </div>
           </div>
         </section>
-        <!-- 个人账号分享详情页 -->
-        <section id="video-share-detail" class="page" style="">
+
+        <section id="video-share-detail" class="page">
           <div class="profile-page">
-            <div class="profile-card float-in" style="">
+            <div class="profile-card float-in">
               <h2 class="profile-name" style="margin-bottom: 6px; font-size: 25px;" data-i18n="video_share_title">个人账号分享</h2>
               <p class="profile-subtitle" data-i18n="video_share_subtitle">各平台账号汇总</p>
               <div class="profile-divider"></div>
@@ -3341,14 +3324,11 @@
             </div>
           </div>
         </section>
-        <!-- 作品展示 -->
-        <section id="portfolio" class="page" style="">
+
+        <section id="portfolio" class="page">
           <h2 class="section-title float-in" data-i18n="section_portfolio" style="">作品展示</h2>
           <div class="portfolio-grid">
-            
-            
-            
-            
+
           <div class="work-card float-in" data-portfolio-name="个人账号分享" style=""><img class="work-img" src="images/010.jpeg" alt="个人账号分享">
  <div class="work-info">
  <div class="work-name"><a href="javascript:void(0)" class="dev-link">个人账号分享</a></div>
@@ -3367,21 +3347,21 @@
  <div class="work-tag">开发中</div>
  </div></div></div>
         </section>
-        <!-- 日常分享 -->
-        <section id="blog" class="page" style="">
+
+        <section id="blog" class="page">
           <h2 class="section-title float-in" data-i18n="section_blog" style="">日常分享</h2>
-        <div class="blog-item blog-item-article float-in" data-blog-title="极简网页配色思路运用技巧" style=""><h3 class="blog-title">极简网页配色思路运用技巧</h3>
+        <div class="blog-item blog-item-article float-in" data-blog-title="极简网页配色思路运用技巧"><h3 class="blog-title">极简网页配色思路运用技巧</h3>
  <div class="blog-meta">2026-07-27 | 设计思考</div>
- <p>讲解两个颜色搭配逻辑</p></div><div class="blog-item blog-item-article float-in" data-blog-title="网页留白设计完整指南" style=""><h3 class="blog-title">网页留白设计完整指南</h3>
+ <p>讲解两个颜色搭配逻辑</p></div><div class="blog-item blog-item-article float-in" data-blog-title="网页留白设计完整指南"><h3 class="blog-title">网页留白设计完整指南</h3>
  <div class="blog-meta">2026-07-27 | 排版技巧</div>
- <p>卡片、行高、页面边距规范</p></div><div class="blog-item blog-item-article float-in" data-blog-title="适合个人网站无衬线字体对比" style=""><h3 class="blog-title">适合个人网站无衬线字体对比</h3>
+ <p>卡片、行高、页面边距规范</p></div><div class="blog-item blog-item-article float-in" data-blog-title="适合个人网站无衬线字体对比"><h3 class="blog-title">适合个人网站无衬线字体对比</h3>
  <div class="blog-meta">2026-07-26 | 前端</div>
  <p>字体阅读体验对比</p></div></section>
-        <!-- 后台管理页面 -->
+
         <section id="admin" class="page">
           <h2 class="section-title">后台管理</h2>
           <div class="admin-layout">
-            <!-- 左侧固定侧边栏 -->
+
             <div class="admin-sidebar">
               <nav class="admin-nav">
                 <button class="admin-sidebar-item" data-admin-panel="content">
@@ -3392,9 +3372,9 @@
                 </button>
               </nav>
             </div>
-            <!-- 右侧主内容 -->
+
             <div class="admin-main">
-              <!-- 内容管理 -->
+
               <div class="admin-panel" id="adminContent">
                 <h3 class="admin-panel-title">内容管理</h3>
                 <div class="admin-content-tabs">
@@ -3414,7 +3394,7 @@
                      个人标签
                    </button>
                  </div>
-                <!-- 新增按钮工具栏（固定一行，不随列表滚动） -->
+
                 <div class="admin-content-toolbar">
                   <button class="admin-btn primary" id="addBlogBtn" style="display: none;">+ 新增文章</button>
                   <button class="admin-btn primary" id="addPortfolioBtn" style="display: none;">+ 新增作品</button>
@@ -3422,7 +3402,7 @@
                   <button class="admin-btn primary" id="addTimelineBtn" style="display: none;">+ 新增成长条目</button>
                   <button class="admin-btn primary" id="addTagBtn" style="display: none;">+ 新增标签</button>
                 </div>
-                <!-- 博客面板 -->
+
                 <div id="adminBlogPanel" style="display: none;">
                   <div class="admin-table-wrap">
                     <table class="admin-table">
@@ -3475,7 +3455,7 @@
                     暂无博客
                   </div>
                 </div>
-                <!-- 作品面板 -->
+
                 <div id="adminPortfolioPanel" style="display: none;">
                   <div class="admin-table-wrap">
                     <table class="admin-table">
@@ -3534,7 +3514,7 @@
                     暂无作品
                   </div>
                 </div>
-                <!-- 更新日志面板 -->
+
                 <div id="adminChangelogPanel" style="display: block;">
                   <div class="admin-table-wrap">
                     <table class="admin-table">
@@ -3547,6 +3527,19 @@
                         </tr>
                       </thead>
                       <tbody id="adminChangelogTableBody"><tr>
+ <td>2026-08-27</td>
+ <td>2026-08-27更新日志</td>
+ <td style="opacity:0.7;font-size:13px;">1.优化整体代码内容
+2.优化整体流畅度
+3.优化返回标题问题
+4.优化个人标签卡片大小
+...</td>
+ <td>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(0)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(0)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(0)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(0)">删除</button>
+ </td></tr><tr>
  <td>2026-08-26</td>
  <td>2026-8-26更新日志</td>
  <td style="opacity:0.7;font-size:13px;">1.优化整体动画时间
@@ -3555,10 +3548,10 @@
 4.优化语言切换过渡效果
 5...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(0)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(0)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(0)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(0)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(1)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(1)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(1)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(1)">删除</button>
  </td></tr><tr>
  <td>2026-08-25</td>
  <td>2026-08-25更新日志</td>
@@ -3568,10 +3561,10 @@
 4.优化版权栏样式
 5.新...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(1)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(1)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(1)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(1)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(2)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(2)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(2)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(2)">删除</button>
  </td></tr><tr>
  <td>2026-08-24</td>
  <td>2026-08-24更新日志</td>
@@ -3580,10 +3573,10 @@
 3.新增图片水印
 4.修改部分文字</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(2)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(2)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(2)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(2)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(3)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(3)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(3)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(3)">删除</button>
  </td></tr><tr>
  <td>2026-08-23</td>
  <td>2026-08-23更新日志</td>
@@ -3593,10 +3586,10 @@
 4.新增账号板块
 5.优化作品...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(3)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(3)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(3)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(3)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(4)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(4)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(4)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(4)">删除</button>
  </td></tr><tr>
  <td>2026-08-22</td>
  <td>2026-08-22更新日志</td>
@@ -3606,10 +3599,10 @@
 4.修改后台管理部分内容
 5.优...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(4)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(4)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(4)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(4)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(5)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(5)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(5)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(5)">删除</button>
  </td></tr><tr>
  <td>2026-08-19</td>
  <td>2026-08-19更新日志</td>
@@ -3619,10 +3612,10 @@
 4.修改标签内容
 ...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(5)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(5)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(5)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(5)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(6)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(6)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(6)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(6)">删除</button>
  </td></tr><tr>
  <td>2026-08-15</td>
  <td>2026-08-15更新日志</td>
@@ -3632,10 +3625,10 @@
 4.优化手机布局
 5...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(6)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(6)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(6)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(6)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(7)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(7)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(7)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(7)">删除</button>
  </td></tr><tr>
  <td>2026-08-12</td>
  <td>2026-08-12更新日志</td>
@@ -3643,10 +3636,10 @@
 2.优化图片内容
 3.优化部分文字</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(7)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(7)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(7)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(7)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(8)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(8)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(8)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(8)">删除</button>
  </td></tr><tr>
  <td>2026-08-11</td>
  <td>2026-08-11更新日志</td>
@@ -3655,20 +3648,20 @@
 3.删除个人中心
 4.优化部分字体</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(8)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(8)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(8)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(8)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(9)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(9)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(9)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(9)">删除</button>
  </td></tr><tr>
  <td>2026-08-10</td>
  <td>2026-08-10更新日志</td>
  <td style="opacity:0.7;font-size:13px;">1.优化弹窗窗口
 2.优化部分文字</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(9)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(9)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(9)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(9)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(10)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(10)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(10)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(10)">删除</button>
  </td></tr><tr>
  <td>2026-08-09</td>
  <td>2026-08-09更新日志</td>
@@ -3677,10 +3670,10 @@
 3.增加部分文字
 4.优化整体动画效果</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(10)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(10)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(10)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(10)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(11)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(11)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(11)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(11)">删除</button>
  </td></tr><tr>
  <td>2026-08-08</td>
  <td>2026-08-08更新日志</td>
@@ -3689,10 +3682,10 @@
 3.优化部分按钮弹窗
 4.优化主页...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(11)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(11)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(11)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(11)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(12)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(12)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(12)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(12)">删除</button>
  </td></tr><tr>
  <td>2026-08-07</td>
  <td>2026-08-07更新日志</td>
@@ -3702,10 +3695,10 @@
 4.优化按钮返回
 5...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(12)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(12)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(12)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(12)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(13)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(13)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(13)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(13)">删除</button>
  </td></tr><tr>
  <td>2026-08-06</td>
  <td>2026-08-06更新日志</td>
@@ -3715,10 +3708,10 @@
 4.新增成长经历内容
 5新增日常...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(13)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(13)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(13)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(13)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(14)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(14)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(14)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(14)">删除</button>
  </td></tr><tr>
  <td>2026-08-05</td>
  <td>2026-08-05更新日志</td>
@@ -3726,10 +3719,10 @@
 2.优化卡片布局
 3.优化部分文字</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(14)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(14)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(14)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(14)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(15)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(15)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(15)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(15)">删除</button>
  </td></tr><tr>
  <td>2026-08-04</td>
  <td>2026-08-04更新日志</td>
@@ -3737,10 +3730,10 @@
 2.优化后台管理
 3.修复已知问题</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(15)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(15)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(15)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(15)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(16)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(16)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(16)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(16)">删除</button>
  </td></tr><tr>
  <td>2026-08-03</td>
  <td>2026-08-03更新日志</td>
@@ -3749,10 +3742,10 @@
 3.修复点击问题
 4.优化部分代码</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(16)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(16)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(16)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(16)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(17)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(17)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(17)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(17)">删除</button>
  </td></tr><tr>
  <td>2026-08-02</td>
  <td>2026-08-02更新日志</td>
@@ -3762,10 +3755,10 @@
 4.修复点击问题
 5.优化部分...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(17)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(17)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(17)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(17)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(18)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(18)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(18)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(18)">删除</button>
  </td></tr><tr>
  <td>2026-08-01</td>
  <td>2026-08-01更新日志</td>
@@ -3774,10 +3767,10 @@
 3.后台新增多个优化
 4.修复多个点击...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(18)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(18)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(18)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(18)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(19)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(19)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(19)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(19)">删除</button>
  </td></tr><tr>
  <td>2026-07-31</td>
  <td>2026-07-31更新日志</td>
@@ -3787,10 +3780,10 @@
 4.下拉样式优化
 5.登录注册功...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(19)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(19)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(19)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(19)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(20)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(20)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(20)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(20)">删除</button>
  </td></tr><tr>
  <td>2026-07-30</td>
  <td>2026-07-30更新日志</td>
@@ -3798,10 +3791,10 @@
 2.修复弹窗变形bug
 3.优化弹窗高度限制...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(20)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(20)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(20)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(20)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(21)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(21)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(21)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(21)">删除</button>
  </td></tr><tr>
  <td>2026-07-29</td>
  <td>2026-07-29更新日志</td>
@@ -3810,10 +3803,10 @@
 3.修复关闭动画失效
 4.弹窗阻...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(21)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(21)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(21)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(21)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(22)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(22)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(22)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(22)">删除</button>
  </td></tr><tr>
  <td>2026-07-28</td>
  <td>2026-07-28更新日志</td>
@@ -3824,10 +3817,10 @@
 5.缩放动画
 6...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(22)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(22)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(22)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(22)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(23)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(23)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(23)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(23)">删除</button>
  </td></tr><tr>
  <td>2026-07-27</td>
  <td>2026-07-27更新日志</td>
@@ -3837,10 +3830,10 @@
 4.头部留白调整
 5.文字遮挡修复</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(23)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(23)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(23)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(23)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(24)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(24)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(24)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(24)">删除</button>
  </td></tr></tbody>
                     </table>
                   </div>
@@ -3848,7 +3841,7 @@
                     暂无更新日志
                   </div>
                 </div>
-                <!-- 成长文章面板 -->
+
                 <div id="adminTimelinePanel" style="display: none;">
                   <div class="admin-table-wrap">
                     <table class="admin-table">
@@ -3890,7 +3883,7 @@
                      暂无成长条目
                    </div>
                  </div>
-                 <!-- 个人标签面板 -->
+
                  <div id="adminTagsPanel" style="display: none;">
                    <div class="admin-table-wrap">
                      <table class="admin-table">
@@ -3945,7 +3938,7 @@
                    </div>
                  </div>
                </div>
-               <!-- 系统设置 -->
+
               <div class="admin-panel active" id="adminSettings">
                 <h3 class="admin-panel-title">系统设置</h3>
                 <div class="admin-form">
@@ -3978,16 +3971,14 @@
       </div>
 
     </main>
-    <!-- 底部 -->
+
     <footer>
         © 2026
         <a href="https://github.com/lowewa730657707/grwz">GitHub</a>
         xiaowei <span data-i18n="footer_copyright">内容版权归作者所有</span> <br>
-      <div class="container"><font>
-      </font></div><font>
-    </font></footer><font>
-    <!-- 各类弹窗 -->
-    <!-- 博客编辑弹窗 -->
+      <div class="container"></div>
+    </footer>
+
     <div class="modal-mask" id="blogEditModal">
       <div class="modal-box">
         <button class="modal-close-btn" id="blogEditCloseBtn">×</button>
@@ -4019,9 +4010,9 @@
         <button class="modal-btn" id="blogEditSaveBtn">保存</button>
       </div>
     </div>
-    <!-- 作品编辑弹窗 -->
+
     <div class="modal-mask" id="portfolioEditModal">
-      <div class="modal-box" style="">
+      <div class="modal-box">
         <button class="modal-close-btn" id="portfolioEditCloseBtn">×</button>
         <h3 class="modal-title" id="portfolioEditTitle">新增作品</h3>
         <div class="modal-content">
@@ -4043,9 +4034,9 @@
         <button class="modal-btn" id="portfolioEditSaveBtn">保存</button>
       </div>
     </div>
-    <!-- 登录弹窗 -->
+
     <div class="modal-mask" id="loginModal">
-      <div class="modal-box" style="">
+      <div class="modal-box">
         <button class="modal-close-btn" id="loginCloseBtn">×</button>
         <h3 class="modal-title">管理员登录</h3>
         <div class="modal-content">
@@ -4065,7 +4056,6 @@
       </div>
     </div>
 
-    <!-- 成功提示弹窗 -->
     <div class="dev-modal-mask" id="successTipModal">
       <div class="dev-modal-box">
         <p class="dev-text" id="successTipText">已同步首页更新公告</p>
@@ -4073,7 +4063,6 @@
       </div>
     </div>
 
-    <!-- 退出登录确认弹窗 -->
     <div class="dev-modal-mask" id="logoutConfirmModal">
       <div class="dev-modal-box">
         <p class="dev-text">真的要退出登录吗？</p>
@@ -4083,13 +4072,13 @@
         </div>
       </div>
     </div>
-    <!-- 更新日志编辑弹窗 -->
+
     <div class="modal-mask" id="changelogEditModal">
-      <div class="modal-box" style="">
+      <div class="modal-box">
         <button class="modal-close-btn" id="changelogEditCloseBtn" aria-label="关闭">
           ×
         </button>
-        <h3 class="modal-title" id="changelogEditModalTitle">编辑更新日志</h3>
+        <h3 class="modal-title" id="changelogEditModalTitle">新增更新日志</h3>
         <div class="modal-content">
           <div class="auth-form">
             <div class="form-item">
@@ -4110,9 +4099,8 @@
       </div>
     </div>
 
-    <!-- 成长文章编辑弹窗 -->
     <div class="modal-mask" id="timelineEditModal">
-      <div class="modal-box" style="">
+      <div class="modal-box">
         <button class="modal-close-btn" id="timelineEditCloseBtn">×</button>
         <h3 class="modal-title" id="timelineEditTitle">新增成长条目</h3>
         <div class="modal-content">
@@ -4135,7 +4123,6 @@
       </div>
     </div>
 
-    <!-- 联系方式弹窗 -->
     <div class="modal-mask" id="contactModal">
       <div class="modal-box">
         <button class="modal-close-btn" id="contactCloseBtn">×</button>
@@ -4155,7 +4142,6 @@
       </div>
     </div>
 
-    <!-- 平台账号信息弹窗（App跳转） -->
     <div class="modal-mask" id="platformModal">
       <div class="modal-box">
         <button class="modal-close-btn" id="platformCloseBtn">×</button>
@@ -4165,7 +4151,7 @@
             <div class="platform-modal-name" id="platformModalName">快手</div>
           </div>
           <div class="platform-modal-qr">
-            <img id="platformModalQR" src="images/qr-kuaishou.png" alt="二维码">
+            <img id="platformModalQR" src="images/qr-kuaishou.png" alt="二维码" loading="lazy" decoding="async">
             <p data-i18n="platform_scan_tip">请打开对应App扫码</p>
           </div>
           <div class="platform-modal-fields">
@@ -4189,9 +4175,8 @@
       </div>
     </div>
 
-    <!-- 个人标签编辑弹窗 -->
     <div class="modal-mask" id="tagEditModal">
-      <div class="modal-box" style="">
+      <div class="modal-box">
         <button class="modal-close-btn" id="tagEditCloseBtn">×</button>
         <h3 class="modal-title" id="tagEditTitle">新增标签</h3>
         <div class="modal-content">
@@ -4214,24 +4199,32 @@
                         Object.keys(d).forEach(function (k) {
                           localStorage.setItem(k, d[k]);
                         });
-                      })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"12345678\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路运用技巧\",\"subtitle\":\"讲解两个颜色搭配逻辑\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案。\\n\\n在网页设计中，色彩搭配是非常重要的一环。低饱和度的蓝色系能够营造出柔和、专业的视觉效果。\\n\\n本文将详细介绍如何使用#E6F7FF作为背景色，搭配#89C2FF作为强调色，打造舒适护眼的配色方案。\\n\\n以上内容由Ai生成\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"subtitle\":\"卡片、行高、页面边距规范\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧。\\n\\n留白是网页设计中常被忽视但极其重要的元素。合理的留白能够提升内容的可读性和页面的整体质感。\\n\\n本文从卡片间距、行高设置到页面边距，全面讲解如何运用留白打造极简高级的网页设计。\\n\\n以上内容由Ai生成\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"subtitle\":\"字体阅读体验对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比。\\n\\n字体的选择直接影响网站的阅读体验。对于中文个人网站，无衬线字体是最常见的选择。\\n\\n本文对比了苹方、微软雅黑和Inter三种常用字体在不同场景下的表现，帮助你选择最适合的字体方案。\\n\\n以上内容由Ai生成\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人账号分享\",\"tag\":\"账号\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"开发中\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-08-26\",\"title\":\"2026-8-26更新日志\",\"content\":\"1.优化整体动画时间\\n2.优化部分边距\\n3.新增堆叠动画效果\\n4.优化语言切换过渡效果\\n5.新增开屏过渡效果\\n6.优化整体流畅度过渡效果\\n7.修复制作中产生的已知问题\"},{\"date\":\"2026-08-25\",\"title\":\"2026-08-25更新日志\",\"content\":\"1.优化整体边距\\n2.优化内容边距距离\\n3.优化导航栏背景样式\\n4.优化版权栏样式\\n5.新增提示点击图标\\n6.优化手机端动画效果\\n7.新增手机端点击反馈\\n8.新增手机端部分点击按钮\\n9.修复部分已知问题\"},{\"date\":\"2026-08-24\",\"title\":\"2026-08-24更新日志\",\"content\":\"1.新增账号卡片\\n2.优化账号卡片内容\\n3.新增图片水印\\n4.修改部分文字\"},{\"date\":\"2026-08-23\",\"title\":\"2026-08-23更新日志\",\"content\":\"1.优化手机端字体颜色\\n2.修复返回按钮\\n3.优化加载时间\\n4.新增账号板块\\n5.优化作品展示内容\\n6.修复标签翻译问题\\n7.修复文章翻译问题\\n8.更改文章部分内容\"},{\"date\":\"2026-08-22\",\"title\":\"2026-08-22更新日志\",\"content\":\"1.优化加载动画时间\\n2.修改部分文字\\n3.修改部分布局\\n4.修改后台管理部分内容\\n5.优化手机内容适配\"},{\"date\":\"2026-08-19\",\"title\":\"2026-08-19更新日志\",\"content\":\"1.新增首次打开加载动画\\n2.修改部分布局\\n3.设置文章不得复制和保存\\n4.修改标签内容\\n5.修复制作中产出的问题\"},{\"date\":\"2026-08-15\",\"title\":\"2026-08-15更新日志\",\"content\":\"1.新增英文翻译内容\\n2.新增主页右上角图标\\n3.优化主页右上角文字\\n4.优化手机布局\\n5.手机新增滑动按钮\"},{\"date\":\"2026-08-12\",\"title\":\"2026-08-12更新日志\",\"content\":\"1.更新文章内容\\n2.优化图片内容\\n3.优化部分文字\"},{\"date\":\"2026-08-11\",\"title\":\"2026-08-11更新日志\",\"content\":\"1.优化弹窗窗口大小\\n2优化联系弹窗样式\\n3.删除个人中心\\n4.优化部分字体\"},{\"date\":\"2026-08-10\",\"title\":\"2026-08-10更新日志\",\"content\":\"1.优化弹窗窗口\\n2.优化部分文字\"},{\"date\":\"2026-08-09\",\"title\":\"2026-08-09更新日志\",\"content\":\"1.优化弹窗问题\\n2.优化按钮返回问题\\n3.增加部分文字\\n4.优化整体动画效果\"},{\"date\":\"2026-08-08\",\"title\":\"2026-08-08更新日志\",\"content\":\"1.修复后台个性标签保存问题\\n2.优化联系方式弹窗内容\\n3.优化部分按钮弹窗\\n4.优化主页卡片排序\\n5.优化主页按钮大小\\n6.修改添加部分文字\\n7.修复部分按钮弹窗问题\\n8.优化手机端部分内容\"},{\"date\":\"2026-08-07\",\"title\":\"2026-08-07更新日志\",\"content\":\"1.新增个人标签内容\\n2.新增联系方式复制按钮\\n3.优化部分按钮内容\\n4.优化按钮返回\\n5.优化部分文字标题\\n6.修复返回按钮问题\"},{\"date\":\"2026-08-06\",\"title\":\"2026-08-06更新日志\",\"content\":\"1.新增多个文章页面\\n2.优化多个文字\\n3.优化后台管理\\n4.新增成长经历内容\\n5新增日常分享内容\"},{\"date\":\"2026-08-05\",\"title\":\"2026-08-05更新日志\",\"content\":\"1.新增关于我卡片内容\\n2.优化卡片布局\\n3.优化部分文字\"},{\"date\":\"2026-08-04\",\"title\":\"2026-08-04更新日志\",\"content\":\"1.优化部分文字\\n2.优化后台管理\\n3.修复已知问题\"},{\"date\":\"2026-08-03\",\"title\":\"2026-08-03更新日志\",\"content\":\"1.优化移动端部分排版\\n2.优化部分文字\\n3.修复点击问题\\n4.优化部分代码\"},{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]","siteTimelines":"[{\"title\":\"2006 - 2019 | 童年到初中\",\"subtitle\":\"小时候的童年\",\"content\":\"2006年，我出生在一个普通的农村家庭。从小跟着爷爷奶奶，爸爸妈妈去了外地打工,而把我养大的是我的姑妈，从出生到幼儿园，我一直在姑妈身边慢慢长大。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/101.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【最早出生照片】</p>\\n小时候很喜欢跟着小伙伴一起玩耍，去小河旁摸虾，去山里挖野菜，去农田学着大人插秧，这些都是我模糊记忆的童年。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/104.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【高清修复照片】</p>\\n上完幼儿园，一年级我和我的父母来到了广东，面对陌生的环境，难免有些害怕，但后来也慢慢的适应了。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/107.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【在广东用手机自拍】</p>\\n小学时光还有很多有趣时光，有好也有坏，这里就不讲太多了，童年只能回忆，但无法改变未来。\"},{\"title\":\"2019 - 2021 | 特殊初中时光\",\"subtitle\":\"疫情时期，难忘的初中回忆。\",\"content\":\"疫情时期，难忘的初中回忆。\\n\\n2019年，我步入了初中校园，开始了新的学习生活。然而好没过多久，2020年初新冠疫情爆发，一切都改变了。\\n\\n学校停课，我们开始在家上网课。每天对着电脑屏幕学习，既新奇又不适应。没有了同学的陪伴，学习变得更加孤独，但也让我学会了自律和独立。\\n\\n那段时间，我学会了合理安排时间，自主学习新知识。也让我更加珍惜能够正常上学、和朋友们在一起的日子。\\n\\n这段特殊的经历，是我成长中不可或缺的一部分。\\n\\n以上内容由Ai生成\"},{\"title\":\"更多内容持续更新中……\",\"subtitle\":\"敬请期待！\",\"content\":\"敬请期待！\\n\\n更多精彩内容正在准备中，请持续关注我的个人网站。\\n\\n以上内容由Ai生成\"}]","siteTags":"[{\"name\":\"网页制作\",\"content\":\"喜欢网页开发，熟悉基础HTML、CSS、JavaScript等前端技术。\\n\\n上了大学才开始慢慢学会网页制作，虽然中职也学过一些，但老师教的是可视化的，所有代码不是很了解，上了大学老师才教代码制作。\"},{\"name\":\"摄影\",\"content\":\"摄影是在中职才慢慢接触，在中职加入了摄影社，我才接触相机这种东西。\\n\\n摄影技术方面不是很厉害，因为接触相机的经历很少，但也了解相机的基础功能：快门，ISO，光圈。\\n\\n希望在未来某一天能拥有一台属于自己的相机。\"},{\"name\":\"音乐\",\"content\":\"喜欢各种类型风格的音乐，喜欢在晚上睡觉前听，使用平台是网易云音乐，比较喜欢的器乐是钢琴，音乐天赋不高，从小接触音乐的学习很少。\\n\\n未来的希望是可以用钢琴弹一首完整的歌曲。\"},{\"name\":\"游戏\",\"content\":\"喜欢玩射击，赛车，开放世界等类型游戏，技术不是很厉害，但玩游戏可以给我带来放松。\"},{\"name\":\"furry\",\"content\":\"对furry文化有浓厚的兴趣，喜欢毛绒绒的兽兽，希望在未来可以拥有属于自己的兽装。\"},{\"name\":\"赛车\",\"content\":\"赛车运动，感受速度与激情，玩过很多赛车游戏，但玩的最久的是王牌竞速这款游戏，虽然并不是真正的赛车游戏，但在游戏可以体验不同赛车带来的速度与激情。\"}]"});</script>
-
-
-
-
-
+                      })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"12345678\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路运用技巧\",\"subtitle\":\"讲解两个颜色搭配逻辑\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案。\\n\\n在网页设计中，色彩搭配是非常重要的一环。低饱和度的蓝色系能够营造出柔和、专业的视觉效果。\\n\\n本文将详细介绍如何使用#E6F7FF作为背景色，搭配#89C2FF作为强调色，打造舒适护眼的配色方案。\\n\\n以上内容由Ai生成\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"subtitle\":\"卡片、行高、页面边距规范\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧。\\n\\n留白是网页设计中常被忽视但极其重要的元素。合理的留白能够提升内容的可读性和页面的整体质感。\\n\\n本文从卡片间距、行高设置到页面边距，全面讲解如何运用留白打造极简高级的网页设计。\\n\\n以上内容由Ai生成\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"subtitle\":\"字体阅读体验对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比。\\n\\n字体的选择直接影响网站的阅读体验。对于中文个人网站，无衬线字体是最常见的选择。\\n\\n本文对比了苹方、微软雅黑和Inter三种常用字体在不同场景下的表现，帮助你选择最适合的字体方案。\\n\\n以上内容由Ai生成\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人账号分享\",\"tag\":\"账号\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"开发中\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-08-27\",\"title\":\"2026-08-27更新日志\",\"content\":\"1.优化整体代码内容\\n2.优化整体流畅度\\n3.优化返回标题问题\\n4.优化个人标签卡片大小\\n5.修复已知问题\"},{\"date\":\"2026-08-26\",\"title\":\"2026-8-26更新日志\",\"content\":\"1.优化整体动画时间\\n2.优化部分边距\\n3.新增堆叠动画效果\\n4.优化语言切换过渡效果\\n5.新增开屏过渡效果\\n6.优化整体流畅度过渡效果\\n7.修复制作中产生的已知问题\"},{\"date\":\"2026-08-25\",\"title\":\"2026-08-25更新日志\",\"content\":\"1.优化整体边距\\n2.优化内容边距距离\\n3.优化导航栏背景样式\\n4.优化版权栏样式\\n5.新增提示点击图标\\n6.优化手机端动画效果\\n7.新增手机端点击反馈\\n8.新增手机端部分点击按钮\\n9.修复部分已知问题\"},{\"date\":\"2026-08-24\",\"title\":\"2026-08-24更新日志\",\"content\":\"1.新增账号卡片\\n2.优化账号卡片内容\\n3.新增图片水印\\n4.修改部分文字\"},{\"date\":\"2026-08-23\",\"title\":\"2026-08-23更新日志\",\"content\":\"1.优化手机端字体颜色\\n2.修复返回按钮\\n3.优化加载时间\\n4.新增账号板块\\n5.优化作品展示内容\\n6.修复标签翻译问题\\n7.修复文章翻译问题\\n8.更改文章部分内容\"},{\"date\":\"2026-08-22\",\"title\":\"2026-08-22更新日志\",\"content\":\"1.优化加载动画时间\\n2.修改部分文字\\n3.修改部分布局\\n4.修改后台管理部分内容\\n5.优化手机内容适配\"},{\"date\":\"2026-08-19\",\"title\":\"2026-08-19更新日志\",\"content\":\"1.新增首次打开加载动画\\n2.修改部分布局\\n3.设置文章不得复制和保存\\n4.修改标签内容\\n5.修复制作中产出的问题\"},{\"date\":\"2026-08-15\",\"title\":\"2026-08-15更新日志\",\"content\":\"1.新增英文翻译内容\\n2.新增主页右上角图标\\n3.优化主页右上角文字\\n4.优化手机布局\\n5.手机新增滑动按钮\"},{\"date\":\"2026-08-12\",\"title\":\"2026-08-12更新日志\",\"content\":\"1.更新文章内容\\n2.优化图片内容\\n3.优化部分文字\"},{\"date\":\"2026-08-11\",\"title\":\"2026-08-11更新日志\",\"content\":\"1.优化弹窗窗口大小\\n2优化联系弹窗样式\\n3.删除个人中心\\n4.优化部分字体\"},{\"date\":\"2026-08-10\",\"title\":\"2026-08-10更新日志\",\"content\":\"1.优化弹窗窗口\\n2.优化部分文字\"},{\"date\":\"2026-08-09\",\"title\":\"2026-08-09更新日志\",\"content\":\"1.优化弹窗问题\\n2.优化按钮返回问题\\n3.增加部分文字\\n4.优化整体动画效果\"},{\"date\":\"2026-08-08\",\"title\":\"2026-08-08更新日志\",\"content\":\"1.修复后台个性标签保存问题\\n2.优化联系方式弹窗内容\\n3.优化部分按钮弹窗\\n4.优化主页卡片排序\\n5.优化主页按钮大小\\n6.修改添加部分文字\\n7.修复部分按钮弹窗问题\\n8.优化手机端部分内容\"},{\"date\":\"2026-08-07\",\"title\":\"2026-08-07更新日志\",\"content\":\"1.新增个人标签内容\\n2.新增联系方式复制按钮\\n3.优化部分按钮内容\\n4.优化按钮返回\\n5.优化部分文字标题\\n6.修复返回按钮问题\"},{\"date\":\"2026-08-06\",\"title\":\"2026-08-06更新日志\",\"content\":\"1.新增多个文章页面\\n2.优化多个文字\\n3.优化后台管理\\n4.新增成长经历内容\\n5新增日常分享内容\"},{\"date\":\"2026-08-05\",\"title\":\"2026-08-05更新日志\",\"content\":\"1.新增关于我卡片内容\\n2.优化卡片布局\\n3.优化部分文字\"},{\"date\":\"2026-08-04\",\"title\":\"2026-08-04更新日志\",\"content\":\"1.优化部分文字\\n2.优化后台管理\\n3.修复已知问题\"},{\"date\":\"2026-08-03\",\"title\":\"2026-08-03更新日志\",\"content\":\"1.优化移动端部分排版\\n2.优化部分文字\\n3.修复点击问题\\n4.优化部分代码\"},{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]","siteTimelines":"[{\"title\":\"2006 - 2019 | 童年到初中\",\"subtitle\":\"小时候的童年\",\"content\":\"2006年，我出生在一个普通的农村家庭。从小跟着爷爷奶奶，爸爸妈妈去了外地打工,而把我养大的是我的姑妈，从出生到幼儿园，我一直在姑妈身边慢慢长大。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/101.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【最早出生照片】</p>\\n小时候很喜欢跟着小伙伴一起玩耍，去小河旁摸虾，去山里挖野菜，去农田学着大人插秧，这些都是我模糊记忆的童年。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/104.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【高清修复照片】</p>\\n上完幼儿园，一年级我和我的父母来到了广东，面对陌生的环境，难免有些害怕，但后来也慢慢的适应了。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/107.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【在广东用手机自拍】</p>\\n小学时光还有很多有趣时光，有好也有坏，这里就不讲太多了，童年只能回忆，但无法改变未来。\"},{\"title\":\"2019 - 2021 | 特殊初中时光\",\"subtitle\":\"疫情时期，难忘的初中回忆。\",\"content\":\"疫情时期，难忘的初中回忆。\\n\\n2019年，我步入了初中校园，开始了新的学习生活。然而好没过多久，2020年初新冠疫情爆发，一切都改变了。\\n\\n学校停课，我们开始在家上网课。每天对着电脑屏幕学习，既新奇又不适应。没有了同学的陪伴，学习变得更加孤独，但也让我学会了自律和独立。\\n\\n那段时间，我学会了合理安排时间，自主学习新知识。也让我更加珍惜能够正常上学、和朋友们在一起的日子。\\n\\n这段特殊的经历，是我成长中不可或缺的一部分。\\n\\n以上内容由Ai生成\"},{\"title\":\"更多内容持续更新中……\",\"subtitle\":\"敬请期待！\",\"content\":\"敬请期待！\\n\\n更多精彩内容正在准备中，请持续关注我的个人网站。\\n\\n以上内容由Ai生成\"}]","siteTags":"[{\"name\":\"网页制作\",\"content\":\"喜欢网页开发，熟悉基础HTML、CSS、JavaScript等前端技术。\\n\\n上了大学才开始慢慢学会网页制作，虽然中职也学过一些，但老师教的是可视化的，所有代码不是很了解，上了大学老师才教代码制作。\"},{\"name\":\"摄影\",\"content\":\"摄影是在中职才慢慢接触，在中职加入了摄影社，我才接触相机这种东西。\\n\\n摄影技术方面不是很厉害，因为接触相机的经历很少，但也了解相机的基础功能：快门，ISO，光圈。\\n\\n希望在未来某一天能拥有一台属于自己的相机。\"},{\"name\":\"音乐\",\"content\":\"喜欢各种类型风格的音乐，喜欢在晚上睡觉前听，使用平台是网易云音乐，比较喜欢的器乐是钢琴，音乐天赋不高，从小接触音乐的学习很少。\\n\\n未来的希望是可以用钢琴弹一首完整的歌曲。\"},{\"name\":\"游戏\",\"content\":\"喜欢玩射击，赛车，开放世界等类型游戏，技术不是很厉害，但玩游戏可以给我带来放松。\"},{\"name\":\"furry\",\"content\":\"对furry文化有浓厚的兴趣，喜欢毛绒绒的兽兽，希望在未来可以拥有属于自己的兽装。\"},{\"name\":\"赛车\",\"content\":\"赛车运动，感受速度与激情，玩过很多赛车游戏，但玩的最久的是王牌竞速这款游戏，虽然并不是真正的赛车游戏，但在游戏可以体验不同赛车带来的速度与激情。\"}]"});</script>
 
 
     <script>
+
+      document.addEventListener("dragstart", function (e) {
+        e.preventDefault();
+      });
+      document.addEventListener("contextmenu", function (e) {
+        var t = e.target;
+        if (t && t.tagName === "IMG") e.preventDefault();
+      });
+      document.addEventListener("selectstart", function (e) {
+        var t = e.target;
+        if (!(t && t.closest && t.closest("input, textarea, select, [contenteditable]"))) {
+          e.preventDefault();
+        }
+      });
 document.addEventListener("DOMContentLoaded", function () {
-          // Page Loader（首次加载）：最少展示 2s；后台(window.load)完成才淡出；进度条随真实资源加载进度变化
+
           const pageLoader = document.getElementById("pageLoader");
           const pageLoaderProgress = document.getElementById("pageLoaderProgress");
 
-          const LOADER_MIN_MS = 2000; // 最少等待时间
+          const LOADER_MIN_MS = 2000;
           const loaderStart = performance.now();
 
-          // —— 统计需加载的资源（图片 / 外链样式表），用节点加载进度驱动进度条 ——
           const loaderResources = [
             ...document.querySelectorAll("img[src]"),
             ...document.querySelectorAll("link[rel='stylesheet'][href]"),
@@ -4241,7 +4234,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           function refreshLoaderProgress() {
             const ratio = loaderTotal > 0 ? loaderDone / loaderTotal : 0;
-            // 最多走到 90%，真正 100% 由后台(window.load)完成后置顶，避免“假完成”
+
             const pct = Math.min(Math.round(ratio * 90), 90);
             pageLoaderProgress.style.width = pct + "%";
           }
@@ -4261,7 +4254,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             refreshLoaderProgress();
           } else {
-            // 没有可直接统计的 DOM 资源时，用缓慢逼近的占位进度，避免停在 0%
+
             let fake = 0;
             const fakeTimer = setInterval(() => {
               fake = Math.min(fake + Math.random() * 8 + 3, 90);
@@ -4275,7 +4268,7 @@ document.addEventListener("DOMContentLoaded", function () {
           function finishLoading() {
             if (fadeScheduled) return;
             fadeScheduled = true;
-            // 后台已加载完成：进度条拉满，再遵守至少 2s 的展示时间后淡出
+
             pageLoaderProgress.style.width = "100%";
             const elapsed = performance.now() - loaderStart;
             const remain = Math.max(0, LOADER_MIN_MS - elapsed);
@@ -4283,17 +4276,16 @@ document.addEventListener("DOMContentLoaded", function () {
               pageLoader.classList.add("hidden");
               setTimeout(() => {
                 pageLoader.remove();
-                // 加载页完全消失：页头页脚淡入（移除 page-blank），内容区保持空白
+
                 document.body.classList.remove("page-blank");
-                // 页面仍处于交互锁定（page-loading）：声明弹窗弹出前不可滚动/点击
-                // 空白停顿后，播放主页上浮动画
+
                 setTimeout(() => {
-                  // 第一步：主页内容上浮动画（此刻页面为空白，内容逐排浮起）
+
                   if (typeof window.__startFloatIn === "function") window.__startFloatIn();
-                  // 动画参数：时长（与 CSS 一致）与最大错开（只统计首屏内已上浮的元素）
-                  let duration = 1400; // 桌面动画时长
+
+                  let duration = 1100;
                   if (window.matchMedia && window.matchMedia("(max-width: 768px)").matches) {
-                    duration = 1100; // 手机动画时长
+                    duration = 750;
                   }
                   const reduce =
                     window.matchMedia &&
@@ -4301,30 +4293,32 @@ document.addEventListener("DOMContentLoaded", function () {
                   let maxDelay = 0;
                   if (!reduce) {
                     document.querySelectorAll("#home .float-in").forEach(function (el) {
-                      if (!el.classList.contains("in-view")) return; // 仅统计已上浮的元素
+                      if (!el.classList.contains("in-view")) return;
                       const d = parseFloat(el.style.getPropertyValue("--float-delay")) || 0;
                       if (d > maxDelay) maxDelay = d;
                     });
                   }
-                  // 解除页面交互锁定（弹窗弹出后由遮罩接管交互）
+
                   const unlockPage = function () {
                     document.body.classList.remove("page-loading");
                   };
                   if (typeof maybeOpenNoticeModal === "function" && maybeOpenNoticeModal()) {
-                    // 第二步：在上浮动画结束前背景开始虚化（最后一张卡片约 70% 时虚化进入），
-                    // 虚化与动画尾部重叠，营造"内容浮起的同时背景渐渐虚化"的效果
+
                     const floatWait = reduce ? 250 : Math.max(350, duration * 0.7 + maxDelay);
                     setTimeout(() => {
-                      noticeModal.classList.add("open"); // 背景虚化
-                      unlockPage(); // 声明弹窗弹出，遮罩接管交互，解除页面锁定
+                      noticeModal.classList.add("open");
+
+                      document.documentElement.classList.add("no-scroll");
+                      document.body.classList.add("no-scroll");
+                      unlockPage();
                       setTimeout(() => {
-                        // 第三步：虚化后稍作停留，再弹出声明卡片（放大淡入）
+
                         const noticeBoxEl = noticeModal.querySelector(".modal-box");
                         if (noticeBoxEl) noticeBoxEl.classList.add("zoom");
                       }, 450);
                     }, floatWait);
                   } else {
-                    // 非首次访问：无声明弹窗，上浮动画播完后解除锁定
+
                     setTimeout(unlockPage, reduce ? 400 : duration + maxDelay + 250);
                   }
                 }, 400);
@@ -4332,26 +4326,22 @@ document.addEventListener("DOMContentLoaded", function () {
             }, remain);
           }
 
-          // 后台加载完成（全部资源就绪）后淡出；未完成则继续等待
           window.addEventListener("load", finishLoading);
-          // DOMContentLoaded 时若后台已就绪（如强缓存/刷新），仍遵守最小 2s 展示
+
           if (document.readyState === "complete") finishLoading();
 
-          // 弹窗打开函数
           function openModal(el) {
           el.classList.add("open", "show");
           document.documentElement.classList.add("no-scroll");
           document.body.classList.add("no-scroll");
         }
 
-        // 关闭弹窗函数
         function closeModal(el) {
           el.classList.remove("open", "show");
           document.documentElement.classList.remove("no-scroll");
           document.body.classList.remove("no-scroll");
         }
 
-        // 修复更新日志卡片点击绑定
         let _logCardBound = false;
         function bindLogCardClick() {
           if (_logCardBound) return;
@@ -4365,7 +4355,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (header) header.parentElement.classList.toggle("active");
           });
         }
-        // 劫持openModal，弹窗打开后重新绑定日志卡片（修复函数名错误 bindLogCardClick）
+
         const oldOpenModal = openModal;
         openModal = function (el) {
           oldOpenModal(el);
@@ -4373,13 +4363,11 @@ document.addEventListener("DOMContentLoaded", function () {
         };
         bindLogCardClick();
 
-        // 关闭所有下拉菜单
         function closeAllDropdown() {
           const allDrop = document.querySelectorAll(".dropdown-wrap");
           allDrop.forEach((item) => item.classList.remove("active"));
         }
 
-        // 导航滚动收缩（使用 rAF 优化性能）
         const header = document.getElementById("header");
         let scrollTicking = false;
         window.addEventListener("scroll", () => {
@@ -4391,23 +4379,22 @@ document.addEventListener("DOMContentLoaded", function () {
             scrollTicking = true;
           }
         }, { passive: true });
-        // 初始同步：刷新/恢复页面时按当前滚动位置决定是否显示收缩阴影，避免打开即发光
+
         header.classList.toggle("shrink", window.scrollY > 50);
 
-        // 页面切换逻辑 修复完整版
         const navLinks = document.querySelectorAll("[data-page]");
         const pages = document.querySelectorAll(".page");
         navLinks.forEach((link) => {
           link.addEventListener("click", (e) => {
             e.preventDefault();
             const target = link.getAttribute("data-page");
-            // 点击当前所在页的导航标签：不重新切换刷新（避免页面重载、上浮动画重播）
+
             const currentActivePage = document.querySelector(".page.active");
             if (currentActivePage && currentActivePage.id === target) {
               closeAllDropdown();
               return;
             }
-            // 后台权限校验
+
             if (target === "admin") {
               const currentUser = getCurrentUser();
               if (!currentUser) {
@@ -4421,7 +4408,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
               }
             }
-            // 个人名片页面跳转
+
             if (target === "whoami") {
               pages.forEach((p) => p.classList.remove("active"));
               document.getElementById("whoami").classList.add("active");
@@ -4432,53 +4419,60 @@ document.addEventListener("DOMContentLoaded", function () {
               });
               return;
             }
-            // 全部页面统一先隐藏
+
             pages.forEach((p) => p.classList.remove("active"));
-            // 激活目标页面
+
             const targetPageDom = document.getElementById(target);
             targetPageDom.classList.add("active");
             window.scrollTo({ top: 0 });
             closeAllDropdown();
-            // 同步导航标签高亮（桌面 + 移动）
+
             document.querySelectorAll(".nav-center a, .mobile-nav-list a").forEach((a) => {
               a.classList.toggle("active", a.getAttribute("data-page") === target);
             });
             updateMobileNavIndicator();
-            // 切换页面自动同步对应数据，解决空白问题
+
             setTimeout(() => {
               if (target === "portfolio") syncPortfoliosToFront();
               if (target === "blog") syncBlogsToFront();
             }, 100);
           });
         });
-        // 初始化导航高亮（默认首页）
+
         document.querySelectorAll(".nav-center a, .mobile-nav-list a").forEach((a) => {
           a.classList.toggle("active", a.getAttribute("data-page") === "home");
         });
-        // 移动端滑块指示器：根据激活标签定位（用 transform 平滑滑动）
+
         function updateMobileNavIndicator() {
           const indicator = document.querySelector(".mobile-nav-list .mobile-nav-indicator");
           const list = document.querySelector(".mobile-nav-list");
           if (!indicator || !list) return;
           const active = list.querySelector("a.active");
           if (!active) {
-            indicator.style.width = "0px";
+            indicator.style.transform = "translateX(0px) scaleX(0)";
             return;
           }
           const li = active.closest("li");
-          indicator.style.width = li.offsetWidth + "px";
-          indicator.style.transform = "translateX(" + li.offsetLeft + "px)";
+          const w = li.offsetWidth;
+          if (!w) return;
+          if (!indicator.__baseW) indicator.__baseW = indicator.offsetWidth || w;
+          indicator.style.transform =
+            "translateX(" + li.offsetLeft + "px) scaleX(" + (w / indicator.__baseW).toFixed(4) + ")";
         }
         updateMobileNavIndicator();
-        // 窗口尺寸变化时重算滑块位置
+
+        let resizeTicking = false;
         window.addEventListener("resize", () => {
-          if (typeof updateMobileNavIndicator === "function")
-            updateMobileNavIndicator();
+          if (resizeTicking) return;
+          resizeTicking = true;
+          requestAnimationFrame(() => {
+            resizeTicking = false;
+            if (typeof updateMobileNavIndicator === "function")
+              updateMobileNavIndicator();
+          });
         });
 
-        // 网站声明弹窗：加载时背景模糊实时显示，加载结束后卡片放大
         const noticeModal = document.getElementById("noticeModal");
-        const noticeBox = noticeModal.querySelector(".modal-box");
         const confirmBtn = document.getElementById("confirmBtn");
         function maybeOpenNoticeModal() {
           return !sessionStorage.getItem("readNotice");
@@ -4488,28 +4482,24 @@ document.addEventListener("DOMContentLoaded", function () {
           sessionStorage.setItem("readNotice", "true");
         });
 
-        // 更新公告弹窗
         const updateModal = document.getElementById("updateNoticeModal");
-        const updateBox = updateModal.querySelector(".modal-box");
         const openBtn = document.getElementById("openUpdateNotice");
         const closeUpdateBtn = document.getElementById("closeUpdateBtn");
         openBtn.addEventListener("click", () => openModal(updateModal));
         closeUpdateBtn.addEventListener("click", () => closeModal(updateModal));
 
-        // 从localStorage获取成长经历详情内容（支持HTML，与后台数据同步）
         function getTimelineDetailContent(title) {
           try {
             const list = JSON.parse(localStorage.getItem("siteTimelines") || "[]");
             const item = list.find(t => t.title === title);
             if (!item) return "暂无详细内容";
-            // 将换行符转为<br>，支持HTML标签（如图片）
+
             return item.content.replace(/\n/g, "<br>");
           } catch {
             return "暂无详细内容";
           }
         }
 
-        // 从localStorage获取个人标签详情内容（与后台数据同步）
         function getTagDetailContent(tagName) {
           try {
             const list = JSON.parse(localStorage.getItem("siteTags") || "[]");
@@ -4521,10 +4511,9 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
 
-         // 事件委托：处理成长经历卡片点击（包括"我是谁"和详情卡片）
          const aboutSection = document.getElementById("about");
          aboutSection.addEventListener("click", (e) => {
-           // 检查是否点击了"我是谁"卡片（第一个timeline-item，没有data-timeline-detail属性）
+
            const whoamiCard = e.target.closest("#about > .timeline-item:first-of-type");
            if (whoamiCard && !whoamiCard.hasAttribute("data-timeline-detail")) {
              pages.forEach((p) => p.classList.remove("active"));
@@ -4532,15 +4521,15 @@ document.addEventListener("DOMContentLoaded", function () {
              window.scrollTo({ top: 0 });
              return;
            }
-           // 检查是否点击了详情卡片
+
            const detailCard = e.target.closest("[data-timeline-detail]");
            if (detailCard) {
-             // 优先使用原始标题（data-timeline-title），避免英文显示时查不到本地数据
+
              const originalTitle = detailCard.getAttribute("data-timeline-title") || "";
              const h4 = detailCard.querySelector("h4");
              const cardTitle = originalTitle || (h4 ? h4.textContent.trim() : "");
              const cardContent = getTimelineDetailContent(cardTitle);
-              // 记录当前打开成长经历的原始中文，语言切换时据此重渲染
+
               window._openTimelineZH = { title: cardTitle, content: cardContent };
              document.getElementById("timelineDetailTitle").textContent =
                currentLang === "en" ? translateText(cardTitle) : cardTitle;
@@ -4552,14 +4541,14 @@ document.addEventListener("DOMContentLoaded", function () {
              window.scrollTo({ top: 0 });
              return;
            }
-           // 检查是否点击了标签
+
            const tagBtn = e.target.closest(".tag-btn");
            if (tagBtn) {
              const tagName = tagBtn.getAttribute("data-tag");
              document.getElementById("tagDetailTitle").textContent =
                "#" + (currentLang === "en" ? translateText(tagName) : tagName);
              const tagContent = getTagDetailContent(tagName);
-              // 记录当前打开标签的原始中文，语言切换时据此重渲染
+
               window._openTagZH = { name: tagName, content: tagContent };
              document.getElementById("tagDetailContent").innerHTML =
                currentLang === "en" ? translateText(tagContent) : tagContent;
@@ -4570,7 +4559,6 @@ document.addEventListener("DOMContentLoaded", function () {
            }
          });
 
-         // 事件委托：处理日常分享卡片点击跳转详情页
          const blogSection = document.getElementById("blog");
          blogSection.addEventListener("click", (e) => {
            const blogCard = e.target.closest(".blog-item-article");
@@ -4586,7 +4574,7 @@ document.addEventListener("DOMContentLoaded", function () {
                  (en ? translateText(blog.subtitle || "") : (blog.subtitle || "")) +
                  (blog.date ? " | " + blog.date : "");
                const body = blog.summary || blog.subtitle || "";
-                // 记录当前打开文章的原始中文，语言切换时据此重渲染
+
                 window._openBlogZH = {
                   title: blog.title,
                   subtitle: blog.subtitle || "",
@@ -4604,7 +4592,6 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // 事件委托：处理作品卡片点击（个人账号分享 → 平台账号详情页）
         const portfolioSection = document.getElementById("portfolio");
         if (portfolioSection) {
           portfolioSection.addEventListener("click", (e) => {
@@ -4620,7 +4607,6 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         }
 
-        // 平台账号卡片：点击不再直接跳转，改为弹窗展示（图标/名字/二维码/跳转链接/账号信息）
         const platformModal = document.getElementById("platformModal");
         const platformCloseBtn = document.getElementById("platformCloseBtn");
         const platformModalIcon = document.getElementById("platformModalIcon");
@@ -4634,7 +4620,6 @@ document.addEventListener("DOMContentLoaded", function () {
         let currentPlatformLink = "";
         let currentPlatformAccount = "";
 
-        // 复制降级方案（不支持 Clipboard API 时使用 execCommand）
         function fallbackCopyText(text) {
           try {
             const ta = document.createElement("textarea");
@@ -4682,14 +4667,14 @@ document.addEventListener("DOMContentLoaded", function () {
             const card = e.target.closest(".platform-card");
             if (!card) return;
             e.preventDefault();
-            // 图标：复用卡片内的平台图标（FontAwesome / SVG），仅重新设计容器样式
+
             const iconInner = card.querySelector(".platform-icon > *");
             platformModalIcon.innerHTML = "";
             if (iconInner) platformModalIcon.appendChild(iconInner.cloneNode(true));
-            // 名字（跟随当前语言）
+
             const nameEl = card.querySelector(".platform-name");
             platformModalName.textContent = nameEl ? nameEl.textContent : "";
-            // 跳转链接 + 二维码（优先本地二维码图，缺失时在线生成，保证始终可显示）
+
             const link = card.getAttribute("href") || "";
             currentPlatformLink = link;
             platformModalLink.value = link;
@@ -4704,18 +4689,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 qrUsingApi = true;
                 platformModalQR.src = qrApi;
               } else {
-                // 本地与在线均加载失败时静默隐藏二维码（不显示失败提示）
+
                 platformModalQR.style.display = "none";
               }
             };
             platformModalQR.src = qrLocal || qrApi;
             platformJumpBtn.href = link;
-            // 账号信息
+
             const handleEl = card.querySelector(".platform-handle");
             const account = handleEl ? handleEl.textContent.trim() : "";
             currentPlatformAccount = account;
             platformModalAccount.value = account;
-            // 复位复制按钮文案
+
             platformLinkCopyBtn.textContent = t("platform_copy");
             platformAccountCopyBtn.textContent = t("platform_copy");
             openModal(platformModal);
@@ -4736,12 +4721,10 @@ document.addEventListener("DOMContentLoaded", function () {
           );
         }
 
-        // 返回按钮直接跳转到指定区域，无滚动动画
         document.querySelectorAll(".profile-back-btn").forEach((btn) => {
           btn.addEventListener("click", (e) => {
             e.preventDefault();
-            // 返回按钮返回：抑制本次页面激活的上浮动画，内容直接显示。
-            // 设置1秒抑制窗口（含页面激活与返回后动态渲染两条路径），到期自动恢复。
+
             window.__floatInOffUntil = Date.now() + 1000;
             const scrollTo = btn.getAttribute("data-scroll-to");
             const targetPage = btn.getAttribute("data-page") || "about";
@@ -4751,7 +4734,7 @@ document.addEventListener("DOMContentLoaded", function () {
               const timelineSection = document.querySelector('[data-i18n="about_timeline_title"]');
               if (timelineSection) {
                 const header = document.getElementById("header");
-                // 返回定位：标题与固定导航栏之间留出足够间距，避免"标题太上"贴顶
+
                 const headerHeight = header ? header.offsetHeight + 80 : 100;
                 const top = timelineSection.getBoundingClientRect().top + window.scrollY - headerHeight;
                 window.scrollTo({ top: Math.max(0, top) });
@@ -4760,7 +4743,7 @@ document.addEventListener("DOMContentLoaded", function () {
               const tagsSection = document.querySelector('[data-i18n="about_tags_title"]');
               if (tagsSection) {
                 const header = document.getElementById("header");
-                const headerHeight = header ? header.offsetHeight + 80 : 100;
+                const headerHeight = header ? header.offsetHeight + 50 : 100;
                 const top = tagsSection.getBoundingClientRect().top + window.scrollY - headerHeight;
                 window.scrollTo({ top: Math.max(0, top) });
               }
@@ -4770,7 +4753,6 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         });
 
-        // 联系方式弹窗
         const contactModal = document.getElementById("contactModal");
         const contactCloseBtn = document.getElementById("contactCloseBtn");
         const contactCopyBtn = document.getElementById("contactCopyBtn");
@@ -4804,7 +4786,6 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         });
 
-        // 主题切换：默认跟随系统，点击只在深色/浅色间切换，图标跟随实际模式
         const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
         const themeToggleBtns = document.querySelectorAll(".theme-toggle-btn");
         const themeToggleIcons = document.querySelectorAll(".theme-toggle-icon");
@@ -4816,24 +4797,7 @@ document.addEventListener("DOMContentLoaded", function () {
               "fa-solid " + (isDark ? "fa-moon" : "fa-sun") + " theme-toggle-icon";
           });
         }
-        // 同步三个图标按钮的悬停文字（外观跟随当前模式，语言/管理固定）
-        function updateIconTips() {
-          var cur = localStorage.getItem("siteTheme") || "auto";
-          var isDark =
-            cur === "dark" || (cur === "auto" && mediaQuery.matches);
-          document.querySelectorAll(".theme-toggle-btn").forEach(function (el) {
-            el.setAttribute(
-              "data-tip",
-              t(isDark ? "nav_theme_dark" : "nav_theme_light"),
-            );
-          });
-          document.querySelectorAll(".lang-toggle-btn").forEach(function (el) {
-            el.setAttribute("data-tip", t("nav_lang"));
-          });
-          document.querySelectorAll(".user-action-btn").forEach(function (el) {
-            el.setAttribute("data-tip", t("nav_user"));
-          });
-        }
+
         function initTheme() {
           const saveTheme = localStorage.getItem("siteTheme") || "auto";
           setTheme(saveTheme);
@@ -4855,7 +4819,6 @@ document.addEventListener("DOMContentLoaded", function () {
           const cur = localStorage.getItem("siteTheme") || "auto";
           if (cur === "auto") {
             setTheme("auto");
-            updateIconTips();
           }
         });
         themeToggleBtns.forEach(function (btn) {
@@ -4865,12 +4828,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const curDark =
               cur === "dark" || (cur === "auto" && mediaQuery.matches);
             setTheme(curDark ? "light" : "dark");
-            updateIconTips();
           });
         });
         initTheme();
 
-        // ========= Language Switch (i18n) =========
         var LANG = {
           zh: {
             site_notice_title: "网站声明",
@@ -5191,16 +5152,14 @@ document.addEventListener("DOMContentLoaded", function () {
           return (LANG[currentLang] && LANG[currentLang][k]) || LANG.zh[k] || k;
         }
         window._t = t;
-        // 后台管理固定使用中文（不随语言切换翻译）
+
         function tzh(k) {
           return (LANG.zh && LANG.zh[k]) || k;
         }
         window._tzh = tzh;
 
-        // ===== 动态内容中译英（用于文章/作品/成长/标签/更新日志等本地数据） =====
-        // 仅在前台展示时翻译；后台编辑与存储仍为中文原文
         var ZN = {
-          // —— 日常分享文章 ——
+
           "极简网页配色思路运用技巧": "Minimalist Web Color Palette Techniques",
           "讲解两个颜色搭配逻辑": "Explaining the logic behind two color pairings",
           "网页留白设计完整指南": "A Complete Guide to Whitespace in Web Design",
@@ -5229,13 +5188,13 @@ document.addEventListener("DOMContentLoaded", function () {
             "Font choice directly affects reading experience. Sans-serif fonts are the most common pick for Chinese personal websites.",
           "本文对比了苹方、微软雅黑和Inter三种常用字体在不同场景下的表现，帮助你选择最适合的字体方案。":
             "This article compares PingFang, Microsoft YaHei, and Inter across different scenarios to help you choose the best font.",
-          // —— 作品展示 ——
+
           "个人账号分享": "Personal Account Sharing",
           "个人摄影分享": "Personal Photography Sharing",
           "功能正在开发中": "Feature In Development",
           "开发中": "In Development",
           "账号": "Account",
-          // —— 成长经历 ——
+
           "我是谁": "Who Am I",
           "2006 - 2019 | 童年到初中": "2006 - 2019 | Childhood to Middle School",
           "小时候的童年": "My childhood years",
@@ -5247,7 +5206,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "敬请期待！": "Stay tuned!",
           "暂无详细内容": "No details yet",
           "暂不提供": "Not provided",
-          // —— 个人标签 ——
+
           "网页制作": "Web Development",
           "摄影": "Photography",
           "音乐": "Music",
@@ -5280,7 +5239,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "喜欢玩游戏，享受游戏带来的乐趣。": "I enjoy gaming and the fun it brings.",
           "对furry文化有浓厚的兴趣。": "I'm deeply interested in furry culture.",
           "热爱赛车运动，喜欢速度与激情。": "I'm passionate about racing — the speed and the thrill.",
-          // —— 更新日志（标题与内容短语） ——
+
           "更新日志": "Update Log",
           "后续持续优化页面细节，敬请期待": "We'll keep polishing the site. Stay tuned",
           "更新文章内容": "Updated article content",
@@ -5362,7 +5321,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var _znKeys = Object.keys(ZN).sort(function (a, b) {
           return b.length - a.length;
         });
-        // 将中文文本按词典翻译为英文；未收录文本尝试已缓存译文；非英文模式原样返回
+
         function translateText(str) {
           if (currentLang !== "en" || !str) return str;
           var out = String(str);
@@ -5377,11 +5336,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         window._translateText = translateText;
 
-        // ================= 在线实时翻译（补充词典未覆盖的新增内容） =================
-        // 英文模式下，对词典未收录的中文文本自动调用在线翻译接口，
-        // 结果缓存到 localStorage 避免重复请求；所有接口失败时保留中文原文。
-        // 隐私提示：在线翻译会把文本发送给第三方翻译服务（仅即时翻译，不存储）。
-        var ENABLE_ONLINE_TRANSLATION = true; // 总开关，设为 false 可关闭在线翻译
+        var ENABLE_ONLINE_TRANSLATION = true;
         var TRANS_CACHE_KEY = "siteTransCache";
         var _transCache = null;
         function getTransCache() {
@@ -5391,7 +5346,7 @@ document.addEventListener("DOMContentLoaded", function () {
           } catch (e) {
             _transCache = {};
           }
-          // 清理历史缓存中被第三方翻译服务警告文本污染的条目
+
           var dirty = false;
           Object.keys(_transCache).forEach(function (k) {
             if (/mymemory\s*warning/i.test(_transCache[k] || "")) {
@@ -5415,13 +5370,10 @@ document.addEventListener("DOMContentLoaded", function () {
           return /[\u4e00-\u9fff]/.test(s || "");
         }
 
-        // —— 翻译端点（按顺序尝试，第一个成功即返回）——
-        // 百度翻译开放平台（推荐国内使用，免费注册）：https://fanyi-api.baidu.com
-        // 在下面填入你的 APPID 与密钥后自动启用；留空则跳过百度端点
         var BAIDU_TRANS_APPID = "";
         var BAIDU_TRANS_KEY = "";
         var TRANS_ENDPOINTS = [
-          // 1) 百度翻译（国内稳定，需自行注册免费 key）
+
           function (zh) {
             if (!BAIDU_TRANS_APPID || !BAIDU_TRANS_KEY) return null;
             var salt = String(Date.now());
@@ -5452,7 +5404,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
               });
           },
-          // 2) MyMemory（免费无需 key，海外节点国内可能不稳定）
+
           function (zh) {
             var url =
               "https://api.mymemory.translated.net/get?q=" +
@@ -5465,12 +5417,12 @@ document.addEventListener("DOMContentLoaded", function () {
               .then(function (j) {
                 var t = j && j.responseData && j.responseData.translatedText;
                 t = t ? String(t).trim() : "";
-                // MyMemory 免费额度用尽时返回的是一段警告文字，并非译文，必须丢弃
+
                 if (/mymemory\s*warning/i.test(t)) return null;
                 return t && t !== zh ? t : null;
               });
           },
-          // 3) Lingva（免费无需 key，开源 Google 翻译代理）
+
           function (zh) {
             var url = "https://lingva.ml/api/v1/zh/en/" + encodeURIComponent(zh);
             return fetch(url)
@@ -5483,7 +5435,6 @@ document.addEventListener("DOMContentLoaded", function () {
           },
         ];
 
-        // 逐个端点尝试，全部失败返回 null（含网络异常）
         function fetchOnlineTranslate(zh) {
           var idx = 0;
           function tryNext() {
@@ -5498,7 +5449,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return p
               .then(function (res) {
                 res = res ? String(res).trim() : "";
-                // 丢弃第三方接口返回的警告/错误文本，避免污染页面内容
+
                 if (res && !hasChinese(res) && !/mymemory\s*warning/i.test(res))
                   return res;
                 return tryNext();
@@ -5510,7 +5461,6 @@ document.addEventListener("DOMContentLoaded", function () {
           return tryNext();
         }
 
-        // 长文本分段（免费接口单次请求长度有限，按换行/句号切分）
         function chunkText(text, maxLen) {
           maxLen = maxLen || 250;
           var result = [];
@@ -5530,7 +5480,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var _transQueue = [];
         var _transBusy = false;
-        // 将中文文本加入在线翻译队列（串行执行 + 节流，避免触发限流）
+
         function queueOnlineTranslate(text, done) {
           if (
             currentLang !== "en" ||
@@ -5567,7 +5517,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   results[ci] = chunks[ci];
                 }
                 idx++;
-                setTimeout(step, 150); // 节流间隔
+                setTimeout(step, 150);
               })
               .catch(function () {
                 failed = true;
@@ -5591,7 +5541,6 @@ document.addEventListener("DOMContentLoaded", function () {
           step();
         }
 
-        // 记录被翻译过的文本节点及其原始中文，切回中文时据此还原
         var _translatedNodes = [];
         function restoreTranslatedNodes() {
           _translatedNodes.forEach(function (o) {
@@ -5602,8 +5551,6 @@ document.addEventListener("DOMContentLoaded", function () {
           _translatedNodes = [];
         }
 
-        // 扫描容器内仍含中文的文本节点：先词典/缓存，再排队在线翻译
-        // 后台管理区域与后台相关弹窗一律不翻译
         var ADMIN_TRANSLATE_EXCLUDE =
           "#admin, #blogEditModal, #portfolioEditModal, #loginModal, #successTipModal, #logoutConfirmModal, #changelogEditModal, #timelineEditModal, #tagEditModal";
         function translateRemaining(root) {
@@ -5630,7 +5577,7 @@ document.addEventListener("DOMContentLoaded", function () {
               continue;
             nodes.push({ node: n, text: tv });
           }
-          // 第一轮：本地词典 + 已缓存译文（记录原始中文，便于切回中文时还原）
+
           nodes.forEach(function (o) {
             var nt = translateText(o.text);
             if (nt !== o.text) {
@@ -5638,12 +5585,12 @@ document.addEventListener("DOMContentLoaded", function () {
               _translatedNodes.push({ node: o.node, zh: o.text });
             }
           });
-          // 第二轮：仍含中文的排队在线翻译
+
           nodes.forEach(function (o) {
             if (!o.node.isConnected) return;
             if (!hasChinese(o.node.nodeValue)) return;
             queueOnlineTranslate(o.text, function (en) {
-              // 切回中文后不再用英文结果覆盖页面（防止在线翻译回调竞态）
+
               if (
                 currentLang === "en" &&
                 en &&
@@ -5663,7 +5610,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         window._translateRemaining = translateRemaining;
 
-        // —— MD5（百度翻译签名用；未配置百度 key 时不会执行）——
         function md5(s) {
           function rl(v, c) {
             return (v << c) | (v >>> (32 - c));
@@ -5830,7 +5776,6 @@ document.addEventListener("DOMContentLoaded", function () {
           ).toLowerCase();
         }
 
-        // 语言切换时，重新渲染当前已打开的文章/成长/标签详情页
         function refreshOpenDetail() {
           var en = currentLang === "en";
           if (window._openBlogZH) {
@@ -5867,37 +5812,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function applyLang() {
           document.documentElement.lang = currentLang === "en" ? "en" : "zh-CN";
-          // 切回中文时，把之前被翻译过的文本节点还原为原始中文
+
           if (currentLang !== "en") restoreTranslatedNodes();
           var els = document.querySelectorAll("[data-i18n]");
           for (var i = 0; i < els.length; i++) {
             var key = els[i].getAttribute("data-i18n");
             if (key) els[i].textContent = t(key);
           }
-          // 图标按钮无障碍标签翻译（data-i18n-title → aria-label）
+
           document.querySelectorAll("[data-i18n-title]").forEach(function (el) {
             var k = el.getAttribute("data-i18n-title");
             if (k) el.setAttribute("aria-label", t(k));
           });
-          // 语言按钮文字：跟随当前语言
+
           document.querySelectorAll(".lang-toggle-text").forEach(function (el) {
             el.textContent = currentLang === "en" ? "EN" : "中";
           });
-          // 图标按钮悬停文字同步翻译
-          if (typeof updateIconTips === "function") updateIconTips();
-          // 名片页个人标签（跟随标签词典翻译；优先使用 data-zh 保留的原始中文，保证可双向切换）
+
           document.querySelectorAll(".profile-tag").forEach((el) => {
             var zh = el.getAttribute("data-zh");
             if (zh == null) {
-              // 兼容没有 data-zh 的情况：把当前文本当作原始中文记录下来
+
               zh = (el.textContent || "").replace(/^#/, "");
               el.setAttribute("data-zh", zh);
             }
             el.textContent = "#" + (currentLang === "en" ? translateText(zh) : zh);
           });
-          // 语言切换期间重渲染的内容：加标记抑制"上浮动画重播"（立即显示）。
-          // MutationObserver 在同步函数执行完后的微任务里重新揭示这些节点，
-          // 此时标记仍在，CSS 会跳过动画；下一帧移除标记恢复正常上浮逻辑。
+
           document.body.classList.add("lang-syncing");
           if (window._syncBlogsToFrontend) window._syncBlogsToFrontend();
           if (window._syncPortfoliosToFront) window._syncPortfoliosToFront();
@@ -5908,24 +5849,22 @@ document.addEventListener("DOMContentLoaded", function () {
           if (typeof refreshUserTable === "function") refreshUserTable();
           if (typeof refreshContentPanels === "function")
             refreshContentPanels();
-          // 重新渲染已打开的文章/成长/标签详情，保证语言切换后内容同步
+
           if (typeof refreshOpenDetail === "function") refreshOpenDetail();
-          // 等本轮 DOM 变更被 MutationObserver 处理、且新节点被 IntersectionObserver
-          // 首次观察后，再移除标记（双重 rAF：IO 回调在第一次 rAF 之后的渲染步骤触发）
+
           requestAnimationFrame(function () {
             requestAnimationFrame(function () {
               document.body.classList.remove("lang-syncing");
             });
           });
           scheduleFrontTranslate();
-          // 语言切换后标签文字变化，重算滑块位置
+
           setTimeout(function () {
             if (typeof updateMobileNavIndicator === "function")
               updateMobileNavIndicator();
           }, 80);
         }
 
-        // 中英文切换过渡动画：遮罩快速盖住页面 → 切换语言 → 缓慢淡出显现
         var langSwitching = false;
         function switchLang(lang) {
           if (langSwitching || lang === currentLang) return;
@@ -5935,7 +5874,7 @@ document.addEventListener("DOMContentLoaded", function () {
             localStorage.setItem("siteLang", lang);
             applyLang();
           };
-          // 系统开启"减弱动态效果"或页面不可见时，直接切换不播放动画
+
           var reduceMotion = false;
           try {
             reduceMotion = window.matchMedia(
@@ -5950,9 +5889,9 @@ document.addEventListener("DOMContentLoaded", function () {
           var root = document.documentElement;
           root.classList.add("lang-switching");
           setTimeout(function () {
-            // 遮罩已完全盖住页面，此时切换语言，文字变化被遮住
+
             applyNow();
-            // 移除淡入态：遮罩按基础过渡缓慢淡出，新语言文字逐渐显现
+
             root.classList.remove("lang-switching");
             setTimeout(function () {
               langSwitching = false;
@@ -5960,7 +5899,6 @@ document.addEventListener("DOMContentLoaded", function () {
           }, 400);
         }
 
-        // 语言按钮：点击直接切换中/英（桌面 + 移动）
         document.querySelectorAll(".lang-toggle-btn").forEach(function (btn) {
           btn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -5972,7 +5910,6 @@ document.addEventListener("DOMContentLoaded", function () {
         window._applyLang = applyLang;
         applyLang();
 
-        // ========= 用户账号本地存储 =========
         function getAccounts() {
           try {
             return JSON.parse(localStorage.getItem("siteAccounts") || "[]");
@@ -5990,7 +5927,7 @@ document.addEventListener("DOMContentLoaded", function () {
           if (name) localStorage.setItem("siteCurrentUser", name);
           else localStorage.removeItem("siteCurrentUser");
         }
-        // 初始化超级管理员
+
         function initAdminAccount() {
           const list = getAccounts();
           if (!list.some((x) => x.isAdmin)) {
@@ -6004,7 +5941,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         initAdminAccount();
 
-        // 导航登录状态刷新（管理图标显示已登录状态小圆点）
         const userActionBtns = document.querySelectorAll(".user-action-btn");
         const adminNavs = document.querySelectorAll(".admin-nav-item");
         function updateNavByLoginState() {
@@ -6018,7 +5954,7 @@ document.addEventListener("DOMContentLoaded", function () {
             userActionBtns.forEach((b) => b.classList.remove("logged"));
             adminNavs.forEach((n) => (n.style.display = "none"));
           }
-          // 登录状态变化后标签数量变化，重算滑块位置
+
           setTimeout(function () {
             if (typeof updateMobileNavIndicator === "function")
               updateMobileNavIndicator();
@@ -6026,7 +5962,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         updateNavByLoginState();
 
-        // 成功提示弹窗
         const successTipModal = document.getElementById("successTipModal");
         const successTipText = document.getElementById("successTipText");
         const successTipCloseBtn =
@@ -6045,7 +5980,6 @@ document.addEventListener("DOMContentLoaded", function () {
           closeModal(successTipModal),
         );
 
-        // 登录弹窗
         const loginModal = document.getElementById("loginModal");
         const loginUsername = document.getElementById("loginUsername");
         const loginPassword = document.getElementById("loginPassword");
@@ -6072,7 +6006,6 @@ document.addEventListener("DOMContentLoaded", function () {
           setTimeout(() => showSuccessTip(tzh("js_tip_login_success")), 220);
         });
 
-        // 退出确认弹窗
         const logoutConfirmModal =
           document.getElementById("logoutConfirmModal");
         const logoutConfirmBtn = document.getElementById("logoutConfirmBtn");
@@ -6080,7 +6013,7 @@ document.addEventListener("DOMContentLoaded", function () {
         function openLogoutConfirmModal() {
           openModal(logoutConfirmModal);
         }
-        // 管理按钮：未登录→打开登录弹窗；已登录→打开退出确认弹窗
+
         userActionBtns.forEach(function (btn) {
           btn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -6104,9 +6037,8 @@ document.addEventListener("DOMContentLoaded", function () {
           closeModal(logoutConfirmModal),
         );
 
-        // ==================== 后台管理闭包（修复全部语法BUG） ====================
         (function () {
-          // 本地数据读写
+
           function getBlogs() {
             try {
               return JSON.parse(localStorage.getItem("siteBlogs") || "[]");
@@ -6127,7 +6059,7 @@ document.addEventListener("DOMContentLoaded", function () {
           function savePortfolios(arr) {
             localStorage.setItem("sitePortfolios", JSON.stringify(arr));
           }
-          // 更新日志存储
+
           function getChangelogs() {
             try {
               return JSON.parse(localStorage.getItem("siteChangelogs") || "[]");
@@ -6138,7 +6070,7 @@ document.addEventListener("DOMContentLoaded", function () {
           function saveChangelogs(arr) {
             localStorage.setItem("siteChangelogs", JSON.stringify(arr));
           }
-          // 成长文章存储
+
           function getTimelines() {
             try {
               return JSON.parse(localStorage.getItem("siteTimelines") || "[]");
@@ -6149,7 +6081,7 @@ document.addEventListener("DOMContentLoaded", function () {
           function saveTimelines(arr) {
             localStorage.setItem("siteTimelines", JSON.stringify(arr));
           }
-          // 个人标签存储
+
           function getTags() {
             try {
               return JSON.parse(localStorage.getItem("siteTags") || "[]");
@@ -6160,7 +6092,7 @@ document.addEventListener("DOMContentLoaded", function () {
           function saveTags(arr) {
             localStorage.setItem("siteTags", JSON.stringify(arr));
           }
-          // 初始化默认更新日志
+
           function initDefaultChangelogs() {
             const arr = getChangelogs();
             if (arr.length === 0) {
@@ -6199,7 +6131,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           }
           initDefaultChangelogs();
-          // 初始化默认成长文章
+
           function initDefaultTimelines() {
             const arr = getTimelines();
             if (arr.length === 0)
@@ -6211,7 +6143,7 @@ document.addEventListener("DOMContentLoaded", function () {
               ]);
           }
           initDefaultTimelines();
-          // 初始化默认个人标签
+
           function initDefaultTags() {
             const arr = getTags();
             if (arr.length === 0)
@@ -6226,7 +6158,6 @@ document.addEventListener("DOMContentLoaded", function () {
           }
           initDefaultTags();
 
-          // 初始化默认账户
           function initDefaultAccounts() {
             const arr = getAccounts();
             if (arr.length === 0)
@@ -6242,7 +6173,6 @@ document.addEventListener("DOMContentLoaded", function () {
           let currentEditTimelineIndex = -1;
           let currentEditTagIndex = -1;
 
-          // 侧边栏切换
           const sidebarItems = document.querySelectorAll(".admin-sidebar-item");
           const adminPanels = document.querySelectorAll(".admin-panel");
           sidebarItems.forEach((item) => {
@@ -6261,7 +6191,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
           });
 
-          // 内容标签切换
           const contentTabs = document.querySelectorAll(".admin-content-tab");
           contentTabs.forEach((tab) => {
             tab.addEventListener("click", () => {
@@ -6278,7 +6207,7 @@ document.addEventListener("DOMContentLoaded", function () {
                  type === "timeline" ? "block" : "none";
                document.getElementById("adminTagsPanel").style.display =
                  type === "tags" ? "block" : "none";
-               // 工具栏新增按钮跟随子标签显隐
+
                document.getElementById("addBlogBtn").style.display =
                  type === "blog" ? "inline-block" : "none";
                document.getElementById("addPortfolioBtn").style.display =
@@ -6297,10 +6226,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
           });
 
-          // 仪表盘已移除：保留空函数以兼容内容管理各操作的刷新调用
           function refreshDashboard() {}
 
-          // 博客表格
           function refreshBlogTable() {
             const blogs = getBlogs();
             const tbody = document.getElementById("adminBlogTableBody");
@@ -6329,7 +6256,6 @@ document.addEventListener("DOMContentLoaded", function () {
               .join("");
           }
 
-          // 作品表格
           function refreshPortfolioTable() {
             const list = getPortfolios();
             const tbody = document.getElementById("adminPortfolioTableBody");
@@ -6357,7 +6283,6 @@ document.addEventListener("DOMContentLoaded", function () {
               .join("");
           }
 
-          // 更新日志表格
           function refreshChangelogTable() {
             const list = getChangelogs();
             const tbody = document.getElementById("adminChangelogTableBody");
@@ -6393,7 +6318,6 @@ document.addEventListener("DOMContentLoaded", function () {
             refreshPortfolioTable();
           }
 
-           // 成长文章表格
           function refreshTimelineTable() {
             const list = getTimelines();
             const tbody = document.getElementById("adminTimelineTableBody");
@@ -6420,7 +6344,6 @@ document.addEventListener("DOMContentLoaded", function () {
               .join("");
           }
 
-           // 个人标签表格
           function refreshTagsTable() {
             const list = getTags();
             const tbody = document.getElementById("adminTagsTableBody");
@@ -6445,7 +6368,6 @@ document.addEventListener("DOMContentLoaded", function () {
               .join("");
           }
 
-          // 博客编辑/删除
           window._adminEditBlog = function (idx) {
             currentEditBlogIndex = idx;
             const b = getBlogs()[idx];
@@ -6462,7 +6384,6 @@ document.addEventListener("DOMContentLoaded", function () {
           window._adminDeleteBlog = function (idx) {
             if (!confirm(tzh("js_confirm_delete_blog"))) return;
             const arr = getBlogs();
-            const name = arr[idx].title;
             arr.splice(idx, 1);
             saveBlogs(arr);
             refreshBlogTable();
@@ -6471,7 +6392,6 @@ document.addEventListener("DOMContentLoaded", function () {
             showSuccessTip(tzh("js_tip_blog_deleted"));
           };
 
-          // 作品编辑/删除
           window._adminEditPortfolio = function (idx) {
             currentEditPortfolioIndex = idx;
             const p = getPortfolios()[idx];
@@ -6486,7 +6406,6 @@ document.addEventListener("DOMContentLoaded", function () {
           window._adminDeletePortfolio = function (idx) {
             if (!confirm(tzh("js_confirm_delete_portfolio"))) return;
             const arr = getPortfolios();
-            const name = arr[idx].name;
             arr.splice(idx, 1);
             savePortfolios(arr);
             refreshPortfolioTable();
@@ -6495,12 +6414,11 @@ document.addEventListener("DOMContentLoaded", function () {
             showSuccessTip(tzh("js_tip_portfolio_deleted"));
           };
 
-          // 更新日志编辑/删除
           window._adminEditChangelog = function (idx) {
             currentEditChangelogIndex = idx;
             const item = getChangelogs()[idx];
             const modalBox = document.getElementById("changelogEditModal");
-            // 弹窗内输入框精准选取
+
             const titleInput = modalBox.querySelector(
               "input#changelogEditTitle",
             );
@@ -6514,7 +6432,6 @@ document.addEventListener("DOMContentLoaded", function () {
             openModal(modalBox);
           };
 
-          // 新增更新日志按钮
           document
             .getElementById("addChangelogBtn")
             .addEventListener("click", () => {
@@ -6535,7 +6452,6 @@ document.addEventListener("DOMContentLoaded", function () {
           window._adminDeleteChangelog = function (idx) {
             if (!confirm(tzh("js_confirm_delete_changelog"))) return;
             const arr = getChangelogs();
-            const title = arr[idx].title;
             arr.splice(idx, 1);
             saveChangelogs(arr);
             refreshChangelogTable();
@@ -6544,7 +6460,6 @@ document.addEventListener("DOMContentLoaded", function () {
             showSuccessTip(tzh("js_tip_changelog_deleted"));
           };
 
-          // 成长文章编辑/删除
           window._adminEditTimeline = function (idx) {
             currentEditTimelineIndex = idx;
             const item = getTimelines()[idx];
@@ -6565,7 +6480,6 @@ document.addEventListener("DOMContentLoaded", function () {
             showSuccessTip("成长条目已删除");
           };
 
-          // 个人标签编辑/删除
           window._adminEditTag = function (idx) {
             currentEditTagIndex = idx;
             const item = getTags()[idx];
@@ -6585,7 +6499,6 @@ document.addEventListener("DOMContentLoaded", function () {
             showSuccessTip("标签已删除");
           };
 
-          // ========== 排序功能 ==========
           function _moveItem(getter, saver, idx, direction, refreshFn, syncFn) {
             const arr = getter();
             const newIdx = idx + direction;
@@ -6595,21 +6508,20 @@ document.addEventListener("DOMContentLoaded", function () {
             refreshFn();
             if (syncFn) syncFn();
           }
-          // 博客排序
+
           window._adminMoveBlogUp = function(idx) { _moveItem(getBlogs, saveBlogs, idx, -1, refreshBlogTable, syncBlogsToFrontend); };
           window._adminMoveBlogDown = function(idx) { _moveItem(getBlogs, saveBlogs, idx, 1, refreshBlogTable, syncBlogsToFrontend); };
-          // 作品排序
+
           window._adminMovePortfolioUp = function(idx) { _moveItem(getPortfolios, savePortfolios, idx, -1, refreshPortfolioTable, syncPortfoliosToFront); };
           window._adminMovePortfolioDown = function(idx) { _moveItem(getPortfolios, savePortfolios, idx, 1, refreshPortfolioTable, syncPortfoliosToFront); };
-          // 更新日志排序
+
           window._adminMoveChangelogUp = function(idx) { _moveItem(getChangelogs, saveChangelogs, idx, -1, refreshChangelogTable, syncChangelogToFront); };
           window._adminMoveChangelogDown = function(idx) { _moveItem(getChangelogs, saveChangelogs, idx, 1, refreshChangelogTable, syncChangelogToFront); };
-          // 成长文章排序
+
           function syncBothTimeline() { syncTimelinesToFront(); }
           window._adminMoveTimelineUp = function(idx) { _moveItem(getTimelines, saveTimelines, idx, -1, refreshTimelineTable, syncBothTimeline); };
           window._adminMoveTimelineDown = function(idx) { _moveItem(getTimelines, saveTimelines, idx, 1, refreshTimelineTable, syncBothTimeline); };
 
-          // 新增博客
           document
             .getElementById("addBlogBtn")
             .addEventListener("click", () => {
@@ -6626,7 +6538,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 .split("T")[0];
               openModal(document.getElementById("blogEditModal"));
             });
-          // 博客保存
+
           document
             .getElementById("blogEditSaveBtn")
             .addEventListener("click", () => {
@@ -6673,7 +6585,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 closeModal(document.getElementById("blogEditModal"));
             });
 
-          // 新增作品
           document
             .getElementById("addPortfolioBtn")
             .addEventListener("click", () => {
@@ -6729,11 +6640,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 closeModal(document.getElementById("portfolioEditModal"));
             });
 
-          // 更新日志保存
           document
             .getElementById("changelogEditSaveBtn")
             .addEventListener("click", () => {
-              // 修复：精准取input输入框，避免取到标题h3
+
               const dateInput = document.getElementById("changelogEditDate");
               const titleInput = document.querySelector(
                 "#changelogEditModal input#changelogEditTitle",
@@ -6775,7 +6685,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 closeModal(document.getElementById("changelogEditModal"));
             });
 
-          // 新增成长条目按钮
           document
             .getElementById("addTimelineBtn")
             .addEventListener("click", () => {
@@ -6786,7 +6695,7 @@ document.addEventListener("DOMContentLoaded", function () {
               document.getElementById("timelineEditContent").value = "";
               openModal(document.getElementById("timelineEditModal"));
             });
-          // 成长条目保存
+
           document
             .getElementById("timelineEditSaveBtn")
             .addEventListener("click", () => {
@@ -6820,7 +6729,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 closeModal(document.getElementById("timelineEditModal"));
             });
 
-          // 新增标签按钮
           document
             .getElementById("addTagBtn")
             .addEventListener("click", () => {
@@ -6830,7 +6738,7 @@ document.addEventListener("DOMContentLoaded", function () {
               document.getElementById("tagEditContent").value = "";
               openModal(document.getElementById("tagEditModal"));
             });
-          // 标签保存
+
           document
             .getElementById("tagEditSaveBtn")
             .addEventListener("click", () => {
@@ -6863,7 +6771,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 closeModal(document.getElementById("tagEditModal"));
             });
 
-          // 修改密码
           document
             .getElementById("settingsSavePwd")
             .addEventListener("click", () => {
@@ -6890,12 +6797,11 @@ document.addEventListener("DOMContentLoaded", function () {
               showSuccessTip(tzh("js_tip_pwd_changed"));
             });
 
-          // 导出完整HTML文件（替换旧数据注入脚本而非前置，防止覆盖用户修改）
           document
             .getElementById("exportHtmlBtn")
             .addEventListener("click", () => {
               const prevActive = document.querySelector(".page.active");
-              // 导出期间切到首页生成快照，结束后恢复原页面（无论成败，避免页面卡在无激活状态）
+
               const activateHomePage = () => {
                 document
                   .querySelectorAll(".page")
@@ -6948,36 +6854,33 @@ document.addEventListener("DOMContentLoaded", function () {
                       ")(" +
                       JSON.stringify(data) +
                       ");<\/script>";
-                    // 导出前基于 DOM 克隆生成快照并清除运行时状态：
-                    // 直接序列化当前 DOM 会把"已上浮完成"的 in-view / --float-delay 等状态带进导出文件，
-                    // 导致加载页消失后首页上浮动画已提前播完、不再播放。
+
                     const snapshot = document.documentElement.cloneNode(true);
-                    // 1) 页面切换状态：仅保留首页激活（导出文件打开时从首页开始）
+
                     snapshot
                       .querySelectorAll(".page")
                       .forEach((p) => p.classList.remove("active"));
                     const homeSnapshot = snapshot.querySelector("#home");
                     if (homeSnapshot) homeSnapshot.classList.add("active");
-                    // 2) 清除上浮动画运行时状态：移除 in-view / lang-revealed 与内联 --float-delay，
-                    //    加载页消失后由 __startFloatIn 重新计算延迟并播放上浮动画
+
                     snapshot.querySelectorAll(".float-in").forEach((el) => {
                       el.classList.remove("in-view", "lang-revealed");
                       el.style.removeProperty("--float-delay");
                     });
-                    // 3) 清除弹窗打开状态（open/zoom/show），导出文件首次打开时声明弹窗动画重新播放
+
                     snapshot
                       .querySelectorAll(".modal-mask.open, .dev-modal-mask.show")
                       .forEach((el) => el.classList.remove("open", "show"));
                     snapshot
                       .querySelectorAll(".modal-box.zoom")
                       .forEach((el) => el.classList.remove("zoom"));
-                    // 4) 清除 body/html 的运行时临时类（page-blank / page-loading / no-scroll / lang-syncing / lang-switching）
+
                     const bodySnapshot = snapshot.querySelector("body");
                     if (bodySnapshot) bodySnapshot.className = "";
                     snapshot.classList.remove("no-scroll", "lang-switching");
                     console.log("[导出] 3/4 快照生成完成");
                     let html = snapshot.outerHTML;
-                    // 找到第一个<script>（旧数据注入脚本）并替换为当前数据脚本
+
                     const pos = html.indexOf("<script");
                     if (pos >= 0) {
                       const scEnd = html.indexOf("</scr" + "ipt>", pos);
@@ -6993,14 +6896,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     } else {
                       html = dataScript + "\n" + html;
                     }
-                    // 确保导出的HTML包含Page Loader（可能已从DOM移除）
+
                     const pageLoaderHTML = `
     <div class="page-loader" id="pageLoader" aria-hidden="true">
       <div class="page-loader__spinner"></div>
       <div class="page-loader__text" data-i18n="loader_loading">等待后台运行完成中</div>
       <div class="page-loader__progress"><div class="page-loader__progress-bar" id="pageLoaderProgress"></div></div>
     </div>`;
-                    // 在</head>后插入page loader
+
                     const headEndPos = html.indexOf("</head>");
                     if (headEndPos >= 0) {
                       html =
@@ -7008,7 +6911,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         pageLoaderHTML +
                         html.slice(headEndPos + 7);
                     }
-                    // 生成完整HTML并触发下载
+
                     const blob = new Blob(
                       ["<!DOCTYPE html>\n" + html],
                       { type: "text/html;charset=UTF-8" },
@@ -7020,11 +6923,11 @@ document.addEventListener("DOMContentLoaded", function () {
                       "XiaoWei_export_" +
                       new Date().toISOString().slice(0, 10) +
                       ".html";
-                    // 必须先挂到DOM再点击：部分浏览器（Firefox/老版Edge）下未挂载的链接点击不会触发下载
+
                     document.body.appendChild(a);
                     a.click();
                     a.remove();
-                    // 延迟释放对象URL，避免下载尚未开始就被中断
+
                     setTimeout(() => URL.revokeObjectURL(url), 1000);
                     console.log("[导出] 4/4 下载已触发", a.download);
                     showSuccessTip("HTML文件已导出");
@@ -7040,21 +6943,19 @@ document.addEventListener("DOMContentLoaded", function () {
               }
             });
 
-          // 暴露getBlogs供外部使用
           window._getBlogs = getBlogs;
 
-          // 首页同步函数
           function syncBlogsToFrontend() {
             const blogs = getBlogs();
             const wrap = document.getElementById("blog");
             if (!wrap) return;
-            // 数据与语言未变化时跳过重建：避免每次进入/返回都删除重建卡片导致闪烁
+
             const syncKey = (currentLang || "zh") + "|" + JSON.stringify(blogs);
             if (window.__blogRenderKey === syncKey) return;
             window.__blogRenderKey = syncKey;
-            // 清空现有列表，动态渲染所有博客
+
             wrap.querySelectorAll(".blog-item").forEach((el) => el.remove());
-            // 渲染博客文章
+
             blogs.forEach((item) => {
               const el = document.createElement("div");
               el.className = "blog-item blog-item-article";
@@ -7073,7 +6974,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const list = getTimelines();
             const wrap = document.getElementById("about");
             if (!wrap) return;
-            // 通过 data-i18n 定位"成长经历"标题（中英文切换后依然可靠）
+
             function isTimelineTitle(el) {
               return (
                 el &&
@@ -7082,9 +6983,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 el.getAttribute("data-i18n") === "about_timeline_title"
               );
             }
-            // 找到"成长经历"标题后的timeline-item并替换
+
             const allItems = wrap.querySelectorAll(".timeline-item");
-            // 保留"成长经历"之前的timeline-item，清除之后的
+
             let foundTimeline = false;
             allItems.forEach(el => {
               const prevH = el.previousElementSibling;
@@ -7094,7 +6995,7 @@ document.addEventListener("DOMContentLoaded", function () {
               if (foundTimeline) el.remove();
             });
             if (list.length === 0) return;
-            // 找到"成长经历"标题，在其后插入（中文标题下顺序需保持，故逐个逆序插入）
+
             const h3s = wrap.querySelectorAll("h3.section-title, h3");
             const en = currentLang === "en";
             h3s.forEach(h3 => {
@@ -7121,7 +7022,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const list = getTags();
             const wrap = document.getElementById("about");
             if (!wrap) return;
-            // 找到个人标签区域
+
             const tagCard = wrap.querySelector(".tag-list");
             if (!tagCard) return;
             tagCard.innerHTML = "";
@@ -7140,11 +7041,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const list = getPortfolios();
             const wrap = document.getElementById("portfolio");
             if (!wrap) return;
-            // 数据与语言未变化时跳过重建：避免每次进入/返回都删除重建卡片导致闪烁
+
             const syncKey = (currentLang || "zh") + "|" + JSON.stringify(list);
             if (window.__portfolioRenderKey === syncKey) return;
             window.__portfolioRenderKey = syncKey;
-            // 清空现有卡片，动态渲染所有作品
+
             wrap.querySelectorAll(".work-card").forEach((el) => el.remove());
             if (list.length === 0) return;
             let grid = wrap.querySelector(".portfolio-grid");
@@ -7192,11 +7093,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             html += `<p style="margin-top:24px;text-align:center;">${escapeHtml(footer)}</p>`;
             modalContent.innerHTML = html;
-            // 事件委托已在容器上绑定，innerHTML替换不影响现有监听器
+
             scheduleFrontTranslate();
           }
 
-          // 页面初始化同步（延迟到空闲时执行）
           if ("requestIdleCallback" in window) {
             requestIdleCallback(() => {
               syncBlogsToFrontend();
@@ -7215,7 +7115,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
           }
 
-          // 暴露同步函数，供语言切换（applyLang）时重渲染前台内容
           window._syncBlogsToFrontend = syncBlogsToFrontend;
           window._syncPortfoliosToFront = syncPortfoliosToFront;
           window._syncChangelogToFront = syncChangelogToFront;
@@ -7224,7 +7123,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         })();
 
-        // 浏览器图标跟随主题
         function updateBrowserFavicon() {
           const match = window.matchMedia("(prefers-color-scheme: dark)");
           const icon = document.querySelector("link[rel~='icon']");
@@ -7241,13 +7139,7 @@ document.addEventListener("DOMContentLoaded", function () {
     </script>
 
     <script>
-      // ========== 全局元素上浮堆叠入场动画 ==========
-      // 覆盖范围：各页面主要内容元素（标题、卡片、条目等）；后台管理(#admin)不参与动画。
-      // 上浮顺序：按元素在页面中的纵向位置"分行"——同一排的元素拿到相同延迟、同时上浮，
-      //           不同排从上到下依次上浮；滚动新显现的内容即时上浮，不等待。
-      // 实现要点：页面激活时先在静止状态一次性算好整页延迟（此时坐标准确），再统一揭示，
-      //           避免动画过程中坐标错乱导致同排卡片被拆开。
-      // 行为：加载页消失后启动；页面内滚动离开不重播，仅整页切换隐藏时复位以便下次进入重新上浮。
+
       (function () {
         var FLOAT_SELECTOR = [
           ".hero h1",
@@ -7268,16 +7160,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var started = false;
         var io = null;
-        // 手机端（≤768px）：动画更轻更快、等待更短
+
         var MOBILE =
           window.matchMedia &&
           window.matchMedia("(max-width: 768px)").matches;
-        // 每排之间的错开间隔：手机端更小；数值越大，逐排上浮越缓
-        var STEP = MOBILE ? 80 : 130;
-        // 最多错开的排数：页面元素纵向最多约10排（如"关于我"页），
-        // 封顶太小会把靠后行次压成同一延迟（标题与卡片同时上浮、失去顺序感），故放宽到10排
+
+        var STEP = MOBILE ? 50 : 130;
+
         var MAX_ROWS = 10;
-        // 同一排判定容差（px）：纵向位置差小于该值视为同一排（网格同排卡片坐标一致）
+
         var ROW_TOLERANCE = 28;
 
         function isInViewport(el) {
@@ -7286,7 +7177,6 @@ document.addEventListener("DOMContentLoaded", function () {
           return r.top < vh - 40 && r.bottom > 60;
         }
 
-        // 找到元素所在的整页容器（用于判断页面是否被切换隐藏）
         function pageOf(el) {
           var p = el;
           while (p && p !== document.body && p.nodeType === 1) {
@@ -7296,7 +7186,6 @@ document.addEventListener("DOMContentLoaded", function () {
           return null;
         }
 
-        // 元素在文档中的纵向位置
         function docTop(el) {
           return (
             el.getBoundingClientRect().top +
@@ -7304,8 +7193,6 @@ document.addEventListener("DOMContentLoaded", function () {
           );
         }
 
-        // 计算整页所有元素的上浮延迟（必须在页面可见且元素尚未开始动画时调用，
-        // 此时坐标准确：同一排元素坐标一致 → 延迟相同 → 同时上浮）
         function refreshPageRows(page) {
           var targets = page.querySelectorAll(".float-in");
           if (!targets.length) return;
@@ -7315,9 +7202,7 @@ document.addEventListener("DOMContentLoaded", function () {
           tops.sort(function (a, b) {
             return a.top - b.top;
           });
-          // 行次从当前视口内最靠上的元素开始编号：
-          // 可见元素从 0ms 起依次错开（堆叠上浮）；视口下方未到达的元素延续其后行次；
-          // 视口上方已滚过的元素按 0ms 处理（回看时即时显现，不等待）。
+
           var firstVisible = -1;
           for (var vi = 0; vi < tops.length; vi++) {
             if (tops[vi].visible) {
@@ -7328,16 +7213,14 @@ document.addEventListener("DOMContentLoaded", function () {
           var rowIdx = 0;
           var rowStartTop = null;
           tops.forEach(function (item, index) {
-            // 视口上方已滚过的内容：0 延迟，不参与行次编号
+
             if (firstVisible >= 0 && index < firstVisible) {
               if (!item.el.classList.contains("in-view")) {
                 item.el.style.setProperty("--float-delay", "0ms");
               }
               return;
             }
-            // 行次统一推进（已揭示的元素也计数，只是不改写其延迟）：
-            // 页面可能被多次激活重排（如动态渲染触发第二次 onPageActivated），
-            // 若跳过已揭示元素不计数，行次会从1重新开始，把后段元素排成错误的小延迟。
+
             if (
               rowStartTop === null ||
               item.top - rowStartTop > ROW_TOLERANCE
@@ -7345,7 +7228,7 @@ document.addEventListener("DOMContentLoaded", function () {
               rowStartTop = item.top;
               rowIdx++;
             }
-            // 已揭示（in-view）的元素保持原延迟不动：改动 --float-delay 会重启其上浮动画
+
             if (item.el.classList.contains("in-view")) return;
             item.el.style.setProperty(
               "--float-delay",
@@ -7354,9 +7237,8 @@ document.addEventListener("DOMContentLoaded", function () {
           });
         }
 
-        // 揭示整页中已进入视口的元素（延迟已算好，同排元素会同时上浮）
         function revealPage(page) {
-          // 语言切换（applyLang 重渲染）期间：新揭示的内容立即显示、不重播上浮动画
+
           var langSyncing = document.body.classList.contains("lang-syncing");
           Array.prototype.forEach.call(
             page.querySelectorAll(".float-in"),
@@ -7369,7 +7251,6 @@ document.addEventListener("DOMContentLoaded", function () {
           );
         }
 
-        // 返回按钮返回时是否处于"抑制上浮动画"窗口内（点击返回按钮后1秒内）
         function floatInSuppressed() {
           return (
             window.__floatInOffUntil &&
@@ -7377,9 +7258,6 @@ document.addEventListener("DOMContentLoaded", function () {
           );
         }
 
-        // 返回按钮返回：不播放上浮动画，整页内容直接显示。
-        // 复用 lang-revealed 样式（opacity:1 + animation:none），
-        // 下次正常进入页面时 onPageActivated 会清除 lang-revealed，恢复上浮动画。
         function revealInstantly(page) {
           Array.prototype.forEach.call(
             page.querySelectorAll(".float-in"),
@@ -7390,9 +7268,6 @@ document.addEventListener("DOMContentLoaded", function () {
           );
         }
 
-        // 返回按钮返回：整页内容作为一个整体一起上浮（所有元素 0 延迟同时播放 floatUp）。
-        // 不清除 lang-revealed 会重播问题：这里显式移除 lang-revealed 并统一 0 延迟，
-        // 让整页内容整体浮起；下次正常进入时 onPageActivated 重新按排堆叠上浮。
         function revealFloatTogether(page) {
           Array.prototype.forEach.call(
             page.querySelectorAll(".float-in"),
@@ -7406,19 +7281,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function handleTarget(el) {
           if (!el || el.classList.contains("float-in")) return;
-          // 后台管理页不参与上浮动画
+
           if (el.closest && el.closest("#admin")) return;
-          // 已位于其他上浮单元内部（如 .tags-float 里的标题/卡片）：随外层整体上浮，
-          // 不再单独上浮，避免嵌套双重动画
+
           if (el.closest && el.closest(".float-in")) return;
           el.classList.add("float-in");
           if (io) io.observe(el);
         }
 
-        // 页面激活：先整页算好延迟，再统一揭示视口内元素（同步完成，避免动画中坐标错乱）
         function onPageActivated(page) {
-          // 非语言切换时：清除 lang-revealed，恢复下次进入时的上浮能力。
-          // （语言切换期间刚标记的 lang-revealed 不能被清掉，否则会重播上浮动画）
+
           if (!document.body.classList.contains("lang-syncing")) {
             Array.prototype.forEach.call(
               page.querySelectorAll(".float-in.lang-revealed"),
@@ -7448,18 +7320,16 @@ document.addEventListener("DOMContentLoaded", function () {
                   var t = en.target;
                   if (en.isIntersecting) {
                     if (!t.classList.contains("in-view")) {
-                      // 滚动新显现的内容：即时上浮、无延迟
-                      // （整页的堆叠上浮延迟只在页面激活时由 refreshPageRows 统一排布）
+
                       t.style.setProperty("--float-delay", "0ms");
                       t.classList.add("in-view");
-                      // 语言切换重渲染期间：立即显示、不重播上浮动画
+
                       if (document.body.classList.contains("lang-syncing")) {
                         t.classList.add("lang-revealed");
                       }
                     }
                   } else {
-                    // 仅当所在页面被隐藏时复位（下次进入重新按排上浮）；
-                    // 页面内滚动离开视口不重播，避免来回滚动时的重复延迟
+
                     var pg = pageOf(t);
                     if (pg && !pg.classList.contains("active")) {
                       t.classList.remove("in-view");
@@ -7469,35 +7339,32 @@ document.addEventListener("DOMContentLoaded", function () {
               },
               { threshold: 0.05, rootMargin: "0px 0px -24px 0px" },
             );
-            // 模块加载时的预扫描已给元素打上 .float-in，但当时 io 尚未创建，
-            // 这里统一补上观察，保证滚动显现/页面切换逻辑可用
+
             document.querySelectorAll(".float-in").forEach(function (el) {
               io.observe(el);
             });
           }
           scan(document);
-          // 不支持 IntersectionObserver 时直接显示所有元素，避免内容不可见
+
           if (!io) {
             document.querySelectorAll(".float-in").forEach(function (el) {
               el.classList.add("in-view");
             });
           }
-          // 初始页（首页）与后续每次页面激活，统一"先算延迟、再揭示"
+
           Array.prototype.forEach.call(
             document.querySelectorAll(".page.active"),
             onPageActivated,
           );
-          // 监听 .page 的 class 变化（页面切换）与动态渲染新增元素
+
           if ("MutationObserver" in window) {
             new MutationObserver(function (muts) {
               muts.forEach(function (m) {
-                // 页面激活/切走：激活时整页按排上浮；切走时复位全部上浮元素
+
                 if (m.type === "attributes" && m.target.classList) {
                   if (m.target.classList.contains("page")) {
                     if (m.target.classList.contains("active")) {
-                      // 返回按钮返回（抑制窗口内）：关闭页面自身淡入，整页内容整体一起上浮。
-                      // 用内联样式而非 class——MutationObserver 只监听 class 属性，
-                      // 改 class 会再次触发观察器造成递归卡死；style 不受监听、安全。
+
                       if (floatInSuppressed()) {
                         m.target.style.animation = "none";
                         revealFloatTogether(m.target);
@@ -7506,10 +7373,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         onPageActivated(m.target);
                       }
                     } else {
-                      // 页面被切走：确定性复位其全部 in-view 元素，下次进入重新按排上浮。
-                      // IntersectionObserver 只通知"交叉状态发生变化"的元素，
-                      // 已滚出视口而仍带 in-view 的元素会被漏掉，导致返回后
-                      // 部分内容已可见、其余还在上浮（新旧混杂，像没按顺序）。
+
                       Array.prototype.forEach.call(
                         m.target.querySelectorAll(".float-in.in-view"),
                         function (el) {
@@ -7522,8 +7386,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 if (m.addedNodes && m.addedNodes.length) {
                   var affectedPages = [];
-                  // 语言切换重渲染期间：新内容立即显示、不重播上浮动画
-                  // （在此同步标记，避免依赖 IntersectionObserver 的异步时序）
+
                   var langSyncing = document.body.classList.contains(
                     "lang-syncing",
                   );
@@ -7545,9 +7408,7 @@ document.addEventListener("DOMContentLoaded", function () {
                       affectedPages.push(pg);
                     }
                   });
-                  // 动态渲染（如返回时 syncBlogs/syncPortfolios 重建卡片列表）新增的内容：
-                  // 返回（抑制窗口）内与整页一起整体上浮；其余情况直接显示避免闪烁。
-                  // 页面入场的堆叠上浮由"页面激活"分支统一处理，这里不再重复。
+
                   affectedPages.forEach(function (pg) {
                     if (pg.classList.contains("active")) {
                       if (floatInSuppressed()) revealFloatTogether(pg);
@@ -7580,14 +7441,10 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         };
 
-        // 加载期间先隐藏页面内容并锁定交互：加载页消失后页面保持空白，再播放上浮动画；
-        // page-loading（交互锁定）在声明弹窗弹出或上浮动画结束后才解除
         document.body.classList.add("page-loading");
         document.body.classList.add("page-blank");
         scan(document);
 
-        // 兜底：若加载器流程异常未触发 start，且加载页已被移除，再自动启动。
-        // 注意：必须先确认加载页已消失，否则上浮动画会在加载页背后提前播放完，用户看不到。
         window.addEventListener("load", function () {
           setTimeout(function () {
             if (!document.getElementById("pageLoader")) window.__startFloatIn();
@@ -7595,6 +7452,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       })();
     </script>
-  
 
-</font></body></html>
+
+</body></html>
