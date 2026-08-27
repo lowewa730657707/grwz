@@ -94,9 +94,6 @@
           will-change: auto;
           contain: layout style;
         }
-        img {
-          content-visibility: auto;
-        }
       }
 
       .content-protect,
@@ -328,10 +325,10 @@
         background: var(--card-bg);
         padding: 36px 28px;
         border-radius: 12px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: translate 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       }
       .card:hover {
-        transform: translateY(-6px);
+        translate: 0 -6px;
         box-shadow: 0 6px 16px rgba(137, 194, 255, 0.2);
       }
       .card:hover h2 {
@@ -376,10 +373,10 @@
         background: var(--card-bg);
         border-radius: 10px;
         overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: translate 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       }
       .work-card:hover {
-        transform: translateY(-5px);
+        translate: 0 -5px;
         box-shadow: 0 8px 24px rgba(137, 194, 255, 0.18);
       }
       .work-img {
@@ -426,12 +423,12 @@
         padding-right: 56px;
         border-radius: 10px;
         margin-bottom: 24px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: translate 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
         cursor: pointer;
         position: relative;
       }
       .blog-item:hover {
-        transform: translateY(-6px);
+        translate: 0 -6px;
         box-shadow: 0 4px 12px rgba(137, 194, 255, 0.18);
       }
       .blog-title {
@@ -474,11 +471,12 @@
         margin-bottom: 20px;
         position: relative;
         transition:
+          translate 0.3s ease,
           transform 0.3s ease,
           box-shadow 0.3s ease;
       }
       .timeline-item:hover {
-        transform: translateY(-6px);
+        translate: 0 -6px;
         box-shadow: 0 8px 24px rgba(137, 194, 255, 0.18);
       }
 
@@ -532,6 +530,7 @@
         .lang-fade-mask {
           backdrop-filter: none;
           -webkit-backdrop-filter: none;
+          background: rgba(var(--card-bg-rgb), 0.98);
         }
       }
       html.lang-switching .lang-fade-mask {
@@ -1643,10 +1642,13 @@
 
           padding: 20px 0 15px;
 
-          background-color: rgba(255, 255, 255, 0.94);
+          background-color: rgba(255, 255, 255, 0.78);
+          backdrop-filter: blur(14px);
+          -webkit-backdrop-filter: blur(14px);
+          transform: translateZ(0);
         }
         html.dark header#header {
-          background-color: rgba(18, 22, 31, 0.94);
+          background-color: rgba(18, 22, 31, 0.78);
         }
         header .container {
           height: auto;
@@ -1888,10 +1890,10 @@
         padding: 32px 36px;
         border-radius: 16px;
         box-shadow: none;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: translate 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       }
       .contact-card:hover {
-        transform: translateY(-6px);
+        translate: 0 -6px;
         box-shadow: 0 10px 24px rgba(var(--accent-rgb), 0.14);
       }
       .contact-grid {
@@ -2038,11 +2040,12 @@
         padding: 20px 36px;
         margin-bottom: 32px;
         transition:
+          translate 0.3s ease,
           transform 0.3s ease,
           box-shadow 0.3s ease;
       }
       .outer-card:hover {
-        transform: translateY(-6px);
+        translate: 0 -6px;
         box-shadow: 0 8px 24px rgba(137, 194, 255, 0.18);
       }
       @media screen and (max-width: 768px) {
@@ -2199,6 +2202,7 @@
         .admin-btn:hover,
         .admin-sidebar-item:hover {
           transform: none !important;
+          translate: none !important;
           box-shadow: none !important;
         }
 
@@ -2280,10 +2284,10 @@
         padding: 36px 40px;
         box-shadow: 0 8px 32px rgba(var(--accent-rgb), 0.1);
         border: 1px solid rgba(var(--accent-rgb), 0.15);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        transition: translate 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
       }
       .profile-card:hover {
-        transform: translateY(-4px);
+        translate: 0 -4px;
         box-shadow: 0 12px 40px rgba(var(--accent-rgb), 0.18);
       }
 
@@ -2447,12 +2451,12 @@
         border: 1px solid rgba(var(--accent-rgb), 0.12);
         text-decoration: none;
         color: var(--text-color);
-        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        transition: translate 0.3s ease, transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         position: relative;
         overflow: hidden;
       }
       .platform-card:hover {
-        transform: translateY(-3px);
+        translate: 0 -3px;
         border-color: var(--accent-dark);
         box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.14);
       }
@@ -2692,7 +2696,8 @@
         .profile-bio,
         .profile-info-item,
         .profile-tag,
-        .profile-back-btn {
+        .profile-back-btn,
+        .platform-card {
           backdrop-filter: none;
           -webkit-backdrop-filter: none;
           will-change: auto;
@@ -2939,6 +2944,7 @@
     </div>
     <body class="">
     
+    
 
     <div class="lang-fade-mask" id="langFadeMask" aria-hidden="true"></div>
 
@@ -2997,7 +3003,7 @@
 
       <nav class="mobile-nav">
         <ul class="mobile-nav-list">
-          <li class="mobile-nav-indicator" aria-hidden="true"></li>
+          <li class="mobile-nav-indicator" aria-hidden="true" style="transform: translateX(245px) scaleX(1.3125);"></li>
           <li><a data-page="home" href="#" data-i18n="nav_home" class="">首页</a></li>
           <li><a data-page="about" href="#" data-i18n="nav_about" class="">关于我</a></li>
           <li><a data-page="portfolio" href="#" data-i18n="nav_portfolio" class="">作品展示</a></li>
@@ -3012,7 +3018,7 @@
         <h3 class="modal-title" id="updateNoticeModalTitle" data-i18n="update_notice_title">网站更新公告</h3>
         <div class="modal-content"><p style="font-size:18px;font-weight:500;text-align:center;margin-bottom:20px;">【更新日志】</p><div class="log-card">
  <div class="log-card-header">2026-08-27更新日志</div>
- <div class="log-card-body">1.优化整体代码内容<br>2.优化整体流畅度<br>3.优化返回标题问题<br>4.优化个人标签卡片大小<br>5.修复已知问题</div>
+ <div class="log-card-body">1.优化整体代码内容<br>2.优化整体流畅度<br>3.优化返回标题问题<br>4.优化个人标签卡片大小<br>5.修复优化手机端透明度问题<br>6.优化手机端整体流畅度<br>7.修复弹窗背景上下移动问题<br>8.设置字体图片不得复制保存<br>9.修复多个已知问题</div>
  </div><div class="log-card">
  <div class="log-card-header">2026-8-26更新日志</div>
  <div class="log-card-body">1.优化整体动画时间<br>2.优化部分边距<br>3.新增堆叠动画效果<br>4.优化语言切换过渡效果<br>5.新增开屏过渡效果<br>6.优化整体流畅度过渡效果<br>7.修复制作中产生的已知问题</div>
@@ -3119,7 +3125,7 @@
           </div>
         </section>
 
-        <section id="about" class="page">
+        <section id="about" class="page" style="">
           <h2 class="section-title float-in" data-i18n="section_about" style="">关于我</h2>
           <div class="timeline-item float-in" style="cursor: pointer;">
             <h3 data-i18n="about_who_title">我是谁</h3>
@@ -3180,7 +3186,7 @@
 
         <section id="whoami" class="page">
           <div class="profile-page">
-            <div class="profile-card float-in">
+            <div class="profile-card float-in" style="">
               <div class="profile-card-top">
                 <div class="profile-avatar-lg">
                   <img src="images/31.jpg" alt="头像" loading="lazy" decoding="async">
@@ -4078,7 +4084,7 @@
         <button class="modal-close-btn" id="changelogEditCloseBtn" aria-label="关闭">
           ×
         </button>
-        <h3 class="modal-title" id="changelogEditModalTitle">新增更新日志</h3>
+        <h3 class="modal-title" id="changelogEditModalTitle">编辑更新日志</h3>
         <div class="modal-content">
           <div class="auth-form">
             <div class="form-item">
@@ -4199,7 +4205,8 @@
                         Object.keys(d).forEach(function (k) {
                           localStorage.setItem(k, d[k]);
                         });
-                      })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"12345678\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路运用技巧\",\"subtitle\":\"讲解两个颜色搭配逻辑\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案。\\n\\n在网页设计中，色彩搭配是非常重要的一环。低饱和度的蓝色系能够营造出柔和、专业的视觉效果。\\n\\n本文将详细介绍如何使用#E6F7FF作为背景色，搭配#89C2FF作为强调色，打造舒适护眼的配色方案。\\n\\n以上内容由Ai生成\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"subtitle\":\"卡片、行高、页面边距规范\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧。\\n\\n留白是网页设计中常被忽视但极其重要的元素。合理的留白能够提升内容的可读性和页面的整体质感。\\n\\n本文从卡片间距、行高设置到页面边距，全面讲解如何运用留白打造极简高级的网页设计。\\n\\n以上内容由Ai生成\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"subtitle\":\"字体阅读体验对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比。\\n\\n字体的选择直接影响网站的阅读体验。对于中文个人网站，无衬线字体是最常见的选择。\\n\\n本文对比了苹方、微软雅黑和Inter三种常用字体在不同场景下的表现，帮助你选择最适合的字体方案。\\n\\n以上内容由Ai生成\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人账号分享\",\"tag\":\"账号\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"开发中\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-08-27\",\"title\":\"2026-08-27更新日志\",\"content\":\"1.优化整体代码内容\\n2.优化整体流畅度\\n3.优化返回标题问题\\n4.优化个人标签卡片大小\\n5.修复已知问题\"},{\"date\":\"2026-08-26\",\"title\":\"2026-8-26更新日志\",\"content\":\"1.优化整体动画时间\\n2.优化部分边距\\n3.新增堆叠动画效果\\n4.优化语言切换过渡效果\\n5.新增开屏过渡效果\\n6.优化整体流畅度过渡效果\\n7.修复制作中产生的已知问题\"},{\"date\":\"2026-08-25\",\"title\":\"2026-08-25更新日志\",\"content\":\"1.优化整体边距\\n2.优化内容边距距离\\n3.优化导航栏背景样式\\n4.优化版权栏样式\\n5.新增提示点击图标\\n6.优化手机端动画效果\\n7.新增手机端点击反馈\\n8.新增手机端部分点击按钮\\n9.修复部分已知问题\"},{\"date\":\"2026-08-24\",\"title\":\"2026-08-24更新日志\",\"content\":\"1.新增账号卡片\\n2.优化账号卡片内容\\n3.新增图片水印\\n4.修改部分文字\"},{\"date\":\"2026-08-23\",\"title\":\"2026-08-23更新日志\",\"content\":\"1.优化手机端字体颜色\\n2.修复返回按钮\\n3.优化加载时间\\n4.新增账号板块\\n5.优化作品展示内容\\n6.修复标签翻译问题\\n7.修复文章翻译问题\\n8.更改文章部分内容\"},{\"date\":\"2026-08-22\",\"title\":\"2026-08-22更新日志\",\"content\":\"1.优化加载动画时间\\n2.修改部分文字\\n3.修改部分布局\\n4.修改后台管理部分内容\\n5.优化手机内容适配\"},{\"date\":\"2026-08-19\",\"title\":\"2026-08-19更新日志\",\"content\":\"1.新增首次打开加载动画\\n2.修改部分布局\\n3.设置文章不得复制和保存\\n4.修改标签内容\\n5.修复制作中产出的问题\"},{\"date\":\"2026-08-15\",\"title\":\"2026-08-15更新日志\",\"content\":\"1.新增英文翻译内容\\n2.新增主页右上角图标\\n3.优化主页右上角文字\\n4.优化手机布局\\n5.手机新增滑动按钮\"},{\"date\":\"2026-08-12\",\"title\":\"2026-08-12更新日志\",\"content\":\"1.更新文章内容\\n2.优化图片内容\\n3.优化部分文字\"},{\"date\":\"2026-08-11\",\"title\":\"2026-08-11更新日志\",\"content\":\"1.优化弹窗窗口大小\\n2优化联系弹窗样式\\n3.删除个人中心\\n4.优化部分字体\"},{\"date\":\"2026-08-10\",\"title\":\"2026-08-10更新日志\",\"content\":\"1.优化弹窗窗口\\n2.优化部分文字\"},{\"date\":\"2026-08-09\",\"title\":\"2026-08-09更新日志\",\"content\":\"1.优化弹窗问题\\n2.优化按钮返回问题\\n3.增加部分文字\\n4.优化整体动画效果\"},{\"date\":\"2026-08-08\",\"title\":\"2026-08-08更新日志\",\"content\":\"1.修复后台个性标签保存问题\\n2.优化联系方式弹窗内容\\n3.优化部分按钮弹窗\\n4.优化主页卡片排序\\n5.优化主页按钮大小\\n6.修改添加部分文字\\n7.修复部分按钮弹窗问题\\n8.优化手机端部分内容\"},{\"date\":\"2026-08-07\",\"title\":\"2026-08-07更新日志\",\"content\":\"1.新增个人标签内容\\n2.新增联系方式复制按钮\\n3.优化部分按钮内容\\n4.优化按钮返回\\n5.优化部分文字标题\\n6.修复返回按钮问题\"},{\"date\":\"2026-08-06\",\"title\":\"2026-08-06更新日志\",\"content\":\"1.新增多个文章页面\\n2.优化多个文字\\n3.优化后台管理\\n4.新增成长经历内容\\n5新增日常分享内容\"},{\"date\":\"2026-08-05\",\"title\":\"2026-08-05更新日志\",\"content\":\"1.新增关于我卡片内容\\n2.优化卡片布局\\n3.优化部分文字\"},{\"date\":\"2026-08-04\",\"title\":\"2026-08-04更新日志\",\"content\":\"1.优化部分文字\\n2.优化后台管理\\n3.修复已知问题\"},{\"date\":\"2026-08-03\",\"title\":\"2026-08-03更新日志\",\"content\":\"1.优化移动端部分排版\\n2.优化部分文字\\n3.修复点击问题\\n4.优化部分代码\"},{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]","siteTimelines":"[{\"title\":\"2006 - 2019 | 童年到初中\",\"subtitle\":\"小时候的童年\",\"content\":\"2006年，我出生在一个普通的农村家庭。从小跟着爷爷奶奶，爸爸妈妈去了外地打工,而把我养大的是我的姑妈，从出生到幼儿园，我一直在姑妈身边慢慢长大。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/101.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【最早出生照片】</p>\\n小时候很喜欢跟着小伙伴一起玩耍，去小河旁摸虾，去山里挖野菜，去农田学着大人插秧，这些都是我模糊记忆的童年。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/104.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【高清修复照片】</p>\\n上完幼儿园，一年级我和我的父母来到了广东，面对陌生的环境，难免有些害怕，但后来也慢慢的适应了。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/107.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【在广东用手机自拍】</p>\\n小学时光还有很多有趣时光，有好也有坏，这里就不讲太多了，童年只能回忆，但无法改变未来。\"},{\"title\":\"2019 - 2021 | 特殊初中时光\",\"subtitle\":\"疫情时期，难忘的初中回忆。\",\"content\":\"疫情时期，难忘的初中回忆。\\n\\n2019年，我步入了初中校园，开始了新的学习生活。然而好没过多久，2020年初新冠疫情爆发，一切都改变了。\\n\\n学校停课，我们开始在家上网课。每天对着电脑屏幕学习，既新奇又不适应。没有了同学的陪伴，学习变得更加孤独，但也让我学会了自律和独立。\\n\\n那段时间，我学会了合理安排时间，自主学习新知识。也让我更加珍惜能够正常上学、和朋友们在一起的日子。\\n\\n这段特殊的经历，是我成长中不可或缺的一部分。\\n\\n以上内容由Ai生成\"},{\"title\":\"更多内容持续更新中……\",\"subtitle\":\"敬请期待！\",\"content\":\"敬请期待！\\n\\n更多精彩内容正在准备中，请持续关注我的个人网站。\\n\\n以上内容由Ai生成\"}]","siteTags":"[{\"name\":\"网页制作\",\"content\":\"喜欢网页开发，熟悉基础HTML、CSS、JavaScript等前端技术。\\n\\n上了大学才开始慢慢学会网页制作，虽然中职也学过一些，但老师教的是可视化的，所有代码不是很了解，上了大学老师才教代码制作。\"},{\"name\":\"摄影\",\"content\":\"摄影是在中职才慢慢接触，在中职加入了摄影社，我才接触相机这种东西。\\n\\n摄影技术方面不是很厉害，因为接触相机的经历很少，但也了解相机的基础功能：快门，ISO，光圈。\\n\\n希望在未来某一天能拥有一台属于自己的相机。\"},{\"name\":\"音乐\",\"content\":\"喜欢各种类型风格的音乐，喜欢在晚上睡觉前听，使用平台是网易云音乐，比较喜欢的器乐是钢琴，音乐天赋不高，从小接触音乐的学习很少。\\n\\n未来的希望是可以用钢琴弹一首完整的歌曲。\"},{\"name\":\"游戏\",\"content\":\"喜欢玩射击，赛车，开放世界等类型游戏，技术不是很厉害，但玩游戏可以给我带来放松。\"},{\"name\":\"furry\",\"content\":\"对furry文化有浓厚的兴趣，喜欢毛绒绒的兽兽，希望在未来可以拥有属于自己的兽装。\"},{\"name\":\"赛车\",\"content\":\"赛车运动，感受速度与激情，玩过很多赛车游戏，但玩的最久的是王牌竞速这款游戏，虽然并不是真正的赛车游戏，但在游戏可以体验不同赛车带来的速度与激情。\"}]"});</script>
+                      })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"12345678\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路运用技巧\",\"subtitle\":\"讲解两个颜色搭配逻辑\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案。\\n\\n在网页设计中，色彩搭配是非常重要的一环。低饱和度的蓝色系能够营造出柔和、专业的视觉效果。\\n\\n本文将详细介绍如何使用#E6F7FF作为背景色，搭配#89C2FF作为强调色，打造舒适护眼的配色方案。\\n\\n以上内容由Ai生成\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"subtitle\":\"卡片、行高、页面边距规范\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧。\\n\\n留白是网页设计中常被忽视但极其重要的元素。合理的留白能够提升内容的可读性和页面的整体质感。\\n\\n本文从卡片间距、行高设置到页面边距，全面讲解如何运用留白打造极简高级的网页设计。\\n\\n以上内容由Ai生成\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"subtitle\":\"字体阅读体验对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比。\\n\\n字体的选择直接影响网站的阅读体验。对于中文个人网站，无衬线字体是最常见的选择。\\n\\n本文对比了苹方、微软雅黑和Inter三种常用字体在不同场景下的表现，帮助你选择最适合的字体方案。\\n\\n以上内容由Ai生成\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人账号分享\",\"tag\":\"账号\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"开发中\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-08-27\",\"title\":\"2026-08-27更新日志\",\"content\":\"1.优化整体代码内容\\n2.优化整体流畅度\\n3.优化返回标题问题\\n4.优化个人标签卡片大小\\n5.修复优化手机端透明度问题\\n6.优化手机端整体流畅度\\n7.修复弹窗背景上下移动问题\\n8.设置字体图片不得复制保存\\n9.修复多个已知问题\"},{\"date\":\"2026-08-26\",\"title\":\"2026-8-26更新日志\",\"content\":\"1.优化整体动画时间\\n2.优化部分边距\\n3.新增堆叠动画效果\\n4.优化语言切换过渡效果\\n5.新增开屏过渡效果\\n6.优化整体流畅度过渡效果\\n7.修复制作中产生的已知问题\"},{\"date\":\"2026-08-25\",\"title\":\"2026-08-25更新日志\",\"content\":\"1.优化整体边距\\n2.优化内容边距距离\\n3.优化导航栏背景样式\\n4.优化版权栏样式\\n5.新增提示点击图标\\n6.优化手机端动画效果\\n7.新增手机端点击反馈\\n8.新增手机端部分点击按钮\\n9.修复部分已知问题\"},{\"date\":\"2026-08-24\",\"title\":\"2026-08-24更新日志\",\"content\":\"1.新增账号卡片\\n2.优化账号卡片内容\\n3.新增图片水印\\n4.修改部分文字\"},{\"date\":\"2026-08-23\",\"title\":\"2026-08-23更新日志\",\"content\":\"1.优化手机端字体颜色\\n2.修复返回按钮\\n3.优化加载时间\\n4.新增账号板块\\n5.优化作品展示内容\\n6.修复标签翻译问题\\n7.修复文章翻译问题\\n8.更改文章部分内容\"},{\"date\":\"2026-08-22\",\"title\":\"2026-08-22更新日志\",\"content\":\"1.优化加载动画时间\\n2.修改部分文字\\n3.修改部分布局\\n4.修改后台管理部分内容\\n5.优化手机内容适配\"},{\"date\":\"2026-08-19\",\"title\":\"2026-08-19更新日志\",\"content\":\"1.新增首次打开加载动画\\n2.修改部分布局\\n3.设置文章不得复制和保存\\n4.修改标签内容\\n5.修复制作中产出的问题\"},{\"date\":\"2026-08-15\",\"title\":\"2026-08-15更新日志\",\"content\":\"1.新增英文翻译内容\\n2.新增主页右上角图标\\n3.优化主页右上角文字\\n4.优化手机布局\\n5.手机新增滑动按钮\"},{\"date\":\"2026-08-12\",\"title\":\"2026-08-12更新日志\",\"content\":\"1.更新文章内容\\n2.优化图片内容\\n3.优化部分文字\"},{\"date\":\"2026-08-11\",\"title\":\"2026-08-11更新日志\",\"content\":\"1.优化弹窗窗口大小\\n2优化联系弹窗样式\\n3.删除个人中心\\n4.优化部分字体\"},{\"date\":\"2026-08-10\",\"title\":\"2026-08-10更新日志\",\"content\":\"1.优化弹窗窗口\\n2.优化部分文字\"},{\"date\":\"2026-08-09\",\"title\":\"2026-08-09更新日志\",\"content\":\"1.优化弹窗问题\\n2.优化按钮返回问题\\n3.增加部分文字\\n4.优化整体动画效果\"},{\"date\":\"2026-08-08\",\"title\":\"2026-08-08更新日志\",\"content\":\"1.修复后台个性标签保存问题\\n2.优化联系方式弹窗内容\\n3.优化部分按钮弹窗\\n4.优化主页卡片排序\\n5.优化主页按钮大小\\n6.修改添加部分文字\\n7.修复部分按钮弹窗问题\\n8.优化手机端部分内容\"},{\"date\":\"2026-08-07\",\"title\":\"2026-08-07更新日志\",\"content\":\"1.新增个人标签内容\\n2.新增联系方式复制按钮\\n3.优化部分按钮内容\\n4.优化按钮返回\\n5.优化部分文字标题\\n6.修复返回按钮问题\"},{\"date\":\"2026-08-06\",\"title\":\"2026-08-06更新日志\",\"content\":\"1.新增多个文章页面\\n2.优化多个文字\\n3.优化后台管理\\n4.新增成长经历内容\\n5新增日常分享内容\"},{\"date\":\"2026-08-05\",\"title\":\"2026-08-05更新日志\",\"content\":\"1.新增关于我卡片内容\\n2.优化卡片布局\\n3.优化部分文字\"},{\"date\":\"2026-08-04\",\"title\":\"2026-08-04更新日志\",\"content\":\"1.优化部分文字\\n2.优化后台管理\\n3.修复已知问题\"},{\"date\":\"2026-08-03\",\"title\":\"2026-08-03更新日志\",\"content\":\"1.优化移动端部分排版\\n2.优化部分文字\\n3.修复点击问题\\n4.优化部分代码\"},{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]","siteTimelines":"[{\"title\":\"2006 - 2019 | 童年到初中\",\"subtitle\":\"小时候的童年\",\"content\":\"2006年，我出生在一个普通的农村家庭。从小跟着爷爷奶奶，爸爸妈妈去了外地打工,而把我养大的是我的姑妈，从出生到幼儿园，我一直在姑妈身边慢慢长大。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/101.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【最早出生照片】</p>\\n小时候很喜欢跟着小伙伴一起玩耍，去小河旁摸虾，去山里挖野菜，去农田学着大人插秧，这些都是我模糊记忆的童年。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/104.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【高清修复照片】</p>\\n上完幼儿园，一年级我和我的父母来到了广东，面对陌生的环境，难免有些害怕，但后来也慢慢的适应了。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/107.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【在广东用手机自拍】</p>\\n小学时光还有很多有趣时光，有好也有坏，这里就不讲太多了，童年只能回忆，但无法改变未来。\"},{\"title\":\"2019 - 2021 | 特殊初中时光\",\"subtitle\":\"疫情时期，难忘的初中回忆。\",\"content\":\"疫情时期，难忘的初中回忆。\\n\\n2019年，我步入了初中校园，开始了新的学习生活。然而好没过多久，2020年初新冠疫情爆发，一切都改变了。\\n\\n学校停课，我们开始在家上网课。每天对着电脑屏幕学习，既新奇又不适应。没有了同学的陪伴，学习变得更加孤独，但也让我学会了自律和独立。\\n\\n那段时间，我学会了合理安排时间，自主学习新知识。也让我更加珍惜能够正常上学、和朋友们在一起的日子。\\n\\n这段特殊的经历，是我成长中不可或缺的一部分。\\n\\n以上内容由Ai生成\"},{\"title\":\"更多内容持续更新中……\",\"subtitle\":\"敬请期待！\",\"content\":\"敬请期待！\\n\\n更多精彩内容正在准备中，请持续关注我的个人网站。\\n\\n以上内容由Ai生成\"}]","siteTags":"[{\"name\":\"网页制作\",\"content\":\"喜欢网页开发，熟悉基础HTML、CSS、JavaScript等前端技术。\\n\\n上了大学才开始慢慢学会网页制作，虽然中职也学过一些，但老师教的是可视化的，所有代码不是很了解，上了大学老师才教代码制作。\"},{\"name\":\"摄影\",\"content\":\"摄影是在中职才慢慢接触，在中职加入了摄影社，我才接触相机这种东西。\\n\\n摄影技术方面不是很厉害，因为接触相机的经历很少，但也了解相机的基础功能：快门，ISO，光圈。\\n\\n希望在未来某一天能拥有一台属于自己的相机。\"},{\"name\":\"音乐\",\"content\":\"喜欢各种类型风格的音乐，喜欢在晚上睡觉前听，使用平台是网易云音乐，比较喜欢的器乐是钢琴，音乐天赋不高，从小接触音乐的学习很少。\\n\\n未来的希望是可以用钢琴弹一首完整的歌曲。\"},{\"name\":\"游戏\",\"content\":\"喜欢玩射击，赛车，开放世界等类型游戏，技术不是很厉害，但玩游戏可以给我带来放松。\"},{\"name\":\"furry\",\"content\":\"对furry文化有浓厚的兴趣，喜欢毛绒绒的兽兽，希望在未来可以拥有属于自己的兽装。\"},{\"name\":\"赛车\",\"content\":\"赛车运动，感受速度与激情，玩过很多赛车游戏，但玩的最久的是王牌竞速这款游戏，虽然并不是真正的赛车游戏，但在游戏可以体验不同赛车带来的速度与激情。\"}]"});</script>
+
 
 
     <script>
