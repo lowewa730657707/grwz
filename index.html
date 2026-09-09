@@ -75,7 +75,7 @@
         text-size-adjust: 100%;
       }
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 640px) {
         *,
         *::before,
         *::after {
@@ -320,6 +320,9 @@
         color: #666666;
       }
       .nav-breadcrumb .crumb-link:hover { color: #89c2ff; }
+      .nav-breadcrumb .crumb-static {
+        color: #666666;
+      }
       .nav-breadcrumb .crumb-current { color: var(--accent); font-weight: 500; }
       .nav-breadcrumb .crumb-sep {
         color: #666666;
@@ -332,6 +335,7 @@
       html.dark .nav-breadcrumb .crumb { color: var(--text-color); }
       html.dark .nav-breadcrumb .crumb-link { color: #999999; }
       html.dark .nav-breadcrumb .crumb-link:hover { color: var(--accent); }
+      html.dark .nav-breadcrumb .crumb-static { color: #999999; }
       html.dark .nav-breadcrumb .crumb-current { color: var(--accent); }
       html.dark .nav-breadcrumb .crumb-sep { color: #999999; opacity: 1; }
 
@@ -364,7 +368,7 @@
 
       main {
         margin-top: 0px;
-        padding-bottom: 80px;
+        padding-bottom: 48px;
         padding-top: 50px;
       }
 
@@ -450,6 +454,125 @@
       .section-title {
         font-size: 28px;
         margin: 80px 0 40px;
+      }
+
+      .blog-search-wrap {
+        position: relative;
+        max-width: 400px;
+        margin: 8px 0 24px;
+        display: flex;
+        align-items: center;
+      }
+      .blog-search-trigger {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        border: none;
+        background: transparent;
+        color: var(--text-color);
+        opacity: 0.5;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        transition: opacity 0.25s ease, background-color 0.25s ease;
+        z-index: 1;
+      }
+      .blog-search-trigger:hover {
+        opacity: 1;
+        background: rgba(var(--accent-rgb), 0.15);
+      }
+      .blog-search-input {
+        width: 100%;
+        padding: 12px 120px 12px 50px;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        background: var(--input-bg);
+        font-family: inherit;
+        font-size: 15px;
+        color: var(--text-color);
+        outline: none;
+        transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      }
+      .blog-search-input:focus {
+        border-color: var(--accent);
+        box-shadow:
+          0 0 8px 2px rgba(137, 194, 255, 0.22),
+          0 0 22px 6px rgba(137, 194, 255, 0.28);
+      }
+      /* 深色模式：输入框不使用蓝色描边，聚焦发光颜色与浅色模式一致 */
+      html.dark .blog-search-input {
+        border-color: transparent;
+      }
+      html.dark .blog-search-input:focus {
+        border-color: transparent;
+        box-shadow:
+          0 0 8px 2px rgba(137, 194, 255, 0.22),
+          0 0 22px 6px rgba(137, 194, 255, 0.28);
+      }
+      .blog-search-input::placeholder {
+        opacity: 0.5;
+        color: var(--text-color);
+      }
+      .blog-search-action {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 66px;
+        height: 32px;
+        padding: 0;
+        border: 1px solid rgba(137, 194, 255, 0.45);
+        border-radius: 8px;
+        background: var(--input-bg);
+        color: var(--accent-dark);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition:
+          background-color 0.25s ease,
+          color 0.25s ease,
+          border-color 0.25s ease;
+        white-space: nowrap;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .blog-search-action:hover {
+        background: var(--accent-dark);
+        border-color: var(--accent-dark);
+        color: #fff;
+      }
+      html.dark .blog-search-action {
+        border-color: rgba(137, 194, 255, 0.6);
+        background: var(--input-bg);
+        color: var(--accent);
+      }
+      html.dark .blog-search-action:hover {
+        background: var(--accent-dark);
+        border-color: var(--accent-dark);
+        color: #fff;
+      }
+      .search-highlight {
+        background: #e0e0e0;
+        padding: 1px 3px;
+        border-radius: 3px;
+      }
+      html.dark .search-highlight {
+        background: #444;
+      }
+      .blog-no-result {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--text-color);
+        opacity: 0.6;
+        font-size: 15px;
       }
 
       .portfolio-grid {
@@ -597,7 +720,7 @@
         animation: fadeInUp 0.25s ease forwards;
       }
       /* 手机端个人简历补上浮效果（桌面端由 .page.active 的 fadeInUp 提供） */
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 640px) {
         #resume-detail.active {
           animation: fadeInUp 0.25s ease forwards;
         }
@@ -626,7 +749,7 @@
 
         transition: opacity 0.9s ease, visibility 0.9s ease;
       }
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 640px) {
         .lang-fade-mask {
           backdrop-filter: none;
           -webkit-backdrop-filter: none;
@@ -1624,7 +1747,7 @@
         font-size: 14px;
       }
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 640px) {
 
         body {
           padding-top: 153px;
@@ -1789,6 +1912,9 @@
         .mobile-nav-breadcrumb .crumb-link:active {
           color: var(--accent);
         }
+        .mobile-nav-breadcrumb .crumb-static {
+          color: #666666;
+        }
         .mobile-nav-breadcrumb .crumb-current {
           color: var(--accent);
           font-weight: 500;
@@ -1813,6 +1939,9 @@
         html.dark .mobile-nav-breadcrumb .crumb-link:hover,
         html.dark .mobile-nav-breadcrumb .crumb-link:active {
           color: var(--accent);
+        }
+        html.dark .mobile-nav-breadcrumb .crumb-static {
+          color: #999999;
         }
         html.dark .mobile-nav-breadcrumb .crumb-current {
           color: var(--accent);
@@ -1878,7 +2007,7 @@
           grid-template-columns: 1fr;
         }
 
-        @media screen and (min-width: 561px) and (max-width: 768px) {
+        @media screen and (min-width: 561px) and (max-width: 640px) {
           #portfolio .portfolio-grid {
             grid-template-columns: repeat(auto-fill, minmax(280px, 300px));
             justify-content: center;
@@ -1900,6 +2029,34 @@
         }
         .section-title {
           font-size: 24px;
+        }
+        .blog-search-wrap {
+          max-width: 100%;
+          margin: 8px 0 20px;
+        }
+        .blog-search-trigger {
+          left: 8px;
+          width: 32px;
+          height: 32px;
+          font-size: 14px;
+        }
+        .blog-search-input {
+          padding: 10px 90px 10px 44px;
+          font-size: 14px;
+        }
+        .blog-search-actions {
+          right: 4px;
+          gap: 4px;
+        }
+        .blog-search-action {
+          right: 8px;
+          width: 56px;
+          height: 28px;
+          padding: 0;
+          font-size: 11px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
         .card {
           padding: 24px 20px;
@@ -2082,54 +2239,53 @@
       .contact-card {
         width: 100%;
         max-width: 100%;
-        background: var(--card-bg);
-        padding: 32px 36px;
-        border-radius: 16px;
+        background: transparent;
+        padding: 0;
+        border-radius: 0;
         box-shadow: none;
-        transition: translate 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .contact-card:hover {
-        translate: 0 -6px;
-        box-shadow: 0 10px 24px rgba(var(--accent-rgb), 0.14);
       }
       .contact-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 16px;
+        gap: 18px;
       }
       .contact-item {
         display: flex;
         align-items: center;
         gap: 16px;
-        padding: 20px 24px;
+        padding: 22px 24px;
         border: 1px solid var(--border-color);
-        border-radius: 12px;
+        border-radius: 16px;
         background: var(--card-bg);
         transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         cursor: pointer;
       }
       .contact-item:hover {
-        border-color: var(--accent);
-        box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.08);
-        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(var(--accent-rgb), 0.14);
+        transform: translateY(-6px);
       }
       .contact-icon {
-        font-size: 22px;
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: rgba(var(--accent-rgb), 0.14);
         color: var(--accent-dark);
-        width: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
         flex-shrink: 0;
-        line-height: 1;
       }
       .contact-text h4 {
-        font-size: 15px;
-        font-weight: 500;
-        margin-bottom: 6px;
-        opacity: 0.9;
+        font-size: 16px;
+        font-weight: 600;
+        color: #000000;
+        margin-bottom: 5px;
       }
       .contact-text a,
       .contact-text span {
-        font-size: 16px;
-        color: var(--accent-dark);
+        font-size: 14px;
+        color: #9a9a9a;
         text-decoration: none;
         word-break: break-all;
       }
@@ -2151,6 +2307,16 @@
       .contact-item:hover::after {
         opacity: 1;
         transform: translateX(3px);
+      }
+      html.dark .contact-item {
+        border-color: transparent;
+      }
+      html.dark .contact-text h4 {
+        color: var(--text-color);
+      }
+      html.dark .contact-icon {
+        color: var(--accent);
+        background: rgba(var(--accent-rgb), 0.16);
       }
 
       .timeline-item::after,
@@ -2174,7 +2340,7 @@
         transform: translateY(-50%) translateX(3px);
       }
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 640px) {
         .contact-card {
           padding: 28px 20px;
         }
@@ -2244,7 +2410,7 @@
         translate: 0 -6px;
         box-shadow: 0 8px 24px rgba(137, 194, 255, 0.18);
       }
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 640px) {
 
         .timeline-item h3,
         .timeline-item h4,
@@ -2298,29 +2464,53 @@
         width: 100%;
       }
       .tag-btn {
-        padding: 10px 22px;
-        border-radius: 10px;
-        border: 1px solid transparent;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--border-color);
         background-color: rgba(var(--accent-rgb), 0.12);
-        transition: background-color 0.3s ease, color 0.3s ease;
+        color: #000000;
+        font-size: 14px;
+        transition:
+          background-color 0.25s ease,
+          color 0.25s ease,
+          border-color 0.25s ease,
+          transform 0.25s ease;
         cursor: pointer;
-        color: #89c2ff;
         white-space: nowrap;
         flex-shrink: 0;
         min-width: max-content;
       }
+      .tag-btn .tag-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: var(--accent);
+        flex-shrink: 0;
+      }
       .tag-btn:hover {
+        border-color: #2d93ff;
         background-color: rgba(var(--accent-rgb), 0.22);
-        color: #2D93FF;
+        transform: translateY(-3px);
+      }
+      html.dark .tag-btn {
+        border-color: rgba(255, 255, 255, 0.25);
+        color: var(--text-color);
+        background-color: rgba(var(--accent-rgb), 0.14);
+      }
+      html.dark .tag-btn:hover {
+        border-color: #2d93ff;
       }
 
-      @media screen and (min-width: 769px) {
+      @media screen and (min-width: 641px) {
         .tag-list {
           margin-left: -12px;
         }
       }
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 640px) {
 
         .card,
         .work-card,
@@ -2368,8 +2558,10 @@
           gap: 10px;
         }
         .contact-icon {
-          font-size: 20px;
-          width: 24px;
+          font-size: 18px;
+          width: 42px;
+          height: 42px;
+          border-radius: 10px;
         }
         .contact-text h4 {
           font-size: 13px;
@@ -2421,7 +2613,7 @@
         }
       }
 
-      @media screen and (min-width: 769px) {
+      @media screen and (min-width: 641px) {
 
         .page.active {
           animation: fadeInUp 0.55s ease forwards;
@@ -3174,7 +3366,7 @@
           grid-template-columns: 1fr;
         }
       }
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 640px) {
         .profile-card-top {
           flex-direction: column;
           text-align: center;
@@ -3199,7 +3391,7 @@
         }
       }
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 640px) {
 
         .profile-card,
         .profile-bio,
@@ -3245,7 +3437,7 @@
         }
       }
 
-      @media screen and (min-width: 769px) {
+      @media screen and (min-width: 641px) {
 
         header {
           background-color: rgba(255, 255, 255, 0.78);
@@ -3325,7 +3517,7 @@
         }
       }
 
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 640px) {
         .float-in.in-view {
           animation-duration: 0.75s;
         }
@@ -3464,6 +3656,227 @@
       }
     </style>
 
+    <style>
+      /* ------------------------------------------------------------------
+         首页 Hero —— 文字与按钮设计（仅作用于 #home .hero，不改动下方卡片与边距）
+      ------------------------------------------------------------------ */
+      #home .hero {
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 0 10px;
+      }
+      #home .hero-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 34px;
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.42em;
+        text-indent: 0.42em;
+        text-transform: uppercase;
+        color: rgba(0, 0, 0, 0.5);
+      }
+      html.dark #home .hero-kicker { color: rgba(255, 255, 255, 0.62); }
+      #home .hero-kicker::before,
+      #home .hero-kicker::after {
+        content: "";
+        width: 30px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.32));
+      }
+      #home .hero-kicker::after {
+        background: linear-gradient(90deg, rgba(0, 0, 0, 0.32), transparent);
+      }
+      html.dark #home .hero-kicker::before {
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32));
+      }
+      html.dark #home .hero-kicker::after {
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.32), transparent);
+      }
+      #home .hero-kicker-sep { opacity: 0.5; }
+
+      #home .hero h1 {
+        margin-top: 0;
+        margin-bottom: 32px;
+        font-size: clamp(2.4rem, 5.2vw, 3.4rem);
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        line-height: 1.12;
+        text-wrap: balance;
+        color: var(--text-color);
+      }
+
+      #home .hero h1.hero-title-hover {
+        position: relative;
+      }
+      #home .hero h1 .hh-base {
+        display: block;
+      }
+      /* 下层：黑圆盘 + 白字。盒子比标题大一圈，保证光标到标题边缘时也能画出完整圆；圆的大小由 JS 缩放的半径 var(--rr) 控制 */
+      #home .hero h1 .hh-reveal {
+        position: absolute;
+        top: -160px;
+        left: -160px;
+        width: calc(100% + 320px);
+        height: calc(100% + 320px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #000;
+        color: #fff;
+        white-space: nowrap;
+        z-index: 1;
+        pointer-events: none;
+        -webkit-mask-image: radial-gradient(
+          circle var(--rr, 40px) at var(--rx, -300px) var(--ry, -300px),
+          #000 0%,
+          #000 98%,
+          transparent 100%
+        );
+        mask-image: radial-gradient(
+          circle var(--rr, 40px) at var(--rx, -300px) var(--ry, -300px),
+          #000 0%,
+          #000 98%,
+          transparent 100%
+        );
+      }
+      /* 深色模式：圆变白色，里面的文字变黑色 */
+      html.dark #home .hero h1 .hh-reveal {
+        background: #ffffff;
+        color: #000000;
+      }
+      /* 上层标题：被小圆经过的地方挖掉（圆内隐藏、圆外原样） */
+      #home .hero h1.hero-title-hover.spot-on .hh-base {
+        -webkit-mask-image: radial-gradient(
+          circle var(--rr, 40px) at var(--bx, -300px) var(--by, -300px),
+          transparent 0%,
+          transparent 98%,
+          #000 100%
+        );
+        mask-image: radial-gradient(
+          circle var(--rr, 40px) at var(--bx, -300px) var(--by, -300px),
+          transparent 0%,
+          transparent 98%,
+          #000 100%
+        );
+      }
+
+      #home .hero-desc {
+        margin: 0 0 26px;
+        min-height: 2em;
+        display: block;
+        text-align: center;
+        font-size: clamp(1rem, 2.2vw, 1.2rem);
+        line-height: 1.7;
+        letter-spacing: 0.03em;
+        color: rgba(0, 0, 0, 0.58);
+      }
+      html.dark #home .hero-desc { color: rgba(255, 255, 255, 0.72); }
+      #home .hero-copy-cursor {
+        margin-left: 0.5em;
+        font-size: 0.9em;
+        color: var(--accent-dark);
+        animation: heroPulse 2.2s ease-in-out infinite;
+      }
+      @keyframes heroPulse {
+        0%, 100% { opacity: 0.55; }
+        50% { opacity: 1; }
+      }
+
+      #home .hero-actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+      #home .hero-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 13px 30px;
+        border-radius: 999px;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+        line-height: 1;
+        cursor: pointer;
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition: transform 0.2s ease, box-shadow 0.28s ease,
+          background-color 0.28s ease, color 0.28s ease, border-color 0.28s ease;
+      }
+      #home .hero-btn:active { transform: scale(0.97); }
+      #home .hero-btn-primary {
+        background: var(--accent-dark);
+        color: #ffffff;
+        box-shadow: none;
+      }
+      #home .hero-btn-primary:hover {
+        background: #1d7be0;
+        transform: translateY(-2px);
+        box-shadow: none;
+      }
+      #home .hero-btn-secondary {
+        background: transparent;
+        color: var(--text-color);
+        border-color: rgba(0, 0, 0, 0.18);
+      }
+      html.dark #home .hero-btn-secondary { border-color: rgba(255, 255, 255, 0.28); }
+      #home .hero-btn-secondary:hover {
+        background: rgba(var(--accent-rgb), 0.14);
+        border-color: var(--accent-dark);
+        color: var(--accent-dark);
+        transform: translateY(-2px);
+      }
+      html.dark #home .hero-btn-secondary:hover { color: var(--accent); }
+
+      /* 电脑端：整页铺满一屏（无滚动），内容整体上下居中、页脚贴底 */
+      @media screen and (min-width: 641px) {
+        #home.active {
+          min-height: calc(100vh - 188px);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        #home .card-group {
+          margin-top: 62px;
+        }
+        #home .card {
+          padding: 34px 30px 30px;
+          border-radius: 18px;
+        }
+        #home .card h2 {
+          font-size: 21px;
+          margin-bottom: 12px;
+          padding-bottom: 8px;
+        }
+        #home .card p {
+          font-size: 15px;
+          margin-bottom: 20px;
+        }
+        #home .card-link {
+          font-size: 14.5px;
+        }
+      }
+
+      /* 手机端适配 */
+      @media screen and (max-width: 640px) {
+        #home .hero { min-height: 0; display: block; padding: 40px 0 56px; }
+        #home .hero-kicker { margin-bottom: 16px; font-size: 11px; letter-spacing: 0.3em; text-indent: 0.3em; }
+        #home .hero-kicker::before, #home .hero-kicker::after { width: 20px; }
+        #home .hero h1 { font-size: clamp(2.2rem, 10.5vw, 3rem); margin-bottom: 10px; }
+        #home .hero h1 .hero-title-part2 { display: block; }
+        #home .hero-desc { margin: 0 0 26px; font-size: 1rem; min-height: 2.2em; padding: 0 6px; }
+        #home .hero-actions { gap: 12px; }
+        #home .hero-btn { padding: 12px 22px; font-size: 14px; }
+      }
+    </style>
+
     </head>
     <div class="page-loader" id="pageLoader" aria-hidden="true">
       <div class="page-loader__spinner"></div>
@@ -3471,6 +3884,8 @@
       <div class="page-loader__progress"><div class="page-loader__progress-bar" id="pageLoaderProgress"></div></div>
     </div>
     <body class="">
+    
+    
     
     
     
@@ -3550,7 +3965,10 @@
     <div class="modal-mask" id="updateNoticeModal">
       <div class="modal-box">
         <h3 class="modal-title" id="updateNoticeModalTitle" data-i18n="update_notice_title">网站更新公告</h3>
-        <div class="modal-content"><p style="font-size:18px;font-weight:500;text-align:center;margin-bottom:20px;">【更新日志】</p><div class="log-card active">
+        <div class="modal-content"><p style="font-size:18px;font-weight:500;text-align:center;margin-bottom:20px;">【更新日志】</p><div class="log-card">
+ <div class="log-card-header">2026-09-09更新日志</div>
+ <div class="log-card-body">1.新增日常分享搜索功能<br>2.优化个人标签按钮样式<br>3.优化联系方式按钮样式<br>4.优化首页整体文字样式<br>5.优化首页按钮样式<br>6.新增标题经过样式<br>7.新增副标题动画效果<br>7.修复已知问题</div>
+ </div><div class="log-card">
  <div class="log-card-header">2026-09-01更新日志</div>
  <div class="log-card-body">1.新增路径标签切换<br>2.优化图片加载等待<br>3.优化手机端导航栏<br>4.设置手机端图片无法保存<br>5.整体流畅度<br>6.优化部分已知问题</div>
  </div><div class="log-card">
@@ -3636,15 +4054,21 @@
       </div>
     </div>
     <main>
-      <div class="container">
+      <div class="container">         
 
         <section id="home" class="page active">
           <div class="hero">
-            <h1 data-i18n="hero_title" class="float-in" style="">欢迎来到XiaoWei的个人网页</h1>
-            <p class="hero-desc float-in" data-i18n="hero_desc" style="">以代码记录思考，以热爱奔赴日常</p>
-            <p class="hero-tag float-in" style="">
-              <a href="javascript:void(0)" id="openUpdateNotice" data-i18n="hero_update">更新公告</a>
+            <div class="hero-kicker float-in" style="">
+              <span>XIAOWEI</span><span class="hero-kicker-sep">·</span><span>Personal Space</span>
+            </div>
+            <h1 id="titleHover" class="float-in hero-title-hover" style="--rr: 0px; --bx: 444.04461669921875px; --by: -4.008941650390625px; --rx: 604.0446166992188px; --ry: 155.99106979370117px;"><span class="hh-base"><span data-i18n="hero_title_p1">你好,欢迎访问</span><span data-i18n="hero_title_p2" class="hero-title-part2">我的网页</span></span><span class="hh-reveal" aria-hidden="true"><span class="hh-txt">你好，很高兴认识你</span></span></h1>
+            <p class="hero-desc float-in" style="">
+              <span id="heroCopyText">这里是我的小宇宙，欢迎偶尔来逛逛。</span><span class="hero-copy-cursor" aria-hidden="true">✦</span>
             </p>
+            <div class="hero-actions float-in" style="">
+              <a href="javascript:void(0)" id="openNoticeBtn" class="hero-btn hero-btn-primary" data-i18n="hero_notice" onclick="var m=document.getElementById('noticeModal');if(m){m.classList.add('open','show');document.documentElement.classList.add('no-scroll');document.body.classList.add('no-scroll');var b=m.querySelector('.modal-box');if(b)setTimeout(function(){b.classList.add('zoom')},50);}">网站声明</a>
+              <a href="javascript:void(0)" id="openUpdateNotice" class="hero-btn hero-btn-secondary" data-i18n="hero_update">更新公告</a>
+            </div>
           </div>
           <div class="card-group">
             <a href="#" data-page="about" class="card float-in" style="">
@@ -3682,7 +4106,7 @@
           <div class="tags-float float-in" style="">
             <h2 class="section-title" style="font-size: 22px" data-i18n="about_tags_title">个人标签</h2>
             <div class="outer-card">
-              <div class="tag-list"><span class="tag-btn" data-tag="网页制作">#网页制作</span><span class="tag-btn" data-tag="摄影">#摄影</span><span class="tag-btn" data-tag="音乐">#音乐</span><span class="tag-btn" data-tag="游戏">#游戏</span><span class="tag-btn" data-tag="furry">#furry</span><span class="tag-btn" data-tag="赛车">#赛车</span></div>
+              <div class="tag-list"><span class="tag-btn" data-tag="网页制作"><span class="tag-dot"></span>网页制作</span><span class="tag-btn" data-tag="摄影"><span class="tag-dot"></span>摄影</span><span class="tag-btn" data-tag="音乐"><span class="tag-dot"></span>音乐</span><span class="tag-btn" data-tag="游戏"><span class="tag-dot"></span>游戏</span><span class="tag-btn" data-tag="furry"><span class="tag-dot"></span>furry</span><span class="tag-btn" data-tag="赛车"><span class="tag-dot"></span>赛车</span></div>
             </div>
           </div>
 
@@ -3981,34 +4405,44 @@
           <h2 class="section-title float-in" data-i18n="section_portfolio" style="">作品展示</h2>
           <div class="portfolio-grid">
 
-          <div class="work-card float-in" data-portfolio-name="个人账号分享" style=""><img class="work-img fx-img fx-reveal" src="images/010.jpeg" alt="个人账号分享" data-fx="1" data-fx-t0="1788239710374" data-fx-ready="1">
- <div class="work-info">
- <div class="work-name"><a href="javascript:void(0)" class="dev-link">个人账号分享</a></div>
- <div class="work-tag">账号</div>
- </div></div><div class="work-card float-in" data-portfolio-name="个人摄影分享" style=""><img class="work-img fx-img fx-reveal" src="images/020.jpeg" alt="个人摄影分享" data-fx="1" data-fx-t0="1788239710374" data-fx-ready="1">
- <div class="work-info">
- <div class="work-name"><a href="javascript:void(0)" class="dev-link">个人摄影分享</a></div>
- <div class="work-tag">开发中</div>
- </div></div><div class="work-card float-in" data-portfolio-name="功能正在开发中" style=""><img class="work-img fx-img fx-reveal" src="images/040.png" alt="功能正在开发中" data-fx="1" data-fx-t0="1788239710374" data-fx-ready="1">
- <div class="work-info">
- <div class="work-name"><a href="javascript:void(0)" class="dev-link">功能正在开发中</a></div>
- <div class="work-tag">开发中</div>
- </div></div><div class="work-card float-in" data-portfolio-name="功能正在开发中" style=""><img class="work-img fx-img fx-reveal" src="images/040.png" alt="功能正在开发中" data-fx="1" data-fx-t0="1788239710374" data-fx-ready="1">
- <div class="work-info">
- <div class="work-name"><a href="javascript:void(0)" class="dev-link">功能正在开发中</a></div>
- <div class="work-tag">开发中</div>
- </div></div></div>
+          <div class="work-card float-in" data-portfolio-name="个人账号分享" data-portfolio-tag="账号" style=""><img class="work-img fx-img fx-reveal" src="images/010.jpeg" alt="个人账号分享" data-fx="1" data-fx-t0="1788962185936" data-fx-ready="1">
+  <div class="work-info">
+  <div class="work-name"><a href="javascript:void(0)" class="dev-link">个人账号分享</a></div>
+  <div class="work-tag">账号</div>
+  </div></div><div class="work-card float-in" data-portfolio-name="个人摄影分享" data-portfolio-tag="开发中" style=""><img class="work-img fx-img fx-reveal" src="images/020.jpeg" alt="个人摄影分享" data-fx="1" data-fx-t0="1788962185937" data-fx-ready="1">
+  <div class="work-info">
+  <div class="work-name"><a href="javascript:void(0)" class="dev-link">个人摄影分享</a></div>
+  <div class="work-tag">开发中</div>
+  </div></div><div class="work-card float-in" data-portfolio-name="功能正在开发中" data-portfolio-tag="开发中" style=""><img class="work-img fx-img fx-reveal" src="images/040.png" alt="功能正在开发中" data-fx="1" data-fx-t0="1788962185937" data-fx-ready="1">
+  <div class="work-info">
+  <div class="work-name"><a href="javascript:void(0)" class="dev-link">功能正在开发中</a></div>
+  <div class="work-tag">开发中</div>
+  </div></div><div class="work-card float-in" data-portfolio-name="功能正在开发中" data-portfolio-tag="开发中" style=""><img class="work-img fx-img fx-reveal" src="images/040.png" alt="功能正在开发中" data-fx="1" data-fx-t0="1788962185937" data-fx-ready="1">
+  <div class="work-info">
+  <div class="work-name"><a href="javascript:void(0)" class="dev-link">功能正在开发中</a></div>
+  <div class="work-tag">开发中</div>
+  </div></div></div>
         </section>
 
         <section id="blog" class="page" style="">
           <h2 class="section-title float-in" data-i18n="section_blog" style="">日常分享</h2>
-        <div class="blog-item blog-item-article float-in" data-blog-title="极简网页配色思路运用技巧" style=""><h3 class="blog-title">极简网页配色思路运用技巧</h3>
- <div class="blog-meta">2026-07-27 | 设计思考</div>
- <p>讲解两个颜色搭配逻辑</p></div><div class="blog-item blog-item-article float-in" data-blog-title="网页留白设计完整指南" style=""><h3 class="blog-title">网页留白设计完整指南</h3>
- <div class="blog-meta">2026-07-27 | 排版技巧</div>
- <p>卡片、行高、页面边距规范</p></div><div class="blog-item blog-item-article float-in" data-blog-title="适合个人网站无衬线字体对比" style=""><h3 class="blog-title">适合个人网站无衬线字体对比</h3>
- <div class="blog-meta">2026-07-26 | 前端</div>
- <p>字体阅读体验对比</p></div></section>
+          <div class="blog-search-wrap float-in" style="">
+            <button type="button" id="blogSearchTrigger" class="blog-search-trigger" aria-label="搜索">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <input type="text" id="blogSearchInput" class="blog-search-input" placeholder="通过关键文字或数字进行筛选卡片" data-i18n-placeholder="blog_search_placeholder" autocomplete="off" data-search-initialized="true">
+            <button type="button" id="blogSearchAction" class="blog-search-action" data-i18n="blog_search_btn">搜索</button>
+          </div>
+          <div class="blog-no-result" id="blogNoResult" style="display: none;">
+            没有搜索到相对应的卡片，请尝试换其它的文字或数字
+          </div>
+        <div class="blog-item blog-item-article float-in" data-blog-title="极简网页配色思路运用技巧" data-blog-title-zh="极简网页配色思路运用技巧" data-blog-title-en="极简网页配色思路运用技巧" data-blog-subtitle-zh="讲解两个颜色搭配逻辑" data-blog-subtitle-en="讲解两个颜色搭配逻辑" data-blog-tag-zh="设计思考" data-blog-tag-en="设计思考" data-blog-date="2026-07-27" style=""><h3 class="blog-title">极简网页配色思路运用技巧</h3>
+  <div class="blog-meta">2026-07-27 | 设计思考</div>
+  <p>讲解两个颜色搭配逻辑</p></div><div class="blog-item blog-item-article float-in" data-blog-title="网页留白设计完整指南" data-blog-title-zh="网页留白设计完整指南" data-blog-title-en="网页留白设计完整指南" data-blog-subtitle-zh="卡片、行高、页面边距规范" data-blog-subtitle-en="卡片、行高、页面边距规范" data-blog-tag-zh="排版技巧" data-blog-tag-en="排版技巧" data-blog-date="2026-07-27" style=""><h3 class="blog-title">网页留白设计完整指南</h3>
+  <div class="blog-meta">2026-07-27 | 排版技巧</div>
+  <p>卡片、行高、页面边距规范</p></div><div class="blog-item blog-item-article float-in" data-blog-title="适合个人网站无衬线字体对比" data-blog-title-zh="适合个人网站无衬线字体对比" data-blog-title-en="适合个人网站无衬线字体对比" data-blog-subtitle-zh="字体阅读体验对比" data-blog-subtitle-en="字体阅读体验对比" data-blog-tag-zh="前端" data-blog-tag-en="前端" data-blog-date="2026-07-26" style=""><h3 class="blog-title">适合个人网站无衬线字体对比</h3>
+  <div class="blog-meta">2026-07-26 | 前端</div>
+  <p>字体阅读体验对比</p></div></section>
 
         <section id="admin" class="page">
           <h2 class="section-title">后台管理</h2>
@@ -4030,13 +4464,13 @@
               <div class="admin-panel" id="adminContent">
                 <h3 class="admin-panel-title">内容管理</h3>
                 <div class="admin-content-tabs">
-                  <button class="admin-content-tab active" data-content-type="blog">
+                  <button class="admin-content-tab" data-content-type="blog">
                     博客文章
                   </button>
                   <button class="admin-content-tab" data-content-type="portfolio">
                     作品展示
                   </button>
-                  <button class="admin-content-tab" data-content-type="changelog">
+                  <button class="admin-content-tab active" data-content-type="changelog">
                     更新日志
                   </button>
                    <button class="admin-content-tab" data-content-type="timeline">
@@ -4048,14 +4482,14 @@
                  </div>
 
                 <div class="admin-content-toolbar">
-                  <button class="admin-btn primary" id="addBlogBtn" style="display: inline-block;">+ 新增文章</button>
+                  <button class="admin-btn primary" id="addBlogBtn" style="display: none;">+ 新增文章</button>
                   <button class="admin-btn primary" id="addPortfolioBtn" style="display: none;">+ 新增作品</button>
-                  <button class="admin-btn primary" id="addChangelogBtn" style="display: none;">+ 新增更新日志</button>
+                  <button class="admin-btn primary" id="addChangelogBtn" style="display: inline-block;">+ 新增更新日志</button>
                   <button class="admin-btn primary" id="addTimelineBtn" style="display: none;">+ 新增成长条目</button>
                   <button class="admin-btn primary" id="addTagBtn" style="display: none;">+ 新增标签</button>
                 </div>
 
-                <div id="adminBlogPanel" style="display: block;">
+                <div id="adminBlogPanel" style="display: none;">
                   <div class="admin-table-wrap">
                     <table class="admin-table">
                       <thead>
@@ -4167,7 +4601,7 @@
                   </div>
                 </div>
 
-                <div id="adminChangelogPanel" style="display: none;">
+                <div id="adminChangelogPanel" style="display: block;">
                   <div class="admin-table-wrap">
                     <table class="admin-table">
                       <thead>
@@ -4179,6 +4613,18 @@
                         </tr>
                       </thead>
                       <tbody id="adminChangelogTableBody"><tr>
+ <td>2026-09-09</td>
+ <td>2026-09-09更新日志</td>
+ <td style="opacity:0.7;font-size:13px;">1.新增日常分享搜索功能
+2.优化个人标签按钮样式
+3.优化联系方式按钮样式
+4.优化首页...</td>
+ <td>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(0)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(0)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(0)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(0)">删除</button>
+ </td></tr><tr>
  <td>2026-09-01</td>
  <td>2026-09-01更新日志</td>
  <td style="opacity:0.7;font-size:13px;">1.新增路径标签切换
@@ -4186,10 +4632,10 @@
 3.优化手机端导航栏
 4.设置手机端图片无法保...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(0)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(0)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(0)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(0)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(1)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(1)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(1)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(1)">删除</button>
  </td></tr><tr>
  <td>2026-08-28</td>
  <td>2026-08-28更新日志</td>
@@ -4198,10 +4644,10 @@
 3.优化个人简历翻译
 4.优化手机部分问题</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(1)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(1)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(1)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(1)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(2)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(2)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(2)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(2)">删除</button>
  </td></tr><tr>
  <td>2026-08-27</td>
  <td>2026-08-27更新日志</td>
@@ -4211,10 +4657,10 @@
 4.优化个人标签卡片大小
 ...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(2)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(2)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(2)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(2)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(3)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(3)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(3)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(3)">删除</button>
  </td></tr><tr>
  <td>2026-08-26</td>
  <td>2026-8-26更新日志</td>
@@ -4224,10 +4670,10 @@
 4.优化语言切换过渡效果
 5...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(3)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(3)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(3)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(3)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(4)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(4)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(4)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(4)">删除</button>
  </td></tr><tr>
  <td>2026-08-25</td>
  <td>2026-08-25更新日志</td>
@@ -4237,10 +4683,10 @@
 4.优化版权栏样式
 5.新...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(4)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(4)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(4)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(4)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(5)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(5)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(5)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(5)">删除</button>
  </td></tr><tr>
  <td>2026-08-24</td>
  <td>2026-08-24更新日志</td>
@@ -4249,10 +4695,10 @@
 3.新增图片水印
 4.修改部分文字</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(5)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(5)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(5)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(5)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(6)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(6)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(6)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(6)">删除</button>
  </td></tr><tr>
  <td>2026-08-23</td>
  <td>2026-08-23更新日志</td>
@@ -4262,10 +4708,10 @@
 4.新增账号板块
 5.优化作品...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(6)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(6)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(6)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(6)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(7)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(7)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(7)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(7)">删除</button>
  </td></tr><tr>
  <td>2026-08-22</td>
  <td>2026-08-22更新日志</td>
@@ -4275,10 +4721,10 @@
 4.修改后台管理部分内容
 5.优...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(7)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(7)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(7)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(7)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(8)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(8)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(8)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(8)">删除</button>
  </td></tr><tr>
  <td>2026-08-19</td>
  <td>2026-08-19更新日志</td>
@@ -4288,10 +4734,10 @@
 4.修改标签内容
 ...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(8)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(8)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(8)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(8)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(9)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(9)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(9)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(9)">删除</button>
  </td></tr><tr>
  <td>2026-08-15</td>
  <td>2026-08-15更新日志</td>
@@ -4301,10 +4747,10 @@
 4.优化手机布局
 5...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(9)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(9)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(9)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(9)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(10)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(10)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(10)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(10)">删除</button>
  </td></tr><tr>
  <td>2026-08-12</td>
  <td>2026-08-12更新日志</td>
@@ -4312,10 +4758,10 @@
 2.优化图片内容
 3.优化部分文字</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(10)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(10)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(10)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(10)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(11)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(11)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(11)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(11)">删除</button>
  </td></tr><tr>
  <td>2026-08-11</td>
  <td>2026-08-11更新日志</td>
@@ -4324,20 +4770,20 @@
 3.删除个人中心
 4.优化部分字体</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(11)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(11)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(11)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(11)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(12)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(12)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(12)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(12)">删除</button>
  </td></tr><tr>
  <td>2026-08-10</td>
  <td>2026-08-10更新日志</td>
  <td style="opacity:0.7;font-size:13px;">1.优化弹窗窗口
 2.优化部分文字</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(12)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(12)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(12)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(12)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(13)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(13)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(13)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(13)">删除</button>
  </td></tr><tr>
  <td>2026-08-09</td>
  <td>2026-08-09更新日志</td>
@@ -4346,10 +4792,10 @@
 3.增加部分文字
 4.优化整体动画效果</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(13)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(13)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(13)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(13)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(14)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(14)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(14)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(14)">删除</button>
  </td></tr><tr>
  <td>2026-08-08</td>
  <td>2026-08-08更新日志</td>
@@ -4358,10 +4804,10 @@
 3.优化部分按钮弹窗
 4.优化主页...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(14)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(14)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(14)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(14)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(15)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(15)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(15)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(15)">删除</button>
  </td></tr><tr>
  <td>2026-08-07</td>
  <td>2026-08-07更新日志</td>
@@ -4371,10 +4817,10 @@
 4.优化按钮返回
 5...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(15)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(15)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(15)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(15)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(16)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(16)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(16)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(16)">删除</button>
  </td></tr><tr>
  <td>2026-08-06</td>
  <td>2026-08-06更新日志</td>
@@ -4384,10 +4830,10 @@
 4.新增成长经历内容
 5新增日常...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(16)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(16)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(16)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(16)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(17)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(17)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(17)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(17)">删除</button>
  </td></tr><tr>
  <td>2026-08-05</td>
  <td>2026-08-05更新日志</td>
@@ -4395,10 +4841,10 @@
 2.优化卡片布局
 3.优化部分文字</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(17)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(17)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(17)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(17)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(18)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(18)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(18)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(18)">删除</button>
  </td></tr><tr>
  <td>2026-08-04</td>
  <td>2026-08-04更新日志</td>
@@ -4406,10 +4852,10 @@
 2.优化后台管理
 3.修复已知问题</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(18)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(18)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(18)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(18)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(19)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(19)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(19)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(19)">删除</button>
  </td></tr><tr>
  <td>2026-08-03</td>
  <td>2026-08-03更新日志</td>
@@ -4418,10 +4864,10 @@
 3.修复点击问题
 4.优化部分代码</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(19)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(19)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(19)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(19)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(20)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(20)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(20)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(20)">删除</button>
  </td></tr><tr>
  <td>2026-08-02</td>
  <td>2026-08-02更新日志</td>
@@ -4431,10 +4877,10 @@
 4.修复点击问题
 5.优化部分...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(20)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(20)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(20)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(20)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(21)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(21)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(21)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(21)">删除</button>
  </td></tr><tr>
  <td>2026-08-01</td>
  <td>2026-08-01更新日志</td>
@@ -4443,10 +4889,10 @@
 3.后台新增多个优化
 4.修复多个点击...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(21)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(21)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(21)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(21)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(22)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(22)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(22)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(22)">删除</button>
  </td></tr><tr>
  <td>2026-07-31</td>
  <td>2026-07-31更新日志</td>
@@ -4456,10 +4902,10 @@
 4.下拉样式优化
 5.登录注册功...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(22)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(22)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(22)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(22)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(23)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(23)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(23)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(23)">删除</button>
  </td></tr><tr>
  <td>2026-07-30</td>
  <td>2026-07-30更新日志</td>
@@ -4467,10 +4913,10 @@
 2.修复弹窗变形bug
 3.优化弹窗高度限制...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(23)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(23)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(23)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(23)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(24)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(24)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(24)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(24)">删除</button>
  </td></tr><tr>
  <td>2026-07-29</td>
  <td>2026-07-29更新日志</td>
@@ -4479,10 +4925,10 @@
 3.修复关闭动画失效
 4.弹窗阻...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(24)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(24)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(24)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(24)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(25)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(25)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(25)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(25)">删除</button>
  </td></tr><tr>
  <td>2026-07-28</td>
  <td>2026-07-28更新日志</td>
@@ -4493,10 +4939,10 @@
 5.缩放动画
 6...</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(25)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(25)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(25)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(25)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(26)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(26)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(26)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(26)">删除</button>
  </td></tr><tr>
  <td>2026-07-27</td>
  <td>2026-07-27更新日志</td>
@@ -4506,10 +4952,10 @@
 4.头部留白调整
 5.文字遮挡修复</td>
  <td>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(26)">↑</button>
- <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(26)">↓</button>
- <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(26)">编辑</button>
- <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(26)">删除</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogUp(27)">↑</button>
+ <button class="admin-btn-sm move" onclick="window._adminMoveChangelogDown(27)">↓</button>
+ <button class="admin-btn-sm primary" onclick="window._adminEditChangelog(27)">编辑</button>
+ <button class="admin-btn-sm danger" onclick="window._adminDeleteChangelog(27)">删除</button>
  </td></tr></tbody>
                     </table>
                   </div>
@@ -4875,7 +5321,8 @@
                         Object.keys(d).forEach(function (k) {
                           localStorage.setItem(k, d[k]);
                         });
-                      })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"12345678\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路运用技巧\",\"subtitle\":\"讲解两个颜色搭配逻辑\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案。\\n\\n在网页设计中，色彩搭配是非常重要的一环。低饱和度的蓝色系能够营造出柔和、专业的视觉效果。\\n\\n本文将详细介绍如何使用#E6F7FF作为背景色，搭配#89C2FF作为强调色，打造舒适护眼的配色方案。\\n\\n以上内容由Ai生成\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"subtitle\":\"卡片、行高、页面边距规范\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧。\\n\\n留白是网页设计中常被忽视但极其重要的元素。合理的留白能够提升内容的可读性和页面的整体质感。\\n\\n本文从卡片间距、行高设置到页面边距，全面讲解如何运用留白打造极简高级的网页设计。\\n\\n以上内容由Ai生成\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"subtitle\":\"字体阅读体验对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比。\\n\\n字体的选择直接影响网站的阅读体验。对于中文个人网站，无衬线字体是最常见的选择。\\n\\n本文对比了苹方、微软雅黑和Inter三种常用字体在不同场景下的表现，帮助你选择最适合的字体方案。\\n\\n以上内容由Ai生成\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人账号分享\",\"tag\":\"账号\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"开发中\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-09-01\",\"title\":\"2026-09-01更新日志\",\"content\":\"1.新增路径标签切换\\n2.优化图片加载等待\\n3.优化手机端导航栏\\n4.设置手机端图片无法保存\\n5.整体流畅度\\n6.优化部分已知问题\"},{\"date\":\"2026-08-28\",\"title\":\"2026-08-28更新日志\",\"content\":\"1.新增个人简历模块\\n2.优化个人简历深色模式\\n3.优化个人简历翻译\\n4.优化手机部分问题\"},{\"date\":\"2026-08-27\",\"title\":\"2026-08-27更新日志\",\"content\":\"1.优化整体代码内容\\n2.优化整体流畅度\\n3.优化返回标题问题\\n4.优化个人标签卡片大小\\n5.修复优化手机端透明度问题\\n6.优化手机端整体流畅度\\n7.修复弹窗背景上下移动问题\\n8.设置字体图片不得复制保存\\n9.修复多个已知问题\"},{\"date\":\"2026-08-26\",\"title\":\"2026-8-26更新日志\",\"content\":\"1.优化整体动画时间\\n2.优化部分边距\\n3.新增堆叠动画效果\\n4.优化语言切换过渡效果\\n5.新增开屏过渡效果\\n6.优化整体流畅度过渡效果\\n7.修复制作中产生的已知问题\"},{\"date\":\"2026-08-25\",\"title\":\"2026-08-25更新日志\",\"content\":\"1.优化整体边距\\n2.优化内容边距距离\\n3.优化导航栏背景样式\\n4.优化版权栏样式\\n5.新增提示点击图标\\n6.优化手机端动画效果\\n7.新增手机端点击反馈\\n8.新增手机端部分点击按钮\\n9.修复部分已知问题\"},{\"date\":\"2026-08-24\",\"title\":\"2026-08-24更新日志\",\"content\":\"1.新增账号卡片\\n2.优化账号卡片内容\\n3.新增图片水印\\n4.修改部分文字\"},{\"date\":\"2026-08-23\",\"title\":\"2026-08-23更新日志\",\"content\":\"1.优化手机端字体颜色\\n2.修复返回按钮\\n3.优化加载时间\\n4.新增账号板块\\n5.优化作品展示内容\\n6.修复标签翻译问题\\n7.修复文章翻译问题\\n8.更改文章部分内容\"},{\"date\":\"2026-08-22\",\"title\":\"2026-08-22更新日志\",\"content\":\"1.优化加载动画时间\\n2.修改部分文字\\n3.修改部分布局\\n4.修改后台管理部分内容\\n5.优化手机内容适配\"},{\"date\":\"2026-08-19\",\"title\":\"2026-08-19更新日志\",\"content\":\"1.新增首次打开加载动画\\n2.修改部分布局\\n3.设置文章不得复制和保存\\n4.修改标签内容\\n5.修复制作中产出的问题\"},{\"date\":\"2026-08-15\",\"title\":\"2026-08-15更新日志\",\"content\":\"1.新增英文翻译内容\\n2.新增主页右上角图标\\n3.优化主页右上角文字\\n4.优化手机布局\\n5.手机新增滑动按钮\"},{\"date\":\"2026-08-12\",\"title\":\"2026-08-12更新日志\",\"content\":\"1.更新文章内容\\n2.优化图片内容\\n3.优化部分文字\"},{\"date\":\"2026-08-11\",\"title\":\"2026-08-11更新日志\",\"content\":\"1.优化弹窗窗口大小\\n2优化联系弹窗样式\\n3.删除个人中心\\n4.优化部分字体\"},{\"date\":\"2026-08-10\",\"title\":\"2026-08-10更新日志\",\"content\":\"1.优化弹窗窗口\\n2.优化部分文字\"},{\"date\":\"2026-08-09\",\"title\":\"2026-08-09更新日志\",\"content\":\"1.优化弹窗问题\\n2.优化按钮返回问题\\n3.增加部分文字\\n4.优化整体动画效果\"},{\"date\":\"2026-08-08\",\"title\":\"2026-08-08更新日志\",\"content\":\"1.修复后台个性标签保存问题\\n2.优化联系方式弹窗内容\\n3.优化部分按钮弹窗\\n4.优化主页卡片排序\\n5.优化主页按钮大小\\n6.修改添加部分文字\\n7.修复部分按钮弹窗问题\\n8.优化手机端部分内容\"},{\"date\":\"2026-08-07\",\"title\":\"2026-08-07更新日志\",\"content\":\"1.新增个人标签内容\\n2.新增联系方式复制按钮\\n3.优化部分按钮内容\\n4.优化按钮返回\\n5.优化部分文字标题\\n6.修复返回按钮问题\"},{\"date\":\"2026-08-06\",\"title\":\"2026-08-06更新日志\",\"content\":\"1.新增多个文章页面\\n2.优化多个文字\\n3.优化后台管理\\n4.新增成长经历内容\\n5新增日常分享内容\"},{\"date\":\"2026-08-05\",\"title\":\"2026-08-05更新日志\",\"content\":\"1.新增关于我卡片内容\\n2.优化卡片布局\\n3.优化部分文字\"},{\"date\":\"2026-08-04\",\"title\":\"2026-08-04更新日志\",\"content\":\"1.优化部分文字\\n2.优化后台管理\\n3.修复已知问题\"},{\"date\":\"2026-08-03\",\"title\":\"2026-08-03更新日志\",\"content\":\"1.优化移动端部分排版\\n2.优化部分文字\\n3.修复点击问题\\n4.优化部分代码\"},{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]","siteTimelines":"[{\"title\":\"2006 - 2019 | 童年到初中\",\"subtitle\":\"小时候的童年\",\"content\":\"2006年，我出生在一个普通的农村家庭。从小跟着爷爷奶奶，爸爸妈妈去了外地打工,而把我养大的是我的姑妈，从出生到幼儿园，我一直在姑妈身边慢慢长大。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/101.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【最早出生照片】</p>\\n小时候很喜欢跟着小伙伴一起玩耍，去小河旁摸虾，去山里挖野菜，去农田学着大人插秧，这些都是我模糊记忆的童年。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/104.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【高清修复照片】</p>\\n上完幼儿园，一年级我和我的父母来到了广东，面对陌生的环境，难免有些害怕，但后来也慢慢的适应了。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/107.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【在广东用手机自拍】</p>\\n小学时光还有很多有趣时光，有好也有坏，这里就不讲太多了，童年只能回忆，但无法改变未来。\"},{\"title\":\"2019 - 2021 | 特殊初中时光\",\"subtitle\":\"疫情时期，难忘的初中回忆。\",\"content\":\"疫情时期，难忘的初中回忆。\\n\\n2019年，我步入了初中校园，开始了新的学习生活。然而好没过多久，2020年初新冠疫情爆发，一切都改变了。\\n\\n学校停课，我们开始在家上网课。每天对着电脑屏幕学习，既新奇又不适应。没有了同学的陪伴，学习变得更加孤独，但也让我学会了自律和独立。\\n\\n那段时间，我学会了合理安排时间，自主学习新知识。也让我更加珍惜能够正常上学、和朋友们在一起的日子。\\n\\n这段特殊的经历，是我成长中不可或缺的一部分。\\n\\n以上内容由Ai生成\"},{\"title\":\"更多内容持续更新中……\",\"subtitle\":\"敬请期待！\",\"content\":\"敬请期待！\\n\\n更多精彩内容正在准备中，请持续关注我的个人网站。\\n\\n以上内容由Ai生成\"}]","siteTags":"[{\"name\":\"网页制作\",\"content\":\"喜欢网页开发，熟悉基础HTML、CSS、JavaScript等前端技术。\\n\\n上了大学才开始慢慢学会网页制作，虽然中职也学过一些，但老师教的是可视化的，所有代码不是很了解，上了大学老师才教代码制作。\"},{\"name\":\"摄影\",\"content\":\"摄影是在中职才慢慢接触，在中职加入了摄影社，我才接触相机这种东西。\\n\\n摄影技术方面不是很厉害，因为接触相机的经历很少，但也了解相机的基础功能：快门，ISO，光圈。\\n\\n希望在未来某一天能拥有一台属于自己的相机。\"},{\"name\":\"音乐\",\"content\":\"喜欢各种类型风格的音乐，喜欢在晚上睡觉前听，使用平台是网易云音乐，比较喜欢的器乐是钢琴，音乐天赋不高，从小接触音乐的学习很少。\\n\\n未来的希望是可以用钢琴弹一首完整的歌曲。\"},{\"name\":\"游戏\",\"content\":\"喜欢玩射击，赛车，开放世界等类型游戏，技术不是很厉害，但玩游戏可以给我带来放松。\"},{\"name\":\"furry\",\"content\":\"对furry文化有浓厚的兴趣，喜欢毛绒绒的兽兽，希望在未来可以拥有属于自己的兽装。\"},{\"name\":\"赛车\",\"content\":\"赛车运动，感受速度与激情，玩过很多赛车游戏，但玩的最久的是王牌竞速这款游戏，虽然并不是真正的赛车游戏，但在游戏可以体验不同赛车带来的速度与激情。\"}]"});</script>
+                      })({"siteAccounts":"[{\"username\":\"xiaowei\",\"password\":\"12345678\",\"isAdmin\":true}]","siteBlogs":"[{\"title\":\"极简网页配色思路运用技巧\",\"subtitle\":\"讲解两个颜色搭配逻辑\",\"summary\":\"讲解#E6F7FF与#89C2FF搭配逻辑，柔和护眼配色方案。\\n\\n在网页设计中，色彩搭配是非常重要的一环。低饱和度的蓝色系能够营造出柔和、专业的视觉效果。\\n\\n本文将详细介绍如何使用#E6F7FF作为背景色，搭配#89C2FF作为强调色，打造舒适护眼的配色方案。\\n\\n以上内容由Ai生成\",\"tag\":\"设计思考\",\"date\":\"2026-07-27\"},{\"title\":\"网页留白设计完整指南\",\"subtitle\":\"卡片、行高、页面边距规范\",\"summary\":\"卡片、行高、页面边距规范，极简高级感技巧。\\n\\n留白是网页设计中常被忽视但极其重要的元素。合理的留白能够提升内容的可读性和页面的整体质感。\\n\\n本文从卡片间距、行高设置到页面边距，全面讲解如何运用留白打造极简高级的网页设计。\\n\\n以上内容由Ai生成\",\"tag\":\"排版技巧\",\"date\":\"2026-07-27\"},{\"title\":\"适合个人网站无衬线字体对比\",\"subtitle\":\"字体阅读体验对比\",\"summary\":\"苹方、微软雅黑、Inter阅读体验对比。\\n\\n字体的选择直接影响网站的阅读体验。对于中文个人网站，无衬线字体是最常见的选择。\\n\\n本文对比了苹方、微软雅黑和Inter三种常用字体在不同场景下的表现，帮助你选择最适合的字体方案。\\n\\n以上内容由Ai生成\",\"tag\":\"前端\",\"date\":\"2026-07-26\"}]","sitePortfolios":"[{\"name\":\"个人账号分享\",\"tag\":\"账号\",\"img\":\"images/010.jpeg\"},{\"name\":\"个人摄影分享\",\"tag\":\"开发中\",\"img\":\"images/020.jpeg\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"},{\"name\":\"功能正在开发中\",\"tag\":\"开发中\",\"img\":\"images/040.png\"}]","siteChangelogs":"[{\"date\":\"2026-09-09\",\"title\":\"2026-09-09更新日志\",\"content\":\"1.新增日常分享搜索功能\\n2.优化个人标签按钮样式\\n3.优化联系方式按钮样式\\n4.优化首页整体文字样式\\n5.优化首页按钮样式\\n6.新增标题经过样式\\n7.新增副标题动画效果\\n7.修复已知问题\"},{\"date\":\"2026-09-01\",\"title\":\"2026-09-01更新日志\",\"content\":\"1.新增路径标签切换\\n2.优化图片加载等待\\n3.优化手机端导航栏\\n4.设置手机端图片无法保存\\n5.整体流畅度\\n6.优化部分已知问题\"},{\"date\":\"2026-08-28\",\"title\":\"2026-08-28更新日志\",\"content\":\"1.新增个人简历模块\\n2.优化个人简历深色模式\\n3.优化个人简历翻译\\n4.优化手机部分问题\"},{\"date\":\"2026-08-27\",\"title\":\"2026-08-27更新日志\",\"content\":\"1.优化整体代码内容\\n2.优化整体流畅度\\n3.优化返回标题问题\\n4.优化个人标签卡片大小\\n5.修复优化手机端透明度问题\\n6.优化手机端整体流畅度\\n7.修复弹窗背景上下移动问题\\n8.设置字体图片不得复制保存\\n9.修复多个已知问题\"},{\"date\":\"2026-08-26\",\"title\":\"2026-8-26更新日志\",\"content\":\"1.优化整体动画时间\\n2.优化部分边距\\n3.新增堆叠动画效果\\n4.优化语言切换过渡效果\\n5.新增开屏过渡效果\\n6.优化整体流畅度过渡效果\\n7.修复制作中产生的已知问题\"},{\"date\":\"2026-08-25\",\"title\":\"2026-08-25更新日志\",\"content\":\"1.优化整体边距\\n2.优化内容边距距离\\n3.优化导航栏背景样式\\n4.优化版权栏样式\\n5.新增提示点击图标\\n6.优化手机端动画效果\\n7.新增手机端点击反馈\\n8.新增手机端部分点击按钮\\n9.修复部分已知问题\"},{\"date\":\"2026-08-24\",\"title\":\"2026-08-24更新日志\",\"content\":\"1.新增账号卡片\\n2.优化账号卡片内容\\n3.新增图片水印\\n4.修改部分文字\"},{\"date\":\"2026-08-23\",\"title\":\"2026-08-23更新日志\",\"content\":\"1.优化手机端字体颜色\\n2.修复返回按钮\\n3.优化加载时间\\n4.新增账号板块\\n5.优化作品展示内容\\n6.修复标签翻译问题\\n7.修复文章翻译问题\\n8.更改文章部分内容\"},{\"date\":\"2026-08-22\",\"title\":\"2026-08-22更新日志\",\"content\":\"1.优化加载动画时间\\n2.修改部分文字\\n3.修改部分布局\\n4.修改后台管理部分内容\\n5.优化手机内容适配\"},{\"date\":\"2026-08-19\",\"title\":\"2026-08-19更新日志\",\"content\":\"1.新增首次打开加载动画\\n2.修改部分布局\\n3.设置文章不得复制和保存\\n4.修改标签内容\\n5.修复制作中产出的问题\"},{\"date\":\"2026-08-15\",\"title\":\"2026-08-15更新日志\",\"content\":\"1.新增英文翻译内容\\n2.新增主页右上角图标\\n3.优化主页右上角文字\\n4.优化手机布局\\n5.手机新增滑动按钮\"},{\"date\":\"2026-08-12\",\"title\":\"2026-08-12更新日志\",\"content\":\"1.更新文章内容\\n2.优化图片内容\\n3.优化部分文字\"},{\"date\":\"2026-08-11\",\"title\":\"2026-08-11更新日志\",\"content\":\"1.优化弹窗窗口大小\\n2优化联系弹窗样式\\n3.删除个人中心\\n4.优化部分字体\"},{\"date\":\"2026-08-10\",\"title\":\"2026-08-10更新日志\",\"content\":\"1.优化弹窗窗口\\n2.优化部分文字\"},{\"date\":\"2026-08-09\",\"title\":\"2026-08-09更新日志\",\"content\":\"1.优化弹窗问题\\n2.优化按钮返回问题\\n3.增加部分文字\\n4.优化整体动画效果\"},{\"date\":\"2026-08-08\",\"title\":\"2026-08-08更新日志\",\"content\":\"1.修复后台个性标签保存问题\\n2.优化联系方式弹窗内容\\n3.优化部分按钮弹窗\\n4.优化主页卡片排序\\n5.优化主页按钮大小\\n6.修改添加部分文字\\n7.修复部分按钮弹窗问题\\n8.优化手机端部分内容\"},{\"date\":\"2026-08-07\",\"title\":\"2026-08-07更新日志\",\"content\":\"1.新增个人标签内容\\n2.新增联系方式复制按钮\\n3.优化部分按钮内容\\n4.优化按钮返回\\n5.优化部分文字标题\\n6.修复返回按钮问题\"},{\"date\":\"2026-08-06\",\"title\":\"2026-08-06更新日志\",\"content\":\"1.新增多个文章页面\\n2.优化多个文字\\n3.优化后台管理\\n4.新增成长经历内容\\n5新增日常分享内容\"},{\"date\":\"2026-08-05\",\"title\":\"2026-08-05更新日志\",\"content\":\"1.新增关于我卡片内容\\n2.优化卡片布局\\n3.优化部分文字\"},{\"date\":\"2026-08-04\",\"title\":\"2026-08-04更新日志\",\"content\":\"1.优化部分文字\\n2.优化后台管理\\n3.修复已知问题\"},{\"date\":\"2026-08-03\",\"title\":\"2026-08-03更新日志\",\"content\":\"1.优化移动端部分排版\\n2.优化部分文字\\n3.修复点击问题\\n4.优化部分代码\"},{\"date\":\"2026-08-02\",\"title\":\"2026-08-02更新日志\",\"content\":\"1.更新联系我卡片内容\\n2.优化部分文字\\n3.优化标签内容\\n4.修复点击问题\\n5.优化部分代码\"},{\"date\":\"2026-08-01\",\"title\":\"2026-08-01更新日志\",\"content\":\"1.新增语言切换功能\\n2.去除注册按钮，更改为管理\\n3.后台新增多个优化\\n4.修复多个点击问题\\n5.修复多个已知BOG\"},{\"date\":\"2026-07-31\",\"title\":\"2026-07-31更新日志\",\"content\":\"1.明暗主题切换\\n2.深色导航文字修复\\n3.按钮失效修复\\n4.下拉样式优化\\n5.登录注册功能\\n6.登录bug修复\\n7.后台雏形开发\"},{\"date\":\"2026-07-30\",\"title\":\"2026-07-30更新日志\",\"content\":\"1.新增【项目更新公告弹窗】，内置可展开日志\\n2.修复弹窗变形bug\\n3.优化弹窗高度限制\\n4.日志展开逻辑优化\\n5.新增后台功能入口\\n6.修复各类小bug\"},{\"date\":\"2026-07-29\",\"title\":\"2026-07-29更新日志\",\"content\":\"1.修复CSS、JS、标签嵌套报错\\n2.弹窗问题持续修复\\n3.修复关闭动画失效\\n4.弹窗阻塞修复\\n5.隐藏滚动条优化\\n6.页面空白bug修复\"},{\"date\":\"2026-07-28\",\"title\":\"2026-07-28更新日志\",\"content\":\"1.网站图标功能\\n2.导航间距优化\\n3.声明弹窗开发\\n4.弹窗居中+滚动\\n5.缩放动画\\n6.仅首次弹出逻辑\\n7.背景模糊修复\"},{\"date\":\"2026-07-27\",\"title\":\"2026-07-27更新日志\",\"content\":\"1.网站上线部署\\n2.基础页面布局\\n3.移动端适配\\n4.头部留白调整\\n5.文字遮挡修复\"}]","siteTimelines":"[{\"title\":\"2006 - 2019 | 童年到初中\",\"subtitle\":\"小时候的童年\",\"content\":\"2006年，我出生在一个普通的农村家庭。从小跟着爷爷奶奶，爸爸妈妈去了外地打工,而把我养大的是我的姑妈，从出生到幼儿园，我一直在姑妈身边慢慢长大。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/101.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【最早出生照片】</p>\\n小时候很喜欢跟着小伙伴一起玩耍，去小河旁摸虾，去山里挖野菜，去农田学着大人插秧，这些都是我模糊记忆的童年。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/104.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【高清修复照片】</p>\\n上完幼儿园，一年级我和我的父母来到了广东，面对陌生的环境，难免有些害怕，但后来也慢慢的适应了。\\n<div style=\\\"display:flex;justify-content:center;\\\">\\n  <img src=\\\"images/107.jpg\\\" alt=\\\"描述\\\" style=\\\"max-width:270px;\\\">\\n</div><p style=\\\"text-align:center;\\\">【在广东用手机自拍】</p>\\n小学时光还有很多有趣时光，有好也有坏，这里就不讲太多了，童年只能回忆，但无法改变未来。\"},{\"title\":\"2019 - 2021 | 特殊初中时光\",\"subtitle\":\"疫情时期，难忘的初中回忆。\",\"content\":\"疫情时期，难忘的初中回忆。\\n\\n2019年，我步入了初中校园，开始了新的学习生活。然而好没过多久，2020年初新冠疫情爆发，一切都改变了。\\n\\n学校停课，我们开始在家上网课。每天对着电脑屏幕学习，既新奇又不适应。没有了同学的陪伴，学习变得更加孤独，但也让我学会了自律和独立。\\n\\n那段时间，我学会了合理安排时间，自主学习新知识。也让我更加珍惜能够正常上学、和朋友们在一起的日子。\\n\\n这段特殊的经历，是我成长中不可或缺的一部分。\\n\\n以上内容由Ai生成\"},{\"title\":\"更多内容持续更新中……\",\"subtitle\":\"敬请期待！\",\"content\":\"敬请期待！\\n\\n更多精彩内容正在准备中，请持续关注我的个人网站。\\n\\n以上内容由Ai生成\"}]","siteTags":"[{\"name\":\"网页制作\",\"content\":\"喜欢网页开发，熟悉基础HTML、CSS、JavaScript等前端技术。\\n\\n上了大学才开始慢慢学会网页制作，虽然中职也学过一些，但老师教的是可视化的，所有代码不是很了解，上了大学老师才教代码制作。\"},{\"name\":\"摄影\",\"content\":\"摄影是在中职才慢慢接触，在中职加入了摄影社，我才接触相机这种东西。\\n\\n摄影技术方面不是很厉害，因为接触相机的经历很少，但也了解相机的基础功能：快门，ISO，光圈。\\n\\n希望在未来某一天能拥有一台属于自己的相机。\"},{\"name\":\"音乐\",\"content\":\"喜欢各种类型风格的音乐，喜欢在晚上睡觉前听，使用平台是网易云音乐，比较喜欢的器乐是钢琴，音乐天赋不高，从小接触音乐的学习很少。\\n\\n未来的希望是可以用钢琴弹一首完整的歌曲。\"},{\"name\":\"游戏\",\"content\":\"喜欢玩射击，赛车，开放世界等类型游戏，技术不是很厉害，但玩游戏可以给我带来放松。\"},{\"name\":\"furry\",\"content\":\"对furry文化有浓厚的兴趣，喜欢毛绒绒的兽兽，希望在未来可以拥有属于自己的兽装。\"},{\"name\":\"赛车\",\"content\":\"赛车运动，感受速度与激情，玩过很多赛车游戏，但玩的最久的是王牌竞速这款游戏，虽然并不是真正的赛车游戏，但在游戏可以体验不同赛车带来的速度与激情。\"}]"});</script>
+
 
 
 
@@ -4961,7 +5408,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   if (typeof window.__startFloatIn === "function") window.__startFloatIn();
 
                   let duration = 1100;
-                  if (window.matchMedia && window.matchMedia("(max-width: 768px)").matches) {
+                  if (window.matchMedia && window.matchMedia("(max-width: 640px)").matches) {
                     duration = 750;
                   }
                   const reduce =
@@ -5077,6 +5524,23 @@ document.addEventListener("DOMContentLoaded", function () {
           })(start);
         }
 
+        function jumpToAboutSection(scrollTo) {
+          const header = document.getElementById("header");
+          const pad = scrollTo === "tags" ? 50 : 80;
+          const headerHeight = header ? header.offsetHeight + pad : 100;
+          const sec = document.querySelector(
+            scrollTo === "tags"
+              ? '[data-i18n="about_tags_title"]'
+              : '[data-i18n="about_timeline_title"]',
+          );
+          if (!sec) return;
+          requestAnimationFrame(() => {
+            const top =
+              sec.getBoundingClientRect().top + window.scrollY - headerHeight;
+            window.scrollTo({ top: Math.max(0, top) });
+          });
+        }
+
         function showBreadcrumb(crumbs, noAnim) {
           window._breadcrumbCrumbs = crumbs || null;
           const bc = document.getElementById("navBreadcrumb");
@@ -5086,7 +5550,11 @@ document.addEventListener("DOMContentLoaded", function () {
             const label = currentLang === "en" ? (c.en || c.zh) : c.zh;
             if (c.page && i < crumbs.length - 1) {
               html += '<a href="javascript:void(0)" class="crumb crumb-link" data-page="' +
-                c.page + '">' + escapeHtml(label) + "</a>";
+                c.page + '"' +
+                (c.scrollTo ? ' data-scroll-to="' + c.scrollTo + '"' : "") +
+                '>' + escapeHtml(label) + "</a>";
+            } else if (i < crumbs.length - 1) {
+              html += '<span class="crumb crumb-static">' + escapeHtml(label) + "</span>";
             } else {
               html += '<span class="crumb crumb-current">' + escapeHtml(label) + "</span>";
             }
@@ -5099,7 +5567,14 @@ document.addEventListener("DOMContentLoaded", function () {
           bc.querySelectorAll(".crumb-link").forEach((a) => {
             a.addEventListener("click", (e) => {
               e.preventDefault();
-              goToPage(a.getAttribute("data-page"), true);
+              const crumbPage = a.getAttribute("data-page");
+              const crumbJump = a.getAttribute("data-scroll-to");
+              if (crumbJump) {
+                // 区块跳转：与详情页"返回"按钮一致，关闭逐行顺序动画，内容整体上浮
+                window.__floatInOffUntil = Date.now() + 1200;
+              }
+              goToPage(crumbPage, true);
+              if (crumbJump) jumpToAboutSection(crumbJump);
             });
           });
           // 手机端:同步渲染到移动标签栏内的路径
@@ -5110,7 +5585,14 @@ document.addEventListener("DOMContentLoaded", function () {
             mbc.querySelectorAll(".crumb-link").forEach((a) => {
               a.addEventListener("click", (e) => {
                 e.preventDefault();
-                goToPage(a.getAttribute("data-page"), true);
+                const crumbPage = a.getAttribute("data-page");
+                const crumbJump = a.getAttribute("data-scroll-to");
+                if (crumbJump) {
+                  // 区块跳转：与详情页"返回"按钮一致，关闭逐行顺序动画，内容整体上浮
+                  window.__floatInOffUntil = Date.now() + 1200;
+                }
+                goToPage(crumbPage, true);
+                if (crumbJump) jumpToAboutSection(crumbJump);
               });
             });
             // 主题标题超出标签栏宽度时,保留前4个字加省略号
@@ -5435,6 +5917,7 @@ document.addEventListener("DOMContentLoaded", function () {
              showBreadcrumb([
                { zh: "首页", en: "Home", page: "home" },
                { zh: "关于我", en: "About", page: "about" },
+               { zh: "成长经历", en: "My Journey", page: "about", scrollTo: "timeline" },
                { zh: cardTitle, en: translateText(cardTitle) }
              ]);
              window.scrollTo({ top: 0 });
@@ -5457,6 +5940,7 @@ document.addEventListener("DOMContentLoaded", function () {
              showBreadcrumb([
                { zh: "首页", en: "Home", page: "home" },
                { zh: "关于我", en: "About", page: "about" },
+               { zh: "个人标签", en: "Tags", page: "about", scrollTo: "tags" },
                { zh: "#" + tagName, en: "#" + translateText(tagName) }
              ]);
              window.scrollTo({ top: 0 });
@@ -5467,7 +5951,10 @@ document.addEventListener("DOMContentLoaded", function () {
          blogSection.addEventListener("click", (e) => {
            const blogCard = e.target.closest(".blog-item-article");
            if (blogCard) {
-             const title = blogCard.getAttribute("data-blog-title");
+             const title =
+               blogCard.getAttribute("data-blog-title") ||
+               blogCard.getAttribute("data-blog-title-zh") ||
+               "";
              const blog = window._getBlogs().find(b => b.title === title);
              if (blog) {
                const en = currentLang === "en";
@@ -5772,9 +6259,12 @@ document.addEventListener("DOMContentLoaded", function () {
             nav_theme_auto: "跟随系统",
             nav_theme_light: "浅色",
             nav_theme_dark: "深色",
-            hero_title: "欢迎来到XiaoWei的个人网页",
+            hero_title: "你好,欢迎访问我的网页",
+            hero_title_p1: "你好,欢迎访问",
+            hero_title_p2: "我的网页",
             hero_desc: "以代码记录思考，以热爱奔赴日常",
             hero_update: "更新公告",
+            hero_notice: "网站声明",
             card_portfolio_title: "作品展示",
             card_portfolio_desc: "各类创作内容分享。",
             card_portfolio_link: "查看作品 →",
@@ -5906,6 +6396,10 @@ document.addEventListener("DOMContentLoaded", function () {
             footer_copyright: "内容版权归作者所有",
             changelog_modal_header: "【更新日志】",
             changelog_modal_footer: "后续持续优化页面细节，敬请期待！",
+            blog_search_placeholder: "通过关键文字或数字进行筛选卡片",
+            blog_search_btn: "搜索",
+            blog_clear_btn: "清空",
+            portfolio_no_result: "没有搜索到相对应的卡片，请尝试换其它的文字或数字",
           },
           en: {
             site_notice_title: "Site Notice",
@@ -5927,9 +6421,12 @@ document.addEventListener("DOMContentLoaded", function () {
             nav_theme_auto: "Follow System",
             nav_theme_light: "Light",
             nav_theme_dark: "Dark",
-            hero_title: "Welcome to XiaoWei's Personal Page",
+            hero_title: "Hello, welcome to my website.",
+            hero_title_p1: "Hello, welcome ",
+            hero_title_p2: "to my website.",
             hero_desc: "Code records thoughts, passion lights up every day",
             hero_update: "Update Notice",
+            hero_notice: "Website Notice",
             card_portfolio_title: "Portfolio",
             card_portfolio_desc: "Sharing various creative content.",
             card_portfolio_link: "View Portfolio →",
@@ -6063,6 +6560,10 @@ document.addEventListener("DOMContentLoaded", function () {
             footer_copyright: "Content rights reserved by the author",
             changelog_modal_header: "[ Update Log ]",
             changelog_modal_footer: "We'll keep polishing the site. Stay tuned!",
+            blog_search_placeholder: "Filter cards by keywords or numbers",
+            blog_search_btn: "Search",
+            blog_clear_btn: "Clear",
+            portfolio_no_result: "No matching cards found. Try different keywords or numbers.",
           },
         };
 
@@ -6395,6 +6896,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function fetchOnlineTranslate(zh) {
           var idx = 0;
+          function withTimeout(p, ms) {
+            return Promise.race([
+              Promise.resolve(p),
+              new Promise(function (res) {
+                setTimeout(function () {
+                  res(null);
+                }, ms || 12000);
+              }),
+            ]);
+          }
           function tryNext() {
             if (idx >= TRANS_ENDPOINTS.length) return Promise.resolve(null);
             var fn = TRANS_ENDPOINTS[idx++];
@@ -6404,7 +6915,7 @@ document.addEventListener("DOMContentLoaded", function () {
             } catch (e) {
               p = Promise.resolve(null);
             }
-            return p
+            return withTimeout(p, 12000)
               .then(function (res) {
                 res = res ? String(res).trim() : "";
 
@@ -6500,6 +7011,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         var _translatedNodes = [];
+        var _trackedNodes = new Set();
         function restoreTranslatedNodes() {
           _translatedNodes.forEach(function (o) {
             if (o && o.node && o.node.nodeValue !== o.zh) {
@@ -6507,6 +7019,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           });
           _translatedNodes = [];
+          _trackedNodes.clear();
         }
 
         var ADMIN_TRANSLATE_EXCLUDE =
@@ -6537,27 +7050,27 @@ document.addEventListener("DOMContentLoaded", function () {
           }
 
           nodes.forEach(function (o) {
-            var nt = translateText(o.text);
-            if (nt !== o.text) {
+            if (_trackedNodes.has(o.node)) return;
+            _trackedNodes.add(o.node);
+            var zh = o.text;
+            // 先记录中文原文快照，保证切回中文时一定能恢复原文
+            _translatedNodes.push({ node: o.node, zh: zh });
+            var nt = translateText(zh);
+            if (nt !== zh) {
               o.node.nodeValue = nt;
-              _translatedNodes.push({ node: o.node, zh: o.text });
             }
-          });
-
-          nodes.forEach(function (o) {
-            if (!o.node.isConnected) return;
-            if (!hasChinese(o.node.nodeValue)) return;
-            queueOnlineTranslate(o.text, function (en) {
-
-              if (
-                currentLang === "en" &&
-                en &&
-                o.node.isConnected &&
-                hasChinese(o.node.nodeValue)
-              ) {
-                o.node.nodeValue = en;
-              }
-            });
+            if (hasChinese(o.node.nodeValue)) {
+              queueOnlineTranslate(zh, function (en) {
+                if (
+                  currentLang === "en" &&
+                  en &&
+                  o.node.isConnected &&
+                  hasChinese(o.node.nodeValue)
+                ) {
+                  o.node.nodeValue = en;
+                }
+              });
+            }
           });
         }
         function scheduleFrontTranslate() {
@@ -6769,7 +7282,13 @@ document.addEventListener("DOMContentLoaded", function () {
         function applyLang() {
           document.documentElement.lang = currentLang === "en" ? "en" : "zh-CN";
 
-          if (currentLang !== "en") restoreTranslatedNodes();
+          if (currentLang === "en") {
+            // 开始新的英文会话：清空上一轮快照与去重标记，避免重复翻译污染原文
+            _translatedNodes = [];
+            _trackedNodes.clear();
+          } else {
+            restoreTranslatedNodes();
+          }
           var els = document.querySelectorAll("[data-i18n]");
           for (var i = 0; i < els.length; i++) {
             var key = els[i].getAttribute("data-i18n");
@@ -6779,6 +7298,11 @@ document.addEventListener("DOMContentLoaded", function () {
           document.querySelectorAll("[data-i18n-title]").forEach(function (el) {
             var k = el.getAttribute("data-i18n-title");
             if (k) el.setAttribute("aria-label", t(k));
+          });
+
+          document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
+            var k = el.getAttribute("data-i18n-placeholder");
+            if (k) el.setAttribute("placeholder", t(k));
           });
 
           document.querySelectorAll(".lang-toggle-text").forEach(function (el) {
@@ -6807,6 +7331,15 @@ document.addEventListener("DOMContentLoaded", function () {
             refreshContentPanels();
 
           if (typeof refreshOpenDetail === "function") refreshOpenDetail();
+
+          // Clear blog search when language changes
+          const blogSearchInput = document.getElementById("blogSearchInput");
+          const blogNoResult = document.getElementById("blogNoResult");
+          if (blogSearchInput) {
+            blogSearchInput.value = "";
+            blogSearchInput.dispatchEvent(new Event("input"));
+          }
+          if (blogNoResult) blogNoResult.style.display = "none";
 
           requestAnimationFrame(function () {
             requestAnimationFrame(function () {
@@ -7901,7 +8434,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
           window._getBlogs = getBlogs;
 
-          function syncBlogsToFrontend() {
+function syncBlogsToFrontend() {
             const blogs = getBlogs();
             const wrap = document.getElementById("blog");
             if (!wrap) return;
@@ -7916,14 +8449,169 @@ document.addEventListener("DOMContentLoaded", function () {
               const el = document.createElement("div");
               el.className = "blog-item blog-item-article";
               el.setAttribute("data-blog-title", item.title);
+              el.setAttribute("data-blog-title-zh", item.title);
+              el.setAttribute("data-blog-title-en", translateText(item.title));
+              el.setAttribute("data-blog-subtitle-zh", item.subtitle || "");
+              el.setAttribute("data-blog-subtitle-en", translateText(item.subtitle || ""));
+              el.setAttribute("data-blog-tag-zh", item.tag || "");
+              el.setAttribute("data-blog-tag-en", translateText(item.tag || ""));
+              el.setAttribute("data-blog-date", item.date || "");
               const desc = item.subtitle || item.summary || "";
               const en = currentLang === "en";
               el.innerHTML = `<h3 class="blog-title">${escapeHtml(en ? translateText(item.title) : item.title)}</h3>
- <div class="blog-meta">${escapeHtml(item.date)} | ${escapeHtml(en ? translateText(item.tag) : item.tag)}</div>
- <p>${escapeHtml(en ? translateText(desc) : desc)}</p>`;
+  <div class="blog-meta">${escapeHtml(item.date)} | ${escapeHtml(en ? translateText(item.tag) : item.tag)}</div>
+  <p>${escapeHtml(en ? translateText(desc) : desc)}</p>`;
               wrap.appendChild(el);
             });
+            setupBlogSearch();
             scheduleFrontTranslate();
+          }
+
+          function setupBlogSearch() {
+            const input = document.getElementById("blogSearchInput");
+            const actionBtn = document.getElementById("blogSearchAction");
+            const triggerBtn = document.getElementById("blogSearchTrigger");
+            const noResult = document.getElementById("blogNoResult");
+            const wrap = document.getElementById("blog");
+            if (!input || !wrap) return;
+
+            if (input.dataset.searchInitialized === "true") return;
+            input.dataset.searchInitialized = "true";
+
+            input.value = "";
+            if (noResult) noResult.style.display = "none";
+
+            function updateActionBtn() {
+              if (!actionBtn) return;
+              if (input.value.trim()) {
+                actionBtn.textContent = t("blog_clear_btn");
+                actionBtn.classList.add("clear");
+              } else {
+                actionBtn.textContent = t("blog_search_btn");
+                actionBtn.classList.remove("clear");
+              }
+            }
+
+            function highlightKeywordInCard(card, keyword) {
+              if (!keyword) return;
+              const elements = card.querySelectorAll(".blog-title, .blog-meta, .blog-item > p");
+              elements.forEach((el) => {
+                const originalText = el.getAttribute("data-original-text") || el.textContent;
+                if (!el.getAttribute("data-original-text")) {
+                  el.setAttribute("data-original-text", originalText);
+                }
+                const lowerText = originalText.toLowerCase();
+                let result = "";
+                let ki = 0;
+                for (let i = 0; i < originalText.length; i++) {
+                  const ch = originalText[i];
+                  if (ki < keyword.length && lowerText[i] === keyword[ki]) {
+                    // Start of a match sequence
+                    let matchSeq = ch;
+                    ki++;
+                    // Collect consecutive matches
+                    let j = i + 1;
+                    let nextKi = ki;
+                    while (j < originalText.length && nextKi < keyword.length && lowerText[j] === keyword[nextKi]) {
+                      matchSeq += originalText[j];
+                      nextKi++;
+                      j++;
+                    }
+                    result += `<span class="search-highlight">${matchSeq}</span>`;
+                    ki = nextKi;
+                    i = j - 1;
+                  } else {
+                    result += ch;
+                  }
+                }
+                el.innerHTML = result;
+              });
+            }
+
+            function removeHighlightInCard(card) {
+              const elements = card.querySelectorAll(".blog-title, .blog-meta, .blog-item > p");
+              elements.forEach((el) => {
+                const originalText = el.getAttribute("data-original-text");
+                if (originalText !== null) {
+                  el.textContent = originalText;
+                  el.removeAttribute("data-original-text");
+                }
+              });
+            }
+
+            function escapeRegExp(string) {
+              return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            }
+
+            function isSubsequence(keyword, text) {
+              if (!keyword) return true;
+              let ki = 0;
+              for (let i = 0; i < text.length && ki < keyword.length; i++) {
+                if (text[i] === keyword[ki]) ki++;
+              }
+              return ki === keyword.length;
+            }
+
+            input.addEventListener("input", function () {
+              const keyword = this.value.trim().toLowerCase();
+              const cards = wrap.querySelectorAll(".blog-item");
+              let visibleCount = 0;
+              const isEn = currentLang === "en";
+
+              cards.forEach((card) => {
+                const title = (card.getAttribute(isEn ? "data-blog-title-en" : "data-blog-title-zh") || "").toLowerCase();
+                const subtitle = (card.getAttribute(isEn ? "data-blog-subtitle-en" : "data-blog-subtitle-zh") || "").toLowerCase();
+                const tag = (card.getAttribute(isEn ? "data-blog-tag-en" : "data-blog-tag-zh") || "").toLowerCase();
+                const date = (card.getAttribute("data-blog-date") || "").toLowerCase();
+                const match = !keyword || isSubsequence(keyword, title) || isSubsequence(keyword, subtitle) || isSubsequence(keyword, tag) || isSubsequence(keyword, date);
+                card.style.display = match ? "" : "none";
+                if (match) {
+                  visibleCount++;
+                  if (keyword) {
+                    highlightKeywordInCard(card, keyword);
+                  } else {
+                    removeHighlightInCard(card);
+                  }
+                } else {
+                  removeHighlightInCard(card);
+                }
+              });
+
+              if (noResult) {
+                noResult.textContent = t("portfolio_no_result");
+                noResult.style.display = visibleCount === 0 && keyword ? "block" : "none";
+              }
+              updateActionBtn();
+            });
+
+            if (actionBtn) {
+              actionBtn.addEventListener("click", function () {
+                if (input.value.trim()) {
+                  // Clear mode
+                  input.value = "";
+                  input.dispatchEvent(new Event("input"));
+                  input.focus();
+                } else {
+                  // Search mode - just focus
+                  input.focus();
+                }
+              });
+            }
+
+            if (triggerBtn) {
+              triggerBtn.addEventListener("click", function () {
+                input.focus();
+              });
+            }
+
+            input.addEventListener("keydown", function (e) {
+              if (e.key === "Enter" && input.value.trim()) {
+                e.preventDefault();
+                input.blur();
+              }
+            });
+
+            updateActionBtn();
           }
 
           function syncTimelinesToFront() {
@@ -7986,8 +8674,8 @@ document.addEventListener("DOMContentLoaded", function () {
               const el = document.createElement("span");
               el.className = "tag-btn";
               el.setAttribute("data-tag", item.name);
-              el.textContent =
-                "#" + (currentLang === "en" ? translateText(item.name) : item.name);
+              el.innerHTML =
+                '<span class="tag-dot"></span>' + escapeHtml(currentLang === "en" ? translateText(item.name) : item.name);
               tagCard.appendChild(el);
             });
             scheduleFrontTranslate();
@@ -8010,20 +8698,22 @@ document.addEventListener("DOMContentLoaded", function () {
               grid.className = "portfolio-grid";
               wrap.appendChild(grid);
             }
-            list.forEach((item) => {
+list.forEach((item) => {
               const en = currentLang === "en";
               const name = en ? translateText(item.name) : item.name;
               const tag = en ? translateText(item.tag) : item.tag;
               const card = document.createElement("div");
               card.className = "work-card";
               card.setAttribute("data-portfolio-name", item.name);
+              card.setAttribute("data-portfolio-tag", item.tag);
               card.innerHTML = `<img class="work-img" src="${escapeHtml(item.img)}" alt="${escapeHtml(name)}">
- <div class="work-info">
- <div class="work-name"><a href="javascript:void(0)" class="dev-link">${escapeHtml(name)}</a></div>
- <div class="work-tag">${escapeHtml(tag)}</div>
- </div>`;
+  <div class="work-info">
+  <div class="work-name"><a href="javascript:void(0)" class="dev-link">${escapeHtml(name)}</a></div>
+  <div class="work-tag">${escapeHtml(tag)}</div>
+  </div>`;
               grid.appendChild(card);
             });
+            window.__portfolioData = list;
             scheduleFrontTranslate();
           }
 
@@ -8060,6 +8750,7 @@ document.addEventListener("DOMContentLoaded", function () {
               syncChangelogToFront();
               syncTimelinesToFront();
               syncTagsToFront();
+              setupBlogSearch();
             });
           } else {
             requestAnimationFrame(() => {
@@ -8068,6 +8759,7 @@ document.addEventListener("DOMContentLoaded", function () {
               syncChangelogToFront();
               syncTimelinesToFront();
               syncTagsToFront();
+              setupBlogSearch();
             });
           }
 
@@ -8119,7 +8811,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         var MOBILE =
           window.matchMedia &&
-          window.matchMedia("(max-width: 768px)").matches;
+          window.matchMedia("(max-width: 640px)").matches;
 
         var STEP = MOBILE ? 50 : 130;
 
@@ -8466,6 +9158,22 @@ document.addEventListener("DOMContentLoaded", function () {
           if (img.dataset.fx) return;
           img.dataset.fx = "1";
 
+          // 中英文切换时作品卡片会整卡重渲染，这些图片此前已加载过：
+          // 直接显示，不再重播“模糊填充 → 淡化”的图片加载动画
+          var langSyncing =
+            document.body &&
+            document.body.classList.contains("lang-syncing");
+          var workCardImg =
+            img.classList &&
+            img.classList.contains("work-img") &&
+            img.closest &&
+            img.closest("#portfolio");
+          if (langSyncing && workCardImg) {
+            img.dataset.fxReady = "1";
+            img.classList.add("fx-img", "fx-reveal");
+            return;
+          }
+
           img.classList.add("fx-img");
           if (isArticleImg(img)) articleSet.add(img);
 
@@ -8582,6 +9290,159 @@ document.addEventListener("DOMContentLoaded", function () {
             attributeFilter: ["src"],
           });
         }
+      })();
+    </script>
+
+    <script>
+      /* 首页副标题：打字机效果（随语言自动切换） */
+      (function () {
+        document.addEventListener("DOMContentLoaded", function () {
+          var el = document.getElementById("heroCopyText");
+          if (!el) return;
+          var PHRASES = {
+            zh: [
+              "用代码记录思考，用热爱点亮日常。",
+              "保持好奇，持续折腾，把想法一点点变成现实。",
+              "这里是我的小宇宙，欢迎偶尔来逛逛。",
+              "生活不止眼前的屏幕，还有诗和远方。",
+              "一点点积累，一步步成长，慢慢成为想成为的人。",
+            ],
+            en: [
+              "Coding records thought, passion lights up life.",
+              "Stay curious, keep tinkering, turn ideas into reality.",
+              "This is my little universe — drop by anytime.",
+              "Life is more than the screen — there's poetry and distance.",
+              "Grow bit by bit into the person you want to be.",
+            ],
+          };
+          function lang() {
+            return (document.documentElement.lang || "").indexOf("en") === 0
+              ? "en"
+              : "zh";
+          }
+          var pi = 0, ci = 0, deleting = false, timer = null;
+          var TYPE_MS = 165, DELETE_MS = 85, HOLD_MS = 1800, GAP_MS = 600;
+          var START_DELAY_MS = 2200;
+          function stop() { if (timer) { clearTimeout(timer); timer = null; } }
+          function tick() {
+            var list = PHRASES[lang()];
+            var text = list[pi % list.length];
+            if (!deleting) {
+              ci++;
+              el.textContent = text.slice(0, ci);
+              if (ci >= text.length) { deleting = true; timer = setTimeout(tick, HOLD_MS); }
+              else { timer = setTimeout(tick, TYPE_MS); }
+            } else {
+              ci--;
+              el.textContent = text.slice(0, ci);
+              if (ci <= 0) { deleting = false; pi = (pi + 1) % PHRASES[lang()].length; timer = setTimeout(tick, GAP_MS); }
+              else { timer = setTimeout(tick, DELETE_MS); }
+            }
+          }
+          var STARTED = false;
+          function resetText() {
+            stop();
+            deleting = false; ci = 0; pi = 0;
+            el.textContent = "";
+          }
+          function beginTyping() {
+            if (STARTED) return;
+            resetText();
+            STARTED = true;
+            if (startPoll) { clearInterval(startPoll); startPoll = null; }
+            timer = setTimeout(tick, START_DELAY_MS);
+          }
+          function tryBegin() {
+            if (STARTED) return;
+            if (document.body.classList.contains("page-loading")) return;
+            var nm = document.getElementById("noticeModal");
+            if (nm && (nm.classList.contains("open") || nm.classList.contains("show"))) return;
+            beginTyping();
+          }
+          var startPoll = setInterval(tryBegin, 150);
+          tryBegin();
+          if ("MutationObserver" in window) {
+            new MutationObserver(function () {
+              if (STARTED) {
+                resetText();
+                timer = setTimeout(tick, 120);
+              }
+            }).observe(document.documentElement, {
+              attributes: true,
+              attributeFilter: ["lang"],
+            });
+          }
+        });
+      })();
+    </script>
+
+    <script>
+      /* 电脑端标题：小黑色圆蒙版跟随鼠标，圆内挖掉上层标题、露出下层白字；离开文字时圆就地缩小消失 */
+      (function () {
+        var h1 = document.getElementById("titleHover");
+        if (!h1) return;
+        var reveal = h1.querySelector(".hh-reveal");
+        if (!reveal) return;
+        var R = 40;          // 展开时的半径
+        var rr = 0;          // 当前半径
+        var shrinkTimer = null;
+        var m = 5;           // 离开判定：仅留几像素余量
+        function applyRadius(v) {
+          rr = v;
+          h1.style.setProperty("--rr", v + "px");
+        }
+        function stopShrink() {
+          if (shrinkTimer) {
+            cancelAnimationFrame(shrinkTimer);
+            shrinkTimer = null;
+          }
+        }
+        function startShrink() {
+          if (shrinkTimer) return;
+          function step() {
+            rr -= 3;
+            if (rr <= 0) {
+              rr = 0;
+              applyRadius(0);
+              h1.classList.remove("spot-on");
+              shrinkTimer = null;
+              return;
+            }
+            applyRadius(rr);
+            shrinkTimer = requestAnimationFrame(step);
+          }
+          shrinkTimer = requestAnimationFrame(step);
+        }
+        function hideAll() {
+          stopShrink();
+          applyRadius(0);
+          h1.classList.remove("spot-on");
+        }
+        function update(e) {
+          if (window.innerWidth <= 640) { hideAll(); return; }
+          var hb = h1.getBoundingClientRect();
+          var bx = e.clientX - hb.left;
+          var by = e.clientY - hb.top;
+          var rb = reveal.getBoundingClientRect();
+          var rx = e.clientX - rb.left;
+          var ry = e.clientY - rb.top;
+          var inside = bx >= -m && bx <= hb.width + m && by >= -m && by <= hb.height + m;
+          if (inside) {
+            stopShrink();
+            h1.classList.add("spot-on");
+            applyRadius(R);
+            h1.style.setProperty("--bx", bx + "px");
+            h1.style.setProperty("--by", by + "px");
+            h1.style.setProperty("--rx", rx + "px");
+            h1.style.setProperty("--ry", ry + "px");
+          } else {
+            startShrink();
+          }
+        }
+        document.addEventListener("mousemove", update, { passive: true });
+        window.addEventListener("resize", function () {
+          if (window.innerWidth <= 640) hideAll();
+        });
       })();
     </script>
 
