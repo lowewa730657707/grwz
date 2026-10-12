@@ -3071,6 +3071,7 @@
       #blog-detail.active,
       #tag-detail.active,
       #timeline-detail.active,
+      #photo-share-detail.active,
       #video-share-detail.active {
         animation: fadeInUp 0.25s ease forwards;
       }
@@ -3088,6 +3089,136 @@
         to {
           opacity: 1;
           transform: translateY(0);
+        }
+      }
+
+      /* ---------- 个人摄影分享：详情页 ---------- */
+      .photo-lead {
+        font-size: 14px;
+        line-height: 1.9;
+        color: var(--text-color);
+        opacity: 0.78;
+        margin-bottom: 14px;
+      }
+      .photo-points {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 22px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 18px;
+      }
+      .photo-points li {
+        position: relative;
+        padding-left: 18px;
+        font-size: 13.5px;
+        line-height: 1.7;
+        opacity: 0.82;
+      }
+      .photo-points li::before {
+        content: "";
+        position: absolute;
+        left: 2px;
+        top: 9px;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent-dark);
+      }
+      html.dark .photo-points li::before {
+        background: var(--accent);
+      }
+      .photo-shot-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        opacity: 0.9;
+      }
+      .photo-shot-title i {
+        color: var(--accent-dark);
+      }
+      html.dark .photo-shot-title i {
+        color: var(--accent);
+      }
+      .photo-shot-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+      .photo-shot {
+        margin: 0;
+        border-radius: 10px;
+        overflow: hidden;
+        background: rgba(var(--accent-rgb), 0.05);
+        border: 1px solid rgba(var(--accent-rgb), 0.14);
+        transition: translate 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      }
+      .photo-shot:hover {
+        translate: 0 -4px;
+        border-color: var(--accent-dark);
+        box-shadow: 0 10px 28px rgba(var(--accent-rgb), 0.16);
+      }
+      html.dark .photo-shot:hover {
+        border-color: var(--accent);
+      }
+      .photo-shot img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .photo-shot figcaption {
+        padding: 11px 14px 13px;
+        font-size: 12.5px;
+        line-height: 1.6;
+        color: var(--text-color);
+        opacity: 0.74;
+        border-top: 1px solid rgba(var(--accent-rgb), 0.1);
+      }
+      .photo-link-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px 16px;
+        margin-top: 4px;
+      }
+      .photo-link-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 22px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        color: #fff;
+        background: var(--accent-dark);
+        box-shadow: 0 6px 18px rgba(var(--accent-rgb), 0.28);
+        transition: translate 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+      }
+      .photo-link-btn:hover {
+        translate: 0 -2px;
+        box-shadow: 0 10px 26px rgba(var(--accent-rgb), 0.34);
+      }
+      html.dark .photo-link-btn {
+        background: var(--accent);
+      }
+      .photo-link-path {
+        font-family: ui-monospace, SFMono-Regular, Consolas, Menlo, monospace;
+        font-size: 12.5px;
+        opacity: 0.55;
+        word-break: break-all;
+      }
+      @media screen and (max-width: 640px) {
+        .photo-points,
+        .photo-shot-grid {
+          grid-template-columns: 1fr;
+        }
+        .photo-shot figcaption {
+          font-size: 12px;
         }
       }
 
@@ -8007,9 +8138,11 @@
         white-space: nowrap;
       }
 
+      /* 高度按「最多 11 行」算：11 × 12.5px × 1.95 ≈ 268px 内容 + 上下内边距 36px，
+         再留 8px 余量。以后加减打字行数，记得同步这里，否则最后一行会被按钮那排压掉 */
       .cboot__code {
         flex: 0 0 auto;
-        height: 281px;
+        height: 312px;
         margin: 0;
         padding: 22px 24px 14px;
         overflow: hidden;
@@ -8071,6 +8204,15 @@
       html.dark .tk-w {
         color: var(--accent);
       }
+      /* 代码里的标题行（后台「加载页文案 → 标题」）：打在文案上面一行，读起来像小标题 */
+      .tk-t {
+        color: var(--accent-dark);
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+      html.dark .tk-t {
+        color: var(--accent);
+      }
 
 
       .cboot__enter {
@@ -8079,7 +8221,7 @@
         align-items: center;
         justify-content: flex-end;
         gap: 16px;
-        padding: 0 24px 24px;
+        padding: 8px 24px 24px;
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.35s ease;
@@ -8099,19 +8241,23 @@
         color: var(--text-color);
         opacity: 0.45;
       }
+      /* 矮窗口：紧凑模式，行高和字号一起收紧，保证 11 行也打得下、按钮不会被挤出可视区 */
       @media (max-height: 560px) {
         .cboot__code {
-          height: 220px;
-          padding: 16px 20px 10px;
+          height: 232px;
+          padding: 14px 20px 12px;
+          font-size: 11.5px;
+          line-height: 1.62;
         }
+        .cboot__enter { padding: 6px 24px 20px; }
       }
       @media (max-width: 480px) {
         .cboot { padding: 16px; }
         .cboot__bar { padding: 11px 14px; }
-        .cboot__code { padding: 18px 16px 20px; font-size: 11.5px; min-height: 180px; }
+        .cboot__code { height: 316px; padding: 18px 16px 20px; font-size: 11.5px; }
         .cboot__ln { gap: 11px; }
         .cboot__n { flex: 0 0 16px; }
-        .cboot__enter { padding: 0 16px 20px; gap: 12px; }
+        .cboot__enter { padding: 8px 16px 20px; gap: 12px; }
       }
       @media (prefers-reduced-motion: reduce) {
         .cboot,
@@ -9003,6 +9149,12 @@
         border-color: var(--accent);
         color: var(--accent);
       }
+      /* ---------- 深色模式：启动入口（加载代码页）卡片线条 / 标题栏线条 / 按钮边框统一换成更浅的淡蓝 ---------- */
+      html.dark .cboot__card,
+      html.dark .cboot__bar,
+      html.dark .cboot__btn {
+        --border-color: rgba(178, 210, 255, 0.5);
+      }
 
       /* ---------- 弹窗按钮（保持原样：实心扁平） ---------- */
       .xc-foot .modal-btn,
@@ -9407,7 +9559,430 @@
           if (mode === "hide") el.classList.add("hidden");
         } catch (e) {}
       })();
-    </script></head>
+    </script>
+
+    <style>
+      /* ==================================================================
+         关于我 · 卡片排版（.xa- 前缀 + #about 作用域）
+         标题直接用站点 .section-title（和「作品展示」完全一致）
+         ================================================================== */
+      #about .xa-stage { position: relative; }
+
+      /* ---------- 卡片 ---------- */
+      #about .xa-panels { display: grid; grid-template-columns: 1.26fr 1fr; gap: 16px; }
+      #about .xa-panel {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 20px 22px;
+        transition: translate 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      }
+      #about .xa-panel:hover {
+        translate: 0 -6px;
+        border-color: rgba(var(--accent-rgb), 0.5);
+        box-shadow: 0 8px 24px rgba(137, 194, 255, 0.18);
+      }
+      html.dark #about .xa-panel { border-color: rgba(178, 210, 255, 0.22); }
+      html.dark #about .xa-panel:hover { box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4); }
+      #about .xa-p1 { grid-row: span 2; display: flex; flex-direction: column; cursor: pointer; }
+      #about .xa-p4 { grid-column: 1 / -1; }
+      #about a.xa-panel { display: block; text-decoration: none; color: inherit; }
+
+      /* ---------- 我是谁（重做） ---------- */
+      #about .xa-profile { display: flex; align-items: center; gap: 16px; }
+      #about .xa-profile img {
+        width: 86px;
+        height: 86px;
+        border-radius: 50%;
+        object-fit: cover;
+        display: block;
+        border: 2px solid rgba(var(--accent-rgb), 0.55);
+      }
+      #about .xa-name { font-size: 21px; font-weight: 600; color: var(--text-color); }
+      #about .xa-role { margin-top: 5px; font-size: 13px; font-weight: 500; color: var(--accent-dark); }
+      #about .xa-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 9px;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        color: var(--accent-dark);
+        background: rgba(var(--accent-rgb), 0.13);
+        border: 1px solid var(--border-color);
+      }
+      #about .xa-status i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #34c759;
+        box-shadow: 0 0 0 3px rgba(52, 199, 89, 0.18);
+      }
+      /* 发丝分隔线 */
+      #about .xa-hr { border: 0; border-top: 1px solid var(--border-color); margin: 18px 0 0; }
+      /* 座右铭：居中 + 上方一个蓝色大引号 */
+      #about .xa-quote {
+        position: relative;
+        margin: 22px 0 0;
+        padding-top: 16px;
+        text-align: center;
+        font-size: 14.5px;
+        line-height: 1.85;
+        color: var(--text-color);
+        opacity: 0.9;
+      }
+      #about .xa-quote::before {
+        content: "\201C";
+        position: absolute;
+        left: 50%;
+        top: -8px;
+        transform: translateX(-50%);
+        font-size: 30px;
+        line-height: 1;
+        color: var(--accent);
+        opacity: 0.75;
+      }
+      #about .xa-prose { margin-top: 14px; font-size: 14.5px; line-height: 1.95; opacity: 0.82; }
+      /* 资料：一行三格，格与格之间竖线分隔 */
+      #about .xa-facts { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 16px; }
+      #about .xa-fact { position: relative; padding: 2px 12px; text-align: center; }
+      #about .xa-fact + .xa-fact::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 4px;
+        bottom: 4px;
+        width: 1px;
+        background: var(--border-color);
+      }
+      #about .xa-fact i { font-size: 14px; color: var(--accent-dark); }
+      #about .xa-fact em { display: block; margin-top: 7px; font-style: normal; font-size: 11px; opacity: 0.5; }
+      #about .xa-fact b { display: block; margin-top: 3px; font-size: 13px; font-weight: 600; }
+      #about .xa-more {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: auto;
+        padding-top: 16px;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--accent-dark);
+      }
+      #about .xa-more i { transition: transform 0.22s ease; }
+      #about .xa-p1:hover .xa-more i { transform: translateX(4px); }
+
+      /* ---------- 个人简历（重做：顶部渐变封面 + 整宽主按钮） ---------- */
+      /* 简历卡：标题 + 说明 + 一条虚线 + 蓝色实心胶囊按钮 */
+      #about .xa-rtitle { font-size: 19px; font-weight: 700; color: var(--text-color); }
+      #about .xa-desc { margin-top: 9px; font-size: 12.5px; line-height: 1.85; opacity: 0.6; }
+      #about .xa-cut {
+        display: block;
+        margin-top: 18px;
+        border-top: 1px dashed rgba(var(--accent-rgb), 0.8);
+      }
+      #about .xa-rbtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        margin-top: 16px;
+        padding: 12px 14px;
+        border-radius: 999px;
+        background: var(--accent-dark);
+        color: #fff;
+        font-size: 13.5px;
+        font-weight: 600;
+        box-shadow: 0 8px 18px rgba(var(--accent-rgb), 0.35);
+        transition: background-color 0.2s ease;
+      }
+      #about a.xa-panel:hover .xa-rbtn { background: #1f7fe8; }
+      #about .xa-rbtn i { transition: transform 0.2s ease; }
+      #about a.xa-panel:hover .xa-rbtn i { transform: translateX(3px); }
+
+      /* ---------- 小标题行 ---------- */
+      #about .xa-phead { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+      #about .xa-hint { font-size: 11.5px; opacity: 0.42; }
+
+      /* ---------- 标签 / 联系 ---------- */
+      #about .tag-list { margin: 14px 0 0; }
+      #about .contact-grid { margin-top: 14px; }
+      #about .contact-item { transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease; }
+      #about .contact-item:hover { border-color: var(--accent-dark); }
+      html.dark #about .contact-item { border-color: rgba(178, 210, 255, 0.24); }
+      html.dark #about .contact-item:hover { border-color: var(--accent); }
+
+      /* ================= 出场动画 =================
+         第一层：标题 + 四张卡整块顺序出场（淡入 + 上浮，错峰 0.12s）
+         第二层：卡片内部的小元素再一个个入场（漫画分镜那种逐个弹出的手感）
+         ============================================ */
+      #about .xa-stage.play .xa-panel {
+        animation: xaRise 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+      }
+      @keyframes xaRise {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: none; }
+      }
+      #about .xa-stage.play .xa-p1 { animation-delay: 0.12s; }
+      #about .xa-stage.play .xa-p2 { animation-delay: 0.24s; }
+      #about .xa-stage.play .xa-p3 { animation-delay: 0.36s; }
+      #about .xa-stage.play .xa-p4 { animation-delay: 0.48s; }
+
+      /* 卡片内部：直接子元素依次淡入 + 轻微放大 */
+      #about .xa-stage.play .xa-panel > * {
+        animation: xaPopIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+      }
+      @keyframes xaPopIn {
+        from { opacity: 0; transform: translateY(10px) scale(0.96); }
+        to { opacity: 1; transform: none; }
+      }
+      /* 第 1 张卡：头像行 → 分隔线 → 座右铭 → 简介 → 分隔线 → 资料 → 了解更多 */
+      #about .xa-stage.play .xa-p1 > *:nth-child(1) { animation-delay: 0.18s; }
+      #about .xa-stage.play .xa-p1 > *:nth-child(2) { animation-delay: 0.23s; }
+      #about .xa-stage.play .xa-p1 > *:nth-child(3) { animation-delay: 0.28s; }
+      #about .xa-stage.play .xa-p1 > *:nth-child(4) { animation-delay: 0.33s; }
+      #about .xa-stage.play .xa-p1 > *:nth-child(5) { animation-delay: 0.38s; }
+      #about .xa-stage.play .xa-p1 > *:nth-child(6) { animation-delay: 0.43s; }
+      #about .xa-stage.play .xa-p1 > *:nth-child(7) { animation-delay: 0.48s; }
+      #about .xa-stage.play .xa-p1 > *:nth-child(8) { animation-delay: 0.53s; }
+      #about .xa-stage.play .xa-p1 > *:nth-child(9) { animation-delay: 0.58s; }
+      /* 第 2 张卡：图标/封面 → 标题 → 说明 → 按钮 */
+      #about .xa-stage.play .xa-p2 > *:nth-child(1) { animation-delay: 0.3s; }
+      #about .xa-stage.play .xa-p2 > *:nth-child(2) { animation-delay: 0.35s; }
+      #about .xa-stage.play .xa-p2 > *:nth-child(3) { animation-delay: 0.4s; }
+      #about .xa-stage.play .xa-p2 > *:nth-child(4) { animation-delay: 0.45s; }
+      #about .xa-stage.play .xa-p2 > *:nth-child(5) { animation-delay: 0.5s; }
+      /* 第 3 张卡：标题行 → 每个标签依次弹出（带一点漫画感的旋转） */
+      #about .xa-stage.play .xa-p3 > *:nth-child(1) { animation-delay: 0.42s; }
+      #about .xa-stage.play .xa-p3 > *:nth-child(2) { animation-delay: 0.47s; }
+      #about .xa-stage.play .xa-p3 .tag-btn {
+        animation: xaTagPop 0.4s cubic-bezier(0.34, 1.4, 0.64, 1) backwards;
+      }
+      @keyframes xaTagPop {
+        from { opacity: 0; transform: scale(0.7) rotate(-6deg); }
+        to { opacity: 1; transform: none; }
+      }
+      #about .xa-stage.play .tag-btn:nth-child(1) { animation-delay: 0.5s; }
+      #about .xa-stage.play .tag-btn:nth-child(2) { animation-delay: 0.55s; }
+      #about .xa-stage.play .tag-btn:nth-child(3) { animation-delay: 0.6s; }
+      #about .xa-stage.play .tag-btn:nth-child(4) { animation-delay: 0.65s; }
+      #about .xa-stage.play .tag-btn:nth-child(5) { animation-delay: 0.7s; }
+      #about .xa-stage.play .tag-btn:nth-child(6) { animation-delay: 0.75s; }
+      #about .xa-stage.play .tag-btn:nth-child(n + 7) { animation-delay: 0.8s; }
+      /* 第 4 张卡：标题行 → 四格联系卡依次浮起 */
+      #about .xa-stage.play .xa-p4 > *:nth-child(1) { animation-delay: 0.54s; }
+      #about .xa-stage.play .xa-p4 > *:nth-child(2) { animation-delay: 0.59s; }
+      #about .xa-stage.play .contact-item {
+        animation: xaTileIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+      }
+      @keyframes xaTileIn {
+        from { opacity: 0; transform: translateY(12px) scale(0.97); }
+        to { opacity: 1; transform: none; }
+      }
+      #about .xa-stage.play .contact-item:nth-child(1) { animation-delay: 0.62s; }
+      #about .xa-stage.play .contact-item:nth-child(2) { animation-delay: 0.68s; }
+      #about .xa-stage.play .contact-item:nth-child(3) { animation-delay: 0.74s; }
+      #about .xa-stage.play .contact-item:nth-child(4) { animation-delay: 0.8s; }
+      #about .xa-stage.play .contact-item:nth-child(n + 5) { animation-delay: 0.86s; }
+
+      @media (prefers-reduced-motion: reduce) {
+        #about .xa-stage.play .xa-panel,
+        #about .xa-stage.play .xa-panel > *,
+        #about .xa-stage.play .tag-btn,
+        #about .xa-stage.play .contact-item { animation: none !important; }
+      }
+      @media screen and (max-width: 820px) {
+        #about .xa-panels { grid-template-columns: 1fr; }
+        #about .xa-p1 { grid-row: auto; }
+        #about .xa-facts { grid-template-columns: 1fr 1fr; row-gap: 14px; }
+        #about .xa-fact:nth-child(3)::before { display: none; }
+        #about .contact-grid { grid-template-columns: 1fr; }
+      }
+      /* ---------- 我是谁 · 拍立得方案 ----------
+         外壳不动：仍是 .xa-panel / .xa-p1（526×435、圆角 12、内边距 20/22）。
+         里面换成一张拍立得相纸（黄色胶带 + 手写体说明）+ 右侧信息。
+         三个小色点取自站点爪印 LOGO 的品牌色。 */
+      #about .xp-wrap {
+        flex: 1 1 auto;
+        display: grid;
+        grid-template-columns: 224px 1fr;
+        gap: 20px;
+        align-items: center;
+      }
+      #about .xp-shot { position: relative; padding-top: 9px; }
+      #about .xp-frame {
+        background: #fff;
+        padding: 12px 12px 48px;
+        border-radius: 4px;
+        transform: rotate(-3deg);
+        box-shadow: 0 12px 26px rgba(16, 24, 40, 0.2);
+      }
+      html.dark #about .xp-frame { box-shadow: 0 12px 26px rgba(0, 0, 0, 0.5); }
+      #about .xp-frame img { width: 100%; height: 267px; object-fit: cover; border-radius: 2px; }
+      #about .xp-cap {
+        position: absolute;
+        left: 18px;
+        bottom: 13px;
+        font-size: 12.5px;
+        color: #5b6472;
+        font-family: "Bradley Hand", "Segoe Script", "Noto Serif SC", cursive, serif;
+        transform: rotate(-3deg);
+      }
+      #about .xp-tape {
+        position: absolute;
+        left: 50%;
+        top: 1px;
+        width: 78px;
+        height: 23px;
+        transform: translateX(-50%) rotate(-4deg);
+        background: rgba(253, 221, 77, 0.62);
+        border: 1px solid rgba(255, 160, 69, 0.5);
+        border-radius: 2px;
+      }
+      #about .xp-right { min-width: 0; }
+      #about .xp-name { font-size: 26px; font-weight: 700; letter-spacing: 0.02em; color: var(--text-color); }
+      #about .xp-role { margin-top: 7px; font-size: 13px; color: var(--accent-dark); }
+      #about .xp-line { margin-top: 13px; font-size: 13px; line-height: 1.95; opacity: 0.75; }
+      #about .xp-meta { margin-top: 15px; display: flex; flex-direction: column; gap: 9px; font-size: 12.5px; }
+      #about .xp-meta > span { display: flex; align-items: center; gap: 9px; opacity: 0.78; }
+      #about .xp-dot { width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; }
+      #about .xp-dot-blue { background: #58b4e9; }
+      #about .xp-dot-green { background: #9de175; }
+      #about .xp-dot-orange { background: #ffa045; }
+      #about .xp-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 14px;
+        padding-top: 13px;
+        border-top: 1px solid var(--border-color);
+      }
+      #about .xp-note { font-size: 11.5px; opacity: 0.5; }
+      #about .xp-ul {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding-bottom: 2px;
+        font-size: 12.5px;
+        font-weight: 600;
+        color: var(--accent-dark);
+        border-bottom: 1px solid rgba(var(--accent-rgb), 0.75);
+      }
+      #about .xp-ul i { font-size: 10px; transition: transform 0.22s ease; }
+      #about .xa-p1:hover .xp-ul i { transform: translateX(4px); }
+      /* 窄屏：相纸缩小、仍然左右排；手机再上下排 */
+      @media screen and (max-width: 820px) {
+        #about .xp-wrap { grid-template-columns: 178px 1fr; gap: 18px; }
+        #about .xp-frame { padding: 10px 10px 40px; }
+        #about .xp-frame img { height: 200px; }
+        #about .xp-cap { left: 14px; bottom: 11px; font-size: 11.5px; }
+        #about .xp-tape { width: 62px; height: 19px; }
+        #about .xp-name { font-size: 22px; }
+        #about .xp-line { font-size: 12.5px; }
+      }
+      @media screen and (max-width: 560px) {
+        #about .xp-wrap { grid-template-columns: 1fr; gap: 16px; }
+        #about .xp-shot { max-width: 246px; margin: 0 auto; }
+        #about .xp-foot { flex-wrap: wrap; gap: 8px; }
+      }
+      /* ---------- 我是谁 · 品牌卡方案（v7 第 10 套） ----------
+         外壳不动：仍是 .xa-panel / .xa-p1。里面以站点爪印 LOGO 为主角，
+         配 XIAOWEI 字样、姓名中英、五个品牌色点与一行 slogan。
+         拍立得那套的 .xp-* 样式仍留在本文件中（当前未被引用），要换回去只需换回那段 DOM。 */
+            /* 顶部装饰：点阵底 + 品牌五色底线，中间放一句座右铭（渐变字 + 缓慢流光） */
+      /* 顶部：漫画对话气泡（自适应宽度贴合文字、轻微手绘倾斜、尖角指向下方照片） */
+      #about .bc-top {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: stretch;
+        min-height: 0;
+        padding: 6px 0;
+        margin: 2px 0 24px;
+        background: none;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        transform: none;
+      }
+      html.dark #about .bc-top {
+        border-color: #e8eefc;
+        box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.5);
+      }
+      #about .bc-top::before { content: none; }
+      html.dark #about .bc-top { background: none; border: 0; box-shadow: none; }
+      html.dark #about .bc-top::before { border-color: #e8eefc; }
+            #about .bc-top-t { font-size: 11px; font-weight: 700; letter-spacing: 0.3em; white-space: nowrap; color: var(--accent-dark); opacity: 0.95; text-transform: uppercase; }
+      #about .bc-wrap {
+        flex: 1 1 auto;
+        display: grid;
+        grid-template-columns: minmax(180px, 224px) 1fr;
+        gap: 22px;
+        align-items: center;
+      }
+      #about .bc-line { margin-top: 13px; font-size: 12.5px; line-height: 1.9; opacity: 0.72; }
+      #about .bc-dots { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; }
+      #about .bc-dots i { width: 9px; height: 9px; border-radius: 50%; display: block; }
+      #about .bc-dots i:nth-child(1) { background: #fd5b5b; }
+      #about .bc-dots i:nth-child(2) { background: #ffa045; }
+      #about .bc-dots i:nth-child(3) { background: #fddd4d; }
+      #about .bc-dots i:nth-child(4) { background: #9de175; }
+      #about .bc-dots i:nth-child(5) { background: #58b4e9; }
+      #about .bc-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-top: 14px;
+      }
+      #about .bc-logo {
+        width: 100%;
+        max-width: 224px;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        margin: 0 auto;
+        border-radius: 18px;
+        box-shadow: 0 10px 22px rgba(16, 24, 40, 0.18);
+      }
+      #about .bc-right { min-width: 0; }
+      #about .bc-kicker { font-size: 10px; letter-spacing: 0.3em; opacity: 0.45; }
+      #about .bc-name { margin-top: 10px; font-size: 28px; font-weight: 700; letter-spacing: 0.04em; color: var(--text-color); }
+      
+      #about .bc-en { margin-top: 6px; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #2b7fb8; }
+      #about .bc-note { font-size: 11.5px; opacity: 0.5; }
+      #about .bc-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--accent-dark);
+        font-size: 13px;
+        font-weight: 700;
+      }
+      #about .bc-btn { transition: color 0.2s ease; }
+      #about .bc-btn i { transition: transform 0.22s ease; }
+      #about .xa-p1:hover .bc-btn { color: #0f6fd8; }
+      html.dark #about .xa-p1:hover .bc-btn { color: #9fd4f5; }
+      #about .xa-p1:hover .bc-btn i { transform: translateX(4px); }
+      /* 卡片高度锁定为改版前的 435px，内容垂直居中，不加任何额外文字 */
+      #about .xa-p1 { min-height: 435px; }
+      @media screen and (max-width: 820px) {
+        #about .bc-wrap { grid-template-columns: minmax(120px, 150px) 1fr; gap: 16px; }
+        #about .bc-logo { max-width: 150px; }
+        #about .bc-name { font-size: 23px; }
+        #about .bc-top { padding: 8px 16px; margin-bottom: 26px; }
+        #about .xa-p1 { min-height: 0; }
+      }
+      @media screen and (max-width: 560px) {
+        #about .bc-wrap { grid-template-columns: 1fr; gap: 14px; }
+        #about .bc-logo { max-width: 176px; }
+        #about .bc-foot { flex-wrap: wrap; gap: 8px; }
+      }
+    </style></head>
     <div class="page-loader" id="pageLoader" aria-hidden="true">
       <div class="page-loader__stage">
         <div class="page-loader__spinner"></div>
@@ -9505,6 +10080,15 @@
           return String(t || "").trim() || "慢慢逛，喜欢就多待一会儿";
         }
 
+        /* ---------- 加载页文案的「标题」：同一条文案的标题，打在文案上面一行 ---------- */
+        function bootTitle() {
+          var t = "";
+          try {
+            if (typeof window._getBootTitle === "function") t = window._getBootTitle();
+          } catch (e) {}
+          return String(t || "").trim();
+        }
+
         /* ---------- 启动时打出来的文字（真实时间 + 时段问候 + 后台自定义文案） ---------- */
         function sourceLines() {
           var d = new Date();
@@ -9514,18 +10098,22 @@
           var h = d.getHours();
           var word = h < 6 ? "凌晨好" : h < 11 ? "早上好" : h < 13 ? "中午好"
             : h < 18 ? "下午好" : "晚上好";
-          return [
+          var lines = [
             { pre: "const now = ", str: now, post: ";" },
-            { pre: "const hi = ", str: word + "，欢迎来到我的小站", post: ";", wel: 1 },
-            { pre: "const wish = ", str: bootWish(), post: ";", wel: 1 },
-            { t: "greet(hi, wish);" },
-            { t: "console.log(now);" },
-            { t: 'const theme = "auto";' },
-            { t: "setTheme(theme);" },
-            { t: 'setLang("zh-CN");' },
-            { pre: "log(", str: "后台内容加载完成", post: ");", wel: 1 },
-            { pre: "welcome(", str: "欢迎访问", post: ");", wel: 1 }
+            { pre: "const hi = ", str: word + "，欢迎来到我的小站", post: ";", wel: 1 }
           ];
+          /* 标题行：取后台「加载页文案 → 标题」，打在文案上面那一行；没写标题就不打这一行 */
+          var title = bootTitle();
+          if (title) lines.push({ t: "// " + title, tit: 1 });
+          lines.push({ pre: "const wish = ", str: bootWish(), post: ";", wel: 1 });
+          lines.push({ t: "greet(hi, wish);" });
+          lines.push({ t: "console.log(now);" });
+          lines.push({ t: 'const theme = "auto";' });
+          lines.push({ t: "setTheme(theme);" });
+          lines.push({ t: 'setLang("zh-CN");' });
+          lines.push({ pre: "log(", str: "后台内容加载完成", post: ");", wel: 1 });
+          lines.push({ pre: "welcome(", str: "欢迎访问", post: ");", wel: 1 });
+          return lines;
         }
 
         /* 一行要打出来的纯文本 */
@@ -9536,7 +10124,11 @@
 
         /* 欢迎语用高亮字符串样式，其余走语法高亮 */
         function lineHTML(line) {
-          if (line.t != null) return highlight(line.t);
+          if (line.t != null) {
+            /* 标题行：走标题色，不当普通注释灰 */
+            if (line.tit) return '<span class="tk-t">' + esc(line.t) + "</span>";
+            return highlight(line.t);
+          }
           var cls = line.wel ? "tk-w" : "tk-s";
           return hlCode(line.pre) + '<span class="' + cls + '">"' + esc(line.str) + '"</span>' +
             hlCode(line.post);
@@ -9880,72 +10472,96 @@
           </div>
         </section>
 
-        <section id="about" class="page" style="">
-          <h2 class="section-title float-in" data-i18n="section_about" style="">关于我</h2>
-          <div class="timeline-item float-in" style="cursor: pointer;">
-            <h3 data-i18n="about_who_title">我是谁</h3>
-            <p data-i18n="about_who_text">大家好，我是小威，热爱数码科技类内容，希望我的创作内容你能喜欢。</p>
-          </div>
+     <section id="about" class="page" style="">
+          <div class="xa-stage" id="xaAbout">
+            <h2 class="section-title float-in" data-i18n="section_about">关于我</h2>
 
-          <div class="timeline-item float-in" data-resume="1" style="cursor: pointer;">
-            <h3>个人简历</h3>
-            <p>网页版的个人简历</p>
-          </div>
+            <div class="xa-panels">
+              <section class="xa-panel xa-p1" data-whoami="1">
+                <div class="bc-top">
+                  <span class="bc-top-t">XIAOWEI &nbsp;·&nbsp; 2006 — NOW</span>
+                </div>
+                <div class="bc-wrap">
+                  <img class="bc-logo" src="images/31.jpg" alt="照片" loading="lazy" decoding="async" draggable="false">
+                  <div class="bc-right">
+                    <div class="bc-kicker">XIAOWEI</div>
+                    <div class="bc-name" data-i18n="wh_name">罗威旺</div>
+                    <div class="bc-en">LOU WEIWANG</div>
+                    <p class="bc-line" data-i18n="bc_line">这是这个站的标志，也是我给自己起的名字。</p>
+                    <span class="bc-dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+                  </div>
+                </div>
 
-          <h3 class="section-title float-in" style="font-size: 22px; margin-top: 40px;" data-i18n="about_timeline_title">成长经历</h3><div class="timeline-item float-in" data-synced="1" data-timeline-detail="1" data-timeline-title="2006 - 2019 | 童年到初中" style="cursor: pointer;"><h4>2006 - 2019 | 童年到初中</h4><p>小时候的童年</p></div><div class="timeline-item float-in" data-synced="1" data-timeline-detail="1" data-timeline-title="2019 - 2021 | 特殊初中时光" style="cursor: pointer;"><h4>2019 - 2021 | 特殊初中时光</h4><p>疫情时期，难忘的初中回忆。</p></div><div class="timeline-item float-in" data-synced="1" data-timeline-detail="1" data-timeline-title="更多内容持续更新中……" style="cursor: pointer;"><h4>更多内容持续更新中……</h4><p>敬请期待！</p></div>
+                <div class="bc-foot">
+                  <span class="bc-note" data-i18n="bc_note">小威 · 2006 至今</span>
+                  <span class="bc-btn"><span data-i18n="bc_cta">进站逛逛</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+                </div>
+              </section>
 
-          <div class="tags-float float-in" style="">
-            <h2 class="section-title" style="font-size: 22px" data-i18n="about_tags_title">个人标签</h2>
-            <div class="outer-card">
-              <div class="tag-list"><span class="tag-btn" data-tag="网页制作"><span class="tag-dot"></span>网页制作</span><span class="tag-btn" data-tag="摄影"><span class="tag-dot"></span>摄影</span><span class="tag-btn" data-tag="音乐"><span class="tag-dot"></span>音乐</span><span class="tag-btn" data-tag="游戏"><span class="tag-dot"></span>游戏</span><span class="tag-btn" data-tag="furry"><span class="tag-dot"></span>furry</span><span class="tag-btn" data-tag="赛车"><span class="tag-dot"></span>赛车</span></div>
-            </div>
-          </div>
+              <a class="xa-panel xa-p2" href="#" data-resume="1">
+                <div class="xa-rtitle">个人简历</div>
+                <div class="xa-desc" data-i18n="xa_resume_desc">从零开始学前端，专业、在学的东西都在这一页。</div>
+                <span class="xa-cut" aria-hidden="true"></span>
+                <span class="xa-rbtn"><span data-i18n="xa_open_resume">打开简历</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+              </a>
 
-          <h2 class="section-title float-in" style="font-size: 22px;" data-i18n="about_contact_title">联系我</h2>
-           <div class="contact-card float-in" style="">
-            <div class="contact-grid">
-              <div class="contact-item" contact-label="电子邮箱" contact-value="lowewa730657707@163.com">
-                <div class="contact-icon">
-                  <i class="fa-regular fa-envelope"></i>
+              <section class="xa-panel xa-p3">
+                <div class="xa-phead">
+                  <div class="xa-ttl" data-i18n="about_tags_title">个人标签</div>
+                  <span class="xa-hint" data-i18n="xa_tag_hint">点标签看这个标签下的内容</span>
                 </div>
-                <div class="contact-text">
-                  <h4 data-i18n="contact_email">电子邮箱</h4>
-                  <span>lowewa730657707@163.com</span>
-                </div>
-              </div>
-              <div class="contact-item" contact-label="Github" contact-value="lowewa730657707">
-                <div class="contact-icon">
-                  <i class="fa-brands fa-github"></i>
-                </div>
-                <div class="contact-text">
-                  <h4 data-i18n="contact_github">Github</h4>
-                  <span>lowewa730657707</span>
-                </div>
-              </div>
-              <div class="contact-item" contact-label="QQ" contact-value="730657707">
-                <div class="contact-icon">
-                  <i class="fa-brands fa-qq"></i>
-                </div>
-                <div class="contact-text">
-                  <h4 data-i18n="contact_qq">QQ</h4>
-                  <span>730657707</span>
-                </div>
-              </div>
-              <div class="contact-item" contact-label="微信" contact-value="lowewa79342">
-                <div class="contact-icon">
-                  <i class="fa-brands fa-weixin"></i>
-                </div>
-                <div class="contact-text">
-                  <h4 data-i18n="contact_wechat">微信</h4>
-                  <span>lowewa79342</span>
-                </div>
-              </div>
+                <div class="tag-list"><span class="tag-btn" data-tag="网页制作"><span class="tag-dot"></span>网页制作</span><span class="tag-btn" data-tag="摄影"><span class="tag-dot"></span>摄影</span><span class="tag-btn" data-tag="音乐"><span class="tag-dot"></span>音乐</span><span class="tag-btn" data-tag="游戏"><span class="tag-dot"></span>游戏</span><span class="tag-btn" data-tag="furry"><span class="tag-dot"></span>furry</span><span class="tag-btn" data-tag="赛车"><span class="tag-dot"></span>赛车</span></div>
+              </section>
 
+              <section class="xa-panel xa-p4">
+                <div class="xa-phead">
+                  <div class="xa-ttl" data-i18n="about_contact_title">联系我</div>
+                  <span class="xa-hint" data-i18n="xa_hint">点任意一格，复制或弹窗</span>
+                </div>
+                <div class="contact-grid">
+                  <div class="contact-item" contact-label="电子邮箱" contact-value="lowewa730657707@163.com">
+                    <div class="contact-icon">
+                      <i class="fa-regular fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                      <h4 data-i18n="contact_email">电子邮箱</h4>
+                      <span>lowewa730657707@163.com</span>
+                    </div>
+                  </div>
+                  <div class="contact-item" contact-label="Github" contact-value="lowewa730657707">
+                    <div class="contact-icon">
+                      <i class="fa-brands fa-github"></i>
+                    </div>
+                    <div class="contact-text">
+                      <h4 data-i18n="contact_github">Github</h4>
+                      <span>lowewa730657707</span>
+                    </div>
+                  </div>
+                  <div class="contact-item" contact-label="QQ" contact-value="730657707">
+                    <div class="contact-icon">
+                      <i class="fa-brands fa-qq"></i>
+                    </div>
+                    <div class="contact-text">
+                      <h4 data-i18n="contact_qq">QQ</h4>
+                      <span>730657707</span>
+                    </div>
+                  </div>
+                  <div class="contact-item" contact-label="微信" contact-value="lowewa79342">
+                    <div class="contact-icon">
+                      <i class="fa-brands fa-weixin"></i>
+                    </div>
+                    <div class="contact-text">
+                      <h4 data-i18n="contact_wechat">微信</h4>
+                      <span>lowewa79342</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
           </div>
         </section>
 
-        <section id="whoami" class="page" style="">
+           <section id="whoami" class="page" style="">
           <div class="wh-wrap content-protect">
 
             
@@ -10273,6 +10889,51 @@
           </div>
         </section>
 
+        <section id="photo-share-detail" class="page">
+          <div class="profile-page">
+            <div class="profile-card float-in" style="">
+              <h2 class="profile-name" style="margin-bottom: 6px; font-size: 25px;" data-i18n="photo_share_title">个人摄影分享</h2>
+              <p class="profile-subtitle" data-i18n="photo_share_subtitle">用镜头记录光影 · 个人摄影作品站</p>
+              <div class="profile-divider"></div>
+              <div class="profile-bio content-protect" data-i18n="photo_share_intro">一个完全属于自己的摄影作品网站：黑白为骨、彩色为神，把一路拍下的风景、人像和街头瞬间收进同一个相册。</div>
+              <p class="photo-lead" data-i18n="photo_share_lead">这是我为摄影单独做的一个小站，从整体视觉、作品管理到浏览体验都是自己一点点搭起来的。相册里的每一张照片都保留着拍摄的时间、地点和参数，点开就能看到当时按下快门的那一瞬间。</p>
+              <ul class="photo-points">
+                <li data-i18n="photo_share_point1">极简黑白视觉：中性灰阶打底，彩色只做点缀，让照片本身成为主角</li>
+                <li data-i18n="photo_share_point2">作品集与分类筛选：按风光、人像、街头、生活、静物快速浏览</li>
+                <li data-i18n="photo_share_point3">大图与拍摄信息：编号、地点、日期、器材参数一目了然</li>
+                <li data-i18n="photo_share_point4">点赞与评论：互动数据保存在本地浏览器，打开就能用</li>
+                <li data-i18n="photo_share_point5">自带管理后台：上传新作、调整分类与封面、一键导出完整 HTML</li>
+                <li data-i18n="photo_share_point6">深浅色主题：一键切换，白天夜晚看着都舒服</li>
+              </ul>
+              <div class="photo-shot-title"><i class="fa-solid fa-camera-retro" aria-hidden="true"></i><span data-i18n="photo_share_shots_title">站点预览截图</span></div>
+              <div class="photo-shot-grid">
+                <figure class="photo-shot content-protect">
+                  <img src="images/photography/seyin-01-home.png" alt="小威 · 摄影 首页" loading="lazy" decoding="async" data-img-protected="1" draggable="false">
+                  <figcaption data-i18n="photo_share_cap1">首页：光影之间，皆是故事</figcaption>
+                </figure>
+                <figure class="photo-shot content-protect">
+                  <img src="images/photography/seyin-02-feature.png" alt="精选作品板块" loading="lazy" decoding="async" data-img-protected="1" draggable="false">
+                  <figcaption data-i18n="photo_share_cap2">精选作品：每次快门都是与瞬间的约定</figcaption>
+                </figure>
+                <figure class="photo-shot content-protect">
+                  <img src="images/photography/seyin-03-works.png" alt="作品展示页" loading="lazy" decoding="async" data-img-protected="1" draggable="false">
+                  <figcaption data-i18n="photo_share_cap3">作品展示：按题材浏览全部作品集</figcaption>
+                </figure>
+                <figure class="photo-shot content-protect">
+                  <img src="images/photography/seyin-04-detail.png" alt="作品详情弹窗" loading="lazy" decoding="async" data-img-protected="1" draggable="false">
+                  <figcaption data-i18n="photo_share_cap4">作品详情：大图、参数、点赞与评论</figcaption>
+                </figure>
+              </div>
+              <div class="photo-link-row">
+                <a class="photo-link-btn" href="seyinwaye.html" target="_blank" rel="noopener" data-i18n="photo_share_btn">进入摄影作品站</a>
+                <span class="photo-link-path">seyinwaye.html</span>
+              </div>
+              <a href="#" class="profile-back-btn" data-page="portfolio" style="margin-top: 22px;">
+                <i class="fa-solid fa-arrow-left"></i><font data-i18n="back_portfolio">返回作品展示</font></a>
+            </div>
+          </div>
+        </section>
+
         <section id="portfolio" class="page" style="">
           <h2 class="section-title float-in" data-i18n="section_portfolio" style="">作品展示</h2>
           <div class="portfolio-grid">
@@ -10281,10 +10942,10 @@
   <div class="work-info">
   <div class="work-name"><a href="javascript:void(0)" class="dev-link">个人账号分享</a></div>
   <div class="work-tag">账号</div>
-  </div></div><div class="work-card float-in" data-synced="1" data-portfolio-name="个人摄影分享" data-portfolio-tag="开发中" style=""><img class="work-img" src="images/020.jpeg" alt="个人摄影分享" data-img-protected="1" draggable="false">
+  </div></div><div class="work-card float-in" data-synced="1" data-portfolio-name="个人摄影分享" data-portfolio-tag="摄影站" style=""><img class="work-img" src="images/020.jpeg" alt="个人摄影分享" data-img-protected="1" draggable="false">
   <div class="work-info">
-  <div class="work-name"><a href="javascript:void(0)" class="dev-link">个人摄影分享</a></div>
-  <div class="work-tag">开发中</div>
+  <div class="work-name"><a href="seyinwaye.html" class="dev-link">个人摄影分享</a></div>
+  <div class="work-tag">摄影站</div>
   </div></div><div class="work-card float-in" data-synced="1" data-portfolio-name="功能正在开发中" data-portfolio-tag="开发中" style=""><img class="work-img" src="images/040.png" alt="功能正在开发中" data-img-protected="1" draggable="false">
   <div class="work-info">
   <div class="work-name"><a href="javascript:void(0)" class="dev-link">功能正在开发中</a></div>
@@ -10520,7 +11181,7 @@
  </td></tr>
  <tr>
  <td>个人摄影分享</td>
- <td>开发中</td>
+ <td>摄影站</td>
  <td>images/020.jpeg</td>
  <td>
  <button class="admin-btn-sm move" onclick="window._adminMovePortfolioUp(1)">↑</button>
@@ -12956,7 +13617,8 @@ document.addEventListener("DOMContentLoaded", function () {
           const sec = document.querySelector(
             scrollTo === "tags"
               ? '[data-i18n="about_tags_title"]'
-              : '[data-i18n="about_timeline_title"]',
+              /* 「成长经历」已从关于我页下线：找不到锚点就退回页面顶部，避免点了没反应 */
+              : '[data-i18n="about_timeline_title"], #about',
           );
           if (!sec) return;
           requestAnimationFrame(() => {
@@ -13550,8 +14212,8 @@ document.addEventListener("DOMContentLoaded", function () {
              return;
            }
 
-           const whoamiCard = e.target.closest("#about > .timeline-item:first-of-type");
-           if (whoamiCard && !whoamiCard.hasAttribute("data-timeline-detail")) {
+           const whoamiCard = e.target.closest("#about [data-whoami]");
+           if (whoamiCard) {
              pages.forEach((p) => p.classList.remove("active"));
              document.getElementById("whoami").classList.add("active");
              showBreadcrumb([
@@ -13647,6 +14309,8 @@ document.addEventListener("DOMContentLoaded", function () {
             const card = e.target.closest(".work-card");
             if (!card) return;
             const name = card.getAttribute("data-portfolio-name") || "";
+            /* 「个人摄影分享」标题本身就是外链，直接放行让浏览器打开摄影站 */
+            if (e.target.closest("a.dev-link[href]:not([href^='javascript:'])")) return;
             if (name === "个人账号分享") {
               pages.forEach((p) => p.classList.remove("active"));
               document.getElementById("video-share-detail").classList.add("active");
@@ -13654,6 +14318,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 { zh: "首页", en: "Home", page: "home" },
                 { zh: "作品展示", en: "Portfolio", page: "portfolio" },
                 { zh: "个人账号分享", en: "Accounts" }
+              ]);
+              window.scrollTo({ top: 0 });
+              scheduleFrontTranslate();
+            } else if (name === "个人摄影分享") {
+              pages.forEach((p) => p.classList.remove("active"));
+              window.__floatInOffUntil = Date.now() + 1200;
+              if (window.__setPageEnterMode) window.__setPageEnterMode("together");
+              document.getElementById("photo-share-detail").classList.add("active");
+              showBreadcrumb([
+                { zh: "首页", en: "Home", page: "home" },
+                { zh: "作品展示", en: "Portfolio", page: "portfolio" },
+                { zh: "个人摄影分享", en: "Photography" }
               ]);
               window.scrollTo({ top: 0 });
               scheduleFrontTranslate();
@@ -14003,6 +14679,13 @@ document.addEventListener("DOMContentLoaded", function () {
             card_about_title: "关于我",
             card_about_desc: "个人简介、技能与经历。",
             card_about_link: "了解更多",
+            xp_cap: "小威 · 2026",
+            xp_line: "照片里是我家柴犬，现实里我是个还在打基础的学生。两者都挺好。",
+            xp_note: "站点头像就是这张",
+            xp_cta: "看完整介绍",
+            bc_line: "这是这个站的标志，也是我给自己起的名字。",
+            bc_note: "小威 · 2006 至今",
+            bc_cta: "进站逛逛",
             section_about: "关于我",
             section_portfolio: "作品展示",
             section_blog: "日常分享",
@@ -14012,6 +14695,20 @@ document.addEventListener("DOMContentLoaded", function () {
             about_timeline_title: "成长经历",
             about_tags_title: "个人标签",
             about_contact_title: "联系我",
+            xa_ep: "第 1 话",
+            xa_tbc: "未完待续",
+            xa_open_resume: "打开简历",
+            xa_hint: "点任意一格，复制或弹窗",
+            xa_resume_desc: "从零开始学前端，专业、在学的东西都在这一页。",
+            xa_rsv_type_l: "类型",
+            xa_rsv_type_v: "网页版简历",
+            xa_rsv_len_l: "篇幅",
+            xa_rsv_len_v: "一页看完",
+            xa_rsv_ct_l: "内容",
+            xa_rsv_ct_v: "专业 · 在读院校 · 在学的东西",
+            xa_rsv_up_l: "更新",
+            xa_rsv_up_v: "随时",
+            xa_tag_hint: "点标签看这个标签下的内容",
 
              
             wh_name: "罗威旺",
@@ -14161,6 +14858,22 @@ document.addEventListener("DOMContentLoaded", function () {
             video_share_title: "个人账号分享",
             video_share_subtitle: "各平台账号汇总",
             video_share_intro: "在这里可以找到我在各个平台的账号，欢迎关注支持！",
+            photo_share_title: "个人摄影分享",
+            photo_share_subtitle: "用镜头记录光影 · 个人摄影作品站",
+            photo_share_intro: "一个完全属于自己的摄影作品网站：黑白为骨、彩色为神，把一路拍下的风景、人像和街头瞬间收进同一个相册。",
+            photo_share_lead: "这是我为摄影单独做的一个小站，从整体视觉、作品管理到浏览体验都是自己一点点搭起来的。相册里的每一张照片都保留着拍摄的时间、地点和参数，点开就能看到当时按下快门的那一瞬间。",
+            photo_share_point1: "极简黑白视觉：中性灰阶打底，彩色只做点缀，让照片本身成为主角",
+            photo_share_point2: "作品集与分类筛选：按风光、人像、街头、生活、静物快速浏览",
+            photo_share_point3: "大图与拍摄信息：编号、地点、日期、器材参数一目了然",
+            photo_share_point4: "点赞与评论：互动数据保存在本地浏览器，打开就能用",
+            photo_share_point5: "自带管理后台：上传新作、调整分类与封面、一键导出完整 HTML",
+            photo_share_point6: "深浅色主题：一键切换，白天夜晚看着都舒服",
+            photo_share_shots_title: "站点预览截图",
+            photo_share_cap1: "首页：光影之间，皆是故事",
+            photo_share_cap2: "精选作品：每次快门都是与瞬间的约定",
+            photo_share_cap3: "作品展示：按题材浏览全部作品集",
+            photo_share_cap4: "作品详情：大图、参数、点赞与评论",
+            photo_share_btn: "进入摄影作品站",
             pf_bilibili: "哔哩哔哩",
             pf_douyin: "抖音",
             pf_weibo: "微博",
@@ -14255,6 +14968,13 @@ document.addEventListener("DOMContentLoaded", function () {
             card_about_title: "About Me",
             card_about_desc: "Profile, skills, and experience.",
             card_about_link: "Learn More",
+            xp_cap: "Xiao Wei · 2026",
+            xp_line: "The photo is my Shiba; in real life I'm a student still building the basics. Both are fine.",
+            xp_note: "Same photo as the site avatar",
+            xp_cta: "Full profile",
+            bc_line: "This is the site's mark, and the name I gave myself.",
+            bc_note: "Xiao Wei · since 2006",
+            bc_cta: "Take a look around",
             section_about: "About Me",
             section_portfolio: "Portfolio",
             section_blog: "Blog",
@@ -14264,6 +14984,20 @@ document.addEventListener("DOMContentLoaded", function () {
             about_timeline_title: "My Journey",
             about_tags_title: "Tags",
             about_contact_title: "Contact Me",
+            xa_ep: "Chapter 1",
+            xa_tbc: "To be continued",
+            xa_open_resume: "Open Resume",
+            xa_hint: "Tap any card to copy or open",
+            xa_resume_desc: "Learning front-end from scratch — major and coursework all on this page.",
+            xa_rsv_type_l: "Type",
+            xa_rsv_type_v: "Web resume",
+            xa_rsv_len_l: "Length",
+            xa_rsv_len_v: "One page",
+            xa_rsv_ct_l: "Covers",
+            xa_rsv_ct_v: "Major · School · What I'm learning",
+            xa_rsv_up_l: "Updated",
+            xa_rsv_up_v: "Anytime",
+            xa_tag_hint: "Tap a tag to see its content",
 
              
             wh_name: "Luo Weiwang",
@@ -14415,6 +15149,22 @@ document.addEventListener("DOMContentLoaded", function () {
             video_share_title: "Personal Account Sharing",
             video_share_subtitle: "All Platform Accounts",
             video_share_intro: "Find my accounts on various platforms. Follow for more!",
+            photo_share_title: "Personal Photography",
+            photo_share_subtitle: "Collecting light and shadow with my lens",
+            photo_share_intro: "A photography site that is entirely my own: neutral greys as the bones, colour as the spirit, gathering landscapes, portraits and street moments into one album.",
+            photo_share_lead: "I built this small site for my photography from scratch — the visuals, the work management and the browsing experience. Every photo keeps its date, place and camera settings, so opening one brings back the moment the shutter fell.",
+            photo_share_point1: "Minimal black-and-white visuals: neutral greys as the base, colour only as an accent",
+            photo_share_point2: "Collections with category filters: landscape, portrait, street, life, still life",
+            photo_share_point3: "Large view with shooting info: number, place, date and camera settings",
+            photo_share_point4: "Likes and comments: interactions are kept in the local browser",
+            photo_share_point5: "Built-in admin console: add works, edit categories, export the full HTML",
+            photo_share_point6: "Light and dark themes: one click to switch, comfortable day and night",
+            photo_share_shots_title: "Site preview screenshots",
+            photo_share_cap1: "Home: between light and shadow, every frame a story",
+            photo_share_cap2: "Featured works: every shutter is a promise to the moment",
+            photo_share_cap3: "Works: browse the whole collection by subject",
+            photo_share_cap4: "Work detail: large view, camera info, likes and comments",
+            photo_share_btn: "Enter the photography site",
             pf_bilibili: "Bilibili",
             pf_douyin: "Douyin",
             pf_weibo: "Weibo",
@@ -14506,6 +15256,7 @@ document.addEventListener("DOMContentLoaded", function () {
           "个人摄影分享": "Personal Photography Sharing",
           "功能正在开发中": "Feature In Development",
           "开发中": "In Development",
+          "摄影站": "Photography",
           "账号": "Account",
 
           "我是谁": "Who Am I",
@@ -16079,6 +16830,10 @@ document.addEventListener("DOMContentLoaded", function () {
           }
           window._getBootText = function () {
             return bootTextEffective().text || BOOT_TEXT_DEFAULT;
+          };
+          /* 加载页要显示的那条文案的「标题」（后台：加载页文案 → 标题） */
+          window._getBootTitle = function () {
+            return String(bootTextEffective().title || "").trim();
           };
 
           var bootTextSearchEl = document.getElementById("bootTextSearch");
@@ -17877,6 +18632,9 @@ list.forEach((item) => {
               const en = currentLang === "en";
               const name = en ? translateText(item.name) : item.name;
               const tag = en ? translateText(item.tag) : item.tag;
+              /* 部分作品卡片本身就是外链：标题直接指向对应站点，点击卡片其余位置进详情页 */
+              const PORTFOLIO_LINKS = { "个人摄影分享": "seyinwaye.html" };
+              const nameHref = PORTFOLIO_LINKS[item.name] || "javascript:void(0)";
               const card = document.createElement("div");
               card.className = "work-card";
               markSyncedVisible(card);
@@ -17884,7 +18642,7 @@ list.forEach((item) => {
               card.setAttribute("data-portfolio-tag", item.tag);
               card.innerHTML = `<img class="work-img" src="${escapeHtml(item.img)}" alt="${escapeHtml(name)}">
   <div class="work-info">
-  <div class="work-name"><a href="javascript:void(0)" class="dev-link">${escapeHtml(name)}</a></div>
+  <div class="work-name"><a href="${escapeHtml(nameHref)}" class="dev-link">${escapeHtml(name)}</a></div>
   <div class="work-tag">${escapeHtml(tag)}</div>
   </div>`;
               grid.appendChild(card);
@@ -17975,6 +18733,7 @@ list.forEach((item) => {
 
            
           function refreshFrontendFromStore() {
+            try { normalizePortfolioTags(); } catch (e) {}
             try { syncBlogsToFrontend(); } catch (e) {}
             try { syncPortfoliosToFront(); } catch (e) {}
             try { syncChangelogToFront(); } catch (e) {}
@@ -17986,6 +18745,25 @@ list.forEach((item) => {
             }
             if (typeof window._refreshBootTextTable === "function") {
               try { window._refreshBootTextTable(); } catch (e) {}
+            }
+          }
+
+          /* 「个人摄影分享」已上线：把历史快照里残留的「开发中」统一纠正为「摄影站」，
+             并同步后台作品表，避免实时数据把旧标签再渲染回来 */
+          function normalizePortfolioTags() {
+            var arr = getPortfolios();
+            if (!arr.length) return;
+            var changed = false;
+            arr.forEach(function (item) {
+              if (item && item.name === "个人摄影分享" && item.tag !== "摄影站") {
+                item.tag = "摄影站";
+                changed = true;
+              }
+            });
+            if (!changed) return;
+            savePortfolios(arr);
+            if (typeof refreshPortfolioTable === "function") {
+              try { refreshPortfolioTable(); } catch (e) {}
             }
           }
           window.refreshFrontendFromStore = refreshFrontendFromStore;
@@ -24781,4 +25559,33 @@ list.forEach((item) => {
       })();
     </script>
 
-<div class="ed-toasts"></div><div class="ed-toasts"></div></body></html>
+<div class="ed-toasts"></div><div class="ed-toasts"></div>    <script>
+      /* 关于我 · 漫画分镜登场动画：进入这一页时播一次
+         （系统开启“减少动效”时不播，直接显示；没有黑屏遮罩） */
+      (function () {
+        var about = document.getElementById("about");
+        if (!about) return;
+        var stage = about.querySelector(".xa-stage");
+        if (!stage) return;
+        var reduce =
+          window.matchMedia &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        function play() {
+          if (reduce) return;
+          stage.classList.remove("play");
+          void stage.offsetWidth; /* 强制重排，动画可以重播 */
+          stage.classList.add("play");
+        }
+        var wasActive = about.classList.contains("active");
+        if (wasActive) setTimeout(play, 60);
+        try {
+          new MutationObserver(function () {
+            var now = about.classList.contains("active");
+            /* 只在“进入关于我这一页”时播一次，其它类名变化不重播 */
+            if (now && !wasActive) play();
+            wasActive = now;
+          }).observe(about, { attributes: true, attributeFilter: ["class"] });
+        } catch (e) {}
+      })();
+    </script>
+</body></html>
