@@ -524,6 +524,17 @@ html[data-theme="light"] .hm-pol:hover{box-shadow:0 30px 64px rgba(20,22,30,.26)
 .head-meta .lbl{font-family:var(--mono);font-size:10.5px;color:var(--fg-3);letter-spacing:.16em;margin-top:5px;text-transform:uppercase}
 .head-note{margin-top:14px;color:var(--fg-2);font-size:14px;max-width:58ch}
 
+/* ====================================================================
+   作品展示（重构版）
+   性能策略：
+   1) 网格只加载 640px 缩略图（单张 ~37KB，全站 ~1.7MB），大图只在详情页按需加载；
+   2) 瀑布流用纯 CSS columns，彻底移除滚动/缩放时的 JS 逐卡测算（布局抖动源）；
+   3) 卡片用 contain + content-visibility，屏幕外的卡片不参与渲染；
+   4) 进场动画改为“图片 onload 淡入”，不再对每张卡注册滚动监听。
+   ==================================================================== */
+.gallery-wrap{padding-bottom:clamp(52px,9vh,104px)}
+
+/* ---------- 吸顶工具条：桌面端保持原始样式 ---------- */
 .toolbar{
   position:sticky;top:var(--nav-h);z-index:60;padding-block:11px;margin-bottom:26px;
   background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:saturate(150%) blur(16px);
@@ -548,38 +559,149 @@ html[data-theme="light"] .hm-pol:hover{box-shadow:0 30px 64px rgba(20,22,30,.26)
 .count{font-family:var(--mono);font-size:11.5px;color:var(--fg-3)}
 .count b{color:var(--fg)}
 
-.gallery-wrap{padding-bottom:clamp(50px,9vh,100px)}
-.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:8px;gap:16px}
-@media(max-width:1240px){.gallery{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:860px){.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:520px){.gallery{gap:10px}}
-/* 封面默认只有干净的一张照片，悬停只出现标题 */
-.gcard{
-  position:relative;display:block;width:100%;padding:0;overflow:hidden;cursor:zoom-in;text-align:left;
-  border-radius:14px;background:var(--surface-2);border:1px solid var(--line-2);grid-row-end:span var(--span,40);
-  opacity:0;transform:translate3d(0,26px,0) scale(.99);
-  transition:opacity .8s var(--ease-out),transform .8s var(--ease-out);
+/* ---------- 仅移动端出现的控件：桌面端全部不显示 ---------- */
+.wbar-tools{display:none}
+.wfbtn{display:none}
+.wsheet{position:fixed;inset:0;z-index:210;display:none}
+.wsheet.open{display:block}
+.wsheet-bd{position:absolute;inset:0;background:rgba(0,0,0,.48);animation:wsFade .22s ease both}
+.wsheet-pan{
+  position:absolute;left:0;right:0;bottom:0;padding:16px var(--pad) calc(20px + env(safe-area-inset-bottom));
+  background:var(--surface);border-top:1px solid var(--line);border-radius:20px 20px 0 0;
+  box-shadow:0 -24px 60px -30px rgba(0,0,0,.65);animation:wsUp .28s var(--ease-out) both;
 }
-.gcard.in{opacity:1;transform:none}
-.gcard .ph{position:absolute;inset:0;display:block;overflow:hidden;background:var(--surface-2)}
-.gcard img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.1s var(--ease-out)}
-.gcard:hover img,.gcard:focus-visible img{transform:scale(1.06)}
-.gcard .ov{
-  position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;
-  opacity:0;transition:opacity .4s;background:linear-gradient(180deg,transparent 42%,var(--scrim));
+@keyframes wsFade{from{opacity:0}to{opacity:1}}
+@keyframes wsUp{from{transform:translateY(18px);opacity:.6}to{transform:none;opacity:1}}
+.wsheet-grab{width:38px;height:4px;border-radius:99px;background:var(--line);margin:0 auto 14px}
+.wsheet-grp+.wsheet-grp{margin-top:16px}
+.wsheet-grp h4{font-size:11.5px;font-weight:600;letter-spacing:.1em;color:var(--fg-3);text-transform:uppercase;margin:0 0 9px}
+.wsheet-ops{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.wsheet-ops>button{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;height:44px;padding:0 10px;
+  border:1px solid var(--line);border-radius:12px;background:var(--surface-2);color:var(--fg-2);
+  font-size:13.5px;white-space:nowrap;transition:color .18s,border-color .18s,background-color .18s;
 }
-.gcard:hover .ov,.gcard:focus-visible .ov{opacity:1}
-.gcard .ov-row{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;transform:translateY(10px);transition:transform .5s var(--ease-out)}
-.gcard:hover .ov-row,.gcard:focus-visible .ov-row{transform:none}
-.gcard .ov-txt{display:flex;flex-direction:column;gap:3px;min-width:0}
-.gcard .ov-no{font-family:var(--mono);font-size:10.5px;color:rgba(255,255,255,.72);letter-spacing:.1em}
-.gcard .ov-t{font-family:var(--serif);font-weight:500;font-size:clamp(16px,1.5vw,20px);color:#fff;line-height:1.28}
-.gcard .ov-ic{
-  flex:0 0 auto;width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
-  background:#111116;border:1px solid rgba(255,255,255,.18);color:#fff;
+.wsheet-ops>button svg{width:16px;height:16px;flex:0 0 auto}
+.wsheet-ops>button.on{
+  color:var(--fg);border-color:color-mix(in srgb,var(--fg) 32%,transparent);
+  background:color-mix(in srgb,var(--fg) 9%,transparent);
 }
-.gcard .ov-ic svg{width:13px;height:13px}
-.gallery-empty{grid-column:1/-1;text-align:center;color:var(--fg-3);font-family:var(--mono);padding:60px 0}
+.wsheet-reset{
+  width:100%;height:44px;margin-top:16px;border:1px solid var(--line);border-radius:12px;
+  background:none;color:var(--fg-3);font-size:13.5px;transition:color .18s,border-color .18s;
+}
+.wsheet-reset:hover{color:var(--fg);border-color:var(--fg-3)}
+
+/* ---------- 移动端：桌面工具条里的排序/版式按钮移入底部面板，标签单行横滑 ---------- */
+@media(max-width:760px){
+  .bar-2{flex-wrap:nowrap;gap:6px 10px;align-items:center}
+  .chips{
+    flex:1 1 100%;min-width:0;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
+    scrollbar-width:none;-ms-overflow-style:none;scroll-snap-type:x proximity;
+    margin-inline:calc(var(--pad) * -1);padding-inline:var(--pad) 18px;
+    -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);
+    mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent);
+  }
+  .chips::-webkit-scrollbar{display:none}
+  .chip{scroll-snap-align:start;padding:6px 12px;font-size:12.5px}
+  .chip i{font-size:10px}
+  .count{flex:1 1 100%;font-size:11px}
+  .wbar-tools{display:flex;flex:1 1 100%;align-items:center;flex-wrap:nowrap;gap:7px;margin-left:0}
+  #qClear{display:none}
+  #qClear:not([hidden]){
+    display:inline-flex;flex:0 0 auto;align-items:center;justify-content:center;
+    width:34px;height:34px;padding:0;border:1px solid var(--line);border-radius:999px;
+    background:var(--surface);color:var(--fg-2);font-size:16px;line-height:1;
+  }
+  .wfbtn{
+    display:inline-flex;flex:0 0 auto;align-items:center;justify-content:center;
+    width:34px;height:34px;padding:0;border:1px solid var(--line);border-radius:999px;
+    background:var(--surface);color:var(--fg-2);
+  }
+  .wsearch{
+    display:flex;flex:1 1 auto;min-width:0;align-items:center;gap:8px;
+    height:34px;padding:0 12px;border:1px solid var(--line);border-radius:999px;
+    background:var(--surface);color:var(--fg-3);
+  }
+  .wsearch svg{width:15px;height:15px;flex:0 0 auto}
+  .wsearch input{width:100%;min-width:0;background:none;border:0;outline:none;font-size:13px;color:var(--fg)}
+  .gallery-empty{padding:56px 0}
+}
+
+/* ---------- 画廊容器 ---------- */
+.gallery{display:block;min-height:40vh;transition:opacity .18s ease}
+.gallery.swap{opacity:.35}
+
+/* ---------- 网格模式（等比裁切，整页高度稳定） ---------- */
+.mode-grid .gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media(max-width:1180px){.mode-grid .gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}
+@media(max-width:600px){.mode-grid .gallery{grid-template-columns:1fr;gap:12px}}
+
+/* ---------- 瀑布流模式（CSS columns，零 JS 测算） ---------- */
+.mode-masonry .gallery{columns:3;column-gap:18px}
+@media(max-width:1180px){.mode-masonry .gallery{columns:2;column-gap:14px}}
+@media(max-width:600px){.mode-masonry .gallery{columns:1}}
+
+/* ---------- 作品卡片 ---------- */
+.pcard{
+  position:relative;display:block;margin:0;padding:0;width:100%;text-align:left;
+  border:1px solid var(--line-2);border-radius:12px;background:var(--surface-2);overflow:hidden;
+  cursor:zoom-in;contain:layout paint style;
+}
+.mode-masonry .pcard{break-inside:avoid;margin-bottom:14px;content-visibility:auto;contain-intrinsic-size:auto 380px}
+@media(max-width:480px){.mode-masonry .pcard{margin-bottom:10px}}
+.pcard-media{position:relative;display:block;overflow:hidden}
+.mode-grid .pcard-media{aspect-ratio:4/3}
+.pcard img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  opacity:0;transition:opacity .45s ease;
+}
+.pcard img.ld{opacity:1}
+.mode-masonry .pcard img{height:auto}
+.pcard::after{                    /* 悬停时的一层极淡网格 */
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,transparent 46%,rgba(0,0,0,.5));
+  opacity:0;transition:opacity .28s ease;
+}
+.pcard:hover::after,.pcard:focus-visible::after{opacity:1}
+.pcard-info{
+  position:absolute;inset:auto 0 0 0;z-index:2;padding:14px 15px;
+  display:flex;flex-direction:column;gap:2px;
+  opacity:0;transform:translateY(8px);
+  transition:opacity .28s ease,transform .34s var(--ease-out);
+}
+.pcard:hover .pcard-info,.pcard:focus-visible .pcard-info{opacity:1;transform:none}
+.pcard-no{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.7)}
+.pcard-title{font-family:var(--serif);font-weight:500;font-size:clamp(15px,1.35vw,19px);line-height:1.26;color:#fff}
+.pcard-meta{font-size:11.5px;color:rgba(255,255,255,.68);font-family:var(--mono)}
+.pcard-go{
+  position:absolute;top:11px;right:11px;z-index:2;width:28px;height:28px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:rgba(12,12,16,.72);border:1px solid rgba(255,255,255,.2);color:#fff;
+  opacity:0;transform:scale(.86);transition:opacity .26s ease,transform .3s var(--ease-out);
+}
+.pcard:hover .pcard-go,.pcard:focus-visible .pcard-go{opacity:1;transform:none}
+.pcard-go svg{width:12px;height:12px}
+.pcard-tag{
+  position:absolute;top:11px;left:11px;z-index:2;
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;color:rgba(255,255,255,.86);
+  background:rgba(12,12,16,.5);border:1px solid rgba(255,255,255,.14);
+  opacity:0;transition:opacity .26s ease;
+}
+.pcard:hover .pcard-tag,.pcard:focus-visible .pcard-tag{opacity:1}
+/* 触屏设备没有 hover：常驻显示标题层 */
+@media(hover:none){
+  .pcard::after{opacity:1}
+  .pcard-info{opacity:1;transform:none}
+  .pcard-tag{opacity:1}
+  .pcard-go{opacity:1;transform:none}
+}
+.gallery-empty{
+  grid-column:1/-1;column-span:all;text-align:center;color:var(--fg-3);
+  font-family:var(--mono);font-size:12.5px;padding:72px 0;
+}
+.gallery-empty b{display:block;font-family:var(--sans);font-size:16px;color:var(--fg-2);margin-bottom:6px;font-weight:500}
 
 /* ====================================================================
    加载等待
@@ -989,7 +1111,8 @@ textarea.ain{resize:vertical;line-height:1.6;font-family:inherit}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   html.js [data-anim]{opacity:1!important;transform:none!important}
   html.js [data-anim="mask"]>span{transform:none!important}
-  .gcard{opacity:1!important;transform:none!important}
+  .pcard img{opacity:1!important}
+  .pcard-info,.pcard-tag,.pcard-go,.pcard::after{opacity:1!important;transform:none!important}
   .reel-track{animation:none}
   html.is-home{scroll-snap-type:none}
 }
@@ -1072,7 +1195,7 @@ textarea.ain{resize:vertical;line-height:1.6;font-family:inherit}
           <a href="#/works" class="btn">全部作品集 <span class="arw">→</span></a>
         </div>
         <div class="hero-meta" data-anim="up" style="--d: 475ms;">
-          <div><b>21</b><span>收录作品</span></div>
+          <div><b>45</b><span>收录作品</span></div>
           <div><b>6</b><span>创作主题</span></div>
           <div><b>2019</b><span>开始记录</span></div>
         </div>
@@ -1081,16 +1204,16 @@ textarea.ain{resize:vertical;line-height:1.6;font-family:inherit}
       <div class="hero-media" data-anim="right" style="--d:240ms">
         <div class="hm-scatter">
           <figure class="hm-pol p1">
-            <span class="hm-photo wm"><img id="hmA" alt="暮色渐沉" draggable="false"></span>
-            <figcaption><b id="hmANo">NO.000001</b><i id="hmAT">风光</i></figcaption>
+            <span class="hm-photo wm"><img id="hmA" alt="粉花独立" draggable="false"></span>
+            <figcaption><b id="hmANo">NO.000001</b><i id="hmAT">静物</i></figcaption>
           </figure>
           <figure class="hm-pol p2">
-            <span class="hm-photo wm"><img id="hmB" alt="静默的午后" draggable="false"></span>
-            <figcaption><b id="hmBNo">NO.000003</b><i id="hmBT">人像</i></figcaption>
+            <span class="hm-photo wm"><img id="hmB" alt="比一个耶" draggable="false"></span>
+            <figcaption><b id="hmBNo">NO.000005</b><i id="hmBT">人像</i></figcaption>
           </figure>
           <figure class="hm-pol p3">
-            <span class="hm-photo wm"><img id="hmC" alt="望向远方" draggable="false"></span>
-            <figcaption><b id="hmCNo">NO.000005</b><i id="hmCT">人像</i></figcaption>
+            <span class="hm-photo wm"><img id="hmC" alt="灯下的书" draggable="false"></span>
+            <figcaption><b id="hmCNo">NO.000009</b><i id="hmCT">静物</i></figcaption>
           </figure>
         </div>
         <div class="hm-foot">
@@ -1113,7 +1236,7 @@ textarea.ain{resize:vertical;line-height:1.6;font-family:inherit}
       <div class="fgrid" id="fgrid"></div>
 
       <div class="feature-foot" data-stagger="90">
-        <span class="hint" data-anim="up">共 7 组精选 · 点击进入作品信息</span>
+        <span class="hint" data-anim="up">共 5 组精选 · 点击进入作品信息</span>
         <a href="#/works" class="btn btn--primary" data-anim="up">查看全部作品 <span class="arw">→</span></a>
       </div>
     </div>
@@ -1130,13 +1253,13 @@ textarea.ain{resize:vertical;line-height:1.6;font-family:inherit}
           <p data-anim="up">摄影对我而言是另一种写作。文字写在心里，照片写在光里。我把喜欢的一切留在这里，也欢迎你随时驻足。</p>
         </div>
         <div class="about-portrait wm" data-anim="right" style="--d:340ms">
-          <img src="images/31.jpg" alt="摄影肖像">
+          <img src="images/sheying/touxiang.jpg" alt="小威">
           <div class="badge"><b>小威</b><span>Photographer</span></div>
         </div>
       </div>
 
       <div class="about-strip" data-stagger="70">
-        <div class="stat" data-anim="up"><b data-count="21">0</b><span>收录作品</span></div>
+        <div class="stat" data-anim="up"><b data-count="45">0</b><span>收录作品</span></div>
         <div class="stat" data-anim="up"><b data-count="6">0</b><span>创作主题</span></div>
         <div class="stat" data-anim="up"><b>∞</b><span>热爱不减</span></div>
         <div class="gear" data-anim="up">
@@ -1191,24 +1314,61 @@ textarea.ain{resize:vertical;line-height:1.6;font-family:inherit}
 <!-- ===================== 视图：作品集 ===================== -->
 <div class="route-view" id="view-works">
 
-  <section class="page-head">
+  <section class="page-head works-head">
     <div class="wrap">
       <div class="crumbs" data-anim="left" style="--d:0ms"><a href="#/">首页</a><span>/</span><span>作品展示</span></div>
       <div class="head-row">
         <h1><span data-anim="mask" style="--d:80ms"><span>作品<em>展示</em></span></span></h1>
-        <div class="head-meta" data-anim="right" style="--d:190ms">
-          <div class="big" id="workCount">16</div>
+        <div class="head-meta" data-anim="right" style="--d:180ms">
+          <div class="big"><span id="workCount">45</span></div>
           <div class="lbl">Collected Works</div>
         </div>
       </div>
-      <p class="head-note" data-anim="up" style="--d:280ms">按题材浏览，点击任意照片可查看大图、拍摄信息，并点赞或留下评论。点赞与评论保存在本地浏览器。</p>
     </div>
   </section>
 
+  <div class="wsheet" id="wSheet" role="dialog" aria-modal="true" aria-label="筛选与排序">
+    <div class="wsheet-bd" data-wclose></div>
+    <div class="wsheet-pan">
+      <div class="wsheet-grab"></div>
+      <div class="wsheet-grp">
+        <h4>版式</h4>
+        <div class="wsheet-ops" id="wsMode">
+          <button type="button" data-mode="grid">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="1.6"></rect><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"></rect><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"></rect><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"></rect></svg>
+            网格
+          </button>
+          <button type="button" data-mode="masonry">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7.5" height="10" rx="1.6"></rect><rect x="13" y="3.5" width="7.5" height="6.5" rx="1.6"></rect><rect x="3.5" y="15.5" width="7.5" height="5" rx="1.6"></rect><rect x="13" y="11.5" width="7.5" height="9" rx="1.6"></rect></svg>
+            瀑布流
+          </button>
+        </div>
+      </div>
+      <div class="wsheet-grp">
+        <h4>排序</h4>
+        <div class="wsheet-ops" id="wsSort">
+          <button type="button" data-sort="desc">最新优先</button>
+          <button type="button" data-sort="asc">最早优先</button>
+        </div>
+      </div>
+      <button type="button" class="wsheet-reset" id="wsReset">清除搜索关键词</button>
+    </div>
+  </div>
   <div class="toolbar" data-anim="up" style="--d:370ms">
     <div class="wrap bar-2">
-      <div class="chips" id="filters"></div>
-      <span class="count" id="countInline">当前筛选 <b>16</b> / 16</span>
+      <div class="chips" id="filters" role="tablist" aria-label="按题材筛选"></div>
+      <span class="count" id="countInline">当前筛选 <b>45</b> / 45</span>
+      <!-- 以下只在移动端出现：桌面端由 CSS 隐藏，排序与版式收进底部面板 -->
+      <div class="wbar-tools">
+        <label class="wsearch" for="wq">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"></circle><path d="M16 16l4.2 4.2"></path></svg>
+          <input id="wq" type="search" autocomplete="off" placeholder="搜索作品" aria-label="搜索作品">
+        </label>
+        <button type="button" class="wfbtn" id="wfBtn" aria-label="筛选与排序" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M7 12h10M10 17h4"></path></svg>
+        </button>
+        <button type="button" id="qClear" aria-label="清除关键词" hidden>×</button>
+      </div>
     </div>
   </div>
 
@@ -1334,7 +1494,7 @@ textarea.ain{resize:vertical;line-height:1.6;font-family:inherit}
       <button class="atab on" data-atab="data">数据与设置</button>
     </nav>
     <div class="admin-top-acts">
-      <span class="admin-count" id="adminCount">共 16 张 · 精选 7 张</span>
+      <span class="admin-count" id="adminCount">共 45 张 · 精选 17 张</span>
       <button class="abtn" id="adminLogout">退出登录</button>
       <button class="abtn abtn--primary" id="adminClose">返回网站</button>
     </div>
@@ -1365,7 +1525,7 @@ textarea.ain{resize:vertical;line-height:1.6;font-family:inherit}
         <div class="asec-bar">
           <button class="abtn" id="jsonExport">导出到文本框</button>
           <button class="abtn abtn--primary" id="jsonImport">从文本框导入</button>
-          <button class="abtn abtn--danger" id="resetAll">恢复初始 21 张</button>
+          <button class="abtn abtn--danger" id="resetAll">恢复初始 45 张</button>
           <button class="abtn abtn--primary" id="exportHtml">导出完整 HTML 文件</button>
         </div>
         <label class="fld"><span>修改管理密码</span>
@@ -1392,7 +1552,7 @@ textarea.ain{resize:vertical;line-height:1.6;font-family:inherit}
       <div class="edit-grid">
         <div class="edit-prev wm"><img id="fPrev" alt=""></div>
         <div class="edit-fields">
-          <label class="fld"><span>图片路径（src）</span><input class="ain" id="fSrc" placeholder="images/xxx.jpg"></label>
+          <label class="fld"><span>图片路径（src）</span><input class="ain" id="fSrc" placeholder="images/sheying/xxx.jpg"></label>
           <div class="row2">
             <label class="fld"><span>编号（自动）</span><input class="ain" id="fNo" readonly=""></label>
             <label class="fld"><span>分类 · 可自定义颜色</span>
@@ -1436,7 +1596,7 @@ textarea.ain{resize:vertical;line-height:1.6;font-family:inherit}
    小威 · 摄影 — 作品数据
    字段：src / cat / title / place / date / cam / w / h / note / featured
    ============================================================ */
-window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WORKS":[{"id":"w01","src":"images/020.jpeg","cat":"风光","title":"暮色渐沉","place":"城市天际线","date":"2025.08","cam":"f/4 · 1/500s · ISO 100","w":2146,"h":1431,"featured":true,"note":"天色向晚，城市把最后一缕光收进玻璃幕墙里。","no":"000001","likes":240,"comments":[]},{"id":"w02","src":"images/010.jpeg","cat":"风光","title":"远山的呼吸","place":"郊野","date":"2025.05","cam":"f/8 · 1/250s · ISO 200","w":1280,"h":720,"featured":false,"note":"云影在山脊上缓缓移动，像大地在缓慢呼吸。","no":"000002","likes":241,"comments":[]},{"id":"w04","src":"images/101.jpg","cat":"人像","title":"静默的午后","place":"室内","date":"2025.03","cam":"f/1.8 · 1/125s · ISO 400","w":2416,"h":2843,"featured":true,"note":"窗外是亮的，房间里很安静。","no":"000003","likes":243,"comments":[]},{"id":"w05","src":"images/1000042232.jpg","cat":"人像","title":"侧脸","place":"工作室","date":"2025.06","cam":"f/2.0 · 1/160s · ISO 320","w":1773,"h":2364,"featured":false,"note":"光从一侧进来，把轮廓轻轻描了一遍。","no":"000004","likes":244,"comments":[]},{"id":"w07","src":"images/105.jpeg","cat":"人像","title":"望向远方","place":"街头","date":"2025.02","cam":"f/2.2 · 1/250s · ISO 200","w":800,"h":1066,"note":"她在看别处，我在看光。","no":"000005","likes":246,"comments":[],"featured":true},{"id":"w08","src":"images/104.jpg","cat":"人像","title":"回眸","place":"户外","date":"2025.07","cam":"f/2.0 · 1/250s · ISO 200","w":720,"h":960,"note":"转身的一瞬，风刚好吹起发梢。","no":"000006","likes":247,"comments":[],"featured":true},{"id":"w09","src":"images/102.jpg","cat":"街头","title":"擦肩而过","place":"老城区","date":"2025.01","cam":"f/2.8 · 1/500s · ISO 400","w":1080,"h":1440,"featured":true,"note":"城市里每天有无数次擦肩，只有一次被记住。","no":"000007","likes":248,"comments":[]},{"id":"w10","src":"images/103.jpg","cat":"街头","title":"城市剪影","place":"地铁口","date":"2024.12","cam":"f/4 · 1/640s · ISO 640","w":1080,"h":1440,"note":"人来人往，都成了光的形状。","no":"000008","likes":270,"comments":[],"featured":true},{"id":"w11","src":"images/mmexport1567741637919.jpg","cat":"街头","title":"旧时光","place":"巷弄","date":"2019.09","cam":"f/5.6 · 1/200s · ISO 100","w":466,"h":750,"note":"巷子很窄，光很旧，时间很慢。","no":"000009","likes":271,"comments":[],"featured":true},{"id":"w12","src":"images/106.jpg","cat":"生活","title":"日常碎片","place":"窗边","date":"2025.04","cam":"f/2.0 · 1/160s · ISO 320","w":1080,"h":1440,"note":"生活由无数个不被记录的瞬间组成。","no":"000010","likes":272,"comments":[]},{"id":"w13","src":"images/107.jpg","cat":"生活","title":"安静下来的午后","place":"房间","date":"2025.05","cam":"f/2.5 · 1/125s · ISO 400","w":800,"h":1066,"note":"什么都不做，也是一种认真。","no":"000011","likes":273,"comments":[]},{"id":"w14","src":"images/108.jpg","cat":"生活","title":"夜色微光","place":"街角","date":"2025.10","cam":"f/1.8 · 1/60s · ISO 800","w":720,"h":1280,"featured":false,"note":"深夜的街角，灯火替星星值班。","no":"000012","likes":274,"comments":[]},{"id":"w15","src":"images/IMG_20250119_142502.jpg","cat":"生活","title":"长长的等待","place":"站台","date":"2025.01","cam":"f/4 · 1/200s · ISO 200","w":3072,"h":4437,"note":"等待的时候，时间会变得很长。","no":"000013","likes":275,"comments":[],"featured":false},{"id":"w16","src":"images/026091022365277.png","cat":"静物","title":"光影褶皱","place":"桌面","date":"2024.10","cam":"f/2.8 · 1/125s · ISO 200","w":1513,"h":1513,"note":"光把平淡的东西折出层次。","no":"000014","likes":276,"comments":[]},{"id":"w17","src":"images/1000045107.png","cat":"静物","title":"几何与白","place":"影棚","date":"2024.09","cam":"f/8 · 1/160s · ISO 100","w":2048,"h":2048,"note":"去掉多余的颜色，形状自己会说话。","no":"000015","likes":277,"comments":[]},{"id":"w18","src":"images/31.jpg","cat":"静物","title":"一隅","place":"家","date":"2024.06","cam":"f/2.8 · 1/100s · ISO 400","w":1280,"h":1280,"note":"房间的角落藏着一个人的日常。","no":"000016","likes":278,"comments":[]}]};
+window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WORKS":[{"id":"w01","src":"images/sheying/001.jpg","thumb":"images/sheying/001.jpg","display":"images/sheying/001.jpg","cat":"静物","title":"粉花独立","place":"巷边","date":"2026.03","cam":"f/2.4 · 1/200s · ISO 100","w":7724,"h":4344,"featured":true,"note":"深绿里只开了一朵，颜色就够用一整个下午。","no":"000001","likes":157,"comments":[]},{"id":"w02","src":"images/sheying/002.jpg","thumb":"images/sheying/002.jpg","display":"images/sheying/002.jpg","cat":"生活","title":"摇篮里的旧时光","place":"老屋","date":"1990s","cam":"f/4 · 1/60s · ISO 200","w":1080,"h":1440,"featured":false,"note":"相纸泛黄，那时的椅子还带着彩色的玩具。","no":"000002","likes":194,"comments":[]},{"id":"w03","src":"images/sheying/003.jpg","thumb":"images/sheying/003.jpg","display":"images/sheying/003.jpg","cat":"人像","title":"红帽子","place":"家门","date":"1990s","cam":"f/4 · 1/60s · ISO 200","w":1080,"h":1440,"featured":false,"note":"帽檐压得低，眼睛还是很亮。","no":"000003","likes":231,"comments":[]},{"id":"w04","src":"images/sheying/004.jpg","thumb":"images/sheying/004.jpg","display":"images/sheying/004.jpg","cat":"生活","title":"木桌上的功课","place":"老屋","date":"2022.06","cam":"f/1.8 · 1/60s · ISO 400","w":800,"h":1066,"featured":false,"note":"木板桌、红塑料凳，书页被翻得很旧。","no":"000004","likes":268,"comments":[]},{"id":"w05","src":"images/sheying/005.jpg","thumb":"images/sheying/005.jpg","display":"images/sheying/005.jpg","cat":"人像","title":"比一个耶","place":"屋里","date":"2025.06","cam":"f/1.8 · 1/80s · ISO 400","w":1080,"h":1440,"featured":true,"note":"笑得露出牙，手势比谁都标准。","no":"000005","likes":305,"comments":[]},{"id":"w06","src":"images/sheying/006.jpg","thumb":"images/sheying/006.jpg","display":"images/sheying/006.jpg","cat":"人像","title":"毕业贴纸","place":"教室","date":"2026.01","cam":"f/1.8 · 1/100s · ISO 200","w":720,"h":1280,"featured":false,"note":"贴满笑脸的合影，是那年最热闹的一天。","no":"000006","likes":342,"comments":[]},{"id":"w07","src":"images/sheying/007.jpg","thumb":"images/sheying/007.jpg","display":"images/sheying/007.jpg","cat":"人像","title":"海边的两个人","place":"观景台","date":"2020.11","cam":"f/5.6 · 1/500s · ISO 100","w":800,"h":1066,"featured":false,"note":"逆光站着，海在后面铺得很开。","no":"000007","likes":379,"comments":[]},{"id":"w08","src":"images/sheying/008.jpg","thumb":"images/sheying/008.jpg","display":"images/sheying/008.jpg","cat":"人像","title":"抱草的孩子","place":"田边","date":"2021.03","cam":"f/4 · 1/200s · ISO 200","w":240,"h":320,"featured":false,"note":"怀里抱着一捆草，身后是刚翻过的地。","no":"000008","likes":416,"comments":[]},{"id":"w09","src":"images/sheying/009.jpg","thumb":"images/sheying/009.jpg","display":"images/sheying/009.jpg","cat":"静物","title":"灯下的书","place":"书桌","date":"2026.03","cam":"f/2.0 · 1/40s · ISO 800","w":5222,"h":6962,"featured":true,"note":"台灯只照亮一页，笔停在句子中间。","no":"000009","likes":453,"comments":[]},{"id":"w10","src":"images/sheying/010.jpg","thumb":"images/sheying/010.jpg","display":"images/sheying/010.jpg","cat":"风光","title":"看城的背影","place":"山顶","date":"2026.04","cam":"f/2.8 · 1/400s · ISO 100","w":6962,"h":5222,"featured":true,"note":"站在树线上往下看，整座城都在阴天里。","no":"000010","likes":490,"comments":[]},{"id":"w11","src":"images/sheying/011.jpg","thumb":"images/sheying/011.jpg","display":"images/sheying/011.jpg","cat":"风光","title":"纪念馆前","place":"百色","date":"2026.04","cam":"f/5.6 · 1/250s · ISO 100","w":6962,"h":5222,"featured":false,"note":"石墙很宽，铜像的手举向天空。","no":"000011","likes":527,"comments":[]},{"id":"w12","src":"images/sheying/012.jpg","thumb":"images/sheying/012.jpg","display":"images/sheying/012.jpg","cat":"生活","title":"同一张摇篮","place":"老屋","date":"1990s","cam":"f/4 · 1/60s · ISO 200","w":1080,"h":1440,"featured":false,"note":"和第一张底片一样，只是记忆又淡了一点。","no":"000012","likes":564,"comments":[]},{"id":"w13","src":"images/sheying/013.jpg","thumb":"images/sheying/013.jpg","display":"images/sheying/013.jpg","cat":"风光","title":"花坛与铜像","place":"百色","date":"2022.08","cam":"f/5.6 · 1/200s · ISO 100","w":1080,"h":1440,"featured":false,"note":"红黄的花围着石座，台阶上一层一层往上收。","no":"000013","likes":141,"comments":[]},{"id":"w14","src":"images/sheying/014.jpg","thumb":"images/sheying/014.jpg","display":"images/sheying/014.jpg","cat":"静物","title":"草地上的落叶","place":"操场","date":"2022.11","cam":"f/1.8 · 1/500s · ISO 100","w":1080,"h":1440,"featured":false,"note":"镜头贴着草尖，落叶比树更近。","no":"000014","likes":178,"comments":[]},{"id":"w15","src":"images/sheying/015.jpg","thumb":"images/sheying/015.jpg","display":"images/sheying/015.jpg","cat":"街头","title":"跑道的纹理","place":"体育场","date":"2022.09","cam":"f/1.8 · 1/1000s · ISO 100","w":1080,"h":1440,"featured":false,"note":"低到贴地，红色颗粒一路虚化到人群。","no":"000015","likes":215,"comments":[]},{"id":"w16","src":"images/sheying/016.jpg","thumb":"images/sheying/016.jpg","display":"images/sheying/016.jpg","cat":"风光","title":"教学楼后的落日","place":"校园","date":"2022.06","cam":"f/2.2 · 1/200s · ISO 100","w":719,"h":494,"featured":false,"note":"太阳压在楼顶，云被烧成橘色。","no":"000016","likes":252,"comments":[]},{"id":"w17","src":"images/sheying/017.jpg","thumb":"images/sheying/017.jpg","display":"images/sheying/017.jpg","cat":"街头","title":"走廊尽头的光","place":"教学楼","date":"2022.08","cam":"f/2.8 · 1/60s · ISO 200","w":1079,"h":1440,"featured":true,"note":"长走廊只剩尽头一块亮，影子被拉得很长。","no":"000017","likes":289,"comments":[]},{"id":"w18","src":"images/sheying/018.jpg","thumb":"images/sheying/018.jpg","display":"images/sheying/018.jpg","cat":"风光","title":"台阶之上","place":"广场","date":"2022.11","cam":"f/4 · 1/250s · ISO 100","w":1236,"h":1440,"featured":false,"note":"站到台阶顶，马路和远处都收进画面。","no":"000018","likes":326,"comments":[]},{"id":"w19","src":"images/sheying/019.jpg","thumb":"images/sheying/019.jpg","display":"images/sheying/019.jpg","cat":"街头","title":"黄昏过街","place":"马路边","date":"2023.03","cam":"f/2.8 · 1/320s · ISO 200","w":1440,"h":1020,"featured":false,"note":"太阳落在树后，行人都成了剪影。","no":"000019","likes":363,"comments":[]},{"id":"w20","src":"images/sheying/020.jpg","thumb":"images/sheying/020.jpg","display":"images/sheying/020.jpg","cat":"街头","title":"天台上的三个人","place":"天台","date":"2023.04","cam":"f/4 · 1/250s · ISO 100","w":1435,"h":1440,"featured":true,"note":"逆光里说笑，栏杆把天空切成一条一条。","no":"000020","likes":400,"comments":[]},{"id":"w21","src":"images/sheying/021.jpg","thumb":"images/sheying/021.jpg","display":"images/sheying/021.jpg","cat":"风光","title":"球场边的落日","place":"球场","date":"2023.04","cam":"f/4 · 1/500s · ISO 100","w":3897,"h":2352,"featured":false,"note":"树影全黑，只剩球架和一轮橙日。","no":"000021","likes":437,"comments":[]},{"id":"w22","src":"images/sheying/022.jpg","thumb":"images/sheying/022.jpg","display":"images/sheying/022.jpg","cat":"静物","title":"夜里的佛堂","place":"寺庙","date":"2023.05","cam":"f/1.8 · 1/30s · ISO 1600","w":3120,"h":4160,"featured":false,"note":"灯一盏一盏排开，人站在暗处抬头看。","no":"000022","likes":474,"comments":[]},{"id":"w23","src":"images/sheying/023.jpg","thumb":"images/sheying/023.jpg","display":"images/sheying/023.jpg","cat":"生活","title":"水田插秧","place":"梯田","date":"2023.08","cam":"f/4 · 1/250s · ISO 100","w":4160,"h":3120,"featured":true,"note":"弯着腰把绿秧按进泥里，水里全是倒影。","no":"000023","likes":511,"comments":[]},{"id":"w24","src":"images/sheying/024.jpg","thumb":"images/sheying/024.jpg","display":"images/sheying/024.jpg","cat":"风光","title":"瓦房与绿","place":"山边","date":"2023.10","cam":"f/2.2 · 1/200s · ISO 100","w":4160,"h":3120,"featured":false,"note":"红砖小屋被草叶围住，像被时间忘在这里。","no":"000024","likes":548,"comments":[]},{"id":"w25","src":"images/sheying/025.jpg","thumb":"images/sheying/025.jpg","display":"images/sheying/025.jpg","cat":"风光","title":"绿水行船","place":"江上","date":"2023.12","cam":"f/2.2 · 1/500s · ISO 100","w":4160,"h":3120,"featured":true,"note":"一条小船划开绿水面，山一直绿到顶。","no":"000025","likes":125,"comments":[]},{"id":"w26","src":"images/sheying/026.jpg","thumb":"images/sheying/026.jpg","display":"images/sheying/026.jpg","cat":"生活","title":"醒狮进校园","place":"操场","date":"2023.11","cam":"f/4.0 · 1/320s · ISO 640","w":4480,"h":3880,"featured":true,"note":"金红两只狮头并排，鼓点还没停。","no":"000026","likes":162,"comments":[]},{"id":"w27","src":"images/sheying/027.jpg","thumb":"images/sheying/027.jpg","display":"images/sheying/027.jpg","cat":"静物","title":"泛黄的照片与诗","place":"桌上","date":"2024.02","cam":"f/1.8 · 1/60s · ISO 400","w":3120,"h":4160,"featured":false,"note":"旧相片摊开，旁边一页手写的歌词。","no":"000027","likes":199,"comments":[]},{"id":"w28","src":"images/sheying/028.jpg","thumb":"images/sheying/028.jpg","display":"images/sheying/028.jpg","cat":"静物","title":"点一根火柴","place":"夜里","date":"2024.02","cam":"f/1.8 · 1/30s · ISO 3200","w":3120,"h":4160,"featured":false,"note":"火塘将熄，火柴又亮起一小块橘色。","no":"000028","likes":236,"comments":[]},{"id":"w29","src":"images/sheying/029.jpg","thumb":"images/sheying/029.jpg","display":"images/sheying/029.jpg","cat":"风光","title":"隔水的天际线","place":"江边","date":"2024.08","cam":"85mm · f/3.3 · 1/319s · ISO 100","w":4624,"h":3857,"featured":true,"note":"水面很宽，楼群像一层铅灰的剪纸。","no":"000029","likes":273,"comments":[]},{"id":"w30","src":"images/sheying/030.jpg","thumb":"images/sheying/030.jpg","display":"images/sheying/030.jpg","cat":"风光","title":"山间彩虹","place":"郊外","date":"2024.09","cam":"85mm · f/3.3 · 1/100s · ISO 200","w":3472,"h":5009,"featured":true,"note":"雨刚停，彩虹低低地搭在山上。","no":"000030","likes":310,"comments":[]},{"id":"w31","src":"images/sheying/031.jpg","thumb":"images/sheying/031.jpg","display":"images/sheying/031.jpg","cat":"风光","title":"框里的落日","place":"天台","date":"2024.11","cam":"f/2.2 · 1/1000s · ISO 100","w":4624,"h":3472,"featured":false,"note":"太阳正落在楼群空档里，一层雾把光晕开。","no":"000031","likes":347,"comments":[]},{"id":"w32","src":"images/sheying/032.jpg","thumb":"images/sheying/032.jpg","display":"images/sheying/032.jpg","cat":"静物","title":"小熊猫玩偶","place":"室内","date":"2025.01","cam":"f/1.8 · 1/60s · ISO 400","w":3072,"h":2499,"featured":true,"note":"一只手扶着它的脸，绒毛看得很清楚。","no":"000032","likes":384,"comments":[]},{"id":"w33","src":"images/sheying/033.jpg","thumb":"images/sheying/033.jpg","display":"images/sheying/033.jpg","cat":"生活","title":"清晨的灶房","place":"老屋","date":"2025.01","cam":"18mm · f/1.8 · 1/25s · ISO 1000","w":3072,"h":4437,"featured":true,"note":"灶台还落着灰，塑料凳停在阳光里。","no":"000033","likes":421,"comments":[]},{"id":"w34","src":"images/sheying/034.jpg","thumb":"images/sheying/034.jpg","display":"images/sheying/034.jpg","cat":"生活","title":"多年前的全家福","place":"家门口","date":"2025.01","cam":"f/1.8 · 1/60s · ISO 400","w":2416,"h":2843,"featured":false,"note":"春联是新的，三个人站得笔直。","no":"000034","likes":458,"comments":[]},{"id":"w35","src":"images/sheying/035.jpg","thumb":"images/sheying/035.jpg","display":"images/sheying/035.jpg","cat":"静物","title":"烟花散开","place":"夜巷","date":"2025.01","cam":"85mm · f/3.3 · 1/25s · ISO 2000","w":4624,"h":3857,"featured":false,"note":"火星一路洒出去，把黑夜戳出很多小洞。","no":"000035","likes":495,"comments":[]},{"id":"w36","src":"images/sheying/036.jpg","thumb":"images/sheying/036.jpg","display":"images/sheying/036.jpg","cat":"风光","title":"逆光梯田","place":"山坳","date":"2025.04","cam":"f/1.8 · 1/2000s · ISO 100","w":4096,"h":3413,"featured":false,"note":"云缝漏下光，梯田一层层暗下去。","no":"000036","likes":532,"comments":[]},{"id":"w37","src":"images/sheying/037.jpg","thumb":"images/sheying/037.jpg","display":"images/sheying/037.jpg","cat":"生活","title":"草坪上的红直升机","place":"停机坪","date":"2025.05","cam":"f/1.8 · 1/500s · ISO 100","w":4624,"h":2465,"featured":false,"note":"雾还没散，红色机身是最亮的一块。","no":"000037","likes":569,"comments":[]},{"id":"w38","src":"images/sheying/038.jpg","thumb":"images/sheying/038.jpg","display":"images/sheying/038.jpg","cat":"风光","title":"雾里的城堡","place":"山顶","date":"2025.05","cam":"f/1.8 · 1/500s · ISO 100","w":4624,"h":2465,"featured":true,"note":"楼从雾里浮出来，像画了一半就停了笔。","no":"000038","likes":146,"comments":[]},{"id":"w39","src":"images/sheying/039.jpg","thumb":"images/sheying/039.jpg","display":"images/sheying/039.jpg","cat":"静物","title":"叶隙里的太阳","place":"松林","date":"2025.05","cam":"f/1.8 · 1/1000s · ISO 100","w":4624,"h":2465,"featured":false,"note":"太阳藏进松针后面，光被筛成一片碎金。","no":"000039","likes":183,"comments":[]},{"id":"w40","src":"images/sheying/040.jpg","thumb":"images/sheying/040.jpg","display":"images/sheying/040.jpg","cat":"风光","title":"湖面落日","place":"湖畔","date":"2025.05","cam":"f/1.8 · 1/500s · ISO 100","w":4080,"h":2176,"featured":true,"note":"山和水对称着暗，太阳在水里又亮了一次。","no":"000040","likes":220,"comments":[]},{"id":"w41","src":"images/sheying/041.jpg","thumb":"images/sheying/041.jpg","display":"images/sheying/041.jpg","cat":"风光","title":"落日与远山","place":"山岗","date":"2025.07","cam":"f/1.8 · 1/1000s · ISO 100","w":4624,"h":3857,"featured":true,"note":"一轮橙日悬在雾上，山影一层比一层淡。","no":"000041","likes":257,"comments":[]},{"id":"w42","src":"images/sheying/042.jpg","thumb":"images/sheying/042.jpg","display":"images/sheying/042.jpg","cat":"生活","title":"电脑前的生日","place":"房间","date":"2025.11","cam":"f/1.8 · 1/50s · ISO 640","w":4096,"h":3413,"featured":true,"note":"键盘上摆着蛋糕，一根蜡烛替了整个派对。","no":"000042","likes":294,"comments":[]},{"id":"w43","src":"images/sheying/043.jpg","thumb":"images/sheying/043.jpg","display":"images/sheying/043.jpg","cat":"人像","title":"戴帽子的少年","place":"家中","date":"2025.01","cam":"f/1.8 · 1/60s · ISO 400","w":800,"h":1066,"featured":false,"note":"帽檐压到眉上，围巾绕了两圈。","no":"000043","likes":331,"comments":[]},{"id":"w44","src":"images/sheying/044.jpg","thumb":"images/sheying/044.jpg","display":"images/sheying/044.jpg","cat":"风光","title":"游戏里的风景","place":"屏幕","date":"2026.05","cam":"f/1.8 · 1/60s · ISO 400","w":2400,"h":1504,"featured":false,"note":"云在山谷上方散开，风一吹就是整片绿。","no":"000044","likes":368,"comments":[]},{"id":"w45","src":"images/sheying/045.jpg","thumb":"images/sheying/045.jpg","display":"images/sheying/045.jpg","cat":"人像","title":"军训的下午","place":"操场","date":"2019.09","cam":"f/2.8 · 1/250s · ISO 200","w":466,"h":750,"featured":false,"note":"席地坐着，手里捏着一张纸，帽子戴得很正。","no":"000045","likes":405,"comments":[]}]};
 
 /* ====================================================================
    单文件应用逻辑
@@ -1447,7 +1607,7 @@ window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WOR
   const $$ = (s, p) => Array.prototype.slice.call((p || document).querySelectorAll(s));
   const root = document.documentElement;
   const body = document.body;
-  /* ---------- 数据层：内置 21 张作为初始数据，之后由后台编辑并保存在本地 ---------- */
+  /* ---------- 数据层：内置 45 张作为初始数据，之后由后台编辑并保存在本地 ---------- */
   const DB_KEY = 'xw:db:mv5037uw';
   const no6 = (n) => String(n).padStart(6, '0');
   /* 分类颜色（后台可改） */
@@ -1469,9 +1629,29 @@ window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WOR
     comments: Array.isArray(w.comments) ? w.comments : []
   }));
   function readDB() {
+    const flattenSrc = (p) => String(p || '')
+      .replace(/images\/sheying\/(?:thumb|display)\//g, 'images/sheying/')
+      .replace(/images\/sheying\/(004|007|008)\.jpeg/g, 'images/sheying/$1.jpg');
     try {
       const raw = localStorage.getItem(DB_KEY);
-      if (raw) { const a = JSON.parse(raw); if (Array.isArray(a) && a.length) return a; }
+      if (raw) {
+        const a = JSON.parse(raw);
+        if (Array.isArray(a) && a.length) {
+          let changed = false;
+          const out = [];
+          a.forEach((w) => {
+            /* 旧版本缓存里的 046/047 没有对应图片，丢弃；thumb/display 统一回到 images/sheying/ 原图 */
+            if (!w || w.id === 'w46' || w.id === 'w47') { changed = true; return; }
+            const src = flattenSrc(w.src);
+            if (src !== w.src || src !== w.thumb || src !== w.display) changed = true;
+            out.push(Object.assign({}, w, { src, thumb: src, display: src }));
+          });
+          if (out.length) {
+            if (changed) { try { localStorage.setItem(DB_KEY, JSON.stringify(out)); } catch (e) {} }
+            return out;
+          }
+        }
+      }
     } catch (e) {}
     return SEED.map(w => Object.assign({}, w));
   }
@@ -1717,8 +1897,12 @@ window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WOR
 
   window.addEventListener('resize', () => {
     refreshScreens(); updateHijack();
-    clearTimeout(window._rsT); window._rsT = setTimeout(layoutGallery, 140);
   });
+
+  /* ---------- 图片变体：列表用 640px 缩略图，详情用 1600px 大图 ---------- */
+  const BLANK     = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+  const srcOf     = (w) => (w && (w.thumb || w.src)) || '';
+  const displayOf = (w) => (w && (w.display || w.src)) || '';
 
   /* ====================================================================
      Hero 作品带 / 精选网格
@@ -1726,7 +1910,7 @@ window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WOR
   function buildHeroMedia() {
     const f = featuredList();
     const picks = (f.length ? f : WORKS).slice(0, 3);
-    const put = (id, w) => { const el = document.getElementById(id); if (el && w) { el.src = w.src; el.alt = w.title; } };
+    const put = (id, w) => { const el = document.getElementById(id); if (el && w) { el.src = srcOf(w); el.alt = w.title; } };
     put('hmA', picks[0]); put('hmB', picks[1]); put('hmC', picks[2]);
     [['hmANo', 'hmAT'], ['hmBNo', 'hmBT'], ['hmCNo', 'hmCT']].forEach((ids, i) => {
       const w = picks[i];
@@ -1742,7 +1926,7 @@ window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WOR
     if (!fgrid) return;
     fgrid.innerHTML = featuredList().slice(0, 5).map((w, i) => `
       <button type="button" class="fcell wm" data-open="${w.no}" data-cat="${esc(w.cat)}" data-anim="up" style="--d:${140 + i * 90}ms" aria-label="查看作品：${esc(w.title)}">
-        <img src="${w.src}" alt="${esc(w.title)}" loading="lazy" draggable="false">
+        <img src="${srcOf(w)}" alt="${esc(w.title)}" loading="lazy" decoding="async" draggable="false">
         <span class="scrim"></span>
         <span class="cap">
           <span class="txt">
@@ -1773,93 +1957,206 @@ window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WOR
   const liked = (id) => store.get('xw:like:' + id) === '1';
   const likeCount = (w) => ((w && w.likes) || 0) + (liked(w && w.id) ? 1 : 0);
 
+  /* ====================================================================
+     作品集（重构版）
+     - 网格只请求 640px 缩略图，详情页才请求 1600px 大图
+     - 瀑布流交给 CSS columns，不再有逐卡 JS 测算
+     - IntersectionObserver 预取提前量 600px，屏幕外卡片不参与渲染
+     ==================================================================== */
+  const qEl         = $('#wq');
+  const qClear      = $('#qClear');
+  const wfBtn       = $('#wfBtn');
+  const wSheet      = $('#wSheet');
+  const wsReset     = $('#wsReset');
+  const isTouch     = (window.matchMedia && window.matchMedia('(hover:none)').matches);
+
+  let q = '', sortDesc = true, mode = 'grid';
+  try {
+    if (store.get('xw:gmode') === 'masonry') mode = 'masonry';
+    if (store.get('xw:gsort') === 'asc') sortDesc = false;
+  } catch (e) {}
+
+  function sortWorks(a) {
+    const key = (w) => { const v = String(w.date || '').replace(/[^0-9]/g, ''); return v ? +v : 0; };
+    return a.sort((x, y) => {
+      const kx = key(x), ky = key(y);
+      if (kx !== ky) return sortDesc ? ky - kx : kx - ky;
+      return sortDesc ? String(y.id).localeCompare(String(x.id)) : String(x.id).localeCompare(String(y.id));
+    });
+  }
+
   function renderFilters() {
     if (!filtersEl) return;
     if (CATS.indexOf(currentCat) < 0) currentCat = '全部';
     filtersEl.innerHTML = CATS.map((c, i) => {
       const n = c === '全部' ? WORKS.length : WORKS.filter(w => w.cat === c).length;
-      return `<button class="chip${c === currentCat ? ' on' : ''}" data-cat="${c}" style="--i:${i}"><span class="cdot"></span>${c}<i>${n}</i></button>`;
+      return '<button type="button" role="tab" aria-selected="' + (c === currentCat ? 'true' : 'false') + '" class="chip' + (c === currentCat ? ' on' : '')
+        + '" data-cat="' + esc(c) + '" style="--i:' + i + '"><span class="cdot"></span>' + esc(c) + '<i>' + n + '</i></button>';
     }).join('');
   }
+
+  /* ---------- 懒加载：只给视口附近（提前量 600px）的卡片真实 src ---------- */
+  let gio = null;
+  const GIO_OPTS = { rootMargin: '600px 0px' };
+  function observe(im) {
+    gio.observe(im);
+  }
+  function lazyImg(img, src) {
+    if (!gio) { img.src = src; img.classList.add('ld'); return; }
+    img.dataset.src = src;
+    observe(img);
+  }
+  function ensureIO() {
+    if (gio || typeof IntersectionObserver !== 'function') return;
+    gio = new IntersectionObserver((ents) => {
+      ents.forEach(en => {
+        if (!en.isIntersecting) return;
+        const im = en.target, s = im.dataset.src;
+        if (s && im.getAttribute('src') !== s) im.src = s;
+        if (im.complete) im.classList.add('ld');
+        else im.addEventListener('load', () => im.classList.add('ld'), { once: true });
+        delete im.dataset.src;
+        gio.unobserve(im);
+      });
+    }, GIO_OPTS);
+  }
+  function clearGallery() {
+    if (!galleryEl) return;
+    /* 旧观察器连同它引用的旧卡片一起丢掉，下次渲染重建，避免残留引用 */
+    if (gio) { gio.disconnect(); gio = null; }
+    galleryEl.innerHTML = '';
+  }
+
+  function cardHTML(w) {
+    const alt = esc(w.title || '');
+    const no = esc(w.no || '');
+    const ph = isTouch ? '' : 'loading="lazy"';
+    const srcAttr = 'src="' + BLANK + '"';
+    return '<figure class="pcard" data-id="' + esc(w.id) + '" data-cat="' + esc(w.cat) + '" role="button" tabindex="0" aria-label="查看作品：' + alt + '">'
+      + '<span class="pcard-media">'
+      +   '<img ' + srcAttr + ' data-full="' + esc(w.thumb || '') + '" width="' + (w.w || 4) + '" height="' + (w.h || 3) + '" alt="' + alt + '" decoding="async" ' + ph + ' draggable="false">'
+      + '</span>'
+      + '<span class="pcard-tag">' + esc(w.cat || '') + '</span>'
+      + '<span class="pcard-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"></path></svg></span>'
+      + '<figcaption class="pcard-info">'
+      +   '<span class="pcard-no">NO.' + no + '</span>'
+      +   '<span class="pcard-title">' + alt + '</span>'
+      +   '<span class="pcard-meta">' + esc(w.place || '') + (w.date ? ' · ' + esc(w.date) : '') + '</span>'
+      + '</figcaption>'
+      + '</figure>';
+  }
+
+  function renderGallery() {
+    if (!galleryEl) return;
+    if (gio) { gio.disconnect(); gio = null; }   // 每次渲染都换一个干净的观察器
+    ensureIO();
+    const needle = q.trim().toLowerCase();
+    let pool = WORKS.filter(w => currentCat === '全部' || w.cat === currentCat);
+    if (needle) {
+      pool = pool.filter(w => (String(w.title || '') + ' ' + String(w.place || '') + ' ' + String(w.cat || '') + ' ' + String(w.note || '') + ' ' + String(w.date || '')).toLowerCase().indexOf(needle) >= 0);
+    }
+    view = sortWorks(pool.slice());
+    if (countEl) countEl.textContent = view.length;
+    if (countInline) countInline.innerHTML = '当前筛选 <b>' + view.length + '</b> / ' + WORKS.length;
+    if (qClear) {
+      qClear.hidden = !needle;
+      qClear.setAttribute('aria-label', needle ? '清除关键词「' + q.trim() + '」' : '清除关键词');
+    }
+    if (!view.length) {
+      galleryEl.innerHTML = '<div class="gallery-empty"><b>没有匹配的作品</b>换个题材，或清空搜索关键词。</div>';
+      return;
+    }
+    // 大列表用 fragment 一次性挂载，避免逐条解析
+    const frag = document.createDocumentFragment();
+    const holder = document.createElement('div');
+    holder.innerHTML = view.map(cardHTML).join('');
+    while (holder.firstChild) frag.appendChild(holder.firstChild);
+    galleryEl.replaceChildren(frag);
+
+    // 只对邻近视口的图片发起请求
+    const imgs = galleryEl.querySelectorAll('img[data-full]');
+    for (let i = 0; i < imgs.length; i++) {
+      const im = imgs[i];
+      const s = im.dataset.full;
+      delete im.dataset.full;
+      if (s) lazyImg(im, s);
+    }
+  }
+
+  function setMode(next) {
+    mode = next === 'masonry' ? 'masonry' : 'grid';
+    document.body.classList.toggle('mode-grid', mode === 'grid');
+    document.body.classList.toggle('mode-masonry', mode === 'masonry');
+    store.set('xw:gmode', mode);
+    syncSheet();
+  }
+  function setSort(desc) {
+    sortDesc = !!desc;
+    store.set('xw:gsort', sortDesc ? 'desc' : 'asc');
+    syncSheet();
+  }
+
+  /* ---------- 移动端筛选面板：排序与版式用带名字的按钮，避免图标按钮看不懂 ---------- */
+  const setSheetOpen = (open) => {
+    if (!wSheet) return;
+    wSheet.classList.toggle('open', !!open);
+    if (wfBtn) wfBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    /* 详情页也可能在锁滚动，别把它的锁一起解掉 */
+    const dOpen = !!(detail && detail.classList.contains('open'));
+    body.classList.toggle('no-scroll', !!open || dOpen);
+  };
+  function syncSheet() {
+    if (!wSheet) return;
+    $$('[data-mode]', wSheet).forEach(b => b.classList.toggle('on', b.dataset.mode === mode));
+    $$('[data-sort]', wSheet).forEach(b => b.classList.toggle('on', (b.dataset.sort === 'asc') === !sortDesc));
+    if (wsReset) wsReset.hidden = !q.trim();
+  }
+  wfBtn && wfBtn.addEventListener('click', () => { syncSheet(); setSheetOpen(true); });
+  wSheet && wSheet.addEventListener('click', (e) => {
+    if (e.target.closest('[data-wclose]')) { setSheetOpen(false); return; }
+    const mb = e.target.closest('[data-mode]');
+    if (mb) { setMode(mb.dataset.mode); syncSheet(); renderGallery(); return; }
+    const sb = e.target.closest('[data-sort]');
+    if (sb) { setSort(sb.dataset.sort !== 'asc'); syncSheet(); renderGallery(); return; }
+    if (e.target.closest('#wsReset')) {
+      q = ''; if (qEl) qEl.value = '';
+      clearTimeout(qT); renderGallery(); syncSheet();
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && wSheet && wSheet.classList.contains('open')) setSheetOpen(false);
+  });
+
   filtersEl && filtersEl.addEventListener('click', (e) => {
     const b = e.target.closest('.chip'); if (!b) return;
     currentCat = b.dataset.cat;
     $$('.chip', filtersEl).forEach(x => x.classList.toggle('on', x === b));
     renderGallery();
   });
-
-  function shuffleArr(a) {
-    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
-    return a;
-  }
-  let gio = null;
-  function renderGallery() {
-    if (!galleryEl) return;
-    const pool = currentCat === '全部' ? WORKS.slice() : WORKS.filter(w => w.cat === currentCat);
-    view = shuffleArr(pool);                 /* 每次进入/筛选都随机摆放位置 */
-    if (countEl) countEl.textContent = view.length;
-    if (countInline) countInline.innerHTML = `当前筛选 <b>${view.length}</b> / ${WORKS.length}`;
-    if (!view.length) { galleryEl.innerHTML = '<div class="gallery-empty">// 暂无作品</div>'; return; }
-
-    galleryEl.innerHTML = view.map(w => `
-      <button type="button" class="gcard" data-id="${w.id}" data-cat="${esc(w.cat)}" data-w="${w.w || 3}" data-h="${w.h || 4}" aria-label="查看作品：${esc(w.title)}">
-        <span class="ph wm"><img src="${w.src}" alt="${esc(w.title)}" loading="lazy" width="${w.w}" height="${w.h}" draggable="false"></span>
-        <span class="ov">
-          <span class="ov-row">
-            <span class="ov-txt">
-              <span class="ov-no">NO.${esc(w.no || '')}</span>
-              <span class="ov-t">${esc(w.title || '')}</span>
-            </span>
-            <span class="ov-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-          </span>
-        </span>
-      </button>`).join('');
-
-    layoutGallery();
-
-    if (gio) gio.disconnect();
-    let firstBatch = true;
-    /* 同一批进入视口的封面按阅读顺序依次延迟出场 */
-    gio = new IntersectionObserver((ents) => {
-      const batch = ents.filter(en => en.isIntersecting);
-      if (!batch.length) return;
-      batch.sort((a, b) => {
-        const ra = a.target.getBoundingClientRect(), rb = b.target.getBoundingClientRect();
-        return (Math.round(ra.top / 24) - Math.round(rb.top / 24)) || (ra.left - rb.left);
-      });
-      const base = firstBatch ? 420 : 0;      /* 首次铺开时接在标题之后，滚动加载时保持轻快 */
-      firstBatch = false;
-      batch.forEach((en, i) => {
-        en.target.style.transitionDelay = (base + Math.min(i * 90, 540)) + 'ms';
-        en.target.classList.add('in');
-        gio.unobserve(en.target);
-      });
-    }, { rootMargin: '0px', threshold: 0.04 });
-    $$('.gcard', galleryEl).forEach(c => gio.observe(c));
-  }
-
-  function layoutGallery() {
-    if (!galleryEl || !galleryEl.children.length) return;
-    const cs = getComputedStyle(galleryEl);
-    const rowH = parseFloat(cs.gridAutoRows) || 8;
-    const gap = parseFloat(cs.rowGap) || 16;
-    const cols = cs.gridTemplateColumns.split(' ').filter(Boolean).length || 1;
-    const inner = galleryEl.clientWidth - (cols - 1) * gap;
-    if (inner <= 0) return;
-    const colW = inner / cols;
-    $$('.gcard', galleryEl).forEach(c => {
-      const w = +c.dataset.w, h = +c.dataset.h;
-      const ratio = (w > 0 && h > 0) ? h / w : 1.3;
-      c.style.setProperty('--span', Math.max(4, Math.round((colW * ratio + gap) / (rowH + gap))));
-    });
-  }
-
-  galleryEl && galleryEl.addEventListener('click', (e) => {
-    const card = e.target.closest('.gcard'); if (!card) return;
-    const i = view.findIndex(w => w.id === card.dataset.id);
-    if (i >= 0) openDetail(i, { wait: true });
+  let qT = null;
+  qEl && qEl.addEventListener('input', () => {
+    q = qEl.value;
+    clearTimeout(qT);
+    qT = setTimeout(renderGallery, 140);
+  });
+  qClear && qClear.addEventListener('click', () => {
+    q = ''; if (qEl) { qEl.value = ''; qEl.focus(); }
+    clearTimeout(qT); renderGallery();
   });
 
+  function openCard(card) {
+    const i = view.findIndex(w => w.id === card.dataset.id);
+    if (i >= 0) openDetail(i, { wait: true });
+  }
+  galleryEl && galleryEl.addEventListener('click', (e) => {
+    const card = e.target.closest('.pcard'); if (!card) return;
+    openCard(card);
+  });
+  galleryEl && galleryEl.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('.pcard'); if (!card) return;
+    e.preventDefault(); openCard(card);
+  });
   /* ====================================================================
      加载等待：至少 2s，图片没就绪就继续等
      ==================================================================== */
@@ -1898,7 +2195,7 @@ window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WOR
     showLoader();
     const t0 = performance.now();
     let state = 'loading';
-    preload(work && work.src, 15000).then(ok => { state = ok ? 'ok' : 'fail'; });
+    preload(work && displayOf(work), 15000).then(ok => { state = ok ? 'ok' : 'fail'; });
     return new Promise(resolve => {
       (function tick(now) {
         const e = now - t0;
@@ -1955,7 +2252,8 @@ window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WOR
     if (!view.length) return;
     [-1, 1, 2].forEach(step => {
       const w = view[(dIndex + step + view.length) % view.length];
-      if (w && !preloaded.has(w.src)) { preloaded.add(w.src); const im = new Image(); im.src = w.src; }
+      const s = displayOf(w);
+      if (w && s && !preloaded.has(s)) { preloaded.add(s); const im = new Image(); im.src = s; }
     });
   }
 
@@ -1991,7 +2289,7 @@ window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WOR
 
   function paintDetail() {
     const w = view[dIndex]; if (!w) return;
-    dImg.src = w.src; dImg.alt = w.title;
+    dImg.src = displayOf(w); dImg.alt = w.title;
     dImg.classList.remove('pop'); void dImg.offsetWidth; dImg.classList.add('pop');
     dTitle.textContent = w.title;
     dNote.textContent = w.note || '';
@@ -2217,6 +2515,7 @@ window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WOR
       if (r.cat && CATS.indexOf(r.cat) >= 0) cat = r.cat;
       if (r.open) cat = '全部';
       currentCat = cat;
+      setMode(mode); setSort(sortDesc);
       renderFilters(); renderGallery();
       window.scrollTo(0, 0);
       requestAnimationFrame(() => window.scrollTo(0, 0));   /* 布局稳定后再确认一次在顶部 */
@@ -2285,7 +2584,7 @@ window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WOR
      图片不允许保存 / 下载
      ==================================================================== */
   document.addEventListener('contextmenu', (e) => {
-    if (e.target.closest('img, .wm, .stage, .gcard, .fcell, .reel, .about-portrait, .admin, .modal')) e.preventDefault();
+    if (e.target.closest('img, .wm, .stage, .pcard, .fcell, .reel, .about-portrait, .admin, .modal')) e.preventDefault();
   }, false);
   document.addEventListener('dragstart', (e) => {
     if (e.target && (e.target.tagName === 'IMG' || e.target.closest('img'))) e.preventDefault();
@@ -2391,7 +2690,7 @@ window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WOR
       <input type="checkbox" class="wsel" data-no="${esc(w.no)}"${sel.has(w.no) ? ' checked' : ''} title="选择">
       <span class="arow-star${w.featured ? ' on' : ''}" data-act="feat" title="${w.featured ? '取消精选' : '设为精选'}">★</span>
       <span class="arow-no">NO.${esc(w.no)}</span>
-      <span class="arow-thumb"><img src="${esc(w.src)}" alt=""></span>
+      <span class="arow-thumb"><img src="${esc(w.thumb || w.src)}" alt="" loading="lazy" decoding="async"></span>
       <span class="arow-main"><b>${esc(w.title || '未命名')}</b><span>${esc(w.src)}</span></span>
       <span class="arow-cat" data-cat="${esc(w.cat)}"><i class="cdot2"></i>${esc(w.cat || '-')}</span>
       <span class="arow-acts">
@@ -2652,8 +2951,8 @@ window.XW = {"CATS":["全部","风光","人像","街头","生活","静物"],"WOR
   });
 
   $('#resetAll').addEventListener('click', () => {
-    if (!confirm('确定恢复初始 21 张作品？当前所有改动都会丢失。')) return;
-    try { localStorage.removeItem('xw:db:v3'); localStorage.removeItem('xw:catcolors'); } catch (e) {}
+    if (!confirm('确定恢复初始 45 张作品？当前所有改动都会丢失。')) return;
+    try { localStorage.removeItem(DB_KEY); localStorage.removeItem('xw:catcolors:mv5037uw'); } catch (e) {}
     location.reload();
   });
   $('#pwSave').addEventListener('click', () => {
