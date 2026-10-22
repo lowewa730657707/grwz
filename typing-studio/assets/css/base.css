@@ -1,0 +1,565 @@
+/* =========================================================
+   键艺 KeyCraft — 基础重塑（全局字号、首页 Hero、指法手图）
+   加载顺序：style.css → base.css → practice.css / game.css / settings.css
+   ========================================================= */
+
+:root {
+  --fs-display: clamp(34px, 3.6vw, 52px);
+  --fs-h1: clamp(27px, 2.9vw, 40px);
+  --fs-h2: clamp(21px, 2.1vw, 30px);
+  --fs-h3: 17px;
+  --fs-body: 14px;
+  --fs-small: 12px;
+  --hero-kb-w: 520px;
+}
+
+/* ---------- 全局偏好：减少动效 / 紧凑密度 ---------- */
+html[data-reduce-motion="true"] *,
+html[data-reduce-motion="true"] *::before,
+html[data-reduce-motion="true"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+html[data-density="compact"] .section {
+  padding: 56px 0;
+}
+
+html[data-density="compact"] .page-hero {
+  padding: 40px 0 32px;
+}
+
+html[data-density="compact"] .hero {
+  padding: 46px 0 42px;
+}
+
+/* ---------- 全局标题：整体缩小一档 ---------- */
+.hero h1 {
+  max-width: 12em;
+  margin: 22px 0 20px;
+  font-size: var(--fs-display);
+  letter-spacing: -0.045em;
+  line-height: 1.06;
+}
+
+.page-hero h1 {
+  margin-top: 20px;
+  font-size: var(--fs-h1);
+  letter-spacing: -0.04em;
+  line-height: 1.14;
+}
+
+.section-title {
+  font-size: var(--fs-h2);
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+.cta-band h2 {
+  font-size: clamp(24px, 2.6vw, 34px);
+  letter-spacing: -0.035em;
+}
+
+.keyboard-feature-copy h2,
+.hand-guide-copy h2 {
+  font-size: clamp(24px, 2.5vw, 34px);
+  letter-spacing: -0.03em;
+}
+
+.course-title-row h1 {
+  font-size: clamp(30px, 3.4vw, 42px);
+  letter-spacing: -0.04em;
+}
+
+.lesson-head h1 {
+  font-size: clamp(28px, 3.2vw, 38px);
+  letter-spacing: -0.04em;
+}
+
+.course-card h3 {
+  font-size: 20px;
+}
+
+.course-card p {
+  font-size: 12px;
+}
+
+.section-sub,
+.page-hero .lead {
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.hero-desc {
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.page-hero {
+  padding: 54px 0 42px;
+}
+
+.section {
+  padding: 78px 0;
+}
+
+.section-head {
+  margin-bottom: 36px;
+}
+
+/* ---------- 首页 Hero：标题在左，固定尺寸键盘在右，不换行 ---------- */
+.hero {
+  padding: 64px 0 58px;
+}
+
+.hero-grid {
+  grid-template-columns: minmax(0, 1fr) var(--hero-kb-w);
+  align-items: center;
+  gap: clamp(28px, 4vw, 56px);
+}
+
+.hero-copy {
+  min-width: 0;
+  padding-top: 0;
+}
+
+.hero h1 .line {
+  display: block;
+  white-space: nowrap;
+}
+
+.hero h1 .accent-line {
+  display: block;
+  width: fit-content;
+}
+
+.hero-visual {
+  width: var(--hero-kb-w);
+  max-width: var(--hero-kb-w);
+  justify-self: end;
+}
+
+.hero-card {
+  padding: 14px;
+  border-radius: 12px;
+}
+
+.hero-card-bar {
+  margin-bottom: 12px;
+}
+
+.hero-typing-line {
+  min-height: 46px;
+  margin: 0 2px 12px;
+  font-size: 15px;
+}
+
+.hero-card .kb,
+.hero-card .kb-row {
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.hero-card .kb {
+  width: 100%;
+  min-width: 0;
+  --kb-gap: 2px;
+  --kb-pad: 7px;
+  --kb-font: 8.5px;
+}
+
+.hero-card .kb .kb-key {
+  flex-shrink: 1;
+  height: 30px;
+}
+
+.hero-card .kb .kb-key .sub {
+  font-size: 0.72em;
+}
+
+.hero-card-foot {
+  margin-top: 12px;
+  padding-top: 11px;
+  font-size: 8px;
+}
+
+.hero-meta {
+  margin-top: 34px;
+  padding-top: 18px;
+}
+
+/* 1024–1120：仍然并排，键盘等比缩小 */
+@media (min-width: 961px) and (max-width: 1120px) {
+  :root {
+    --hero-kb-w: 410px;
+  }
+
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) 410px;
+    gap: 28px;
+  }
+
+  .hero-card .kb {
+    --kb-pad: 5px;
+    --kb-gap: 1.5px;
+    --kb-font: 7.2px;
+  }
+
+  .hero-card .kb .kb-key {
+    height: 26px;
+  }
+
+  .hero h1 {
+    font-size: clamp(32px, 4.1vw, 44px);
+  }
+}
+
+/* 手机端首页标题：允许换行，不再被裁切 */
+@media (max-width: 960px) {
+  .hero {
+    padding: 44px 0 42px;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .hero-visual {
+    width: 100%;
+    max-width: 560px;
+    justify-self: start;
+  }
+
+  .hero h1 {
+    max-width: none;
+  }
+
+  .hero h1 .line {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 34px 0 34px;
+  }
+
+  .hero-kicker .no-grad {
+    display: none;
+  }
+
+  .hero h1 {
+    margin: 18px 0 16px;
+    font-size: clamp(29px, 8.6vw, 38px);
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+  }
+
+  .hero-desc {
+    font-size: 13.5px;
+    line-height: 1.75;
+  }
+
+  .hero-actions {
+    margin-top: 22px;
+  }
+
+  .hero-meta {
+    margin-top: 26px;
+    padding-top: 16px;
+  }
+
+  .hero-meta div {
+    min-width: 50%;
+    padding-right: 12px;
+  }
+
+  .hero-meta div + div {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .hero-meta div:nth-child(even) {
+    padding-left: 12px;
+    border-left: 1px solid var(--line);
+  }
+
+  .hero-meta dt {
+    font-size: 8px;
+  }
+
+  .hero-meta dd {
+    font-size: 17px;
+  }
+
+  .hero-visual {
+    max-width: 100%;
+  }
+
+  .hero-card {
+    padding: 10px;
+  }
+
+  .hero-card .kb {
+    --kb-font: 6.4px;
+    --kb-pad: 5px;
+    --kb-gap: 1.5px;
+  }
+
+  .hero-card .kb .kb-key {
+    height: 24px;
+    border-radius: 3px;
+  }
+
+  .hero-card .kb .kb-key--home::after {
+    bottom: 3px;
+    width: 6px;
+  }
+
+  .hero-typing-line {
+    min-height: 34px;
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+
+  .hero-card-foot {
+    display: none;
+  }
+
+  .hero-card-code {
+    display: none;
+  }
+
+  .hero-card-bar {
+    margin-bottom: 8px;
+  }
+}
+
+/* ---------- 首页滚动吸附：一个区块 = 一屏（仅桌面端） ---------- */
+@media (min-width: 1200px) {
+  html.home-snap {
+    scroll-snap-type: y mandatory;
+  }
+
+  html.home-snap .hero,
+  html.home-snap .section,
+  html.home-snap .section-tight {
+    display: flex;
+    min-height: calc(100vh - var(--header-h, 66px));
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    scroll-margin-top: var(--header-h, 66px);
+  }
+
+  html.home-snap .section-head {
+    margin-bottom: 26px;
+  }
+
+  html.home-snap .course-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  html.home-snap .course-card {
+    min-height: 280px;
+    padding: 22px;
+  }
+
+  html.home-snap .course-card h3 {
+    margin-top: 18px;
+    font-size: 20px;
+  }
+
+  html.home-snap .course-card p {
+    margin-top: 10px;
+    font-size: 12.5px;
+    line-height: 1.65;
+  }
+
+  html.home-snap .course-card-bottom {
+    padding-top: 16px;
+  }
+
+  html.home-snap .hero {
+    padding-top: 34px;
+    padding-bottom: 34px;
+  }
+
+  html.home-snap .site-footer {
+    scroll-snap-align: start;
+    scroll-margin-top: var(--header-h, 66px);
+  }
+}
+
+/* ---------- 键盘样式 / 大小 / 整体缩放 ---------- */
+html[data-keyboard-style="soft"] .kb-key {
+  border-radius: 9px;
+}
+
+html[data-keyboard-style="raised"] .kb-key {
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+html[data-keyboard-style="outline"] .kb {
+  border: 1px solid var(--line);
+  background: transparent;
+}
+
+html[data-keyboard-style="outline"] .kb-key {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+}
+
+html[data-keyboard-style="outline"] .kb-key.is-next,
+html[data-keyboard-style="outline"] .kb-key.is-down {
+  box-shadow: inset 0 0 0 1px var(--line-strong), 0 0 0 2px var(--accent);
+}
+
+html[data-keyboard-size="s"] .kb {
+  --kb-font: clamp(8px, 0.72vw, 11px);
+}
+
+html[data-keyboard-size="l"] .kb {
+  --kb-font: clamp(11px, 1.06vw, 15px);
+}
+
+html[data-ui-scale="compact"] #app {
+  zoom: 0.94;
+}
+
+html[data-ui-scale="large"] #app {
+  zoom: 1.08;
+}
+
+/* ---------- 指法页：手图加上手指颜色提示 ---------- */
+.hand-guide-figure {
+  position: relative;
+}
+
+.hand-visual {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.hand-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  aspect-ratio: 2732 / 1535;
+  object-fit: contain;
+}
+
+.hand-spots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hand-spot {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transform: translate(-50%, -6px);
+}
+
+.hand-spot i {
+  display: block;
+  width: 13px;
+  height: 13px;
+  border: 2px solid var(--panel);
+  border-radius: 50%;
+  background: var(--fc);
+  box-shadow: 0 0 0 1px var(--fc);
+}
+
+.hand-spot b {
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: var(--panel);
+  color: var(--fc);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.hand-color-legend {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  background: var(--line);
+}
+
+.hand-color-legend > span {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 7px;
+  padding: 8px 9px;
+  background: var(--panel-2);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.hand-color-legend i {
+  display: block;
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  background: var(--fc);
+}
+
+.hand-color-legend em {
+  margin-left: auto;
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-style: normal;
+}
+
+.hand-color-legend small {
+  flex-basis: 100%;
+  margin-left: 16px;
+  overflow: hidden;
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 900px) {
+  .hand-color-legend {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .hand-color-legend {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hand-spot b {
+    padding: 0 2px;
+    font-size: 7.5px;
+  }
+
+  .hand-spot i {
+    width: 10px;
+    height: 10px;
+  }
+}

@@ -1,0 +1,1129 @@
+/* =========================================================
+   键艺 KeyCraft — 打字练习页（单行舞台 · 纯色描边）
+   加载顺序：style.css → base.css → practice.css
+   ========================================================= */
+
+.practice-page {
+  --practice-w: 1100px;
+  --kb-key-h: 42px;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.practice-page *,
+.practice-page *::before,
+.practice-page *::after {
+  box-sizing: border-box;
+}
+
+/* ---------------- top bar ---------------- */
+.practice-topbar {
+  position: sticky;
+  z-index: 80;
+  top: 0;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.practice-topbar-inner {
+  display: flex;
+  width: min(100% - 40px, var(--practice-w, 1100px));
+  min-height: 56px;
+  margin-inline: auto;
+  align-items: center;
+  gap: 14px;
+}
+
+.practice-back {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  transition: color 0.16s var(--ease), border-color 0.16s var(--ease);
+}
+
+.practice-back:hover {
+  border-color: var(--line);
+  color: var(--text);
+}
+
+.practice-back .arrow {
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.practice-title {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+}
+
+.practice-title .badge {
+  display: inline-flex;
+  height: 22px;
+  flex-shrink: 0;
+  align-items: center;
+  padding: 0 7px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  color: var(--course, var(--accent));
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.practice-title-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.practice-title-copy strong {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.practice-title .practice-title-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.practice-title-meta i {
+  position: relative;
+  font-style: normal;
+}
+
+.practice-title-meta i + i::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 8px;
+  margin-right: 7px;
+  background: var(--line-strong);
+  vertical-align: -1px;
+}
+
+#practice-status {
+  color: var(--green);
+}
+
+#practice-mode-label {
+  color: var(--muted);
+}
+
+.practice-top-actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.practice-top-actions.has-tabs {
+  justify-content: flex-end;
+}
+
+.practice-page .practice-mode-tabs {
+  display: inline-flex;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--panel);
+}
+
+.practice-page .practice-mode-tab {
+  min-height: 24px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 3px;
+  background: transparent;
+  color: var(--dim);
+  font-size: 10px;
+  cursor: pointer;
+  transition: color 0.16s var(--ease), background-color 0.16s var(--ease);
+}
+
+.practice-page .practice-mode-tab:hover {
+  color: var(--text);
+}
+
+.practice-page .practice-mode-tab.is-active {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.practice-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.practice-controls .icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 5px;
+}
+
+/* ---------------- progress ---------------- */
+.practice-progress {
+  height: 2px;
+  background: var(--panel-3);
+}
+
+.practice-progress > i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--course, var(--accent));
+  transition: width 0.15s linear;
+}
+
+/* ---------------- layout ---------------- */
+.practice-page .practice-wrap--v2 {
+  width: min(100% - 40px, var(--practice-w, 1100px));
+  margin-inline: auto;
+  padding: 18px 0 40px;
+}
+
+.practice-page .typing-sheet {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--course, var(--accent));
+  border-radius: 12px;
+  background: var(--panel);
+  box-shadow: none;
+}
+
+.typing-sheet.is-shaking {
+  animation: sheetShake 0.2s var(--ease);
+}
+
+@keyframes sheetShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  50% { transform: translateX(3px); }
+  75% { transform: translateX(-2px); }
+}
+
+/* ---------------- sheet head ---------------- */
+.typing-sheet-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+  padding: 7px 16px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel-2);
+}
+
+.typing-line-label {
+  color: var(--course, var(--accent));
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+.typing-focus {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-left: auto;
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.typing-focus > span:first-child {
+  margin-right: 2px;
+}
+
+.focus-key {
+  display: inline-flex;
+  width: auto;
+  min-width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  background: var(--panel);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.focus-key:empty {
+  display: none;
+}
+
+.focus-more {
+  color: var(--dim);
+  font-size: 9px;
+}
+
+.typing-char-count {
+  flex-shrink: 0;
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.typing-char-count i {
+  color: var(--muted);
+  font-style: normal;
+}
+
+.typing-char-count span {
+  margin-left: 4px;
+}
+
+/* ---------------- typing stage ---------------- */
+.practice-page .practice-wrap--v2 .typing-stage {
+  position: relative;
+  display: flex;
+  min-height: 212px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 24px 16px;
+  cursor: text;
+}
+
+.typing-prev {
+  min-height: 1.4em;
+  overflow: hidden;
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  letter-spacing: 0.015em;
+  line-height: 1.4;
+  opacity: 0.34;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: opacity 0.16s var(--ease);
+}
+
+.typing-prev.is-empty {
+  opacity: 0;
+}
+
+.practice-page .typing-text {
+  position: relative;
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
+  font-family: var(--font-mono);
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  line-height: 1.5;
+  text-align: center;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.practice-page .typing-text.is-cn {
+  font-family: var(--font-sans);
+  font-size: 35px;
+  letter-spacing: 0.05em;
+}
+
+.practice-page .typing-text.is-wubi {
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  white-space: pre-wrap;
+}
+
+.practice-page .typing-text .ch {
+  position: relative;
+  display: inline;
+  padding: 0 0.01em;
+  border-radius: 4px;
+  color: var(--muted);
+  transition: color 0.12s var(--ease), background-color 0.12s var(--ease);
+}
+
+.practice-page .typing-text .ch.is-space {
+  display: inline-block;
+  width: 0.55em;
+  min-width: 0.55em;
+}
+
+.practice-page .typing-text .ch.is-done {
+  background: var(--correct-soft);
+  color: var(--correct);
+}
+
+.practice-page .typing-text .ch.is-current {
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.practice-page .typing-text .ch.is-wrong {
+  background: var(--panel-3);
+  box-shadow: inset 0 -2px 0 var(--wrong);
+  color: var(--wrong);
+}
+
+.typing-text.is-entering {
+  animation: lineEnter 0.16s var(--ease) both;
+}
+
+@keyframes lineEnter {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------- hint bar ---------------- */
+.typing-line-hint {
+  display: flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 14px;
+  border-top: 1px solid var(--line);
+  background: var(--panel-2);
+}
+
+.hint-inline {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+.hint-inline kbd {
+  display: inline-flex;
+  min-width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  border: 1px solid var(--line-strong);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--panel);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+}
+
+.hint-inline b {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hint-inline span {
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+}
+
+.hint-inline em {
+  padding: 1px 4px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-style: normal;
+}
+
+.hint-inline.is-error {
+  color: var(--wrong);
+}
+
+.hint-inline.is-error kbd {
+  border-color: var(--wrong);
+  color: var(--wrong);
+}
+
+.hint-inline.is-error em {
+  border-color: var(--wrong);
+  color: var(--wrong);
+}
+
+.hint-inline .hint-toggle {
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--panel);
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  cursor: pointer;
+}
+
+.hint-inline .hint-toggle:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.hint-inline .hint-finished {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.typing-sheet.hide-hint .hint-inline {
+  display: none;
+}
+
+/* ---------------- start button ---------------- */
+.practice-page .typing-start {
+  position: static;
+  z-index: auto;
+  inset: auto;
+  display: inline-flex;
+  flex-shrink: 0;
+  flex-direction: row;
+  width: auto;
+  max-width: none;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  padding: 3px 10px 3px 4px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--text);
+  box-shadow: none;
+  text-align: left;
+  transform: none;
+  cursor: pointer;
+}
+
+.practice-page .typing-start:hover {
+  border-color: var(--accent);
+}
+
+.practice-page .typing-start[hidden] {
+  display: none;
+}
+
+.practice-page .typing-start .start-icon {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.practice-page .typing-start .start-icon svg {
+  width: 10px;
+  height: 10px;
+}
+
+.practice-page .typing-start strong {
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ---------------- IME / hidden inputs ---------------- */
+.practice-page .typing-hidden-input {
+  position: absolute;
+  z-index: -1;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.practice-page .typing-ime-input {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  opacity: 0.01;
+}
+
+/* ---------------- pause ---------------- */
+.practice-pause {
+  position: absolute;
+  z-index: 8;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: var(--panel);
+  text-align: center;
+}
+
+.practice-pause strong {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.practice-pause p {
+  color: var(--dim);
+  font-size: 11px;
+}
+
+.practice-pause .practice-pause-keys {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.practice-pause .practice-pause-keys kbd {
+  display: inline-flex;
+  height: 20px;
+  align-items: center;
+  padding: 0 6px;
+  border: 1px solid var(--line-strong);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--panel-2);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1;
+}
+
+.practice-pause > div {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.practice-countdown {
+  position: absolute;
+  z-index: 9;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--panel);
+}
+
+.practice-countdown strong {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 58px;
+  font-weight: 700;
+}
+
+/* ---------------- stats rail ---------------- */
+.practice-page .stats-rail {
+  display: grid;
+  grid-template-columns: 1.35fr repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--line);
+}
+
+.rail-stat {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 7px 12px 8px;
+  background: var(--panel);
+}
+
+.rail-stat > span {
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.1em;
+}
+
+.rail-stat strong {
+  display: inline-block;
+  margin-top: 1px;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+  transform-origin: left center;
+  font-variant-numeric: tabular-nums;
+}
+
+.rail-stat small {
+  margin-left: 3px;
+  color: var(--dim);
+  font-family: var(--font-sans);
+  font-size: 8px;
+}
+
+.rail-stat--speed {
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.rail-stat--speed strong {
+  color: var(--accent);
+}
+
+.rail-sparkline {
+  width: 100%;
+  height: 14px;
+  margin-top: 1px;
+  color: var(--accent);
+  overflow: visible;
+}
+
+.rail-bar {
+  height: 3px;
+  margin-top: 5px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: var(--line);
+}
+
+.rail-bar i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--green);
+  transition: width 0.2s linear;
+}
+
+.rail-stat strong.is-pop {
+  animation: comboPop 0.16s var(--ease);
+}
+
+@keyframes comboPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.22); color: var(--accent); }
+  100% { transform: scale(1); }
+}
+
+/* ---------------- keyboard ---------------- */
+.practice-page .practice-wrap--v2 .practice-keyboard {
+  width: 100%;
+  margin: 10px 0 0;
+  padding: 7px 10px 9px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+}
+
+.practice-page .practice-keyboard-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+}
+
+.practice-kb-toggle {
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--dim);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: color 0.16s var(--ease), border-color 0.16s var(--ease);
+}
+
+.practice-kb-toggle:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.practice-keyboard.is-collapsed .kb-wrap {
+  display: none;
+}
+
+.practice-keyboard .kb-wrap {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 2px;
+}
+
+/* 练习页键盘铺满容器，桌面端不出现横向滚动 */
+.practice-page .practice-keyboard .kb {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  --kb-font: 12.5px;
+  --kb-gap: 4px;
+  --kb-pad: 7px;
+}
+
+.practice-page .practice-keyboard .kb-key {
+  height: var(--kb-key-h, 42px);
+}
+
+/* keyboardSize：s 更窄、键更矮；l 更宽、键更高 */
+html[data-keyboard-size="s"] .practice-page {
+  --practice-w: 980px;
+  --kb-key-h: 38px;
+}
+
+html[data-keyboard-size="l"] .practice-page {
+  --practice-w: 1180px;
+  --kb-key-h: 46px;
+}
+
+html[data-keyboard-size="s"] .practice-page .practice-keyboard .kb {
+  --kb-font: 12px;
+  --kb-gap: 4px;
+}
+
+html[data-keyboard-size="l"] .practice-page .practice-keyboard .kb {
+  --kb-font: 13.5px;
+  --kb-gap: 5px;
+  --kb-pad: 8px;
+}
+
+/* ---------------- typing sizes ---------------- */
+.practice-page .typing-size-s .typing-text {
+  font-size: 28px;
+}
+
+.practice-page .typing-size-l .typing-text {
+  font-size: 41px;
+}
+
+.practice-page .typing-size-s .typing-text.is-cn {
+  font-size: 31px;
+}
+
+.practice-page .typing-size-l .typing-text.is-cn {
+  font-size: 44px;
+}
+
+.practice-page .typing-size-s .typing-prev {
+  font-size: 14px;
+}
+
+.practice-page .typing-size-l .typing-prev {
+  font-size: 20px;
+}
+
+/* ---------------- reduce motion ---------------- */
+.practice-page.reduce-motion .typing-text.is-entering,
+.practice-page.reduce-motion .typing-sheet.is-shaking,
+.practice-page.reduce-motion .rail-stat strong.is-pop {
+  animation: none;
+}
+
+.practice-page.reduce-motion .typing-text .ch,
+.practice-page.reduce-motion .typing-prev {
+  transition: none;
+}
+
+/* ---------------- result overlay safety ---------------- */
+.result-overlay {
+  z-index: 240;
+}
+
+/* ---------------- responsive ---------------- */
+@media (max-width: 760px) {
+  .practice-topbar-inner {
+    width: calc(100% - 24px);
+    min-height: 54px;
+    gap: 8px;
+  }
+
+  .practice-back {
+    padding: 5px 6px;
+  }
+
+  .practice-back .back-label {
+    display: none;
+  }
+
+  .practice-title-copy strong {
+    font-size: 12px;
+  }
+
+  .practice-title .practice-title-meta {
+    gap: 5px;
+    font-size: 7px;
+    letter-spacing: 0.05em;
+  }
+
+  .practice-title-meta i:nth-child(3) {
+    display: none;
+  }
+
+  .practice-top-actions {
+    gap: 5px;
+  }
+
+  .practice-controls .icon-btn {
+    width: 29px;
+    height: 29px;
+  }
+
+  .practice-page .practice-mode-tab {
+    min-height: 22px;
+    padding: 0 7px;
+    font-size: 9px;
+  }
+
+  .practice-page .practice-wrap--v2 {
+    width: calc(100% - 20px);
+    padding: 14px 0 32px;
+  }
+
+  .typing-sheet {
+    border-radius: 12px;
+  }
+
+  .typing-sheet-head {
+    gap: 5px 8px;
+    padding: 6px 12px;
+  }
+
+  .typing-line-label {
+    font-size: 9px;
+  }
+
+  .typing-focus {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .focus-key {
+    width: auto;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    font-size: 8px;
+  }
+
+  .typing-char-count {
+    font-size: 7px;
+  }
+
+  .practice-page .practice-wrap--v2 .typing-stage {
+    min-height: 158px;
+    gap: 8px;
+    padding: 16px 12px 14px;
+  }
+
+  .typing-prev {
+    font-size: 12px;
+  }
+
+  .practice-page .typing-text {
+    font-size: 25px;
+    line-height: 1.5;
+  }
+
+  .practice-page .typing-text.is-cn {
+    font-size: 28px;
+  }
+
+  .practice-page .typing-size-s .typing-text {
+    font-size: 21px;
+  }
+
+  .practice-page .typing-size-l .typing-text {
+    font-size: 29px;
+  }
+
+  .practice-page .typing-size-s .typing-text.is-cn {
+    font-size: 24px;
+  }
+
+  .practice-page .typing-size-l .typing-text.is-cn {
+    font-size: 32px;
+  }
+
+  .typing-line-hint {
+    min-height: 32px;
+    gap: 8px;
+    padding: 3px 10px;
+  }
+
+  .hint-inline {
+    gap: 6px;
+    font-size: 11px;
+  }
+
+  .hint-inline kbd {
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    font-size: 10px;
+  }
+
+  .hint-inline b {
+    font-size: 12px;
+  }
+
+  .practice-page .typing-start {
+    padding: 2px 8px 2px 3px;
+  }
+
+  .practice-page .typing-start .start-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .practice-page .stats-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 8px;
+  }
+
+  .rail-stat--speed {
+    grid-column: 1 / -1;
+  }
+
+  .rail-stat {
+    padding: 6px 10px 7px;
+  }
+
+  .rail-stat strong {
+    font-size: 17px;
+  }
+
+  .practice-page .practice-wrap--v2 .practice-keyboard {
+    margin-top: 8px;
+    padding: 6px 8px 8px;
+  }
+
+  .practice-page {
+    --kb-key-h: 32px;
+  }
+
+  html[data-keyboard-size="s"] .practice-page {
+    --kb-key-h: 30px;
+  }
+
+  html[data-keyboard-size="l"] .practice-page {
+    --kb-key-h: 34px;
+  }
+
+  .practice-page .practice-keyboard .kb {
+    width: 100%;
+    min-width: 680px;
+    --kb-font: 11.5px;
+    --kb-gap: 3px;
+    --kb-pad: 6px;
+  }
+
+  html[data-keyboard-size="s"] .practice-page .practice-keyboard .kb {
+    min-width: 660px;
+    --kb-font: 11px;
+  }
+
+  html[data-keyboard-size="l"] .practice-page .practice-keyboard .kb {
+    min-width: 700px;
+    --kb-font: 12px;
+  }
+
+  .practice-pause strong {
+    font-size: 20px;
+  }
+
+  .practice-pause .practice-pause-keys {
+    font-size: 9.5px;
+  }
+
+  .practice-countdown strong {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 400px) {
+  .practice-page .typing-text {
+    font-size: 22px;
+  }
+
+  .practice-page .typing-size-s .typing-text {
+    font-size: 19px;
+  }
+
+  .practice-page .typing-size-l .typing-text {
+    font-size: 27px;
+  }
+
+  .practice-page .practice-wrap--v2 .typing-stage {
+    min-height: 148px;
+    padding: 14px 10px 12px;
+  }
+
+  .rail-stat strong {
+    font-size: 16px;
+  }
+}
