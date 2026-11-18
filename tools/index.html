@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="拾器 ToolBox：图片、设计、音视频、文件、二维码、财税、法律、换算、生活、教育、文本、开发、系统与益智等十四类在线工具，内容只在本地处理，不上传。">
+<title>拾器 ToolBox · 本地运行的在线工具集</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232d5c4d'/%3E%3Cpath d='M18 18h12v12H18zM34 18h12v12H34zM18 34h12v12H18zM34 34h12v12H34z' fill='%23f4f3ee'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/game.css">
+<link rel="stylesheet" href="assets/game-board.css">
+<link rel="stylesheet" href="assets/visual-tools.css">
+<link rel="stylesheet" href="assets/content-tools.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="打开导航" aria-expanded="false">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+  <a class="brand" href="#/" title="拾器 ToolBox 首页">
+    <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    <span class="brand-text">拾器<span>ToolBox</span></span>
+  </a>
+
+  <div class="searchbox">
+    <svg class="search-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+    <input id="search" type="search" placeholder="搜索工具名称或关键词，如 PDF、二维码、个税" autocomplete="off" spellcheck="false" aria-label="搜索工具">
+    <kbd id="searchKbd">Ctrl K</kbd>
+    <button id="clearSearch" class="clear-search" title="清空搜索" aria-label="清空搜索">×</button>
+  </div>
+
+  <div class="top-actions">
+    <span class="top-stat" id="topStat">正在载入</span>
+    <a class="icon-btn" href="#/about" title="关于本站" aria-label="关于本站">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+    </a>
+    <button class="icon-btn" id="favBtn" title="我的收藏" aria-label="我的收藏">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2-5.5-2.9-5.5 2.9 1-6.2L3 9.6l6.2-.9z"/></svg>
+    </button>
+    <button class="icon-btn" id="themeBtn" title="切换深色 / 浅色" aria-label="切换深色或浅色主题">
+      <svg class="ico-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>
+      <svg class="ico-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="side-scroll" id="sideNav"></div>
+    <div class="side-foot">
+      <div class="privacy-badge">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.4-2.9 7.4-7 9-4.1-1.6-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        <div><b>内容只在本地处理</b><small>文件、文本与计算结果都在浏览器内处理，不上传服务器</small></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <!-- ================= 首页 ================= -->
+    <section class="view" id="homeView">
+      <section class="hero">
+        <svg class="hero-pattern" aria-hidden="true">
+          <defs>
+            <pattern id="heroDots" width="22" height="22" patternUnits="userSpaceOnUse">
+              <circle cx="1.6" cy="1.6" r="1.1" fill="currentColor"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#heroDots)"/>
+        </svg>
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <span class="eyebrow">十四类工具 · 无需注册 · 内容只在本地处理</span>
+            <h1>小而全的工具箱，<br><span class="h1-em">打开就能用。</span></h1>
+            <p class="hero-desc">图片、设计、音视频、文件、二维码、财税、法律、换算、生活、教育、文本、开发、系统与益智，共十四类工具。<br>所有运算都在浏览器本地完成，内容只在本地处理，不上传、不留存。</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" id="heroSearchBtn">开始查找工具</button>
+              <a class="btn btn-ghost" href="#/about">了解本站</a>
+            </div>
+            <div class="hero-chips" aria-label="快捷分类">
+              <button data-jump="image">图片处理</button>
+              <button data-jump="design">设计工具</button>
+              <button data-jump="system">系统检测</button>
+              <button data-jump="file">文件与 PDF</button>
+              <button data-jump="dev">开发辅助</button>
+              <button data-jump="finance">财税计算</button>
+              <button data-jump="edu">教育学习</button>
+            </div>
+          </div>
+          <div class="hero-spec">
+            <div class="spec-head"><span>本站数据</span><span>LOCAL</span></div>
+            <div class="hero-stats" id="heroStats"></div>
+            <p class="spec-note">统计来自当前已注册的工具实现。未注册的工具会标记为「即将上线」，并给出同类替代建议。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" id="features">
+        <div class="sec-head">
+          <span class="sec-no">01</span>
+          <h2>功能介绍</h2>
+          <span class="sec-en">FEATURES</span>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <span class="feat-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5.5c0 4.4-2.9 7.4-7 9-4.1-1.6-7-4.6-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+            <h3>内容只在本地处理</h3>
+            <p>文件、文本与计算结果只在浏览器内存中处理，不上传、不转存、不生成临时下载链接。</p>
+          </article>
+          <article class="feature">
+            <span class="feat-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 7-2.6"/></svg></span>
+            <h3>无需注册</h3>
+            <p>没有账号体系、次数限制与会员门槛，打开页面即可使用；偏好设置仅保存在你自己的浏览器。</p>
+          </article>
+          <article class="feature">
+            <span class="feat-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15a4 4 0 0 1 1-7.9A5.5 5.5 0 0 1 15.5 8 3.5 3.5 0 0 1 20 11.5"/><path d="M12 12v7M9 16l3 3 3-3"/></svg></span>
+            <h3>离线可用</h3>
+            <p>依赖库随站点一起分发，页面缓存后断网也能继续打开；适合在无外网的电脑上处理敏感内容。</p>
+          </article>
+          <article class="feature">
+            <span class="feat-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h10M4 17h13"/><path d="M17 12l3 3-3 3"/></svg></span>
+            <h3>结果可控</h3>
+            <p>每个工具都提供预览、复制与下载三类出口，生成文件直接落到本地，不经过第三方服务。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="sec" id="howto">
+        <div class="sec-head">
+          <span class="sec-no">02</span>
+          <h2>使用说明</h2>
+          <span class="sec-en">HOW TO USE</span>
+        </div>
+        <ol class="step-grid">
+          <li class="step">
+            <span class="step-no">01</span>
+            <h3>找到工具</h3>
+            <p>按左侧分类浏览，或在顶部搜索框输入工具名、关键词与拼音首字母。支持 PDF、二维码、个税、正则、元素周期表等中英文检索。</p>
+          </li>
+          <li class="step">
+            <span class="step-no">02</span>
+            <h3>左边调参数，右边看结果</h3>
+            <p>工具页为左右分栏：左侧表单与按钮、右侧实时预览，两栏各自固定不动，调参数时不必再来回滚动。窄屏时用「参数设置 / 结果预览」标签切换，结果更新后标签上会出现提示点。</p>
+          </li>
+          <li class="step">
+            <span class="step-no">03</span>
+            <h3>处理与保存</h3>
+            <p>在结果区预览、复制或下载；输入框内按 Enter 与 Ctrl / ⌘ + Enter 都能直接执行。运算全程在本机完成，处理完成后可直接关闭页面，不会在服务器留下副本。</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="sec" id="recentBlock" hidden>
+        <div class="sec-head">
+          <span class="sec-no">03</span>
+          <h2>最近使用</h2>
+          <span class="sec-en">RECENT</span>
+          <button class="sec-clear" id="clearRecent">清空记录</button>
+        </div>
+        <div class="tool-grid" id="recentGrid"></div>
+      </section>
+
+      <div id="catBlocks"></div>
+    </section>
+
+    <!-- ================= 工具详情 ================= -->
+    <section class="view hidden" id="toolView">
+      <nav class="crumbs" id="crumbs" aria-label="面包屑"></nav>
+      <header class="tool-head">
+        <div class="tool-title-row">
+          <span class="tool-ico" id="toolIco" aria-hidden="true"></span>
+          <div class="tool-title-text">
+            <h2 id="toolTitle">工具名称</h2>
+            <p id="toolDesc">工具描述</p>
+          </div>
+          <div class="tool-head-actions">
+            <button class="btn btn-ghost btn-sm" id="infoBtn">使用说明</button>
+            <button class="btn btn-ghost btn-sm" id="copyLinkBtn">复制链接</button>
+            <button class="fav-toggle" id="favToggle">收藏</button>
+          </div>
+        </div>
+        <div class="tool-meta" id="toolMeta"></div>
+      </header>
+
+      <div class="tool-layout">
+        <div class="tool-panel" id="toolPanel"></div>
+        <aside class="tool-aside" id="toolAside" aria-label="工具说明"></aside>
+      </div>
+
+      <section class="related" id="related"></section>
+    </section>
+
+    <!-- ================= 关于本站 ================= -->
+    <section class="view hidden" id="aboutView">
+      <nav class="crumbs" aria-label="面包屑"><a href="#/">全部工具</a><span aria-hidden="true">/</span><span>关于本站</span></nav>
+      <header class="about-head">
+        <span class="eyebrow">ABOUT · LOCAL FIRST</span>
+        <h1>关于拾器 ToolBox</h1>
+        <p>一个把常用小工具收进同一页面的本地化工具集。没有账号、没有额度、没有上传队列，能离线就离线，能本地就本地。</p>
+      </header>
+
+      <div class="prose">
+        <section>
+          <h2><span>01</span>功能介绍</h2>
+          <p>拾器把日常遇到的小任务拆成独立工具，按使用场景分为图片、设计、音视频、文件、二维码、财税、法律、换算、生活、教育、文本、开发、系统与益智十四类。每个工具只做一件事，参数说明、使用提示与输出说明都整理在工具页下方，不需要阅读额外教程。</p>
+          <ul class="prose-list">
+            <li>统一在本机运算：文件读取、转码、压缩、加密全部借助浏览器 API 与本地依赖库完成。</li>
+            <li>工具页采用左右分栏：左侧调参数、右侧看预览，两栏各自吸顶，避免上下滚动来回对照。</li>
+            <li>窄屏使用「参数设置 / 结果预览」两个标签切换，结果刷新后标签上会出现提示点。</li>
+            <li>输出形式固定为预览、复制、下载三类，减少在不同工具之间来回切换。</li>
+            <li>对暂未开放的工具明确标注「即将上线」，并推荐同类可用工具。</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span>02</span>使用说明</h2>
+          <ol class="prose-steps">
+            <li><b>浏览或搜索。</b>从左侧分类进入，或使用顶部搜索框。搜索支持中文名、功能描述、英文关键词与拼音首字母。</li>
+            <li><b>填写参数。</b>字段说明会解释取值范围；输入框右侧的 × 可一键清空，部分字段提供常用值快捷按钮；文件类参数支持点击选择与拖拽放入。</li>
+            <li><b>查看结果。</b>右侧结果区按类型展示文本、表格、图片或文件，并提供复制与下载按钮；状态条会显示最近一次刷新时间。</li>
+            <li><b>键盘操作。</b>输入框内按 Enter 执行，任何位置按 Ctrl / ⌘ + Enter 也能执行；Ctrl / ⌘ + K 聚焦搜索，Esc 返回列表。</li>
+            <li><b>保存偏好。</b>收藏与深浅色主题保存在浏览器 localStorage 中，清除站点数据后会一并重置。</li>
+          </ol>
+        </section>
+
+        <section>
+          <h2><span>03</span>隐私与数据</h2>
+          <p>本站不接入统计脚本、广告联盟或第三方登录，也不设置追踪 Cookie。你选择或输入的内容不会离开设备：读取、处理与导出都在当前页面的 JavaScript 运行时内完成，页面关闭后内存即释放。</p>
+          <p>浏览器本地只会保存三类数据：收藏的工具名、深浅色主题偏好、最近使用记录。它们仅用于改善下次打开时的体验，不包含任何输入内容。</p>
+          <p>少数工具需要联网并标注「需联网」：中文翻译与多语言翻译调用公共翻译接口，当前 IP 查询与邮箱 MX 检测访问公共查询服务，实时汇率换算、天气查询读取免费开放接口，英文单词释义调用 Datamuse 与 free Dictionary API，语音识别使用浏览器内置服务。请勿向这些工具提交敏感内容。</p>
+        </section>
+
+        <section>
+          <h2><span>04</span>免责声明</h2>
+          <div class="notice">
+            <p><b>使用本站任何功能所生成、转换或计算出的内容，不保证准确、完整或适用于特定用途，本站不对使用结果承担责任；所有结果仅供参考。</b></p>
+            <p>本站为非商业的个人工具集合，所有工具按「现状」提供，不附带任何形式的明示或默示担保。</p>
+            <p>涉及税务、法律、金融、健康与劳动权益的测算结果仅为估算参考，不构成专业意见，也不能替代官方口径、税务机关答复或执业律师、税务师、医师的判断。办理正式业务前，请以主管部门与专业人士的结论为准。</p>
+            <p>工具输出可能受浏览器版本、文件编码、设备性能与输入数据影响。使用前请自行备份原始文件；因使用或无法使用本站造成的任何直接或间接损失，本站不承担责任。</p>
+            <p>站内提到的第三方库、商标与产品名称归各自权利人所有，仅用于说明技术实现。</p>
+          </div>
+        </section>
+
+        <section>
+          <h2><span>05</span>技术说明</h2>
+          <p>站点为纯静态页面，不依赖后端接口。文件处理使用 Canvas、Web Audio、Web Crypto、WebAssembly 与以下本地依赖完成，全部随站点分发：</p>
+          <ul class="prose-list two-col">
+            <li>qrcode.js / jsQR / JsBarcode — 二维码与条码</li>
+            <li>pdf-lib / PDF.js / jsPDF — PDF 读写与生成</li>
+            <li>JSZip — 压缩包读写</li>
+            <li>SheetJS — 表格解析与导出</li>
+            <li>lunar.js / pinyin-pro — 农历与拼音</li>
+            <li>heic2any / lame.js / omggif — 格式转换</li>
+            <li>marked.js — Markdown 渲染</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2><span>06</span>更新记录</h2>
+          <ul class="prose-list changelog">
+            <li><b>2026-11-15</b> 工具页改版：左右分栏吸顶、说明区改为三段折页、同类工具改为紧凑列表，标题区压缩为单行。</li>
+            <li><b>2026-11-15</b> 新增工具：国际象棋、化学方程式配平、五行讲解、函数图像绘制、数据图表生成、分享链接生成器、随机分组器、番茄专注计时。</li>
+            <li><b>2026-11-15</b> 内容工具增强：亲戚称谓改为关系链推导并补齐堂表与姻亲、今日运势加入分维度讲解与宜忌反馈、五行八字补上旺弱判断与十神。</li>
+            <li><b>2026-11-15</b> 象棋补上 AI 对抗与悔棋 / 提示；五子棋补上难度、悔棋与重新开始；棋类统一结算面板。</li>
+            <li><b>2026-11-15</b> 游戏计时改为「第一次操作才计时」，结束统一给出结算卡片、音效与记录提示。</li>
+            <li><b>2026-11-15</b> 网站分享支持新增 / 修改 / 排序 / 停用分享平台；视力检测改为可交互自测并给出参考值。</li>
+            <li><b>2026-11-15</b> 滑块字段支持直接输入精确数值；结果图片可点击放大；模板类工具清空文字后不再回填默认文案。</li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <!-- ================= 页脚 ================= -->
+    <footer class="site-footer" id="siteFooter">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a class="brand foot-logo" href="#/">
+            <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+            <span class="brand-text">拾器<span>ToolBox</span></span>
+          </a>
+          <p>十四类本地小工具，打开即用。内容只在本地处理，不上传、不留存。</p>
+          <span class="foot-tag">LOCAL FIRST · NO UPLOAD</span>
+        </div>
+        <div class="foot-col">
+          <h4>使用须知</h4>
+          <ul>
+            <li>所有内容只在浏览器内处理，不上传服务器。</li>
+            <li>翻译、IP 查询等标注「需联网」的工具会访问第三方公共接口。</li>
+            <li>收藏、主题与最近使用只保存在本站 localStorage。</li>
+            <li>使用功能产生的内容不保证准确，结果仅供参考。</li>
+            <li>处理重要文件前，请先保留原始副本。</li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>声明</h4>
+          <p>本站为非商业的个人工具集合，工具按现状提供。使用任何功能所生成、转换或计算出的内容（文件、图片、文本、代码、配色、测算结果等）均不保证准确、完整或适用于特定用途，本站不对使用结果承担责任。所有结果仅供参考；税务、法律、金融、健康等事项请以官方口径或专业人士意见为准。</p>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 拾器 ToolBox</span>
+        <span>本地运算 · 不收集使用数据 · 无需注册</span>
+        <span class="foot-beian">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" title="桂ICP备2026026104号-1 — 工业和信息化部 ICP/IP 地址/域名信息备案管理系统">桂ICP备2026026104号-1</a>
+          <i class="foot-beian-sep" aria-hidden="true">·</i>
+          <a href="https://beian.mps.gov.cn/#/query/webSearch?code=45100302000116" target="_blank" rel="noopener noreferrer" title="桂公网安备45100302000116号 — 全国互联网安全管理服务平台">桂公网安备45100302000116号</a>
+        </span>
+        <a href="#/about">关于本站</a>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<div class="mobile-mask" id="mobileMask"></div>
+
+<!-- 本地依赖，完全离线可用 -->
+<script src="vendor/qrcode.js"></script>
+<script src="vendor/jsQR.js"></script>
+<script src="vendor/JsBarcode.all.min.js"></script>
+<script src="vendor/jszip.min.js"></script>
+<script src="vendor/jspdf.umd.min.js"></script>
+<script src="vendor/pdf-lib.min.js"></script>
+<script src="vendor/marked.min.js"></script>
+<script src="vendor/xlsx.full.min.js"></script>
+<script src="vendor/lunar.js"></script>
+<script src="vendor/pinyin-pro.js"></script>
+<script src="vendor/heic2any.min.js"></script>
+<script src="vendor/lame.min.js"></script>
+<script src="vendor/pdf.min.js"></script>
+<script>var exports = window.__gifumb = {};</script>
+<script src="vendor/omggif.js"></script>
+<script>window.GifReader = window.__gifumb.GifReader; window.GifWriter = window.__gifumb.GifWriter;</script>
+
+<script src="js/data.js"></script>
+<script src="js/data-elements.js"></script>
+<script src="js/docs.js"></script>
+<script src="js/docs-extra.js"></script>
+<script src="js/docs-new.js"></script>
+<script src="js/core.js"></script>
+<script src="js/kit-calc.js"></script>
+<script src="js/kit-design.js"></script>
+<script src="js/kit-edu.js"></script>
+<script src="js/kit-text.js"></script>
+<script src="js/kit-image.js"></script>
+<script src="js/kit-image2.js"></script>
+<script src="js/kit-file.js"></script>
+<script src="js/kit-media.js"></script>
+<script src="js/kit-game.js"></script>
+<script src="js/kit-game2.js"></script>
+<script src="js/kit-game-ui.js"></script>
+<script src="js/kit-game-board.js"></script>
+<script src="js/kit-life2.js"></script>
+<script src="js/kit-life3.js"></script>
+<script src="js/kit-content.js"></script>
+<script src="js/kit-text2.js"></script>
+<script src="js/kit-net.js"></script>
+<script src="js/kit-file2.js"></script>
+<script src="js/kit-design2.js"></script>
+<script src="js/kit-visual.js"></script>
+<script src="js/kit-system.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
